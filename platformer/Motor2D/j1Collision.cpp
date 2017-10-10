@@ -1,9 +1,9 @@
-#include "Application.h"
-#include "ModuleInput.h"
-#include "ModuleRender.h"
-#include "ModuleCollision.h"
+#include "j1App.h"
+#include "j1Input.h"
+#include "j1Render.h"
+#include "j1Collision.h"
 
-ModuleCollision::ModuleCollision()
+j1Collision::j1Collision()
 {
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
@@ -121,10 +121,10 @@ ModuleCollision::ModuleCollision()
 }
 
 // Destructor
-ModuleCollision::~ModuleCollision()
+j1Collision::~j1Collision()
 {}
 
-update_status ModuleCollision::PreUpdate()
+bool j1Collision::PreUpdate()
 {
 	// Remove all colliders scheduled for deletion
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -136,11 +136,11 @@ update_status ModuleCollision::PreUpdate()
 		}
 	}
 
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 // Called before render is available
-update_status ModuleCollision::Update()
+bool j1Collision::Update()
 {
 	Collider* c1;
 	Collider* c2;
@@ -175,10 +175,10 @@ update_status ModuleCollision::Update()
 
 	DebugDraw();
 
-	return UPDATE_CONTINUE;
+	return true;
 }
 
-void ModuleCollision::DebugDraw()
+void j1Collision::DebugDraw()
 {
 	if(App->input->keyboard[SDL_SCANCODE_F1] == KEY_DOWN)
 		debug = !debug;
@@ -230,7 +230,7 @@ void ModuleCollision::DebugDraw()
 }
 
 // Called before quitting
-bool ModuleCollision::CleanUp()
+bool j1Collision::CleanUp()
 {
 	LOG("Freeing all colliders");
 
@@ -246,7 +246,7 @@ bool ModuleCollision::CleanUp()
 	return true;
 }
 
-Collider* ModuleCollision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback)
+Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
 {
 	Collider* ret = nullptr;
 
