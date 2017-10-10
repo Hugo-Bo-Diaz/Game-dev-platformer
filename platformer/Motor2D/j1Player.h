@@ -1,36 +1,22 @@
 #ifndef __ModulePlayer_H__
 #define __ModulePlayer_H__
 
-#include "Module.h"
+#include "j1Module.h"
 #include "Animation.h"
 #include "p2Point.h"
 
 struct SDL_Texture;
 struct Collider;
 
-class ModulePlayer : public Module
+class j1Player : public j1Module
 {
 public:
-	ModulePlayer();
-	~ModulePlayer();
+	j1Player();
+	~j1Player();
 
-	//POWERUPS
-	/*
-	0-> boots
-	1-> rifle
-	2-> bullets
-	*/
-
-	int powerup[3];
-	int horse;
-
-	int checkpoint = 0;
-
-	int timer = 0;
-	bool itstime;
 	bool Start();
-	update_status PreUpdate();
-	update_status Update();
+	bool PreUpdate();
+	bool Update();
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
@@ -38,45 +24,14 @@ public:
 
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* sprites = nullptr;
+	Collider* collider;
 	Animation* current_animation = nullptr;
 
 	Animation idle;
 	Animation left;
 	Animation right;
-
-	Animation left_shot;
-	Animation idle_shot;
-	Animation right_shot;
-
-	Animation horse_walk;
-	Animation horse_transition;
-
-	fPoint position;
-	fPoint previous;
-	Collider* col;
-	Collider* col_base;
-	bool destroyed = false;
-	int time_z;
-	int time_x;
-	int time_c;
-	int camera_y = 0;
-	int cooldown = 0;//of the shots
-
-	int setanim = 60;
-	int lastkey=0;
-
-	int font_score = -1;
-	uint audio_shot;
-	uint audio_horse;
-	uint death_time = -1;
-	uint horse_jump = -1;
-
-	uint horse_y = camera_y + SCREEN_HEIGHT;
-	
-	uint alarm_horse_sound = -1;
-
-	int score;
-	char scores[8];
+	Animation airborn;
+	Animation jumpsquat;
 
 	int lifes = 3;
 
@@ -84,10 +39,6 @@ public:
 	bool joystick_down;
 	bool joystick_left;
 	bool joystick_right;
-
-	bool death = false;
-
-	int god_mode = 0;
 };
 
 #endif

@@ -1,9 +1,9 @@
-#ifndef __ModuleCollision_H__
-#define __ModuleCollision_H__
+#ifndef __j1Collision_H__
+#define __j1Collision_H__
 
 #define MAX_COLLIDERS 500
 
-#include "Module.h"
+#include "j1Module.h"
 
 enum COLLIDER_TYPE
 {
@@ -32,9 +32,9 @@ struct Collider
 	SDL_Rect rect;
 	bool to_delete = false;
 	COLLIDER_TYPE type;
-	Module* callback = nullptr;
+	j1Module* callback = nullptr;
 
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr) :
+	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback = nullptr) :
 		rect(rectangle),
 		type(type),
 		callback(callback)
@@ -49,19 +49,19 @@ struct Collider
 	bool CheckCollision(const SDL_Rect& r) const;
 };
 
-class ModuleCollision : public Module
+class j1Collision : public j1Module
 {
 public:
 
-	ModuleCollision();
-	~ModuleCollision();
+	j1Collision();
+	~j1Collision();
 
-	update_status PreUpdate();
-	update_status Update();
+	bool PreUpdate();
+	bool Update();
 	//update_status PostUpdate();
 	bool CleanUp();
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	void DebugDraw();
 
 private:
