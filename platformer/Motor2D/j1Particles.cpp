@@ -35,7 +35,7 @@ bool j1Particles::Start()
 bool j1Particles::CleanUp()
 {
 	LOG("Unloading particles /n");
-	App->tex->Unload(graphics);
+	App->tex->UnLoad(graphics);
 
 	// Unload fx
 

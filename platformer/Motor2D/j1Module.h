@@ -69,11 +69,27 @@ public:
 		return true;
 	}
 
+	bool IsEnabled() const { return enabled; }
+
+	void Enable()
+	{
+		if (enabled == false)
+			enabled = true;
+	}
+
+	void Disable()
+	{
+		if (enabled == true)
+			enabled = false;
+	}
+
 public:
 
 	p2SString	name;
 	bool		active;
 
+private:
+	bool enabled = true;
 };
 
 #endif // __j1MODULE_H__
