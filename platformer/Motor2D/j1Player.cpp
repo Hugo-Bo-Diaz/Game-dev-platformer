@@ -51,7 +51,7 @@ bool j1Player::Start()
 {
 	LOG("Loading player");
 
-	graphics = App->tex->Load("gunsmoke/player.png");
+	graphics = App->tex->Load("gunsmoke/player.png"); // Change to real player sprite location
 	return true;
 }
 
@@ -71,33 +71,8 @@ bool j1Player::PreUpdate()
 
 // Update: draw background
 bool j1Player::Update()
-{
-	joystick_left = 0;
-	joystick_right = 0;
-
+{	
 	float speed = 2.0;
-/*
-		if (App->input->controller_1.left_joystick.x > 0.25)
-		{
-			joystick_right = 1;
-		}
-		if (App->input->controller_1.left_joystick.x < -0.25)
-		{
-			joystick_left = 1;
-		}
-
-		joystick_down = 0;
-		joystick_up = 0;
-
-		if (App->input->controller_1.left_joystick.y > 0.25)
-		{
-			joystick_down = 1;
-		}
-		if (App->input->controller_1.left_joystick.y < -0.25)
-		{
-			joystick_up = 1;
-		}
-		*/
 
 
 		if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT))
@@ -118,7 +93,6 @@ bool j1Player::Update()
 				right.Reset();
 				current_animation = &right;
 			}
-
 		}
 
 		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT))
@@ -129,7 +103,6 @@ bool j1Player::Update()
 				left.Reset();
 				current_animation = &left;
 			}
-
 		}
 
 
