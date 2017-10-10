@@ -1,8 +1,8 @@
-#ifndef __MODULEPARTICLES_H__
-#define __MODULEPARTICLES_H__
+#ifndef __j1PARTICLES_H__
+#define __j1PARTICLES_H__
 
 #include "j1Module.h"
-#include "j1Animation.h"
+#include "Animation.h"
 #include "p2Point.h"
 #include "j1Collision.h"
 
@@ -15,7 +15,7 @@ enum COLLIDER_TYPE;
 struct Particle
 {
 	Collider* collider = nullptr;
-	j1Animation anim;
+	Animation anim;
 	uint fx = 0;
 	iPoint position;
 	iPoint speed;
@@ -29,11 +29,11 @@ struct Particle
 	bool Update();
 };
 
-class ModuleParticles : public j1Module
+class j1Particles : public j1Module
 {
 public:
-	ModuleParticles();
-	~ModuleParticles();
+	j1Particles();
+	~j1Particles();
 
 	bool Start();
 	bool Update();
@@ -52,43 +52,6 @@ public:
 
 	bool powerup_activated = false;
 
-	Particle explosion;
-	Particle laser;
-	Particle shot_l;
-	Particle shot_r;
-	Particle shot_g;
-
-	Particle shot_r_up;
-	Particle shot_r_down;
-
-	Particle shot_l_up;
-	Particle shot_l_down;
-	Particle end_of_bullet;
-	Particle hitmarker;
-
-	Particle enemy_bullet;
-	Particle enemy_bullet_2;
-
-	Particle tnt;
-
-	Particle mechdeath;
-	Particle cookiedeath;
-	Particle sniperdeath_l;
-	Particle sniperdeath_r;
-	Particle stabbydeath;
-
-	Particle boss_shot_l;
-	Particle boss_shot_dl;
-	Particle boss_shot_d;
-	Particle boss_shot_dr;
-	Particle boss_shot_r;
-
-	Particle barrel_broken;
-
-	Particle player_death;
-	Particle boss_death;
-	Particle horse_appearance;
-	Particle horse_death;
 };
 
 #endif // __MODULEPARTICLES_H__

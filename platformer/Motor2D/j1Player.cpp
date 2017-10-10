@@ -1,3 +1,4 @@
+#include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Input.h"
@@ -50,9 +51,6 @@ bool j1Player::Start()
 	LOG("Loading player");
 
 	graphics = App->tex->Load("gunsmoke/player.png");
-
-	collider = App->collision->AddCollider({(int)position.x, (int)position.y, 19, 28}, COLLIDER_PLAYER, this);
-
 	return true;
 }
 
@@ -65,15 +63,11 @@ bool j1Player::CleanUp()
 	App->tex->Unload(graphics);
 	App->audio->Stop_horse_sound();
 
-	if (collider != nullptr)
-		col->to_delete = true;
-
 	return true;
 }
 
 bool j1Player::PreUpdate()
 {
-	previous = position;
 	return true;
 }
 
@@ -84,7 +78,7 @@ bool j1Player::Update()
 	joystick_right = 0;
 
 
-
+/*
 		if (App->input->controller_1.left_joystick.x > 0.25)
 		{
 			joystick_right = 1;
@@ -105,6 +99,7 @@ bool j1Player::Update()
 		{
 			joystick_up = 1;
 		}
+		*/
 
 
 		if ((App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT || joystick_up || App->input->controller_1.w_button) && camera_y < position.y)

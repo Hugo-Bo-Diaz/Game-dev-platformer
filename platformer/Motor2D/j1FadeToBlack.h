@@ -1,18 +1,19 @@
-#ifndef __MODULEFADETOBLACK_H__
-#define __MODULEFADETOBLACK_H__
+#ifndef __j1FADETOBLACK_H__
+#define __j1FADETOBLACK_H__
 
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
+#include "j1Map.h"
 
-class ModuleFadeToBlack : public j1Module
+class j1FadeToBlack : public j1Module
 {
 public:
-	ModuleFadeToBlack();
-	~ModuleFadeToBlack();
+	j1FadeToBlack();
+	~j1FadeToBlack();
 
 	bool Start();
 	bool Update();
-	bool FadeToBlack(j1Module* module_off, j1Module* module_on, float time = 1.0f);
+	bool FadeToBlack(MapData* map_off, MapData* map_on, float time = 1.0f);
 	bool IsFading() const;
 
 private:
