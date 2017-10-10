@@ -111,7 +111,7 @@
     <ClInclude Include="j1Collision.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="j1Animation.h">
+    <ClInclude Include="Animation.h">
       <Filter>Desenvolupament  ========</Filter>
     </ClInclude>
   </ItemGroup>

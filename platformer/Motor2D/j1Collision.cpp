@@ -1,3 +1,4 @@
+#include "p2Log.h"
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Render.h"
@@ -180,7 +181,7 @@ bool j1Collision::Update()
 
 void j1Collision::DebugDraw()
 {
-	if(App->input->keyboard[SDL_SCANCODE_F1] == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F1)== KEY_DOWN)
 		debug = !debug;
 
 	if(debug == false)
