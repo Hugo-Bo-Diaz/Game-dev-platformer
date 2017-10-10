@@ -1,8 +1,9 @@
 #include <math.h>
-#include "Globals.h"
-#include "Application.h"
-#include "ModuleFadeToBlack.h"
-#include "ModuleRender.h"
+#include "p2Defs.h"
+#include "p2Log.h"
+#include "j1App.h"
+#include "j1FadeToBlack.h"
+#include "j1Render.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -23,10 +24,10 @@ bool ModuleFadeToBlack::Start()
 }
 
 // Update: draw background
-update_status ModuleFadeToBlack::Update()
+bool ModuleFadeToBlack::Update()
 {
 	if(current_step == fade_step::none)
-		return UPDATE_CONTINUE;
+		return true;
 
 	Uint32 now = SDL_GetTicks() - start_time;
 	float normalized = MIN(1.0f, (float)now / (float)total_time);
@@ -58,11 +59,11 @@ update_status ModuleFadeToBlack::Update()
 	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
 	SDL_RenderFillRect(App->render->renderer, &screen);
 
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 // Fade to black. At mid point deactivate one module, then activate the other
-bool ModuleFadeToBlack::FadeToBlack(Module* module_off, Module* module_on, float time)
+bool ModuleFadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
 {
 	bool ret = false;
 

@@ -1,12 +1,13 @@
 #include <math.h>
-#include "Globals.h"
-#include "Application.h"
-#include "ModuleAudio.h"
-#include "ModuleTextures.h"
-#include "ModuleRender.h"
-#include "ModuleCollision.h"
-#include "ModuleParticles.h"
-#include "ModulePlayer.h"
+#include "p2Defs.h"
+#include "p2Log.h"
+#include "j1App.h"
+#include "j1Audio.h"
+#include "j1Textures.h"
+#include "j1Render.h"
+#include "j1Collision.h"
+#include "j1Particles.h"
+#include "j1Player.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -290,7 +291,7 @@ bool ModuleParticles::CleanUp()
 }
 
 // Update: draw background
-update_status ModuleParticles::Update()
+bool ModuleParticles::Update()
 {
 	if (powerup_activated == true)
 	{
@@ -328,7 +329,7 @@ update_status ModuleParticles::Update()
 		}
 	}
 
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay, int xspeed, int yspeed, bool explosion_sound)

@@ -1,11 +1,10 @@
 #ifndef __MODULEPARTICLES_H__
 #define __MODULEPARTICLES_H__
 
-#include "Module.h"
-#include "Animation.h"
-#include "Globals.h"
+#include "j1Module.h"
+#include "j1Animation.h"
 #include "p2Point.h"
-#include "ModuleCollision.h"
+#include "j1Collision.h"
 
 #define MAX_ACTIVE_PARTICLES 500
 
@@ -16,7 +15,7 @@ enum COLLIDER_TYPE;
 struct Particle
 {
 	Collider* collider = nullptr;
-	Animation anim;
+	j1Animation anim;
 	uint fx = 0;
 	iPoint position;
 	iPoint speed;
@@ -30,14 +29,14 @@ struct Particle
 	bool Update();
 };
 
-class ModuleParticles : public Module
+class ModuleParticles : public j1Module
 {
 public:
 	ModuleParticles();
 	~ModuleParticles();
 
 	bool Start();
-	update_status Update();
+	bool Update();
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 	uint tnt_sound;
