@@ -8,6 +8,7 @@
 #include "j1FadeToBlack.h"
 #include "j1Player.h"
 #include "j1Audio.h"
+#include "j1Physics.h"
 #include "SDL/include/SDL_timer.h"
 
 #include<stdio.h>
@@ -19,26 +20,14 @@ j1Player::j1Player()
 {
 	// idle animation (just the ship)
 	idle.PushBack({ 4, 8, 19, 29 });
-	idle.PushBack({ 25, 8, 20, 29 });
-	idle.PushBack({ 48, 8, 19, 29 });
-	idle.PushBack({ 70, 8, 20, 29 });
-	idle.PushBack({ 91, 8, 21, 29 });
 	idle.speed = 0.2f;
 
 	// move left
 	left.PushBack({ 24, 73, 16, 26 });
-	left.PushBack({ 4, 74, 17, 29 });
-	left.PushBack({ 242, 72, 17, 30 });
-	left.PushBack({ 219, 72, 17, 30 });
-	left.PushBack({ 194, 72, 21, 30 });
 	left.speed = 0.2f;
 
 	// Move right
 	right.PushBack({ 218, 7, 16, 26 });
-	right.PushBack({ 237, 8, 17, 29 });
-	right.PushBack({ 1, 39, 17, 30 });
-	right.PushBack({ 23, 39, 17, 30 });
-	right.PushBack({ 45, 39, 21, 30 });
 	right.speed = 0.2f;
 }
 
@@ -51,6 +40,17 @@ bool j1Player::Start()
 	LOG("Loading player");
 
 	graphics = App->tex->Load("gunsmoke/player.png");
+
+	//create object
+	
+	SDL_Rect rect;
+		rect.x = initial_x;
+		rect.y = initial_y;
+		rect.w = width;
+		rect.h = height;
+
+	player = App->physics->Addobject(initial_x,initial_y,1,&rect,COLLIDER_PLAYER,this);
+
 	return true;
 }
 
@@ -58,7 +58,7 @@ bool j1Player::Start()
 bool j1Player::CleanUp()
 {
 	LOG("Unloading player");
-	App->tex->Unload(graphics);
+	App->tex->UnLoad(graphics);
 
 	return true;
 }
@@ -71,80 +71,19 @@ bool j1Player::PreUpdate()
 // Update: draw background
 bool j1Player::Update()
 {
-	joystick_left = 0;
-	joystick_right = 0;
-
-
-/*
-		if (App->input->controller_1.left_joystick.x > 0.25)
-		{
-			joystick_right = 1;
-		}
-		if (App->input->controller_1.left_joystick.x < -0.25)
-		{
-			joystick_left = 1;
-		}
-
-		joystick_down = 0;
-		joystick_up = 0;
-
-		if (App->input->controller_1.left_joystick.y > 0.25)
-		{
-			joystick_down = 1;
-		}
-		if (App->input->controller_1.left_joystick.y < -0.25)
-		{
-			joystick_up = 1;
-		}
-		*/
-
-
-		if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || joystick_up || App->input->controller_1.w_button) && camera_y < position.y)
-		{
-			position.y -= speed;
-		}
-
-		if ((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || joystick_down || App->input->controller_1.s_button) && camera_y + SCREEN_HEIGHT - 5 > position.y + 32)
-		{
-			position.y += speed;
-		}
-
-		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || joystick_right || App->input->controller_1.d_button) && App->render->camera.x + SCREEN_WIDTH > position.x + 19)
-		{
-			position.x += speed;
-			if (current_animation != &right)
-			{
-				right.Reset();
-				current_animation = &right;
-			}
-
-		}
-
-		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || joystick_left || App->input->controller_1.a_button) && App->render->camera.x < position.x)
-		{
-			position.x -= speed;
-			if (current_animation != &left)
-			{
-				left.Reset();
-				current_animation = &left;
-			}
-
-		}
-
-
 
 		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
-			&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) && joystick_left == false && joystick_right == false)
+			&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
 		{
 			current_animation = &idle;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
-			&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && joystick_left == false && joystick_right == false)
+			&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
 			current_animation = &idle;
 		}
 
-	App->render->Blit(graphics, (int)position.x, (int)position.y, &(current_animation->GetCurrentFrame()));
+	App->render->Blit(graphics, (int)player->position.x, (int)player->position.y, &(current_animation->GetCurrentFrame()));
 
 	//Draw HUD(lifes / powerups)---------------------------------
 
@@ -154,15 +93,6 @@ bool j1Player::Update()
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
-
-	//death_time = SDL_GetTicks();
-
-	if (c1 == collider && c2->type == COLLIDER_ENEMY_SHOT
-		&& destroyed == false && App->fade->IsFading() == false)
-	{
-
-
-	}
 
 }
 

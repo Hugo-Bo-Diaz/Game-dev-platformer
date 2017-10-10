@@ -4,6 +4,8 @@
 #define MAX_COLLIDERS 500
 
 #include "j1Module.h"
+#include "SDL/include/SDL.h"
+
 
 enum COLLIDER_TYPE
 {
@@ -21,6 +23,8 @@ enum COLLIDER_TYPE
 
 	COLLIDER_PLAYER_BASE,
 	COLLIDER_ENEMY_BASE,
+
+	COLLIDER_FUTURE,
 
 	COLLIDER_POWER_UP,
 	COLLIDER_BARREL,

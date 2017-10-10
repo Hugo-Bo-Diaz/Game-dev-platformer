@@ -69,11 +69,11 @@ bool j1FadeToBlack::FadeToBlack(MapData* map_off, MapData* map_on, float time)
 
 	if(current_step == fade_step::none)
 	{
-		current_step = fade_step::fade_to_black;
+/*		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
-		to_enable = module_on;
-		to_disable = module_off;
+		to_enable = map_on;
+		to_disable = m_off;*/
 		ret = true;
 	}
 

@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "p2Point.h"
 
+struct object;
 struct SDL_Texture;
 struct Collider;
 
@@ -34,11 +35,12 @@ public:
 	Animation jumpsquat;
 
 	int lifes = 3;
+	int initial_x = 10;
+	int initial_y = 10;
+	int width = 20;
+	int height = 20;
 
-	bool joystick_up;
-	bool joystick_down;
-	bool joystick_left;
-	bool joystick_right;
+	object* player;
 };
 
 #endif

@@ -18,6 +18,7 @@ class j1Player;
 class j1FadeToBlack;
 class j1Particles;
 class j1Collision;
+class j1Physics;
 
 class j1App
 {
@@ -93,6 +94,7 @@ public:
 	j1Particles*		particles;
 	j1FadeToBlack*		fade;
 	j1Collision*		collision;
+	j1Physics*			physics;
 
 private:
 

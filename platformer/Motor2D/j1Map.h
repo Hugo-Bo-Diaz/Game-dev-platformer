@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "SDL/include/SDL.h"
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
