@@ -102,17 +102,17 @@ bool j1Player::Update()
 		*/
 
 
-		if ((App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT || joystick_up || App->input->controller_1.w_button) && camera_y < position.y)
+		if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || joystick_up || App->input->controller_1.w_button) && camera_y < position.y)
 		{
 			position.y -= speed;
 		}
 
-		if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT || joystick_down || App->input->controller_1.s_button) && camera_y + SCREEN_HEIGHT - 5 > position.y + 32)
+		if ((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || joystick_down || App->input->controller_1.s_button) && camera_y + SCREEN_HEIGHT - 5 > position.y + 32)
 		{
 			position.y += speed;
 		}
 
-		if ((App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT || joystick_right || App->input->controller_1.d_button) && App->render->camera.x + SCREEN_WIDTH > position.x + 19)
+		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || joystick_right || App->input->controller_1.d_button) && App->render->camera.x + SCREEN_WIDTH > position.x + 19)
 		{
 			position.x += speed;
 			if (current_animation != &right)
@@ -123,7 +123,7 @@ bool j1Player::Update()
 
 		}
 
-		if ((App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT || joystick_left || App->input->controller_1.a_button) && App->render->camera.x < position.x)
+		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || joystick_left || App->input->controller_1.a_button) && App->render->camera.x < position.x)
 		{
 			position.x -= speed;
 			if (current_animation != &left)
@@ -136,13 +136,13 @@ bool j1Player::Update()
 
 
 
-		if ((App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_IDLE)
-			&& (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE) && joystick_left == false && joystick_right == false)
+		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+			&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) && joystick_left == false && joystick_right == false)
 		{
 			current_animation = &idle;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT
-			&& App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && joystick_left == false && joystick_right == false)
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
+			&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && joystick_left == false && joystick_right == false)
 		{
 			current_animation = &idle;
 		}
@@ -163,49 +163,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collider && c2->type == COLLIDER_ENEMY_SHOT
 		&& destroyed == false && App->fade->IsFading() == false)
 	{
-		if (horse == 0)
-		{
-			lifes -= 1;
 
-
-			if (destroyed == false)
-			{
-				App->particles->AddParticle(App->particles->player_death, position.x, position.y, COLLIDER_NONE);
-
-				death_time = SDL_GetTicks() + 3000;
-				//death_time = -1;
-			}
-
-			else death = false;
-			/*if (lifes != 0)
-			{
-				if (SDL_GetTicks() > death_time + 3000)
-				{
-					App->fade->FadeToBlack((Module*)App->scene_space, (Module*)App->scene_transit, 0.3f);
-				}
-			}
-			else
-			{
-				lifes = 3;
-				LOG("OUT OF LIFES");
-				if (SDL_GetTicks() > death_time + 3000)
-				{
-					App->fade->FadeToBlack((Module*)App->scene_space, (Module*)App->scene_gameover);
-				}
-			}*/
-			destroyed = true;
-		}
-		else
-		{
-			horse -= 1;
-			if (horse == 0)
-			{
-				App->particles->AddParticle(App->particles->horse_death, position.x-20, position.y, COLLIDER_NONE);
-
-			}
-		}
 
 	}
 
-	}
+}
 
