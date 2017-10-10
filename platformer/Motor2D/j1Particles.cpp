@@ -11,36 +11,20 @@
 
 #include "SDL/include/SDL_timer.h"
 
-ModuleParticles::ModuleParticles()
+j1Particles::j1Particles()
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
-
-	explosion.anim.PushBack({ 22, 46, 31, 31 });
-	explosion.anim.PushBack({ 55, 46, 31, 31 });
-	explosion.anim.PushBack({ 94, 46, 31, 31 });
-	explosion.anim.PushBack({ 134, 46, 31, 31 });
-	explosion.anim.PushBack({ 175, 46, 31, 31 });
-	explosion.anim.PushBack({ 214, 45, 31, 31 });
-	explosion.anim.PushBack({ 254, 46, 31, 31 });
-	explosion.anim.PushBack({ 297, 46, 31, 31 });
-	explosion.anim.PushBack({ 333, 43, 31, 31 }); //333 43 = +3x-100y
-	explosion.anim.PushBack({ 373, 46, 31, 31 });	
-	explosion.anim.loop = false;
-	explosion.anim.speed = 0.15f;
-
-	
-
 }
 
-ModuleParticles::~ModuleParticles()
+j1Particles::~j1Particles()
 {}
 
 // Load assets
-bool ModuleParticles::Start()
+bool j1Particles::Start()
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("gunsmoke/particles.png");
+	graphics = App->tex->Load("gunsmoke/particles.png");
 	tnt_sound = App->audio->LoadFx("gunsmoke/tnt_explosion.wav");
 	// Load particles fx particle
 
@@ -48,10 +32,10 @@ bool ModuleParticles::Start()
 }
 
 // Unload assets
-bool ModuleParticles::CleanUp()
+bool j1Particles::CleanUp()
 {
 	LOG("Unloading particles /n");
-	App->textures->Unload(graphics);
+	App->tex->Unload(graphics);
 
 	// Unload fx
 
@@ -68,21 +52,8 @@ bool ModuleParticles::CleanUp()
 }
 
 // Update: draw background
-bool ModuleParticles::Update()
+bool j1Particles::Update()
 {
-	if (powerup_activated == true)
-	{
-		shot_l.life =		SHOT_LIFE + App->player->powerup[1] * 32;
-		shot_l_down.life =	SHOT_LIFE + App->player->powerup[1] * 32;
-		shot_l_up.life =	SHOT_LIFE + App->player->powerup[1] * 32;
-		shot_r.life =		SHOT_LIFE + App->player->powerup[1] * 32;
-		shot_r_down.life =	SHOT_LIFE + App->player->powerup[1] * 32;
-		shot_r_up.life =	SHOT_LIFE + App->player->powerup[1] * 32;
-		laser.life =		SHOT_LIFE + App->player->powerup[1] * 32;
-
-		powerup_activated = false;
-	}
-
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		Particle* p = active[i];
@@ -93,7 +64,7 @@ bool ModuleParticles::Update()
 		if(p->Update() == false)
 		{
 			delete p;
-			//p = nullptr;    //WE CHANGED THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			p = nullptr;    //WE CHANGED THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			active[i] = nullptr;
 		}
 		else if(SDL_GetTicks() >= p->born)
@@ -109,7 +80,7 @@ bool ModuleParticles::Update()
 	return true;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay, int xspeed, int yspeed, bool explosion_sound)
+void j1Particles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay, int xspeed, int yspeed, bool explosion_sound)
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -141,14 +112,13 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 	}
 }
 
-void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
+void j1Particles::OnCollision(Collider* c1, Collider* c2)
 {
 	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		// Always destroy particles that collide
 		if(active[i] != nullptr && active[i]->collider == c1)
 		{
-			App->particles->AddParticle(App->particles->hitmarker, active[i]->position.x - 4, active[i]->position.y-4, COLLIDER_PARTICLE, 0);
 			delete active[i];
 			active[i] = nullptr;
 			break;
@@ -185,11 +155,6 @@ bool Particle::Update()
 	{
 		if ((SDL_GetTicks() - born) > life)
 		{
-			if (collider != nullptr && collider->type == COLLIDER_PLAYER_SHOT)
-			{
-				App->particles->AddParticle(App->particles->end_of_bullet, position.x-4, position.y-4, COLLIDER_PARTICLE, 0);
-			}
-
 			ret = false;
 		}
 	}

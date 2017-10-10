@@ -7,16 +7,16 @@
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
-ModuleFadeToBlack::ModuleFadeToBlack()
+j1FadeToBlack::j1FadeToBlack()
 {
-	screen = {0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE};
+	screen = {0, 0, 1024,720};
 }
 
-ModuleFadeToBlack::~ModuleFadeToBlack()
+j1FadeToBlack::~j1FadeToBlack()
 {}
 
 // Load assets
-bool ModuleFadeToBlack::Start()
+bool j1FadeToBlack::Start()
 {
 	LOG("Preparing Fade Screen");
 	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
@@ -24,7 +24,7 @@ bool ModuleFadeToBlack::Start()
 }
 
 // Update: draw background
-bool ModuleFadeToBlack::Update()
+bool j1FadeToBlack::Update()
 {
 	if(current_step == fade_step::none)
 		return true;
@@ -63,7 +63,7 @@ bool ModuleFadeToBlack::Update()
 }
 
 // Fade to black. At mid point deactivate one module, then activate the other
-bool ModuleFadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
+bool j1FadeToBlack::FadeToBlack(MapData* map_off, MapData* map_on, float time)
 {
 	bool ret = false;
 
@@ -80,7 +80,7 @@ bool ModuleFadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, f
 	return ret;
 }
 
-bool ModuleFadeToBlack::IsFading() const
+bool j1FadeToBlack::IsFading() const
 {
 	return current_step != fade_step::none;
 }

@@ -1,8 +1,8 @@
-#ifndef __MODULEPARTICLES_H__
-#define __MODULEPARTICLES_H__
+#ifndef __j1PARTICLES_H__
+#define __j1PARTICLES_H__
 
 #include "j1Module.h"
-#include "j1Animation.h"
+#include "Animation.h"
 #include "p2Point.h"
 #include "j1Collision.h"
 
@@ -15,7 +15,7 @@ enum COLLIDER_TYPE;
 struct Particle
 {
 	Collider* collider = nullptr;
-	j1Animation anim;
+	Animation anim;
 	uint fx = 0;
 	iPoint position;
 	iPoint speed;
@@ -29,11 +29,11 @@ struct Particle
 	bool Update();
 };
 
-class ModuleParticles : public j1Module
+class j1Particles : public j1Module
 {
 public:
-	ModuleParticles();
-	~ModuleParticles();
+	j1Particles();
+	~j1Particles();
 
 	bool Start();
 	bool Update();
@@ -52,7 +52,6 @@ public:
 
 	bool powerup_activated = false;
 
-	Particle explosion;	
 };
 
 #endif // __MODULEPARTICLES_H__
