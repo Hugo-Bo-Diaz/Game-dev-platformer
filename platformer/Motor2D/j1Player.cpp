@@ -58,10 +58,7 @@ bool j1Player::Start()
 bool j1Player::CleanUp()
 {
 	LOG("Unloading player");
-	App->audio->UnLoadFx(audio_shot);
-	App->audio->UnLoadFx(audio_horse);
 	App->tex->Unload(graphics);
-	App->audio->Stop_horse_sound();
 
 	return true;
 }
