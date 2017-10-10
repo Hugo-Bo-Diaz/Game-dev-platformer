@@ -1,3 +1,4 @@
+#include "Globals.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
@@ -58,7 +59,7 @@ bool j1Player::Start()
 bool j1Player::CleanUp()
 {
 	LOG("Unloading player");
-	App->tex->Unload(graphics);
+	App->tex->UnLoad(graphics);
 
 	return true;
 }
@@ -74,7 +75,7 @@ bool j1Player::Update()
 	joystick_left = 0;
 	joystick_right = 0;
 
-
+	float speed = 2.0;
 /*
 		if (App->input->controller_1.left_joystick.x > 0.25)
 		{
@@ -99,17 +100,17 @@ bool j1Player::Update()
 		*/
 
 
-		if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || joystick_up || App->input->controller_1.w_button) && camera_y < position.y)
+		if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT))
 		{
 			position.y -= speed;
 		}
 
-		if ((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || joystick_down || App->input->controller_1.s_button) && camera_y + SCREEN_HEIGHT - 5 > position.y + 32)
+		if ((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT))
 		{
 			position.y += speed;
 		}
 
-		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || joystick_right || App->input->controller_1.d_button) && App->render->camera.x + SCREEN_WIDTH > position.x + 19)
+		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
 		{
 			position.x += speed;
 			if (current_animation != &right)
@@ -120,7 +121,7 @@ bool j1Player::Update()
 
 		}
 
-		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || joystick_left || App->input->controller_1.a_button) && App->render->camera.x < position.x)
+		if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT))
 		{
 			position.x -= speed;
 			if (current_animation != &left)
@@ -134,12 +135,12 @@ bool j1Player::Update()
 
 
 		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
-			&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) && joystick_left == false && joystick_right == false)
+			&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
 		{
 			current_animation = &idle;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
-			&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && joystick_left == false && joystick_right == false)
+			&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
 			current_animation = &idle;
 		}
@@ -157,12 +158,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	//death_time = SDL_GetTicks();
 
-	if (c1 == collider && c2->type == COLLIDER_ENEMY_SHOT
+	/*if (c1 == collider && c2->type == COLLIDER_ENEMY_SHOT
 		&& destroyed == false && App->fade->IsFading() == false)
 	{
 
 
-	}
+	}*/
 
 }
 
