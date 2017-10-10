@@ -1,3 +1,4 @@
+#include "Globals.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
@@ -38,7 +39,6 @@ j1Player::~j1Player()
 bool j1Player::Start()
 {
 	LOG("Loading player");
-
 	graphics = App->tex->Load("gunsmoke/player.png");
 
 	//create object
@@ -50,7 +50,6 @@ bool j1Player::Start()
 		rect.h = height;
 
 	player = App->physics->Addobject(initial_x,initial_y,1,&rect,COLLIDER_PLAYER,this);
-
 	return true;
 }
 
@@ -71,6 +70,7 @@ bool j1Player::PreUpdate()
 // Update: draw background
 bool j1Player::Update()
 {
+
 
 		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
 			&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
