@@ -4,7 +4,6 @@
 #include "j1Module.h"
 #include "p2Point.h"
 #include "j1Collision.h"
-#include "p2DynArray.h"
 
 #define MAX_OBJECTS 15
 
@@ -24,10 +23,12 @@ public:
 	~j1Physics(){};
 
 	bool PreUpdate();
+	bool Update(float dt);
+	bool PostUpdate();
 
 	bool Awake(pugi::xml_node* config);
 
-	object* Addobject(int x, int y, int gravity, SDL_Rect* collision,COLLIDER_TYPE TYPE, j1Module* callback);
+	object* Addobject(int x, int y, int gravity, SDL_Rect* collision,COLLIDER_TYPE TYPE, j1Module* callback = NULL);
 
 	void OnCollision(Collider* c1, Collider* c2);
 	
