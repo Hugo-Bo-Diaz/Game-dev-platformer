@@ -50,9 +50,9 @@ bool j1Physics::CleanUp()
 
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
-		if (&objects[i] != nullptr)
+		if (objects[i] != nullptr)
 		{
-			delete &objects[i];
+			delete objects[i];
 			//objects[i] = nullptr;
 		}
 	}
@@ -72,6 +72,19 @@ bool j1Physics::PreUpdate()
 	return true;
 }
 
+bool j1Physics::Update(float dt)
+{
+	//manage physics
+	for (uint i = 0; i < MAX_OBJECTS; ++i)
+	{
+		if (objects[i] != nullptr)
+		{
+
+		}
+	}
+
+}
+
 void j1Physics::OnCollision(Collider* c1,Collider*c2)
 {
 	//this means this is going to collide next frame
@@ -81,40 +94,53 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		SDL_bool _bool = SDL_IntersectRect(&c1->rect,&c2->rect, &result);
 		if (_bool)//this means they collided 4 real
 		{
-			/*for (uint i = 0; i < MAX_OBJECTS; ++i)
-			{
-				if (objects[i]->predictor->rect.x == c1->rect.x&&
-					objects[i]->predictor->rect.y == c1->rect.y&&
-					objects[i]->predictor->rect.w == c1->rect.w&&
-					objects[i]->predictor->rect.h == c1->rect.h)
+			//for (uint i = 0; i < MAX_OBJECTS; ++i)
+			//{
+				/*if (objects[i]->predictor->rect.x == c1->rect.x &&
+					objects[i]->predictor->rect.y == c1->rect.y &&
+					objects[i]->predictor->rect.w == c1->rect.w &&
+					objects[i]->predictor->rect.h == c1->rect.h )
 				{*/
-				object* obj= GetObjectFromRect_predictor(&result);
+				object* obj= GetObjectFromRect_predictor(&c1->rect);
 					if (result.h >= result.w)
-					{
-						obj->position.x = obj->predictor->rect.x - result.w;
-					}
-					else
 					{
 						obj->position.y = obj->predictor->rect.y - result.h;
 					}
+					else
+					{
+						obj->position.x = obj->predictor->rect.x - result.w;
+					}
 				//}
 			//}
-
-
 		}
 	}
 };
+
+bool j1Physics::PostUpdate() 
+{
+	for (uint i = 0; i < MAX_OBJECTS; ++i)
+	{
+		if (objects[i] != nullptr)
+		{
+			objects[i]->col->SetPos(objects[i]->position.x, objects[i]->position.y);
+		}
+	}
+	return true;
+}
 
 object* j1Physics::GetObjectFromRect_predictor(SDL_Rect* rectangle)
 {
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
-		if (objects[i]->predictor->rect.x == rectangle->x&&
-			objects[i]->predictor->rect.y == rectangle->y&&
-			objects[i]->predictor->rect.w == rectangle->w&&
-			objects[i]->predictor->rect.h == rectangle->h)
+		if (objects[i] != nullptr)
 		{
-			return objects[i];
+			if (objects[i]->predictor->rect.x == rectangle->x&&
+				objects[i]->predictor->rect.y == rectangle->y&&
+				objects[i]->predictor->rect.w == rectangle->w&&
+				objects[i]->predictor->rect.h == rectangle->h)
+			{
+				return objects[i];
+			}
 		}
 	}
 }
