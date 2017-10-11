@@ -1,4 +1,3 @@
-#include "Globals.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"

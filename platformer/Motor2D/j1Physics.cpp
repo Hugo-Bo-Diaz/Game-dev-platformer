@@ -82,7 +82,7 @@ bool j1Physics::Update(float dt)
 
 		}
 	}
-
+	return true;
 }
 
 void j1Physics::OnCollision(Collider* c1,Collider*c2)
