@@ -28,11 +28,8 @@
 
   <player>
     <size width="35" height="35"/>
-    <acceleration jump="20" horizontal="3"/>
-    <velocity maxVel="10"/>
+    <acceleration jump="-6" horizontal="0.1"/>
+    <velocity max="3"/>
   </player>
-  <physics>
-    <gravity value="-10"/>
-  </physics>
 
 </config>

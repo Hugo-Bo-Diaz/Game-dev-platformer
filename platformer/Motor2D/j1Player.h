@@ -20,6 +20,8 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
+	bool Awake(pugi::xml_node& config);
+
 	void InitialPos()
 	{
 		position.x = 0;
@@ -40,11 +42,16 @@ public:
 	Animation airborn;
 	Animation jumpsquat;
 
+	//default values are added if everything that sets em up is going horrible
 	int lifes = 3;
 	int initial_x = 10;
 	int initial_y = 10;
 	int width = 200;
 	int height = 200;
+	float jump_speed = -5;
+	float acceleration = 0.5;
+	float max_speed = 5;
+
 
 	object* player;
 };

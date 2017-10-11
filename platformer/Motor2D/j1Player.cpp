@@ -18,6 +18,7 @@
 
 j1Player::j1Player()
 {
+	name.create("player");
 	// idle animation (just the ship)
 	idle.PushBack({ 4, 8, 19, 29 });
 	idle.speed = 0.2f;
@@ -29,6 +30,18 @@ j1Player::j1Player()
 	// Move right
 	right.PushBack({ 218, 7, 16, 26 });
 	right.speed = 0.2f;
+}
+
+bool j1Player::Awake(pugi::xml_node& config)
+{
+	LOG("Loading player config");
+	width = config.child("size").attribute("width").as_int(20);
+	height = config.child("size").attribute("height").as_int(20);
+	jump_speed = config.child("acceleration").attribute("jump").as_float(-500);
+	acceleration = config.child("acceleration").attribute("horizontal").as_float(5);
+	max_speed = config.child("velocity").attribute("max").as_float(10);
+
+	return true;
 }
 
 j1Player::~j1Player()
@@ -67,15 +80,15 @@ bool j1Player::PreUpdate()
 // Update: draw background
 bool j1Player::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->velocity.x <3)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->velocity.x <max_speed)
 	{
-		player->acceleration.x = 0.1;
+		player->acceleration.x = acceleration;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && player->velocity.x >-3)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && player->velocity.x >-max_speed)
 	{
-		player->acceleration.x = -0.1;
+		player->acceleration.x = -acceleration;
 	}
-	if (player->velocity.x > 3 || player->velocity.x < -3)
+	if (player->velocity.x > max_speed || player->velocity.x < -max_speed)
 	{
 		player->acceleration.x = 0;
 	}
@@ -97,7 +110,7 @@ bool j1Player::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && player->grounded)
 		{
-			player->velocity.y = -6;
+			player->velocity.y = -jump_speed;
 			player->grounded = false;
 		}
 
