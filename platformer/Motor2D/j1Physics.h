@@ -9,11 +9,12 @@
 
 struct object
 {
-	iPoint position;
-	iPoint velocity;
-	uint gravity;
+	fPoint position;
+	fPoint velocity;
+	fPoint acceleration;
 	Collider* col;
 	Collider* predictor;
+	bool grounded = false;
 };
 
 class j1Physics : public j1Module
@@ -28,7 +29,7 @@ public:
 
 	bool Awake(pugi::xml_node* config);
 
-	object* Addobject(int x, int y, int gravity, SDL_Rect* collision,COLLIDER_TYPE TYPE, j1Module* callback = NULL);
+	object* Addobject(float x, float y, float gravity, SDL_Rect* collision,COLLIDER_TYPE TYPE, j1Module* callback = NULL);
 
 	void OnCollision(Collider* c1, Collider* c2);
 	
@@ -37,6 +38,5 @@ public:
 	object* objects[MAX_OBJECTS];
 
 	object* GetObjectFromRect_predictor(SDL_Rect* rectangle);
-	
 };
 #endif // !__J1PHYSICS_H__

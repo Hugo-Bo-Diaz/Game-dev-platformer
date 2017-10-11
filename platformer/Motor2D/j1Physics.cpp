@@ -17,7 +17,7 @@ bool j1Physics::Awake(pugi::xml_node* config)
 	return true;
 }
 
-object* j1Physics::Addobject(int _x, int _y, int _gravity, SDL_Rect* collision,COLLIDER_TYPE TYPE, j1Module* Callback)
+object* j1Physics::Addobject(float _x, float _y, float _gravity, SDL_Rect* collision,COLLIDER_TYPE TYPE, j1Module* Callback)
 {
 	object* ret = nullptr;
 
@@ -32,8 +32,10 @@ object* j1Physics::Addobject(int _x, int _y, int _gravity, SDL_Rect* collision,C
 
 	ret->position.x = _x;
 	ret->position.y = _y;
-	ret->gravity = _gravity;
-	
+	ret->acceleration.x = 0;
+	ret->acceleration.y = _gravity;
+
+
 	ret->col = App->collision->AddCollider(*collision, TYPE, Callback);
 	ret->predictor = App->collision->AddCollider(*collision, COLLIDER_FUTURE, this);
 
@@ -79,7 +81,9 @@ bool j1Physics::Update(float dt)
 	{
 		if (objects[i] != nullptr)
 		{
+			objects[i]->velocity += objects[i]->acceleration;
 
+			objects[i]->position += objects[i]->velocity;
 		}
 	}
 	return true;
@@ -94,24 +98,27 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		SDL_bool _bool = SDL_IntersectRect(&c1->rect,&c2->rect, &result);
 		if (_bool)//this means they collided 4 real
 		{
-			//for (uint i = 0; i < MAX_OBJECTS; ++i)
-			//{
-				/*if (objects[i]->predictor->rect.x == c1->rect.x &&
-					objects[i]->predictor->rect.y == c1->rect.y &&
-					objects[i]->predictor->rect.w == c1->rect.w &&
-					objects[i]->predictor->rect.h == c1->rect.h )
-				{*/
-				object* obj= GetObjectFromRect_predictor(&c1->rect);
-					if (result.h >= result.w)
-					{
-						obj->position.y = obj->predictor->rect.y - result.h;
-					}
-					else
-					{
-						obj->position.x = obj->predictor->rect.x - result.w;
-					}
-				//}
-			//}
+			object* obj= GetObjectFromRect_predictor(&c1->rect);
+			if (result.h == result.w)
+			{
+				obj->position.y = obj->predictor->rect.y - result.h;
+				obj->position.x = obj->predictor->rect.x - result.w;
+			}
+			else if (result.h >= result.w)
+			{
+				obj->position.x = obj->predictor->rect.x - result.w;
+				obj->velocity.x = 0;
+
+			}
+			else if (result.h < result.w)
+			{
+				obj->position.y = obj->predictor->rect.y - result.h;
+				obj->velocity.y = 0;
+				if (result.h > 0.0)
+				{
+					obj->grounded = true;
+				}
+			}
 		}
 	}
 };

@@ -46,7 +46,7 @@ bool j1Player::Start()
 		rect.w = width;
 		rect.h = height;
 
-	player = App->physics->Addobject(initial_x,initial_y,1,&rect,COLLIDER_PLAYER,this);
+	player = App->physics->Addobject(150,-200,0.1,&rect,COLLIDER_PLAYER,this);
 	return true;
 }
 
@@ -67,17 +67,38 @@ bool j1Player::PreUpdate()
 // Update: draw background
 bool j1Player::Update(float dt)
 {
-
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->velocity.x <3)
+	{
+		player->acceleration.x = 0.1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && player->velocity.x >-3)
+	{
+		player->acceleration.x = -0.1;
+	}
+	if (player->velocity.x > 3 || player->velocity.x < -3)
+	{
+		player->acceleration.x = 0;
+	}
 
 		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
 			&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
 		{
 			current_animation = &idle;
+			player->acceleration.x = -player->velocity.x/10;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
 			&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
 			current_animation = &idle;
+			player->acceleration.x = -player->velocity.x / 10;
+			player->velocity.x = 0;
+
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && player->grounded)
+		{
+			player->velocity.y = -6;
+			player->grounded = false;
 		}
 
 	//App->render->Blit(graphics, (int)player->position.x, (int)player->position.y, &(current_animation->GetCurrentFrame()));

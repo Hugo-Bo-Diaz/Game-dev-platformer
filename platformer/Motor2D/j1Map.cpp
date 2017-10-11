@@ -348,7 +348,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 		//LOG("item # %d , number %d", i,layer->data[i]);
 	}
 	
-	SDL_Rect rect = { 100, 100, 1000, 100 };
+	SDL_Rect rect = { 100, 200, 1000, 100 };
 	App->collision->AddCollider(rect, COLLIDER_WALL);
 	return ret;
 }
