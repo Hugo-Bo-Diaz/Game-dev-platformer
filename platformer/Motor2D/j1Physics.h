@@ -4,7 +4,7 @@
 #include "j1Module.h"
 #include "p2Point.h"
 #include "j1Collision.h"
-#include "p2List.h"
+#include "p2DynArray.h"
 
 #define MAX_OBJECTS 15
 
@@ -21,7 +21,7 @@ class j1Physics : public j1Module
 {
 public:
 	j1Physics();
-	~j1Physics();
+	~j1Physics(){};
 
 	bool PreUpdate();
 
@@ -33,6 +33,9 @@ public:
 	
 	bool CleanUp();
 
-	object** objects;
+	object* objects[MAX_OBJECTS];
+
+	object* GetObjectFromRect_predictor(SDL_Rect* rectangle);
+	
 };
 #endif // !__J1PHYSICS_H__

@@ -10,9 +10,9 @@ j1Physics::j1Physics()
 
 bool j1Physics::Awake(pugi::xml_node* config)
 {
-	*objects = new object[MAX_OBJECTS];
+	/*objects = new object[MAX_OBJECTS];
 
-	memset(objects, 0, sizeof(object)*(MAX_OBJECTS));
+	memset(objects, 0, sizeof(object)*(MAX_OBJECTS));*/
 
 	return true;
 }
@@ -21,7 +21,7 @@ object* j1Physics::Addobject(int _x, int _y, int _gravity, SDL_Rect* collision,C
 {
 	object* ret = nullptr;
 
-	for (uint i = 0; i < 100; ++i)//100 = MAX OBJECTS THAT SHOULD BE IN THE CONFIG FILE
+	for (uint i = 0; i < MAX_OBJECTS; ++i)//15 = MAX OBJECTS THAT SHOULD BE IN THE CONFIG FILE
 	{
 		if (objects[i] == nullptr)
 		{
@@ -50,10 +50,10 @@ bool j1Physics::CleanUp()
 
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
-		if (objects[i] != nullptr)
+		if (&objects[i] != nullptr)
 		{
-			delete objects[i];
-			objects[i] = nullptr;
+			delete &objects[i];
+			//objects[i] = nullptr;
 		}
 	}
 
@@ -65,6 +65,7 @@ bool j1Physics::PreUpdate()
 //HERE U SET THE RECTANGLE FUTURE FOR THE ITEMS SO THEY COLLIDE WHEN THE TIME COMES AND YOU GET THE FUNCTION CALLED
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
+		if (objects[i] != nullptr)
 		objects[i]->predictor->SetPos(	objects[i]->position.x + objects[i]->velocity.x,
 										objects[i]->position.y + objects[i]->velocity.y);
 	}
@@ -80,25 +81,40 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		SDL_bool _bool = SDL_IntersectRect(&c1->rect,&c2->rect, &result);
 		if (_bool)//this means they collided 4 real
 		{
-			for (uint i = 0; i < MAX_OBJECTS; ++i)
+			/*for (uint i = 0; i < MAX_OBJECTS; ++i)
 			{
 				if (objects[i]->predictor->rect.x == c1->rect.x&&
 					objects[i]->predictor->rect.y == c1->rect.y&&
 					objects[i]->predictor->rect.w == c1->rect.w&&
 					objects[i]->predictor->rect.h == c1->rect.h)
-				{
+				{*/
+				object* obj= GetObjectFromRect_predictor(&result);
 					if (result.h >= result.w)
 					{
-						objects[i]->position.x = objects[i]->predictor->rect.x - result.w;
+						obj->position.x = obj->predictor->rect.x - result.w;
 					}
 					else
 					{
-						objects[i]->position.y = objects[i]->predictor->rect.y - result.h;
+						obj->position.y = obj->predictor->rect.y - result.h;
 					}
-				}
-			}
+				//}
+			//}
 
 
 		}
 	}
 };
+
+object* j1Physics::GetObjectFromRect_predictor(SDL_Rect* rectangle)
+{
+	for (uint i = 0; i < MAX_OBJECTS; ++i)
+	{
+		if (objects[i]->predictor->rect.x == rectangle->x&&
+			objects[i]->predictor->rect.y == rectangle->y&&
+			objects[i]->predictor->rect.w == rectangle->w&&
+			objects[i]->predictor->rect.h == rectangle->h)
+		{
+			return objects[i];
+		}
+	}
+}

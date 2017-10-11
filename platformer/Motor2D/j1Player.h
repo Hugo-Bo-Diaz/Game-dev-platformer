@@ -17,7 +17,7 @@ public:
 
 	bool Start();
 	bool PreUpdate();
-	bool Update();
+	bool Update(float dt);
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 	void InitialPos()
@@ -43,8 +43,8 @@ public:
 	int lifes = 3;
 	int initial_x = 10;
 	int initial_y = 10;
-	int width = 20;
-	int height = 20;
+	int width = 200;
+	int height = 200;
 
 	object* player;
 };

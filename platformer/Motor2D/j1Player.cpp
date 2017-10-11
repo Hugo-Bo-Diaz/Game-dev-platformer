@@ -39,8 +39,6 @@ j1Player::~j1Player()
 bool j1Player::Start()
 {
 	LOG("Loading player");
-	graphics = App->tex->Load("gunsmoke/player.png");
-
 	//create object
 	
 	SDL_Rect rect;
@@ -68,7 +66,7 @@ bool j1Player::PreUpdate()
 }
 
 // Update: draw background
-bool j1Player::Update()
+bool j1Player::Update(float dt)
 {
 
 
@@ -83,7 +81,7 @@ bool j1Player::Update()
 			current_animation = &idle;
 		}
 
-	App->render->Blit(graphics, (int)player->position.x, (int)player->position.y, &(current_animation->GetCurrentFrame()));
+	//App->render->Blit(graphics, (int)player->position.x, (int)player->position.y, &(current_animation->GetCurrentFrame()));
 
 	//Draw HUD(lifes / powerups)---------------------------------
 

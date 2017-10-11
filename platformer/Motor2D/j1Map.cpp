@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Collision.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -346,5 +347,8 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 		data_node = data_node.next_sibling();
 		//LOG("item # %d , number %d", i,layer->data[i]);
 	}
+	
+	SDL_Rect rect = { 100, 100, 1000, 100 };
+	App->collision->AddCollider(rect, COLLIDER_WALL);
 	return ret;
 }
