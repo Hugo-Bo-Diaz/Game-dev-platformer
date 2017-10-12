@@ -106,13 +106,28 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 			}
 			else if (result.h >= result.w)
 			{
-				obj->position.x = obj->predictor->rect.x - result.w;
+				if (c1->rect.x <c2->rect.x)
+				{				
+					obj->position.x = obj->predictor->rect.x - result.w;
+				}
+				else
+				{
+					obj->position.x = obj->predictor->rect.x + result.w;
+
+				}
 				obj->velocity.x = 0;
 
 			}
 			else if (result.h < result.w)
 			{
-				obj->position.y = obj->predictor->rect.y - result.h;
+				if (c1->rect.y < c2->rect.y)
+				{ 				
+					obj->position.y = obj->predictor->rect.y - result.h;
+				}
+				else
+				{
+					obj->position.y = obj->predictor->rect.y + result.h;
+				}
 				obj->velocity.y = 0;
 				if (result.h > 0.0)
 				{
