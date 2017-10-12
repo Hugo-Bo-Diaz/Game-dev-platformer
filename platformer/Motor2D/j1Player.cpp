@@ -164,7 +164,7 @@ bool j1Player::Update(float dt)
 			player->grounded = false;
 		}
 
-	App->render->Blit(graphics, (int)player->position.x, (int)player->position.y, &(current_animation->GetCurrentFrame()));
+	App->render->Blit(graphics, (int)player->position.x - 10, (int)player->position.y, &(current_animation->GetCurrentFrame()));
 
 	//Draw HUD(lifes / powerups)---------------------------------
 

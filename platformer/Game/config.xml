@@ -27,7 +27,7 @@
   </map>
 
   <player>
-    <size width="45" height="45"/>
+    <size width="22" height="45"/>
     <lifes numLifes="3"/>
     <acceleration jump="1.5" horizontal="0.01"/>
     <velocity max="0.7"/>
