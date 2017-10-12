@@ -111,8 +111,19 @@ bool j1Map::CleanUp()
 	}
 	data.layers.clear();
 
+	for (int i = 0; i < 500; ++i)
+	{
+		if (data.colliders[i] != nullptr)
+		{
+			data.colliders[i]->to_delete = true;
+			data.colliders[i] = nullptr;
+		}
+	}
+
 	// Clean up the pugui tree
 	map_file.reset();
+
+	
 
 	return true;
 }
@@ -366,7 +377,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 
 bool j1Map::CreateColliders(map_layer* layer)
 {
-
+	int j = 0;
 
 		for (int _y = 0; _y < layer->height; ++_y)
 		{
@@ -381,7 +392,11 @@ bool j1Map::CreateColliders(map_layer* layer)
 				rect.h = 35;//WE WILL HAVE TO CHANGE THIS TOO
 				if (layer->data[i] == 27/*ID HERE*/)
 				{
-					App->collision->AddCollider(rect, COLLIDER_WALL);
+					if (data.colliders[j] == nullptr)
+					{
+						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_WALL);
+					}
+					j++;
 				}
 				if (layer->data[i] == 39)
 				{

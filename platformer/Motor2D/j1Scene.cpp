@@ -64,6 +64,12 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();
 
+	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
+	{
+		App->map->CleanUp();
+		App->map->Load("Map1.tmx");
+	}
+
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 

@@ -107,7 +107,7 @@ bool j1Player::Start()
 		rect.h = height;
 	graphics = App->tex->Load("textures/PilotSprites.png");
 	current_animation = &idle;
-	player = App->physics->Addobject(150,-200,0.025,&rect,COLLIDER_PLAYER,this);
+	player = App->physics->Addobject(150,-200,0.02,&rect,COLLIDER_PLAYER,this);
 	return true;
 }
 
