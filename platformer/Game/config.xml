@@ -29,8 +29,13 @@
   <player>
     <size width="22" height="45"/>
     <lifes numLifes="3"/>
-    <acceleration jump="2.25" horizontal="0.05"/>
-    <velocity max="1.2"/>
+    <acceleration jump="1.95" horizontal="0.03"/>
+    <velocity max="0.9"/>
+    <gravity value="0.014"/>
   </player>
+  
+  <collision>
+    <debug value ="false"/>
+  </collision>
 
 </config>

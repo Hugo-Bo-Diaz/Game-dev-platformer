@@ -388,34 +388,29 @@ bool j1Map::CreateColliders(map_layer* layer)
 				rect.y = point.y;
 				rect.w = 35;//WE WILL HAVE TO CHANGE THIS
 				rect.h = 35;//WE WILL HAVE TO CHANGE THIS TOO
-				if (layer->data[i] == 27/*ID HERE*/)
+				switch (layer->data[i])
 				{
+				case 26:
 					if (data.colliders[j] == nullptr)
-					{
-						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_WALL);
-					}
-					j++;
-				}
-				if (layer->data[i] == 41/*ID HERE*/)
-				{
-					if (data.colliders[j] == nullptr)
-					{
-						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_LAVA);
-					}
-					j++;
-				}
-				if (layer->data[i] == 26/*ID HERE*/)
-				{
-					if (data.colliders[j] == nullptr)
-					{
 						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_NEXT_LEVEL);
-					}
 					j++;
-				}
-				if (layer->data[i] == 39)
-				{
-					App->player->player->position.x = point.x;
-					App->player->player->position.y = point.y;
+					break;
+				case 27:
+					if (data.colliders[j] == nullptr)
+						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_WALL);
+					j++;
+					break;
+				case 40:
+					App->player->initial_x = point.x;
+					App->player->initial_y = point.y;
+					break;
+				case 41:
+					if (data.colliders[j] == nullptr)
+						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_LAVA);
+					j++;
+					break;
+				default:
+					break;
 				}
 			}
 		}

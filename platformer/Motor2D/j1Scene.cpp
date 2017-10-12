@@ -32,7 +32,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("map2.tmx");
+	App->map->Load("map1.tmx");
 	return true;
 }
 
@@ -50,33 +50,20 @@ bool j1Scene::Update(float dt)
 	App->win->GetWindowSize(win, i);
 	App->render->camera.x = -App->player->player->position.x + win / 2;
 	if (App->render->camera.x < win / 2)
-	{
-		App->render->camera.x = 0;
-	}
+	{App->render->camera.x = 0;}
 	if (-App->render->camera.x > ((App->map->data.width*App->map->data.tile_width)-win))
-	{
-		App->render->camera.x = -(App->map->data.width*App->map->data.tile_width)+win;
-	}
+	{App->render->camera.x = -(App->map->data.width*App->map->data.tile_width)+win;}
 
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
-
-	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
-	{
-		App->map->CleanUp();
-		App->map->Load("Map1.tmx");
-	}
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 
-	// TODO 7: Set the window title like
-	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
-
-	int _x = 0;
+	/*int _x = 0;
 	int _y = 0;
 
 	App->input->GetMousePosition(_x, _y);
@@ -86,7 +73,8 @@ bool j1Scene::Update(float dt)
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile x mouse:%d Tile y mouse:%d",
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count(),_x,_y);
+					App->map->data.tilesets.count(),_x,_y);*/
+	p2SString title("Where's my plane?");
 
 	App->win->SetTitle(title.GetString());
 	return true;

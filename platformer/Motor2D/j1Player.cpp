@@ -87,6 +87,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	jump_speed = config.child("acceleration").attribute("jump").as_float(-500);
 	acceleration = config.child("acceleration").attribute("horizontal").as_float(0.1);
 	max_speed = config.child("velocity").attribute("max").as_float(1.5);
+	gravity = config.child("gravity").attribute("value").as_float(0.03);
 
 	return true;
 }
@@ -107,7 +108,7 @@ bool j1Player::Start()
 		rect.h = height;
 	graphics = App->tex->Load("textures/PilotSprites.png");
 	current_animation = &idle;
-	player = App->physics->Addobject(150,-200,0.02,&rect,COLLIDER_PLAYER,this);
+	player = App->physics->Addobject(initial_x,initial_y,gravity,&rect,COLLIDER_PLAYER,this);
 	return true;
 }
 
@@ -147,15 +148,32 @@ bool j1Player::Update(float dt)
 			&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
 		{
 			current_animation = &idle;
-			player->acceleration.x = -player->velocity.x/10;
+			player->acceleration.x = -player->velocity.x/10; //this stops the player in 10 frames
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
 			&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
 			current_animation = &idle;
-			player->acceleration.x = -player->velocity.x / 10;
+			player->acceleration.x = -player->velocity.x / 10; //this stops the player in 10 frames
 			player->velocity.x = 0;
 
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		{
+			App->map->CleanUp();
+			App->map->Load("Map1.tmx");
+			player->position.x = initial_x;
+			player->position.y = initial_y;
+			player->velocity.x = 0;
+			player->velocity.y = 0;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		{
+			player->position.x = initial_x;
+			player->position.y = initial_y;
+			player->velocity.x = 0;
+			player->velocity.y = 0;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && player->grounded && player->velocity.y < 0.5)
@@ -176,8 +194,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_NEXT_LEVEL)
 	{
+		//#hardcoded??
 		App->map->CleanUp();
 		App->map->Load("Map2.tmx");
+		player->position.x = initial_x;
+		player->position.y = initial_y;
+		player->velocity.x = 0;
+		player->velocity.y = 0;
 
 	}
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA)
@@ -185,6 +208,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		//u ded boi
 		player->position.x = initial_x;
 		player->position.y = initial_y;
+		player->velocity.x = 0;
+		player->velocity.y = 0;
 
 	}
 }
@@ -202,5 +227,7 @@ bool j1Player::Load(pugi::xml_node& node)
 {
 	player->position.x = node.child("position").attribute("x").as_int();
 	player->position.y = node.child("position").attribute("y").as_int();
+	player->velocity.x = 0;
+	player->velocity.y = 0;
 	return true;
 }

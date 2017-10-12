@@ -55,6 +55,7 @@ public:
 	float jump_speed = -5;
 	float acceleration = 0.1;
 	float max_speed = 1;
+	float gravity = 0.01;
 
 
 	object* player;

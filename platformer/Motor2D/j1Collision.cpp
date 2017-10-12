@@ -53,12 +53,18 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_LAVA][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_LAVA][COLLIDER_LAVA] = false;
 
-
+	name.create("collision");
 }
 
 // Destructor
 j1Collision::~j1Collision()
 {}
+
+bool j1Collision::Awake(pugi::xml_node& node)
+{
+	debug = node.child("debug").attribute("value").as_bool();
+	return true;
+}
 
 bool j1Collision::PreUpdate()
 {
@@ -120,7 +126,7 @@ bool j1Collision::PostUpdate()
 
 void j1Collision::DebugDraw()
 {
-	if(App->input->GetKey(SDL_SCANCODE_F1)== KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F3)== KEY_DOWN)
 		debug = !debug;
 
 	if(debug == false)
@@ -147,6 +153,9 @@ void j1Collision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
 			case COLLIDER_FUTURE: // yellow
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
+			break;
+			case COLLIDER_NEXT_LEVEL:
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
 		}
