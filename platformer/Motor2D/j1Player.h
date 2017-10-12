@@ -39,8 +39,10 @@ public:
 	Animation idle;
 	Animation left;
 	Animation right;
-	Animation airborn;
-	Animation jumpsquat;
+	Animation airborneRight;
+	Animation airborneLeft;
+	Animation jumpsquatRight;
+	Animation jumpsquatLeft;
 
 	//default values are added if everything that sets em up is going horrible
 	int lifes = 3;
@@ -49,8 +51,8 @@ public:
 	int width = 200;
 	int height = 200;
 	float jump_speed = -5;
-	float acceleration = 0.5;
-	float max_speed = 5;
+	float acceleration = 0.1;
+	float max_speed = 1;
 
 
 	object* player;

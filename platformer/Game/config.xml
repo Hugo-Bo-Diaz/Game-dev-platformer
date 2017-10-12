@@ -11,7 +11,7 @@
   </renderer>
 
   <window>
-    <resolution width="500" height="400" scale="1"/>
+    <resolution width="1024" height="720" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
@@ -27,9 +27,10 @@
   </map>
 
   <player>
-    <size width="35" height="35"/>
+    <size width="80" height="80"/>
+    <lifes numLifes="3"/>
     <acceleration jump="-6" horizontal="0.1"/>
-    <velocity max="3"/>
+    <velocity max="1.5"/>
   </player>
 
 </config>
