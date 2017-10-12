@@ -29,8 +29,8 @@
   <player>
     <size width="45" height="45"/>
     <lifes numLifes="3"/>
-    <acceleration jump="3" horizontal="0.1"/>
-    <velocity max="2"/>
+    <acceleration jump="1.5" horizontal="0.05"/>
+    <velocity max="1"/>
   </player>
 
 </config>

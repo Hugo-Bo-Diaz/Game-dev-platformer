@@ -25,22 +25,22 @@ j1Player::j1Player()
 	idle.speed = 0.2f;
 
 	// Move Right
-	right.PushBack({ 3, 3, 45, 45 });
-	right.PushBack({ 48, 3, 45, 45 });
-	right.PushBack({ 93, 3, 45, 45 });
-	right.PushBack({ 137, 3, 45, 45 });
-	right.PushBack({ 182, 3, 45, 45 });
-	right.PushBack({ 227, 3, 45, 45 });
-	right.speed = 0.2f;
+	left.PushBack({ 3, 3, 45, 45 });
+	left.PushBack({ 48, 3, 45, 45 });
+	left.PushBack({ 93, 3, 45, 45 });
+	left.PushBack({ 137, 3, 45, 45 });
+	left.PushBack({ 182, 3, 45, 45 });
+	left.PushBack({ 227, 3, 45, 45 });
+	left.speed = 0.2f;
 
 	// Move Left
-	left.PushBack({ 3, 52, 45, 45 });
-	left.PushBack({ 48, 52, 45, 45 });
-	left.PushBack({ 93, 52, 45, 45 });
-	left.PushBack({ 137, 52, 45, 45 });
-	left.PushBack({ 182, 52, 45, 45 });
-	left.PushBack({ 227, 52, 45, 45 });
-	left.speed = 0.2f;
+	right.PushBack({ 3, 52, 45, 45 });
+	right.PushBack({ 48, 52, 45, 45 });
+	right.PushBack({ 93, 52, 45, 45 });
+	right.PushBack({ 137, 52, 45, 45 });
+	right.PushBack({ 182, 52, 45, 45 });
+	right.PushBack({ 227, 52, 45, 45 });
+	right.speed = 0.2f;
 
 	// Jumpsquat Right animation
 	jumpsquatRight.PushBack({ 3, 100, 45, 45 });
@@ -105,8 +105,9 @@ bool j1Player::Start()
 		rect.y = initial_y;
 		rect.w = width;
 		rect.h = height;
-
-	player = App->physics->Addobject(150,-200,0.025,&rect,COLLIDER_PLAYER,this);
+	graphics = App->tex->Load("textures/PilotSprites.png");
+	current_animation = &idle;
+	player = App->physics->Addobject(150,-200,0.01,&rect,COLLIDER_PLAYER,this);
 	return true;
 }
 
@@ -130,10 +131,12 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->velocity.x <max_speed)
 	{
 		player->acceleration.x = acceleration;
+		current_animation = &left;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && player->velocity.x >-max_speed)
 	{
 		player->acceleration.x = -acceleration;
+		current_animation = &right;
 	}
 	if (player->velocity.x > max_speed || player->velocity.x < -max_speed)
 	{
@@ -161,7 +164,7 @@ bool j1Player::Update(float dt)
 			player->grounded = false;
 		}
 
-	//App->render->Blit(graphics, (int)player->position.x, (int)player->position.y, &(current_animation->GetCurrentFrame()));
+	App->render->Blit(graphics, (int)player->position.x, (int)player->position.y, &(current_animation->GetCurrentFrame()));
 
 	//Draw HUD(lifes / powerups)---------------------------------
 
