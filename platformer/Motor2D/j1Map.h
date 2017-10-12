@@ -116,6 +116,8 @@ private:
 	// TODO 3: Create a method that loads a single layer
 	bool LoadLayer(pugi::xml_node& node, map_layer* layer);
 
+	bool CreateColliders(map_layer* layer);
+
 public:
 
 	MapData data;

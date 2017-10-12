@@ -5,6 +5,8 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Collision.h"
+#include "j1Player.h"
+#include "j1Physics.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -33,23 +35,26 @@ void j1Map::Draw()
 		return;
 
 	SDL_Rect rect = {0,0,0,0};
+	p2List_item<map_layer*>* item;
+	item = data.layers.start;
 
-	// TODO 5: Prepare the loop to draw all tilesets + Blit
-
-	for (int _y=0; _y < data.layers.start->data->height; ++_y)
+	while (item != NULL)
 	{
-		for (int _x=0; _x < data.layers.start->data->width; ++_x)
+		for (int _y = 0; _y < item->data->height; ++_y)
 		{
-			iPoint point = MapToWorld(_x, _y);
+			for (int _x = 0; _x < item->data->width; ++_x)
+			{
+				iPoint point = MapToWorld(_x, _y);
 
-			App->render->Blit(
-				data.tilesets.start->data->texture,
-				point.x, point.y,
-				&data.tilesets.start->data->GetTileRect( data.layers.start->data->data[data.layers.start->data->Get(_x,_y)] ));
+				App->render->Blit(
+					data.tilesets.start->data->texture,
+					point.x, point.y,
+					&data.tilesets.start->data->GetTileRect(item->data->data[item->data->Get(_x, _y)]));
+			}
 		}
-	}
-		// TODO 9: Complete the draw function
 
+		item = item->next;
+	}
 }
 
 
@@ -330,6 +335,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 //TODO 3: Create the definition for a function that loads a single layer
 bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 {
+
 	bool ret= true;
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_uint();
@@ -347,8 +353,41 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 		data_node = data_node.next_sibling();
 		//LOG("item # %d , number %d", i,layer->data[i]);
 	}
-	
-	SDL_Rect rect = { 100, 200, 1000, 100 };
-	App->collision->AddCollider(rect, COLLIDER_WALL);
+	if (node.attribute("collider_layer").as_bool(false))
+	{
+		CreateColliders(layer);
+	}
 	return ret;
+}
+
+bool j1Map::CreateColliders(map_layer* layer)
+{
+
+	for (uint i = 0; i<layer->size; i++)
+	{
+		for (int _y = 0; _y < layer->height; ++_y)
+		{
+			for (int _x = 0; _x < layer->width; ++_x)
+			{
+				iPoint point = MapToWorld(_x, _y);
+				SDL_Rect rect;
+				rect.x = point.x;
+				rect.y = point.y;
+				rect.w = 35;//WE WILL HAVE TO CHANGE THIS
+				rect.h = 35;//WE WILL HAVE TO CHANGE THIS TOO
+				if (layer->data[i] == -1/*ID HERE*/)
+				{
+					App->collision->AddCollider(rect, COLLIDER_WALL);
+				}
+				if (layer->data[i] == -2)
+				{
+					App->player->player->position.x = point.x;
+					App->player->player->position.y = point.y;
+				}
+			}
+		}
+
+	}
+
+	return true;
 }
