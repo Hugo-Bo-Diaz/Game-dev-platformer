@@ -11,7 +11,7 @@
   </renderer>
 
   <window>
-    <resolution width="1024" height="720" scale="1"/>
+    <resolution width="750" height="420" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
@@ -29,8 +29,8 @@
   <player>
     <size width="22" height="45"/>
     <lifes numLifes="3"/>
-    <acceleration jump="1.5" horizontal="0.01"/>
-    <velocity max="0.7"/>
+    <acceleration jump="2.5" horizontal="0.05"/>
+    <velocity max="1.2"/>
   </player>
 
 </config>
