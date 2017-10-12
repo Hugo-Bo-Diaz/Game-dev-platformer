@@ -106,7 +106,7 @@ bool j1Player::Start()
 		rect.w = width;
 		rect.h = height;
 
-	player = App->physics->Addobject(150,-200,0.1,&rect,COLLIDER_PLAYER,this);
+	player = App->physics->Addobject(150,-200,0.025,&rect,COLLIDER_PLAYER,this);
 	return true;
 }
 

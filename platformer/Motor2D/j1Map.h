@@ -16,7 +16,7 @@ struct map_layer
 	uint size = 0;
 	uint width = 0;
 	uint height = 0;
-
+	bool logic_layer = false;
 	inline uint Get(int x, int y)const
 	{
 		return y*width +x;

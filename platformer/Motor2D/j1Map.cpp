@@ -38,21 +38,24 @@ void j1Map::Draw()
 	p2List_item<map_layer*>* item;
 	item = data.layers.start;
 
-	while (item != NULL)
-	{
-		for (int _y = 0; _y < item->data->height; ++_y)
-		{
-			for (int _x = 0; _x < item->data->width; ++_x)
+		while (item != NULL)
+		{	
+			if (item->data->logic_layer == false)
+			{ 
+			for (int _y = 0; _y < item->data->height; ++_y)
 			{
-				iPoint point = MapToWorld(_x, _y);
+				for (int _x = 0; _x < item->data->width; ++_x)
+				{
+					iPoint point = MapToWorld(_x, _y);
 
-				App->render->Blit(
-					data.tilesets.start->data->texture,
-					point.x, point.y,
-					&data.tilesets.start->data->GetTileRect(item->data->data[item->data->Get(_x, _y)]));
+					App->render->Blit(
+						data.tilesets.start->data->texture,
+						point.x, point.y,
+						&data.tilesets.start->data->GetTileRect(item->data->data[item->data->Get(_x, _y)]));
+				}
 			}
-		}
 
+		}			
 		item = item->next;
 	}
 }
@@ -353,8 +356,9 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 		data_node = data_node.next_sibling();
 		//LOG("item # %d , number %d", i,layer->data[i]);
 	}
-	if (node.attribute("collider_layer").as_bool(false))
+	if (node.child("properties").child("property").attribute("value").as_bool(false))
 	{
+		layer->logic_layer = true;
 		CreateColliders(layer);
 	}
 	return ret;
@@ -363,23 +367,23 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 bool j1Map::CreateColliders(map_layer* layer)
 {
 
-	for (uint i = 0; i<layer->size; i++)
-	{
+
 		for (int _y = 0; _y < layer->height; ++_y)
 		{
 			for (int _x = 0; _x < layer->width; ++_x)
 			{
+				int i =layer->Get(_x, _y);
 				iPoint point = MapToWorld(_x, _y);
 				SDL_Rect rect;
 				rect.x = point.x;
 				rect.y = point.y;
 				rect.w = 35;//WE WILL HAVE TO CHANGE THIS
 				rect.h = 35;//WE WILL HAVE TO CHANGE THIS TOO
-				if (layer->data[i] == -1/*ID HERE*/)
+				if (layer->data[i] == 27/*ID HERE*/)
 				{
 					App->collision->AddCollider(rect, COLLIDER_WALL);
 				}
-				if (layer->data[i] == -2)
+				if (layer->data[i] == 39)
 				{
 					App->player->player->position.x = point.x;
 					App->player->player->position.y = point.y;
@@ -387,7 +391,7 @@ bool j1Map::CreateColliders(map_layer* layer)
 			}
 		}
 
-	}
+	
 
 	return true;
 }
