@@ -13,21 +13,47 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_WALL][COLLIDER_FUTURE] = true;
+	matrix[COLLIDER_WALL][COLLIDER_NEXT_LEVEL] = false;
+	matrix[COLLIDER_WALL][COLLIDER_LAVA] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_FUTURE] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_NEXT_LEVEL] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_LAVA] = true;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_FUTURE] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_NEXT_LEVEL] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_LAVA] = false;
+
 
 	matrix[COLLIDER_FUTURE][COLLIDER_FUTURE] = false;
 	matrix[COLLIDER_FUTURE][COLLIDER_WALL] = true;
 	matrix[COLLIDER_FUTURE][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_FUTURE][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_FUTURE][COLLIDER_NEXT_LEVEL] = false;
+	matrix[COLLIDER_FUTURE][COLLIDER_LAVA] = false;
+
+
+	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_FUTURE] = false;
+	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_WALL] = false;
+	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_NEXT_LEVEL] = false;
+	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_LAVA] = false;
+
+	matrix[COLLIDER_LAVA][COLLIDER_FUTURE] = false;
+	matrix[COLLIDER_LAVA][COLLIDER_WALL] = false;
+	matrix[COLLIDER_LAVA][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_LAVA][COLLIDER_NEXT_LEVEL] = false;
+	matrix[COLLIDER_LAVA][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_LAVA][COLLIDER_LAVA] = false;
+
+
 }
 
 // Destructor
@@ -117,7 +143,7 @@ void j1Collision::DebugDraw()
 			case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
-			case COLLIDER_ENEMY: // red
+			case COLLIDER_LAVA: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
 			case COLLIDER_FUTURE: // yellow

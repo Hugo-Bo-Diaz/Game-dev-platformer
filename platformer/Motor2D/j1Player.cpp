@@ -158,7 +158,7 @@ bool j1Player::Update(float dt)
 
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && player->grounded)
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && player->grounded && player->velocity.y < 0.5)
 		{
 			player->velocity.y = -jump_speed;
 			player->grounded = false;
@@ -174,6 +174,33 @@ bool j1Player::Update(float dt)
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_NEXT_LEVEL)
+	{
+		App->map->CleanUp();
+		App->map->Load("Map2.tmx");
 
+	}
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA)
+	{
+		//u ded boi
+		player->position.x = initial_x;
+		player->position.y = initial_y;
+
+	}
 }
 
+bool j1Player::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node pos = node.append_child("position");
+
+	pos.append_attribute("x") = player->position.x;
+	pos.append_attribute("y") = player->position.y;	
+	return true;
+}
+
+bool j1Player::Load(pugi::xml_node& node)
+{
+	player->position.x = node.child("position").attribute("x").as_int();
+	player->position.y = node.child("position").attribute("y").as_int();
+	return true;
+}

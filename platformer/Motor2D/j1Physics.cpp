@@ -116,14 +116,11 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 			else if (result.h < result.w)
 			{
 				if (c1->rect.y < c2->rect.y)
-				{obj->position.y = obj->predictor->rect.y - result.h;}
+				{obj->position.y = obj->predictor->rect.y - result.h;
+				obj->grounded = true;}
 				else
 				{obj->position.y = obj->predictor->rect.y + result.h;}
 				obj->velocity.y = 0;
-				if (result.h > 0.0)
-				{
-					obj->grounded = true;
-				}
 			}
 		}
 	}

@@ -22,6 +22,8 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	bool Awake(pugi::xml_node& config);
 
+	bool Save(pugi::xml_node&) const;
+	bool Load(pugi::xml_node&);
 	void InitialPos()
 	{
 		position.x = 0;

@@ -123,8 +123,6 @@ bool j1Map::CleanUp()
 	// Clean up the pugui tree
 	map_file.reset();
 
-	
-
 	return true;
 }
 
@@ -395,6 +393,22 @@ bool j1Map::CreateColliders(map_layer* layer)
 					if (data.colliders[j] == nullptr)
 					{
 						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_WALL);
+					}
+					j++;
+				}
+				if (layer->data[i] == 41/*ID HERE*/)
+				{
+					if (data.colliders[j] == nullptr)
+					{
+						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_LAVA);
+					}
+					j++;
+				}
+				if (layer->data[i] == 26/*ID HERE*/)
+				{
+					if (data.colliders[j] == nullptr)
+					{
+						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_NEXT_LEVEL);
 					}
 					j++;
 				}

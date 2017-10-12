@@ -96,7 +96,10 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+
 	}
+	save_game = "save_game.xml";
+	load_game = "save_game.xml";
 
 	if(ret == true)
 	{
