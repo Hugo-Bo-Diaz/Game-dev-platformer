@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
  <tileset firstgid="1" name="tileset_1" tilewidth="35" tileheight="35" spacing="1" margin="1" tilecount="84" columns="14">
   <image source="tileset_1.png" width="505" height="217"/>
  </tileset>
- <layer name="layer_1" width="50" height="12">
+ <layer name="Tile Layer 1" width="50" height="12">
+  <properties>
+   <property name="collider_layer" type="bool" value="false"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -373,10 +376,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="43"/>
-   <tile gid="44"/>
-   <tile gid="44"/>
-   <tile gid="45"/>
+   <tile gid="60"/>
+   <tile gid="61"/>
+   <tile gid="61"/>
+   <tile gid="62"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -412,9 +415,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="43"/>
-   <tile gid="44"/>
-   <tile gid="45"/>
+   <tile gid="60"/>
+   <tile gid="61"/>
+   <tile gid="62"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="58"/>
@@ -607,7 +610,7 @@
    <tile gid="38"/>
   </data>
  </layer>
- <layer name="colliders" width="50" height="12" visible="0">
+ <layer name="Colliders" width="50" height="12">
   <properties>
    <property name="collider_layer" type="bool" value="true"/>
   </properties>
@@ -710,7 +713,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="26"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -980,10 +983,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1019,9 +1022,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="27"/>

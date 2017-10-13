@@ -2,10 +2,9 @@
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Input.h"
-#include "j1Particles.h"
 #include "j1Render.h"
 #include "j1Collision.h"
-#include "j1FadeToBlack.h"
+#include "j1Map.h"
 #include "j1Player.h"
 #include "j1Audio.h"
 #include "j1Physics.h"
@@ -22,7 +21,7 @@ j1Player::j1Player()
 	// idle animation
 	idle.PushBack({ 277, 3, 45, 45 });
 	idle.PushBack({ 322, 3, 45, 45 });
-	idle.speed = 0.2f;
+	idle.speed = 0.05f;
 
 	// Move Right
 	left.PushBack({ 3, 3, 45, 45 });
@@ -31,7 +30,7 @@ j1Player::j1Player()
 	left.PushBack({ 137, 3, 45, 45 });
 	left.PushBack({ 182, 3, 45, 45 });
 	left.PushBack({ 227, 3, 45, 45 });
-	left.speed = 0.2f;
+	left.speed = 0.05f;
 
 	// Move Left
 	right.PushBack({ 3, 52, 45, 45 });
@@ -40,43 +39,43 @@ j1Player::j1Player()
 	right.PushBack({ 137, 52, 45, 45 });
 	right.PushBack({ 182, 52, 45, 45 });
 	right.PushBack({ 227, 52, 45, 45 });
-	right.speed = 0.2f;
+	right.speed = 0.05f;
 
 	// Jumpsquat Right animation
-	jumpsquatRight.PushBack({ 3, 100, 45, 45 });
-	jumpsquatRight.PushBack({ 48, 100, 45, 45 });
+	/*jumpsquatRight.PushBack({ 3, 100, 45, 45 });
+	jumpsquatRight.PushBack({ 48, 100, 45, 45 });*/
 	jumpsquatRight.PushBack({ 93, 100, 45, 45 });
 	jumpsquatRight.PushBack({ 137, 100, 45, 45 });
-	jumpsquatRight.PushBack({ 182, 100, 45, 45 });
+	/*jumpsquatRight.PushBack({ 182, 100, 45, 45 });
 	jumpsquatRight.PushBack({ 227, 100, 45, 45 });
 	jumpsquatRight.PushBack({ 3, 149, 45, 45 });
-	jumpsquatRight.PushBack({ 48, 149, 45, 45 });
-	jumpsquatRight.speed = 0.2f;
+	jumpsquatRight.PushBack({ 48, 149, 45, 45 });*/
+	jumpsquatRight.speed = 0.05f;
 
 	// Airborne Right animation
-	airborneRight.PushBack({ 93, 149, 45, 45 });
-	airborneRight.PushBack({ 137, 149, 45, 45 });
+	/*airborneRight.PushBack({ 93, 149, 45, 45 });
+	airborneRight.PushBack({ 137, 149, 45, 45 });*/
 	airborneRight.PushBack({ 182, 149, 45, 45 });
 	airborneRight.PushBack({ 227, 149, 45, 45 });
-	airborneRight.speed = 0.2f;
+	airborneRight.speed = 0.05f;
 
 	// Jumpsquat Left animation
-	jumpsquatLeft.PushBack({ 3, 198, 45, 45 });
-	jumpsquatLeft.PushBack({ 48, 198, 45, 45 });
+	/*jumpsquatLeft.PushBack({ 3, 198, 45, 45 });
+	jumpsquatLeft.PushBack({ 48, 198, 45, 45 });*/
 	jumpsquatLeft.PushBack({ 93, 198, 45, 45 });
 	jumpsquatLeft.PushBack({ 137, 198, 45, 45 });
-	jumpsquatLeft.PushBack({ 182, 198, 45, 45 });
+	/*jumpsquatLeft.PushBack({ 182, 198, 45, 45 });
 	jumpsquatLeft.PushBack({ 227, 198, 45, 45 });
 	jumpsquatLeft.PushBack({ 3, 247, 45, 45 });
-	jumpsquatLeft.PushBack({ 48, 247, 45, 45 });
-	jumpsquatLeft.speed = 0.2f;
+	jumpsquatLeft.PushBack({ 48, 247, 45, 45 });*/
+	jumpsquatLeft.speed = 0.05f;
 
 	// Airborne Left animation
-	airborneLeft.PushBack({ 93, 247, 45, 45 });
-	airborneLeft.PushBack({ 137, 247, 45, 45 });
+	/*airborneLeft.PushBack({ 93, 247, 45, 45 });
+	airborneLeft.PushBack({ 137, 247, 45, 45 });*/
 	airborneLeft.PushBack({ 182, 247, 45, 45 });
 	airborneLeft.PushBack({ 227, 247, 45, 45 });
-	airborneLeft.speed = 0.2f;
+	airborneLeft.speed = 0.05f;
 }
 
 bool j1Player::Awake(pugi::xml_node& config)
@@ -129,6 +128,7 @@ bool j1Player::PreUpdate()
 // Update: draw background
 bool j1Player::Update(float dt)
 {
+	//CONTROLS
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->velocity.x <max_speed)
 	{
 		player->acceleration.x = acceleration;
@@ -144,47 +144,56 @@ bool j1Player::Update(float dt)
 		player->acceleration.x = 0;
 	}
 
-		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
-			&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
-		{
-			current_animation = &idle;
-			player->acceleration.x = -player->velocity.x/10; //this stops the player in 10 frames
-		}
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
-			&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		{
-			current_animation = &idle;
-			player->acceleration.x = -player->velocity.x / 10; //this stops the player in 10 frames
-			player->velocity.x = 0;
+	if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+		&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
+	{
+		current_animation = &idle;
+		player->acceleration.x = -player->velocity.x/10; //this stops the player in 10 frames
+	}
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
+		&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		current_animation = &idle;
+		player->acceleration.x = -player->velocity.x / 10; //this stops the player in 10 frames
+		player->velocity.x = 0;
+	}
 
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && player->grounded && player->velocity.y < 0.5)
+	{
+		player->velocity.y = -jump_speed;
+		player->grounded = false;
+	}
+	//DEBUG FEATURES
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		App->map->CleanUp();
+		App->map->Load("Map1.tmx");
+		SetPosOrigin();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		SetPosOrigin();
+	}
+	//aereal animations
+	if (player->grounded == false)
+	{
+		if (player->velocity.y < 0)
 		{
-			App->map->CleanUp();
-			App->map->Load("Map1.tmx");
-			player->position.x = initial_x;
-			player->position.y = initial_y;
-			player->velocity.x = 0;
-			player->velocity.y = 0;
+			if (player->velocity.x < 0)
+			current_animation = &jumpsquatLeft;
+			if (player->velocity.x >= 0)			
+			current_animation = &jumpsquatRight;
 		}
-		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		else
 		{
-			player->position.x = initial_x;
-			player->position.y = initial_y;
-			player->velocity.x = 0;
-			player->velocity.y = 0;
+			if (player->velocity.x < 0)
+				current_animation = &airborneLeft;
+			if (player->velocity.x >= 0)
+				current_animation = &airborneRight;
 		}
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && player->grounded && player->velocity.y < 0.5)
-		{
-			player->velocity.y = -jump_speed;
-			player->grounded = false;
-		}
-
+	}
+	//blit
 	App->render->Blit(graphics, (int)player->position.x - 10, (int)player->position.y, &(current_animation->GetCurrentFrame()));
-
-	//Draw HUD(lifes / powerups)---------------------------------
 
 	return true;
 }
@@ -197,19 +206,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		//#hardcoded??
 		App->map->CleanUp();
 		App->map->Load("Map2.tmx");
-		player->position.x = initial_x;
-		player->position.y = initial_y;
-		player->velocity.x = 0;
-		player->velocity.y = 0;
+		SetPosOrigin();
 
 	}
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA)
 	{
 		//u ded boi
-		player->position.x = initial_x;
-		player->position.y = initial_y;
-		player->velocity.x = 0;
-		player->velocity.y = 0;
+		SetPosOrigin();
 
 	}
 }
@@ -230,4 +233,12 @@ bool j1Player::Load(pugi::xml_node& node)
 	player->velocity.x = 0;
 	player->velocity.y = 0;
 	return true;
+}
+
+void j1Player::SetPosOrigin()
+{
+	player->position.x = initial_x;
+	player->position.y = initial_y;
+	player->velocity.x = 0;
+	player->velocity.y = 0;
 }

@@ -347,7 +347,6 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 //TODO 3: Create the definition for a function that loads a single layer
 bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 {
-
 	bool ret= true;
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_uint();
@@ -365,9 +364,9 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 		data_node = data_node.next_sibling();
 		//LOG("item # %d , number %d", i,layer->data[i]);
 	}
-	if (node.child("properties").child("property").attribute("value").as_bool(false))
+	layer->logic_layer = node.child("properties").child("property").attribute("value").as_bool(false);
+	if (layer->logic_layer)
 	{
-		layer->logic_layer = true;
 		CreateColliders(layer);
 	}
 	return ret;
@@ -376,7 +375,8 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 bool j1Map::CreateColliders(map_layer* layer)
 {
 	int j = 0;
-
+	data.colliders[j] = App->collision->AddCollider({-33,0,35,layer->height*35}, COLLIDER_WALL); ++j;
+	data.colliders[j] = App->collision->AddCollider({ layer->width*35-1, 0, 35, layer->height * 35 }, COLLIDER_WALL); ++j;
 		for (int _y = 0; _y < layer->height; ++_y)
 		{
 			for (int _x = 0; _x < layer->width; ++_x)
@@ -388,6 +388,13 @@ bool j1Map::CreateColliders(map_layer* layer)
 				rect.y = point.y;
 				rect.w = 35;//WE WILL HAVE TO CHANGE THIS
 				rect.h = 35;//WE WILL HAVE TO CHANGE THIS TOO
+
+				SDL_Rect recthalf;
+				recthalf.x = point.x;
+				recthalf.y = point.y;
+				recthalf.w = 35;
+				recthalf.h = 20;
+
 				switch (layer->data[i])
 				{
 				case 26:
@@ -398,6 +405,11 @@ bool j1Map::CreateColliders(map_layer* layer)
 				case 27:
 					if (data.colliders[j] == nullptr)
 						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_WALL);
+					j++;
+					break;
+				case 28:
+					if (data.colliders[j] == nullptr)
+						data.colliders[j] = App->collision->AddCollider(recthalf, COLLIDER_WALL);
 					j++;
 					break;
 				case 40:

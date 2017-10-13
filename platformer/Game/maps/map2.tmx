@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="80" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
  <tileset firstgid="1" name="tileset" tilewidth="35" tileheight="35" spacing="1" margin="1" tilecount="84" columns="14">
   <image source="tileset_1.png" width="505" height="217"/>
  </tileset>
  <layer name="Tile Layer 1" width="80" height="12">
+  <properties>
+   <property name="collider_layer" type="bool" value="false"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -967,7 +970,7 @@
    <tile gid="24"/>
   </data>
  </layer>
- <layer name="Colliders" width="80" height="12" visible="0">
+ <layer name="Colliders" width="80" height="12">
   <properties>
    <property name="collider_layer" type="bool" value="true"/>
   </properties>
@@ -1264,9 +1267,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1417,8 +1420,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1432,9 +1435,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
-   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1520,7 +1523,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="27"/>
-   <tile gid="27"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
