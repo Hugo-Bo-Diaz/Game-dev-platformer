@@ -40,6 +40,10 @@ bool j1Map::Awake(pugi::xml_node& config)
 	}
 	index_map = config.child("initial_map").attribute("value").as_uint(0);
 	current_map = maps[index_map];
+
+	pugi::xml_node colors = config.child("background");
+	data.background_color = { colors.attribute("r").as_uint(), colors.attribute("g").as_uint(), colors.attribute("b").as_uint(), 0 };
+	App->render->SetBackgroundColor(data.background_color);
 	return ret;
 }
 

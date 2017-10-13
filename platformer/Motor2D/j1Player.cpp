@@ -11,9 +11,6 @@
 #include "SDL/include/SDL_timer.h"
 
 #include<stdio.h>
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
-
-#define HORSE_AUDIO_DURATION 7000
 
 j1Player::j1Player()
 {
@@ -163,6 +160,12 @@ bool j1Player::Update(float dt)
 		player->velocity.y = -jump_speed;
 		player->grounded = false;
 	}
+	
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		player->velocity.y = -0.5;
+	}
+
 	//DEBUG FEATURES
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
