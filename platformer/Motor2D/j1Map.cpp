@@ -59,16 +59,16 @@ void j1Map::Draw()
 		while (item != NULL)
 		{	
 			if (item->data->logic_layer == false)
-			{ 
+			{
 			for (int _y = 0; _y < item->data->height; ++_y)
 			{
 				for (int _x = 0; _x < item->data->width; ++_x)
 				{
 					iPoint point = MapToWorld(_x, _y);
-
+					//point+offset_coeficient*player.x
 					App->render->Blit(
 						data.tilesets.start->data->texture,
-						point.x, point.y,
+						point.x - App->render->camera.x * item->data->parallax, point.y,
 						&data.tilesets.start->data->GetTileRect(item->data->data[item->data->Get(_x, _y)]));
 				}
 			}
@@ -371,6 +371,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 	layer->height = node.attribute("height").as_uint();
 	layer->size = layer->width*layer->height;
 
+
 	layer->data = new uint[layer->size];
 
 	memset(layer->data, 0, sizeof(uint)*(layer->size));
@@ -382,7 +383,23 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 		data_node = data_node.next_sibling();
 		//LOG("item # %d , number %d", i,layer->data[i]);
 	}
-	layer->logic_layer = node.child("properties").child("property").attribute("value").as_bool(false);
+	pugi::xml_node properties = node.child("properties");
+	pugi::xml_node iterator;
+	for (iterator = properties.child("property"); iterator ; iterator = iterator.next_sibling("property"))
+	{
+		p2SString str = iterator.attribute("name").as_string();
+		p2SString n1 = "collider_layer";
+		if ( str == n1)
+		{
+		layer->logic_layer = node.child("properties").child("property").attribute("value").as_bool(false);
+		}
+		p2SString n2 = "parallax";
+		if (str == n2)
+		{	
+			layer->parallax = node.child("properties").child("property").attribute("value").as_float(0.0);
+		}
+	}
+
 	if (layer->logic_layer)
 	{
 		CreateColliders(layer);
