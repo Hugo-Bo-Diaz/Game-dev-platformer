@@ -24,6 +24,9 @@
 
   <map>
     <folder>maps/</folder>
+    <initial_map value ="0"/>
+    <map directory ="map1.tmx"/>
+    <map directory ="map2.tmx"/>
   </map>
 
   <player>

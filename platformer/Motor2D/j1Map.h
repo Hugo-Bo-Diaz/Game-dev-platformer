@@ -122,6 +122,12 @@ private:
 public:
 
 	MapData data;
+	p2List<p2SString>  maps;
+	p2SString current_map;
+	uint index_map=0;
+	
+	void change_map(uint index);
+	void next_level();
 
 private:
 
