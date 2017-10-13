@@ -166,9 +166,7 @@ bool j1Player::Update(float dt)
 	//DEBUG FEATURES
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		App->map->CleanUp();
-		App->map->Load("Map1.tmx");
-		SetPosOrigin();
+		App->map->change_map(0);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
@@ -202,17 +200,12 @@ bool j1Player::Update(float dt)
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_NEXT_LEVEL)
-	{		
-		App->map->CleanUp();
-		App->map->Load("Map2.tmx");
-		SetPosOrigin();
-
+	{
+		App->map->next_level();
 	}
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA)
-	{
-		//u ded boi
+	{		
 		SetPosOrigin();
-
 	}
 }
 
