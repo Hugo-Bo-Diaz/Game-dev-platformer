@@ -50,6 +50,17 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+	// Load default volume
+	volume = config.child("volume").attribute("default").as_uint();
+
+	if (volume < 0 || volume > 128)
+	{
+		LOG("Saved Volume is not between 0 - 128");
+		volume = SDL_MIX_MAXVOLUME;
+	}
+
+	Mix_VolumeMusic(volume);
+
 	return ret;
 }
 
@@ -168,6 +179,40 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	{
 		Mix_PlayChannel(-1, fx[id - 1], repeat);
 	}
+
+	return ret;
+}
+
+bool j1Audio::RiseVolume()
+{
+	bool ret = false;
+
+	if (volume < 128)
+	{
+		LOG("Volume risen");
+		volume += 16;
+		Mix_VolumeMusic(volume);
+		ret = true;
+	}
+	else
+		LOG("MAX Volume reached");
+
+	return ret;
+}
+
+bool j1Audio::LowerVolume()
+{
+	bool ret = false;
+
+	if (volume >= 16)
+	{
+		LOG("Volume lowered");
+		volume -= 16;
+		Mix_VolumeMusic(volume);
+		ret = true;
+	}
+	else
+		LOG("MIN Volume reached");
 
 	return ret;
 }
