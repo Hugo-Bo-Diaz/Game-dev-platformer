@@ -42,7 +42,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	current_map = maps[index_map];
 
 	pugi::xml_node colors = config.child("background");
-	data.background_color = { colors.attribute("r").as_uint(), colors.attribute("g").as_uint(), colors.attribute("b").as_uint(), 0 };
+	data.background_color = { (Uint8)colors.attribute("r").as_uint(), (Uint8)colors.attribute("g").as_uint(), (Uint8)colors.attribute("b").as_uint(), 0 };
 	App->render->SetBackgroundColor(data.background_color);
 	return ret;
 }

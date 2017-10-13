@@ -217,16 +217,21 @@ bool j1Player::Save(pugi::xml_node& node) const
 	pugi::xml_node pos = node.append_child("position");
 
 	pos.append_attribute("x") = player->position.x;
-	pos.append_attribute("y") = player->position.y;	
+	pos.append_attribute("y") = player->position.y;
+	pos.append_attribute("current_map") = App->map->index_map;
+
+
 	return true;
 }
 
 bool j1Player::Load(pugi::xml_node& node)
 {
+	App->map->change_map(node.child("position").attribute("current_map").as_uint());
 	player->position.x = node.child("position").attribute("x").as_int();
 	player->position.y = node.child("position").attribute("y").as_int();
 	player->velocity.x = 0;
-	player->velocity.y = 0;
+	player->velocity.y = 0;	
+
 	return true;
 }
 
