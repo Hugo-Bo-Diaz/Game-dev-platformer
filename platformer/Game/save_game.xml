@@ -8,10 +8,10 @@
 	<scene />
 	<collision />
 	<player>
-		<position x="198.700073" y="340.294037" />
+		<position x="2695.3374" y="305.504028" />
 	</player>
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-2050" y="0" />
 	</renderer>
 </game_state>
