@@ -6,14 +6,12 @@
 	<audio />
 	<map />
 	<scene />
-	<:anonymous />
+	<collision />
 	<player>
-		<position x="2185.83398" y="130.020004" />
+		<position x="198.700073" y="340.294037" />
 	</player>
 	<:anonymous />
-	<scene />
-	<:anonymous />
 	<renderer>
-		<camera x="-1810" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

@@ -375,8 +375,8 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 bool j1Map::CreateColliders(map_layer* layer)
 {
 	int j = 0;
-	data.colliders[j] = App->collision->AddCollider({-33,0,35,layer->height*35}, COLLIDER_WALL); ++j;
-	data.colliders[j] = App->collision->AddCollider({ layer->width*35-1, 0, 35, layer->height * 35 }, COLLIDER_WALL); ++j;
+	data.colliders[j] = App->collision->AddCollider({-33,0,35,(int)layer->height*35}, COLLIDER_WALL); ++j;
+	data.colliders[j] = App->collision->AddCollider({ (int)layer->width*35-1, 0, 35, (int)layer->height * 35 }, COLLIDER_WALL); ++j;
 		for (int _y = 0; _y < layer->height; ++_y)
 		{
 			for (int _x = 0; _x < layer->width; ++_x)

@@ -202,8 +202,7 @@ bool j1Player::Update(float dt)
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_NEXT_LEVEL)
-	{
-		//#hardcoded??
+	{		
 		App->map->CleanUp();
 		App->map->Load("Map2.tmx");
 		SetPosOrigin();
