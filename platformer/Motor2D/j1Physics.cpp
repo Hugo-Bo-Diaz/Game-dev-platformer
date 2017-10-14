@@ -5,7 +5,8 @@
 
 j1Physics::j1Physics()
 {
-
+	for (uint i = 0; i < MAX_OBJECTS; ++i)
+		objects[i] = nullptr;
 }
 
 bool j1Physics::Awake(pugi::xml_node* config)
@@ -54,6 +55,10 @@ bool j1Physics::CleanUp()
 	{
 		if (objects[i] != nullptr)
 		{
+			if (objects[i]->col != nullptr)
+				objects[i]->col->to_delete = true;
+			if (objects[i]->predictor != nullptr)
+				objects[i]->predictor->to_delete = true;
 			delete objects[i];
 			//objects[i] = nullptr;
 		}

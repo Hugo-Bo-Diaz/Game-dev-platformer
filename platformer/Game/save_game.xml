@@ -8,7 +8,7 @@
 	<scene />
 	<collision />
 	<player>
-		<position x="128.259933" y="235.084015" current_map="1" />
+		<position x="292.328674" y="130.770035" current_map="1" />
 	</player>
 	<:anonymous />
 	<renderer>

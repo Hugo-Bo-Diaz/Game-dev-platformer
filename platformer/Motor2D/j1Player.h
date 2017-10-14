@@ -35,7 +35,7 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
-	SDL_Texture* sprites = nullptr;
+	
 	Collider* collider;
 	fPoint position;
 	Animation* current_animation = nullptr;
