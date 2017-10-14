@@ -3,10 +3,10 @@
  <tileset firstgid="1" name="tileset_1" tilewidth="35" tileheight="35" spacing="1" margin="1" tilecount="168" columns="14">
   <image source="tileset_1.png" width="512" height="436"/>
  </tileset>
- <imagelayer name="Background" visible="0">
-  <image source="Backgrounds/DesertBGReSized.png" width="840" height="420"/>
+ <imagelayer name="Background">
+  <image source="Backgrounds/Clouds.png" width="840" height="420"/>
   <properties>
-   <property name="parallax" type="float" value="0.9"/>
+   <property name="parallax" type="float" value="1"/>
   </properties>
  </imagelayer>
  <layer name="parallax" width="80" height="12">

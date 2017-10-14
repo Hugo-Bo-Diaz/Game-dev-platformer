@@ -54,6 +54,15 @@ struct TileSet
 	int					offset_y;
 };
 
+struct background
+{
+	p2SString name;
+	uint width = 0;
+	uint height = 0;
+	SDL_Texture* texture;
+	float parallax = 0.0;
+};
+
 enum MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,
@@ -74,6 +83,7 @@ struct MapData
 	// TODO 2: Add a list/array of layers to the map!
 	p2List<map_layer*> layers;
 	Collider* colliders[500];
+	background* back = nullptr;
 };
 
 
@@ -117,7 +127,7 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	// TODO 3: Create a method that loads a single layer
 	bool LoadLayer(pugi::xml_node& node, map_layer* layer);
-
+	bool LoadBackground(pugi::xml_node&node, background* back);
 	bool CreateColliders(map_layer* layer);
 
 public:

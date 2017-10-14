@@ -37,9 +37,9 @@
   <player>
     <size width="22" height="45"/>
     <lifes numLifes="3"/>
-    <acceleration jump="1.95" horizontal="0.03"/>
-    <velocity max="0.9"/>
-    <gravity value="0.014"/>
+    <acceleration jump="1.15" horizontal="0.015"/>
+    <velocity max="0.5"/>
+    <gravity value="0.005"/>
   </player>
   
   <collision>

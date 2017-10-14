@@ -52,6 +52,19 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
+	if (data.back != nullptr)
+	{
+		int iterations_x = 1 + (data.tile_width * data.width - 1) / data.back->width;
+		int iterations_y = 1 + (data.tile_height * data.height - 1) / data.back->height;
+		for (int i = 0; i < iterations_y; ++i)
+		{
+			for (int j = 0; j < iterations_x; ++j)
+			{
+				App->render->Blit(data.back->texture, j*data.back->width - App->render->camera.x * data.back->parallax, i*data.back->height);
+			}
+		}
+	}
+
 	SDL_Rect rect = {0,0,0,0};
 	p2List_item<map_layer*>* item;
 	item = data.layers.start;
@@ -193,6 +206,13 @@ bool j1Map::Load(const char* file_name)
 		}
 
 		data.layers.add(set);
+	}
+	pugi::xml_node backgr = map_file.child("map").child("imagelayer");
+	if (backgr)
+	{
+		background* set = new background();
+		LoadBackground(backgr, set);
+		data.back = set;
 	}
 
 	// TODO 4: Iterate all layers and load each of them
@@ -465,6 +485,27 @@ bool j1Map::CreateColliders(map_layer* layer)
 	
 
 	return true;
+}
+bool j1Map::LoadBackground(pugi::xml_node& node, background* back)
+{
+	bool ret = true;
+	back->name = node.attribute("name").as_string();
+	back->width = node.child("image").attribute("width").as_uint();
+	back->height = node.child("image").attribute("height").as_uint();
+	back->texture = App->tex->Load(PATH(folder.GetString(), node.child("image").attribute("source").as_string()));
+
+	pugi::xml_node properties = node.child("properties");
+	pugi::xml_node iterator;
+	for (iterator = properties.child("property"); iterator; iterator = iterator.next_sibling("property"))
+	{
+		p2SString str = iterator.attribute("name").as_string();
+		p2SString n2 = "parallax";
+		if (str == n2)
+		{
+			back->parallax = node.child("properties").child("property").attribute("value").as_float(0.0);
+		}
+	}
+	return ret;
 }
 void j1Map::change_map(uint map)
 {
