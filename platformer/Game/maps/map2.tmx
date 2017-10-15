@@ -1084,7 +1084,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="128"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1164,7 +1164,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="142"/>
+   <tile gid="128"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1940,7 +1940,7 @@
    <tile gid="24"/>
   </data>
  </layer>
- <layer name="Colliders" width="80" height="12">
+ <layer name="Colliders" width="80" height="12" visible="0">
   <properties>
    <property name="collider_layer" type="bool" value="true"/>
   </properties>
@@ -2051,7 +2051,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="27"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>

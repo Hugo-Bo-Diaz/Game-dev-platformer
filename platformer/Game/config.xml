@@ -19,7 +19,7 @@
   </window>
 
   <audio>
-    <volume default="80"/>
+    <volume default="0"/>
   </audio>
 
   <file_system>
@@ -37,10 +37,10 @@
   <player>
     <size width="22" height="45"/>
     <lifes numLifes="3"/>
-    <acceleration jump="1.15" horizontal="0.015"/>
-    <velocity max="0.5"/>
-    <gravity value="0.005"/>
-    <hability value="0.1"/>
+    <acceleration jump="0.52" horizontal="0.01"/>
+    <velocity max="0.22"/>
+    <gravity value="0.001"/>
+    <hability value="0.15"/>
   </player>
   
   <collision>
