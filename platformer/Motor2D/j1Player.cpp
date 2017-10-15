@@ -146,13 +146,13 @@ bool j1Player::Update(float dt)
 		&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
 	{
 		current_animation = &idle;
-		player->acceleration.x = -player->velocity.x/10; //this stops the player in 10 frames
+		player->acceleration.x = -player->velocity.x/3; //this stops the player in 10 frames
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
 		&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		current_animation = &idle;
-		player->acceleration.x = -player->velocity.x / 10; //this stops the player in 10 frames
+		player->acceleration.x = -player->velocity.x / 3; //this stops the player in 10 frames
 		player->velocity.x = 0;
 	}
 

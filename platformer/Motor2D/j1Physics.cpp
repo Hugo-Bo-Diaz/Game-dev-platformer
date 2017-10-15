@@ -74,8 +74,12 @@ bool j1Physics::PreUpdate()
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
 		if (objects[i] != nullptr)
-		objects[i]->predictor->SetPos(	objects[i]->position.x + objects[i]->velocity.x,
-										objects[i]->position.y + objects[i]->velocity.y);
+		{
+			float change_x = objects[i]->velocity.x +objects[i]->acceleration.y;
+			float change_y = objects[i]->velocity.y +objects[i]->acceleration.y;
+			objects[i]->predictor->SetPos(objects[i]->position.x + change_x,
+										objects[i]->position.y + change_y);
+		}
 	}
 	return true;
 }
@@ -107,19 +111,15 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		{
 			//logic operations
 			object* obj= GetObjectFromRect_predictor(&c1->rect);
-			if (result.h == result.w)
-			{
-				obj->position.y = obj->predictor->rect.y - result.h;
-				obj->position.x = obj->predictor->rect.x - result.w;
-			}
-			else if (result.h >= result.w)
+			if (result.h > result.w)
 			{
 				if (c1->rect.x <c2->rect.x)
-				{obj->position.x = obj->predictor->rect.x - result.w;}
+				{obj->position.x = obj->predictor->rect.x - result.w-3;}
 				else
-				{obj->position.x = obj->predictor->rect.x + result.w;}
-				obj->velocity.x = 0;			}
-			else if (result.h < result.w)
+				{obj->position.x = obj->predictor->rect.x + result.w+3;}
+				obj->velocity.x = 0;
+			}
+			else if (result.h <= result.w)
 			{
 				if (c1->rect.y < c2->rect.y)
 				{obj->position.y = obj->predictor->rect.y - result.h;
