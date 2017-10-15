@@ -7,7 +7,7 @@
   </app>
 	
   <renderer>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </renderer>
 
   <window>
@@ -37,10 +37,10 @@
   <player>
     <size width="22" height="45"/>
     <lifes numLifes="3"/>
-    <acceleration jump="0.52" horizontal="0.01"/>
-    <velocity max="0.22"/>
-    <gravity value="0.001"/>
-    <hability value="0.01"/>
+    <acceleration jump="10" horizontal="2"/>
+    <velocity max="4"/>
+    <gravity value="0.45"/>
+    <hability value="0.3"/>
   </player>
   
   <collision>
