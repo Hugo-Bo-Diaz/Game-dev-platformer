@@ -125,6 +125,7 @@ bool j1Map::CleanUp()
 
 	while(item != NULL)
 	{
+		App->tex->UnLoad(item->data->texture);
 		RELEASE(item->data);
 		item = item->next;
 	}
@@ -153,6 +154,7 @@ bool j1Map::CleanUp()
 		}
 	}
 
+	App->tex->UnLoad(data.back->texture);
 	RELEASE(data.back);
 
 	// Clean up the pugui tree
