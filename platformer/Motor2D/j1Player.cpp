@@ -221,7 +221,6 @@ bool j1Player::Save(pugi::xml_node& node) const
 	pos.append_attribute("y") = player->position.y;
 	pos.append_attribute("current_map") = App->map->index_map;
 
-
 	return true;
 }
 

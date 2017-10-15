@@ -139,6 +139,8 @@ public:
 	
 	void change_map(uint index);
 	void next_level();
+	void previous_level();
+
 
 private:
 

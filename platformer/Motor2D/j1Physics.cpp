@@ -4,7 +4,8 @@
 #include "p2Log.h"
 
 j1Physics::j1Physics()
-{
+{	
+	//here we initialise all object to nullptr
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 		objects[i] = nullptr;
 }
@@ -21,8 +22,8 @@ bool j1Physics::Awake(pugi::xml_node* config)
 object* j1Physics::Addobject(float _x, float _y, float _gravity, SDL_Rect* collision,COLLIDER_TYPE TYPE, j1Module* Callback)
 {
 	object* ret = nullptr;
-
-	for (uint i = 0; i < MAX_OBJECTS; ++i)//15 = MAX OBJECTS THAT SHOULD BE IN THE CONFIG FILE
+	//looks free object slot
+	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
 		if (objects[i] == nullptr)
 		{
@@ -30,7 +31,7 @@ object* j1Physics::Addobject(float _x, float _y, float _gravity, SDL_Rect* colli
 			break;
 		}
 	}
-
+	//assign all the object properties
 	ret->position.x = _x;
 	ret->position.y = _y;
 	ret->acceleration.x = 0;
@@ -69,7 +70,7 @@ bool j1Physics::CleanUp()
 
 bool j1Physics::PreUpdate()
 {
-//HERE U SET THE RECTANGLE FUTURE FOR THE ITEMS SO THEY COLLIDE WHEN THE TIME COMES AND YOU GET THE FUNCTION CALLED
+//we set up the colliders that will check the collisions in the near future
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
 		if (objects[i] != nullptr)
@@ -81,7 +82,7 @@ bool j1Physics::PreUpdate()
 
 bool j1Physics::Update(float dt)
 {
-	//manage physics
+	//advance objects
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
 		if (objects[i] != nullptr)
@@ -96,13 +97,15 @@ bool j1Physics::Update(float dt)
 
 void j1Physics::OnCollision(Collider* c1,Collider*c2)
 {
-	//this means this is going to collide next frame
+	//this method wil be called on an earlier update method(module collisions)
 	if (c1->type == COLLIDER_FUTURE)
 	{
-		SDL_Rect result;
+		SDL_Rect result;//this is the rectangle that they share when they are colliding
+						//from here we know how much they are colliding and know how much to push back these collisions
 		SDL_bool _bool = SDL_IntersectRect(&c1->rect,&c2->rect, &result);
 		if (_bool)//this means they collided 4 real
 		{
+			//logic operations
 			object* obj= GetObjectFromRect_predictor(&c1->rect);
 			if (result.h == result.w)
 			{
@@ -131,6 +134,7 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 
 bool j1Physics::PostUpdate() 
 {
+	// here is where the colliders positions are adjusted to where they should be
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
 		if (objects[i] != nullptr)
@@ -141,6 +145,7 @@ bool j1Physics::PostUpdate()
 	return true;
 }
 
+//this is to know whose collider was called from the OnCollision method
 object* j1Physics::GetObjectFromRect_predictor(SDL_Rect* rectangle)
 {
 	for (uint i = 0; i < MAX_OBJECTS; ++i)

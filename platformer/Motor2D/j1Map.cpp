@@ -41,9 +41,11 @@ bool j1Map::Awake(pugi::xml_node& config)
 	index_map = config.child("initial_map").attribute("value").as_uint(0);
 	current_map = maps[index_map];
 
+	//background color instead of an image can be configured in config.xml and not adding any layer(image layer) on tiled
 	pugi::xml_node colors = config.child("background");
 	data.background_color = { (Uint8)colors.attribute("r").as_uint(), (Uint8)colors.attribute("g").as_uint(), (Uint8)colors.attribute("b").as_uint(), 0 };
 	App->render->SetBackgroundColor(data.background_color);
+
 	return ret;
 }
 
@@ -51,7 +53,7 @@ void j1Map::Draw()
 {
 	if(map_loaded == false)
 		return;
-
+	//draws the background
 	if (data.back != nullptr)
 	{
 		int iterations_x = 1 + (data.tile_width * data.width - 1) / data.back->width;
@@ -68,7 +70,7 @@ void j1Map::Draw()
 	SDL_Rect rect = {0,0,0,0};
 	p2List_item<map_layer*>* item;
 	item = data.layers.start;
-
+	//draws the layers
 		while (item != NULL)
 		{	
 			if (item->data->logic_layer == false)
@@ -78,14 +80,13 @@ void j1Map::Draw()
 				for (int _x = 0; _x < item->data->width; ++_x)
 				{
 					iPoint point = MapToWorld(_x, _y);
-					//point+offset_coeficient*player.x
+
 					App->render->Blit(
 						data.tilesets.start->data->texture,
 						point.x - App->render->camera.x * item->data->parallax, point.y,
 						&data.tilesets.start->data->GetTileRect(item->data->data[item->data->Get(_x, _y)]));
 				}
 			}
-
 		}			
 		item = item->next;
 	}
@@ -195,6 +196,7 @@ bool j1Map::Load(const char* file_name)
 
 		data.tilesets.add(set);
 	}
+	//Load all layers info ----------------------------------------------
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
@@ -207,6 +209,7 @@ bool j1Map::Load(const char* file_name)
 
 		data.layers.add(set);
 	}
+	//Load all background info ----------------------------------------------
 	pugi::xml_node backgr = map_file.child("map").child("imagelayer");
 	if (backgr)
 	{
@@ -218,7 +221,6 @@ bool j1Map::Load(const char* file_name)
 	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	
-
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -427,6 +429,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 	return ret;
 }
 
+//this loads the colliders/logic elements on the layer that are logics
 bool j1Map::CreateColliders(map_layer* layer)
 {
 	int j = 0;
@@ -515,6 +518,13 @@ void j1Map::change_map(uint map)
 	App->player->SetPosOrigin();
 }
 void j1Map::next_level()
+{
+	index_map += 1;
+	CleanUp();
+	Load(maps[index_map].GetString());
+	App->player->SetPosOrigin();
+}
+void j1Map::previous_level()
 {
 	index_map += 1;
 	CleanUp();
