@@ -12,6 +12,9 @@
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+		data.colliders[i] = nullptr;
 }
 
 // Destructor
@@ -145,7 +148,7 @@ bool j1Map::CleanUp()
 	}
 	data.layers.clear();
 
-	for (int i = 0; i < 500; ++i)
+	for (int i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if (data.colliders[i] != nullptr)
 		{
