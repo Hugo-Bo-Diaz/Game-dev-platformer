@@ -18,7 +18,7 @@ j1Player::j1Player()
 	// idle animation
 	idle.PushBack({ 277, 3, 45, 45 });
 	idle.PushBack({ 322, 3, 45, 45 });
-	idle.speed = 0.005f;
+	idle.speed = 0.002f;
 
 	// Move Right
 	left.PushBack({ 3, 3, 45, 45 });
@@ -27,7 +27,7 @@ j1Player::j1Player()
 	left.PushBack({ 137, 3, 45, 45 });
 	left.PushBack({ 182, 3, 45, 45 });
 	left.PushBack({ 227, 3, 45, 45 });
-	left.speed = 0.02f;
+	left.speed = 0.009f;
 
 	// Move Left
 	right.PushBack({ 3, 52, 45, 45 });
@@ -36,43 +36,43 @@ j1Player::j1Player()
 	right.PushBack({ 137, 52, 45, 45 });
 	right.PushBack({ 182, 52, 45, 45 });
 	right.PushBack({ 227, 52, 45, 45 });
-	right.speed = 0.02f;
+	right.speed = 0.009f;
 
 	// Jumpsquat Right animation
 	/*jumpsquatRight.PushBack({ 3, 100, 45, 45 });
 	jumpsquatRight.PushBack({ 48, 100, 45, 45 });*/
 	jumpsquatRight.PushBack({ 93, 100, 45, 45 });
-	jumpsquatRight.PushBack({ 137, 100, 45, 45 });
+	//jumpsquatRight.PushBack({ 137, 100, 45, 45 });
 	/*jumpsquatRight.PushBack({ 182, 100, 45, 45 });
 	jumpsquatRight.PushBack({ 227, 100, 45, 45 });
 	jumpsquatRight.PushBack({ 3, 149, 45, 45 });
 	jumpsquatRight.PushBack({ 48, 149, 45, 45 });*/
-	jumpsquatRight.speed = 0.05f;
+	jumpsquatRight.speed = 0.0f;
 
 	// Airborne Right animation
 	/*airborneRight.PushBack({ 93, 149, 45, 45 });
 	airborneRight.PushBack({ 137, 149, 45, 45 });*/
 	airborneRight.PushBack({ 182, 149, 45, 45 });
 	airborneRight.PushBack({ 227, 149, 45, 45 });
-	airborneRight.speed = 0.05f;
+	airborneRight.speed = 0.1f;
 
 	// Jumpsquat Left animation
 	/*jumpsquatLeft.PushBack({ 3, 198, 45, 45 });
 	jumpsquatLeft.PushBack({ 48, 198, 45, 45 });*/
 	jumpsquatLeft.PushBack({ 93, 198, 45, 45 });
-	jumpsquatLeft.PushBack({ 137, 198, 45, 45 });
+	//jumpsquatLeft.PushBack({ 137, 198, 45, 45 });
 	/*jumpsquatLeft.PushBack({ 182, 198, 45, 45 });
 	jumpsquatLeft.PushBack({ 227, 198, 45, 45 });
 	jumpsquatLeft.PushBack({ 3, 247, 45, 45 });
 	jumpsquatLeft.PushBack({ 48, 247, 45, 45 });*/
-	jumpsquatLeft.speed = 0.05f;
+	jumpsquatLeft.speed = 0.0f;
 
 	// Airborne Left animation
 	/*airborneLeft.PushBack({ 93, 247, 45, 45 });
 	airborneLeft.PushBack({ 137, 247, 45, 45 });*/
 	airborneLeft.PushBack({ 182, 247, 45, 45 });
 	airborneLeft.PushBack({ 227, 247, 45, 45 });
-	airborneLeft.speed = 0.05f;
+	airborneLeft.speed = 0.1f;
 }
 
 bool j1Player::Awake(pugi::xml_node& config)

@@ -6,7 +6,7 @@
  <imagelayer name="Background">
   <image source="Backgrounds/CaveBGReSized.png" width="1120" height="420"/>
   <properties>
-   <property name="parallax" type="float" value="0.9"/>
+   <property name="parallax" type="float" value="1"/>
   </properties>
  </imagelayer>
  <layer name="parallax" width="80" height="12">
