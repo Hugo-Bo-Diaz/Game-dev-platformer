@@ -19,7 +19,7 @@
   </window>
 
   <audio>
-    <volume default="0"/>
+    <volume default="80"/>
   </audio>
 
   <file_system>
@@ -40,7 +40,7 @@
     <acceleration jump="0.52" horizontal="0.01"/>
     <velocity max="0.22"/>
     <gravity value="0.001"/>
-    <hability value="0.15"/>
+    <hability value="0.01"/>
   </player>
   
   <collision>
