@@ -84,6 +84,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	acceleration = config.child("acceleration").attribute("horizontal").as_float(0.1);
 	max_speed = config.child("velocity").attribute("max").as_float(1.5);
 	gravity = config.child("gravity").attribute("value").as_float(0.03);
+	hability = config.child("hability").attribute("value").as_float(0.2);
 
 	return true;
 }
@@ -163,7 +164,7 @@ bool j1Player::Update(float dt)
 	
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		player->velocity.y = -0.5;
+		player->velocity.y = -hability;
 	}
 
 	//DEBUG FEATURES

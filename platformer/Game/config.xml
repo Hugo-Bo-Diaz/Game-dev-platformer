@@ -40,6 +40,7 @@
     <acceleration jump="1.15" horizontal="0.015"/>
     <velocity max="0.5"/>
     <gravity value="0.005"/>
+    <hability value="0.1"/>
   </player>
   
   <collision>
