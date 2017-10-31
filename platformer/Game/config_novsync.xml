@@ -1,0 +1,50 @@
+<!-- Config file for the game -->
+
+<config>
+  <app>
+    <title>Game Development Testbed</title>
+    <organization>UPC</organization>
+  </app>
+	
+  <renderer>
+    <vsync value="false"/>
+  </renderer>
+
+  <window>
+    <resolution width="750" height="420" scale="1"/>
+    <fullscreen value="false"/>
+    <borderless value="false"/>
+    <resizable value="false"/>
+    <fullscreen_window value="false"/>
+  </window>
+
+  <audio>
+    <volume default="80"/>
+  </audio>
+
+  <file_system>
+    <path>data.zip</path>
+  </file_system>
+
+  <map>
+    <folder>maps/</folder>
+    <initial_map value ="0"/>
+    <background r ="60" g="240" b="225"/>
+    <map directory ="map1.tmx"/>
+    <map directory ="map2.tmx"/>
+  </map>
+
+  <player>
+    <size width="22" height="45"/>
+    <lifes numLifes="3"/>
+    <acceleration jump="2.5" horizontal="0.05"/>
+    <velocity max="0.5"/>
+    <gravity value="0.015"/>
+    <hability value="0.2"/>
+  </player>
+  
+  <collision>
+    <debug value ="false"/>
+  </collision>
+
+</config>
