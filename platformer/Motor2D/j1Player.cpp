@@ -106,6 +106,7 @@ bool j1Player::Start()
 	graphics = App->tex->Load("textures/PilotSprites.png");
 	current_animation = &idle;
 	player = App->physics->Addobject(initial_x,initial_y,gravity,&rect,COLLIDER_PLAYER,this);
+	destroyed = false;
 	return true;
 }
 
@@ -115,11 +116,6 @@ bool j1Player::CleanUp()
 	LOG("Unloading player");
 	App->tex->UnLoad(graphics);
 
-	return true;
-}
-
-bool j1Player::PreUpdate()
-{
 	return true;
 }
 
@@ -172,15 +168,7 @@ bool j1Player::Update(float dt)
 		player->velocity.y = -hability;
 	}
 
-	//DEBUG FEATURES
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		App->map->change_map(0);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		SetPosOrigin();
-	}
+
 	//aereal animations
 	if (player->grounded == false)
 	{
@@ -205,6 +193,24 @@ bool j1Player::Update(float dt)
 	return true;
 }
 
+bool j1Player::PreUpdate()
+{
+	//DEBUG FEATURES
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		App->map->change_map(0);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		SetPosOrigin();
+	}
+	if (destroyed == true)
+	{
+		SetPosOrigin();
+		destroyed = false;
+	}
+	return true;
+}
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
@@ -213,8 +219,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		App->map->next_level();
 	}
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA)
-	{		
-		SetPosOrigin();
+	{
+		destroyed = true;
 	}
 }
 

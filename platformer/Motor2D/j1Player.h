@@ -59,6 +59,7 @@ public:
 	float max_speed = 1;
 	float gravity = 0.01;
 
+	bool destroyed = false;
 	float hability = 0.5;
 
 	object* player;
