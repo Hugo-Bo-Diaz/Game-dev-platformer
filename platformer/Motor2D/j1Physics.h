@@ -24,7 +24,6 @@ public:
 	~j1Physics(){};
 
 	bool PreUpdate();
-	bool Update(float dt);
 	bool PostUpdate();
 
 	bool Awake(pugi::xml_node* config);

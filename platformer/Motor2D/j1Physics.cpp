@@ -70,22 +70,6 @@ bool j1Physics::CleanUp()
 
 bool j1Physics::PreUpdate()
 {
-//we set up the colliders that will check the collisions in the near future
-	for (uint i = 0; i < MAX_OBJECTS; ++i)
-	{
-		if (objects[i] != nullptr)
-		{
-			float change_x = objects[i]->velocity.x +objects[i]->acceleration.y;
-			float change_y = objects[i]->velocity.y +objects[i]->acceleration.y;
-			objects[i]->predictor->SetPos(objects[i]->position.x + change_x,
-										objects[i]->position.y + change_y);
-		}
-	}
-	return true;
-}
-
-bool j1Physics::Update(float dt)
-{
 	//advance objects
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
@@ -93,11 +77,26 @@ bool j1Physics::Update(float dt)
 		{
 			objects[i]->velocity += objects[i]->acceleration;
 
-			objects[i]->position += objects[i]->velocity;
+			objects[i]->predictor->SetPos(	objects[i]->position.x + objects[i]->velocity.x, 
+											objects[i]->position.y + objects[i]->velocity.y);
+		}
+	}
+//we set up the colliders that will check the collisions in the near future
+	for (uint i = 0; i < MAX_OBJECTS; ++i)
+	{
+		if (objects[i] != nullptr)
+		{
+			float change_x = objects[i]->velocity.x +objects[i]->acceleration.y;
+			float change_y = objects[i]->velocity.y +objects[i]->acceleration.y;
+			LOG("%f %f",change_x,change_y);
+			objects[i]->predictor->SetPos(objects[i]->position.x + change_x,
+										objects[i]->position.y + change_y);
 		}
 	}
 	return true;
 }
+
+
 
 void j1Physics::OnCollision(Collider* c1,Collider*c2)
 {
@@ -111,24 +110,57 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		{
 			//logic operations
 			object* obj= GetObjectFromRect_predictor(&c1->rect);
-			if (result.h > result.w)
+			 if (result.h == result.w && obj->grounded == false)
+			{
+				if (c1->rect.y < c2->rect.y)
+				 {
+					 if (c1->rect.x < c2->rect.x)
+					 {
+						 obj->predictor->rect.x -= result.w;
+						 obj->predictor->rect.y -= result.h;
+					 }
+					 else
+					 {
+						 obj->predictor->rect.x += result.w;
+						 obj->predictor->rect.y -= result.h;
+					 }
+				 }
+				else
+				{
+					if (c1->rect.x <c2->rect.x)
+					{
+						obj->predictor->rect.x -= result.w;
+						obj->predictor->rect.y += result.h;
+					}
+					else
+					{
+						obj->predictor->rect.x += result.w;
+						obj->predictor->rect.y += result.h;
+					}
+				}
+				obj->velocity.x = 0;
+			}
+			else if (result.h > result.w)
 			{
 				if (c1->rect.x <c2->rect.x)
-				{obj->position.x = obj->predictor->rect.x - result.w;}
+				{obj->predictor->rect.x -= result.w;
+				}
 				else
-				{obj->position.x = obj->predictor->rect.x + result.w;}
+				{obj->predictor->rect.x += result.w;
+				}
 				obj->velocity.x = 0;
 			}
 			else if (result.h <= result.w)
 			{
 				if (c1->rect.y < c2->rect.y)
-				{obj->position.y = obj->predictor->rect.y - result.h;
+				{obj->predictor->rect.y -= result.h;
 				obj->grounded = true;}
 				else
-				{obj->position.y = obj->predictor->rect.y + result.h;}
+				{obj->predictor->rect.y += result.h;
+				}
 				obj->velocity.y = 0;
-
 			}
+
 		}
 	}
 };
@@ -140,6 +172,9 @@ bool j1Physics::PostUpdate()
 	{
 		if (objects[i] != nullptr)
 		{
+			//LOG("%f", objects[i]->velocity.x);
+			objects[i]->position.x = objects[i]->predictor->rect.x;
+			objects[i]->position.y = objects[i]->predictor->rect.y;
 			objects[i]->col->SetPos(objects[i]->position.x, objects[i]->position.y);
 		}
 	}

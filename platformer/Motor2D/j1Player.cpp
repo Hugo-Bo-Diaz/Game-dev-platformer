@@ -130,11 +130,14 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->velocity.x <max_speed)
 	{
 		player->acceleration.x = acceleration;
+		//player->velocity.x = max_speed-1;
 		current_animation = &left;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && player->velocity.x >-max_speed)
 	{
 		player->acceleration.x = -acceleration;
+		//player->velocity.x = max_speed + 1;
+
 		current_animation = &right;
 	}
 	if (player->velocity.x > max_speed || player->velocity.x < -max_speed)
@@ -147,12 +150,15 @@ bool j1Player::Update(float dt)
 	{
 		current_animation = &idle;
 		player->velocity.x = 0; //this stops the player
+		player->acceleration.x = 0;
+		LOG("%d", player->velocity.x);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
 		&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		current_animation = &idle;
-		player->velocity.x = 0;
+		player->velocity.x = 0; //this stops the player
+		player->acceleration.x = 0;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && player->grounded && player->velocity.y < 0.5)
