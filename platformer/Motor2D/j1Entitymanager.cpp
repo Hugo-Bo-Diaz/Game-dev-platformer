@@ -21,9 +21,8 @@ bool j1EntityManager::Awake(pugi::xml_node* config)
 Entity* j1EntityManager::AddEntity(int _x, int _y, ENTITY_TYPE type)
 {
 	Entity* ret = nullptr;
-	//looks free object slot
-	
-	//assign all the object properties
+
+	//assign all the entity properties
 	ret->position.x = _x;
 	ret->position.y = _y;
 	ret->type = type;
@@ -95,4 +94,26 @@ void j1EntityManager::Draw()
 		item->data->Draw();
 		item = item->next;
 	}
+}
+
+bool j1EntityManager::Save(pugi::xml_node& node) const
+{
+	p2List_item<Entity*>* item = entities.start;
+	while (item != nullptr)
+	{
+		item->data->Save(node);
+		item = item->next;
+	}
+
+}
+
+bool j1EntityManager::Load(pugi::xml_node& node)
+{
+	p2List_item<Entity*>* item = entities.start;
+	while (item != nullptr)
+	{
+		item->data->Load(node);
+		item = item->next;
+	}
+
 }

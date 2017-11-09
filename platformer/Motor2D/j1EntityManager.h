@@ -28,5 +28,8 @@ public:
 	bool CleanUp();
 
 	p2List<Entity*> entities;
+
+	bool Save(pugi::xml_node& node)const;
+	bool Load(pugi::xml_node& node);
 };
 #endif // !__J1ENTITIES_H__

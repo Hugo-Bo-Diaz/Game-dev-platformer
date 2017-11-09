@@ -37,5 +37,7 @@ public:
 	virtual void Update() {};
 	virtual void PostUpdate() {};
 
+	virtual bool Save(pugi::xml_node& node)const { return true; }; 
+	virtual bool Load(pugi::xml_node& node) { return true; };
 };
 #endif // !__J1ENTITY_H__
