@@ -14,6 +14,7 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 
+class j1EntityManager;
 class j1Player;
 class j1Collision;
 class j1Physics;
@@ -88,6 +89,7 @@ public:
 	j1Scene*			scene;
 	j1Map*				map;
 
+	j1EntityManager*	entities;
 	j1Player*			player;
 	j1Collision*		collision;
 	j1Physics*			physics;

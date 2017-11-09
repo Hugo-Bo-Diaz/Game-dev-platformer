@@ -4,38 +4,29 @@
 #include "j1Module.h"
 #include "p2Point.h"
 #include "j1Collision.h"
-
-#define MAX_OBJECTS 15
-
-struct object
-{
-	fPoint position;
-	fPoint velocity;
-	fPoint acceleration;
-	Collider* col;
-	Collider* predictor;
-	bool grounded = false;
-};
+#include "Entity.h"
+#include "p2List.h"
 
 class j1EntityManager : public j1Module
 {
 public:
-	j1();
-	~j1Physics() {};
+	j1EntityManager();
+	~j1EntityManager() {};
 
 	bool PreUpdate();
+	bool Update();
 	bool PostUpdate();
 
 	bool Awake(pugi::xml_node* config);
 
-	object* Addobject(float x, float y, float gravity, SDL_Rect* collision, COLLIDER_TYPE TYPE, j1Module* callback = NULL);
+	Entity* AddEntity(int x, int y,ENTITY_TYPE type);
 
 	void OnCollision(Collider* c1, Collider* c2);
 
+	void Draw();
+
 	bool CleanUp();
 
-	object* objects[MAX_OBJECTS];
-
-	object* GetObjectFromRect_predictor(SDL_Rect* rectangle);
+	p2List<Entity*> entities;
 };
 #endif // !__J1ENTITIES_H__
