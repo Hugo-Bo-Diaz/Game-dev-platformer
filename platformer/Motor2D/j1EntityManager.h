@@ -1,0 +1,41 @@
+#ifndef __J1ENTITIES_H__
+#define __J1ENTITIES_H__
+
+#include "j1Module.h"
+#include "p2Point.h"
+#include "j1Collision.h"
+
+#define MAX_OBJECTS 15
+
+struct object
+{
+	fPoint position;
+	fPoint velocity;
+	fPoint acceleration;
+	Collider* col;
+	Collider* predictor;
+	bool grounded = false;
+};
+
+class j1EntityManager : public j1Module
+{
+public:
+	j1();
+	~j1Physics() {};
+
+	bool PreUpdate();
+	bool PostUpdate();
+
+	bool Awake(pugi::xml_node* config);
+
+	object* Addobject(float x, float y, float gravity, SDL_Rect* collision, COLLIDER_TYPE TYPE, j1Module* callback = NULL);
+
+	void OnCollision(Collider* c1, Collider* c2);
+
+	bool CleanUp();
+
+	object* objects[MAX_OBJECTS];
+
+	object* GetObjectFromRect_predictor(SDL_Rect* rectangle);
+};
+#endif // !__J1ENTITIES_H__
