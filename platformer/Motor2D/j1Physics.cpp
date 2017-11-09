@@ -101,7 +101,7 @@ bool j1Physics::PreUpdate()
 void j1Physics::OnCollision(Collider* c1,Collider*c2)
 {
 	//this method wil be called on an earlier update method(module collisions)
-	if (c1->type == COLLIDER_FUTURE)
+	if (c1->type == COLLIDER_FUTURE && c2->type == COLLIDER_WALL)
 	{
 		SDL_Rect result;//this is the rectangle that they share when they are colliding
 						//from here we know how much they are colliding and know how much to push back these collisions
@@ -163,6 +163,11 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 
 		}
 	}
+	/*I have the starting x of the slope and can calculate where he should be with that
+	if (c2->type == SLOPE_LEFT/RIGHT)
+	calculate here!!!!
+	can calculate more forms also!!
+	*/
 };
 
 bool j1Physics::PostUpdate() 
