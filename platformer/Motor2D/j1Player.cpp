@@ -18,7 +18,7 @@ j1Player::j1Player()
 	// idle animation
 	idle.PushBack({ 277, 3, 45, 45 });
 	idle.PushBack({ 322, 3, 45, 45 });
-	idle.speed = 0.002f;
+	idle.speed = 0.04f;
 
 	// Move Right
 	left.PushBack({ 3, 3, 45, 45 });
@@ -27,7 +27,7 @@ j1Player::j1Player()
 	left.PushBack({ 137, 3, 45, 45 });
 	left.PushBack({ 182, 3, 45, 45 });
 	left.PushBack({ 227, 3, 45, 45 });
-	left.speed = 0.009f;
+	left.speed = 0.18f;
 
 	// Move Left
 	right.PushBack({ 3, 52, 45, 45 });
@@ -36,7 +36,7 @@ j1Player::j1Player()
 	right.PushBack({ 137, 52, 45, 45 });
 	right.PushBack({ 182, 52, 45, 45 });
 	right.PushBack({ 227, 52, 45, 45 });
-	right.speed = 0.009f;
+	right.speed = 0.18f;
 
 	// Jumpsquat Right animation
 	/*jumpsquatRight.PushBack({ 3, 100, 45, 45 });
