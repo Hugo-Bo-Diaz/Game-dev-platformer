@@ -11,14 +11,21 @@ public:
 
 public:
 
-	EntityInteractive(float _x, float _y, float _gravity, SDL_Rect* collision, COLLIDER_TYPE TYPE, j1Module* Callback);
+	EntityInteractive() {};
+	EntityInteractive(float _x, float _y, float _gravity, SDL_Rect* collision, COLLIDER_TYPE TYPE)
+	{
+		obj->acceleration = fPoint(0, _gravity);
+		obj->position = fPoint(_x, _y);
+		obj->col = App->collision->AddCollider(*collision,TYPE,nullptr);
+	};
 	~EntityInteractive() {};
 
 	virtual void Draw() {};
-	virtual void PreUpdate() {};
-	virtual void Update() {};
-	virtual void PostUpdate() {};
-
+	virtual bool PreUpdate() { return true; };
+	virtual bool Update(float dt) { return true; };
+	virtual bool PostUpdate() { return true; };
+	virtual void Awake() {};
+	virtual void Start() {};
 };
 
 

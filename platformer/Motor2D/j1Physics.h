@@ -15,6 +15,8 @@ struct object
 	Collider* col;
 	Collider* predictor;
 	bool grounded = false;
+	//iPoint move me here 
+	//in postupdate move it there if != 0
 };
 
 class j1Physics : public j1Module

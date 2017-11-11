@@ -11,7 +11,7 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1App.h"
-#include "j1Player.h"
+//#include "j1Player.h"
 #include "j1Collision.h"
 #include "j1Physics.h"
 #include "j1EntityManager.h"
@@ -33,7 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 
 	entities = new j1EntityManager();
-	player = new j1Player();
+//	player = new j1Player();
 	collision= new j1Collision();
 	physics = new j1Physics();
 
@@ -48,7 +48,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(collision);
 	AddModule(entities);
-	AddModule(player);
+//	AddModule(player);
 	AddModule(physics);
 
 	// render last to swap buffer

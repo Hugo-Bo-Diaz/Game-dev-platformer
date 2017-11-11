@@ -49,7 +49,7 @@ bool j1Scene::Update(float dt)
 	uint win;
 	uint i;
 	App->win->GetWindowSize(win, i);
-	App->render->camera.x = -App->player->player->position.x + win / 2;
+	//App->render->camera.x = -App->player->player->position.x + win / 2;
 	if (App->render->camera.x < win / 2)
 	{App->render->camera.x = 0;}
 	if (-App->render->camera.x > ((App->map->data.width*App->map->data.tile_width)-win))

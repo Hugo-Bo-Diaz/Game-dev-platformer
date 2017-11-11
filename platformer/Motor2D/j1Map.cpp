@@ -7,6 +7,7 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1Physics.h"
+#include "j1EntityManager.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -479,8 +480,9 @@ bool j1Map::CreateColliders(map_layer* layer)
 					j++;
 					break;
 				case 40:
-					App->player->initial_x = point.x;
-					App->player->initial_y = point.y;
+					App->entities->AddEntity(100, 100, ENTITY_TYPE::PLAYER);
+//					App->player->initial_x = point.x;
+//					App->player->initial_y = point.y;
 					break;
 				case 41:
 					if (data.colliders[j] == nullptr)
@@ -523,19 +525,19 @@ void j1Map::change_map(uint map)
 	index_map = map;
 	CleanUp();
 	Load(maps[index_map].GetString());
-	App->player->SetPosOrigin();
+	//App->player->SetPosOrigin();
 }
 void j1Map::next_level()
 {
 	index_map += 1;
 	CleanUp();
 	Load(maps[index_map].GetString());
-	App->player->SetPosOrigin();
+	//App->player->SetPosOrigin();
 }
 void j1Map::previous_level()
 {
 	index_map += 1;
 	CleanUp();
 	Load(maps[index_map].GetString());
-	App->player->SetPosOrigin();
+	//App->player->SetPosOrigin();
 }

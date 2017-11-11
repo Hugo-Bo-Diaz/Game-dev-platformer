@@ -34,14 +34,18 @@
     <map directory ="map2.tmx"/>
   </map>
 
-  <player>
-    <size width="22" height="45"/>
-    <lifes numLifes="3"/>
-    <acceleration jump="10" horizontal="2"/>
-    <velocity max="4"/>
-    <gravity value="0.45"/>
-    <hability value="0.3"/>
-  </player>
+  <Entities>
+    <Player type ="0">
+      <property value="22"    name ="width"/>
+      <property value ="45"   name ="height"/>
+      <property value="3"     name ="lifes"/>
+      <property value="10"    name="jump_accel"/>
+      <property value = "2"   name="ground_accel"/>
+      <property value="4"     name ="velocity"/>
+      <property value="0.45"  name ="gravity"/>
+      <property value="0.3"   name ="hability"/>
+    </Player>
+  </Entities>
   
   <collision>
     <debug value ="false"/>

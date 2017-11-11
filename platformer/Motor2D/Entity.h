@@ -6,6 +6,8 @@
 #include "Animation.h"
 #include "p2List.h"
 #include "j1Physics.h"
+#include "j1App.h"
+#include "j1EntityManager.h"
 
 enum ENTITY_TYPE
 {
@@ -18,24 +20,43 @@ enum ENTITY_TYPE
 class Entity
 {
 public:
+
+	p2SString	name;
+
 	iPoint position;
 	SDL_Texture* texture;
 	bool interactive;
 	ENTITY_TYPE type;
-	p2List<Animation> animations;
+	p2List<Animation*> animations;
+	Animation* current_animation = nullptr;
 public:
 	
 	Entity() {};
-	~Entity() {};
+	~Entity() {
+		App->tex->UnLoad(texture);
+	};
 	
+	void SetPos(iPoint pos) 
+	{ 
+		position = pos; 
+	};
+
+	void LoadTex(const char* path) 
+	{
+		texture = App->tex->Load(path);
+	};
+
 	virtual void Draw() {};
 	ENTITY_TYPE Get_type()
 	{
 		return type;
 	}
-	virtual void PreUpdate() {};
-	virtual void Update() {};
-	virtual void PostUpdate() {};
+	virtual bool PreUpdate() { return true; };
+	virtual bool Update(float dt) { return true; };
+	virtual bool PostUpdate() { return true; };
+
+	virtual void Awake() {};
+	virtual void Start() {};
 
 	virtual bool Save(pugi::xml_node& node)const { return true; }; 
 	virtual bool Load(pugi::xml_node& node) { return true; };
