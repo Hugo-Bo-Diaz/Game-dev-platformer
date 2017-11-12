@@ -8,6 +8,7 @@
 #include "j1Player.h"
 #include "j1Physics.h"
 #include "j1EntityManager.h"
+#include "Brofiler\Brofiler.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -122,6 +123,7 @@ SDL_Rect TileSet::GetTileRect(int id) const
 bool j1Map::CleanUp()
 {
 	LOG("Unloading map");
+	BROFILER_CATEGORY("CleanUp_Map", Profiler::Color::Sienna);
 
 	// Remove all tilesets
 	p2List_item<TileSet*>* item;
@@ -173,6 +175,8 @@ bool j1Map::CleanUp()
 // Load new map
 bool j1Map::Load(const char* file_name)
 {
+	BROFILER_CATEGORY("Load_Map", Profiler::Color::Sienna);
+
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 
@@ -444,6 +448,8 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 //this loads the colliders/logic elements on the layer that are logics
 bool j1Map::CreateColliders(map_layer* layer)
 {
+	BROFILER_CATEGORY("CreateColliders_Map", Profiler::Color::Sienna);
+
 	int j = 0;
 	data.colliders[j] = App->collision->AddCollider({-31,0,35,(int)layer->height*35}, COLLIDER_WALL); ++j;
 	data.colliders[j] = App->collision->AddCollider({ (int)layer->width*35-4, 0, 35, (int)layer->height * 35 }, COLLIDER_WALL); ++j;

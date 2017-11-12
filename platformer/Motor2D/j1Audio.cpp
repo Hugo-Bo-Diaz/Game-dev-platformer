@@ -2,7 +2,7 @@
 #include "p2Log.h"
 #include "j1Audio.h"
 #include "p2List.h"
-
+#include "Brofiler\Brofiler.h"
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
@@ -67,6 +67,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 // Called before quitting
 bool j1Audio::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp_Audio", Profiler::Color::Yellow);
+
 	if(!active)
 		return true;
 
@@ -93,6 +95,8 @@ bool j1Audio::CleanUp()
 // Play a music file
 bool j1Audio::PlayMusic(const char* path, float fade_time)
 {
+	BROFILER_CATEGORY("PlayMusic_Audio", Profiler::Color::Yellow);
+
 	bool ret = true;
 
 	if(!active)
@@ -147,6 +151,8 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 // Load WAV
 unsigned int j1Audio::LoadFx(const char* path)
 {
+	BROFILER_CATEGORY("LoadFX_Audio", Profiler::Color::Yellow);
+
 	unsigned int ret = 0;
 
 	if(!active)
@@ -170,6 +176,8 @@ unsigned int j1Audio::LoadFx(const char* path)
 // Play WAV
 bool j1Audio::PlayFx(unsigned int id, int repeat)
 {
+	BROFILER_CATEGORY("PlayFX_Audio", Profiler::Color::Yellow);
+
 	bool ret = false;
 
 	if(!active)

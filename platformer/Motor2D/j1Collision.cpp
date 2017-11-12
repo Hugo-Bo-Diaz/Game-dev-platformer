@@ -3,6 +3,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Collision.h"
+#include "Brofiler\Brofiler.h"
 
 j1Collision::j1Collision()
 {
@@ -68,6 +69,8 @@ bool j1Collision::Awake(pugi::xml_node& node)
 
 bool j1Collision::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate_Collision", Profiler::Color::Snow);
+
 	// Remove all colliders scheduled for deletion
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
@@ -84,6 +87,8 @@ bool j1Collision::PreUpdate()
 // Called before render is available
 bool j1Collision::Update(float dt)
 {
+	BROFILER_CATEGORY("Update_Collision", Profiler::Color::Snow);
+
 	Collider* c1;
 	Collider* c2;
 
@@ -120,12 +125,16 @@ bool j1Collision::Update(float dt)
 
 bool j1Collision::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdate_Collision", Profiler::Color::Snow);
+
 	DebugDraw();
 	return true;
 }
 
 void j1Collision::DebugDraw()
 {
+	BROFILER_CATEGORY("DebugDraw_Collision", Profiler::Color::Snow);
+
 	if(App->input->GetKey(SDL_SCANCODE_F3)== KEY_DOWN)
 		debug = !debug;
 
@@ -165,6 +174,8 @@ void j1Collision::DebugDraw()
 // Called before quitting
 bool j1Collision::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp_Collision", Profiler::Color::Snow);
+
 	LOG("Freeing all colliders");
 
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -181,6 +192,8 @@ bool j1Collision::CleanUp()
 
 Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
 {
+	BROFILER_CATEGORY("AddCollider_Collision", Profiler::Color::Snow);
+
 	Collider* ret = nullptr;
 
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -199,6 +212,8 @@ Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
+	BROFILER_CATEGORY("CheckCollision_Collision", Profiler::Color::Snow);
+
 	return (rect.x < r.x + r.w &&
 			rect.x + rect.w > r.x &&
 			rect.y < r.y + r.h &&

@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "Brofiler\Brofiler.h"
 
 #define VSYNC true
 
@@ -54,6 +55,8 @@ bool j1Render::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Render::Start()
 {
+	BROFILER_CATEGORY("Start_Render", Profiler::Color::Aqua);
+
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
@@ -63,17 +66,23 @@ bool j1Render::Start()
 // Called each loop iteration
 bool j1Render::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate_Render", Profiler::Color::Aqua);
+
 	SDL_RenderClear(renderer);
 	return true;
 }
 
 bool j1Render::Update(float dt)
 {
+	BROFILER_CATEGORY("Update_Render", Profiler::Color::Aqua);
+
 	return true;
 }
 
 bool j1Render::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdate_Render", Profiler::Color::Aqua);
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
@@ -82,6 +91,8 @@ bool j1Render::PostUpdate()
 // Called before quitting
 bool j1Render::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp_Render", Profiler::Color::Aqua);
+
 	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
 	return true;
@@ -90,6 +101,8 @@ bool j1Render::CleanUp()
 // Load Game State
 bool j1Render::Load(pugi::xml_node& data)
 {
+	BROFILER_CATEGORY("Load_Render", Profiler::Color::Aqua);
+
 	camera.x = data.child("camera").attribute("x").as_int();
 	camera.y = data.child("camera").attribute("y").as_int();
 
@@ -99,6 +112,8 @@ bool j1Render::Load(pugi::xml_node& data)
 // Save Game State
 bool j1Render::Save(pugi::xml_node& data) const
 {
+	BROFILER_CATEGORY("Save_Render", Profiler::Color::Aqua);
+
 	pugi::xml_node cam = data.append_child("camera");
 
 	cam.append_attribute("x") = camera.x;
@@ -125,6 +140,8 @@ void j1Render::ResetViewPort()
 // Blit to screen
 bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y) const
 {
+	BROFILER_CATEGORY("Blit_Render", Profiler::Color::Aqua);
+
 	bool ret = true;
 	uint scale = App->win->GetScale();
 

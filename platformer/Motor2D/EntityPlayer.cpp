@@ -9,6 +9,7 @@
 #include "j1Physics.h"
 #include "j1EntityManager.h"
 #include "SDL/include/SDL_timer.h"
+#include "Brofiler\Brofiler.h"
 
 #include "EntityPlayer.h"
 
@@ -70,6 +71,8 @@ EntityPlayer::EntityPlayer()
 
 void EntityPlayer::Start()
 {
+	BROFILER_CATEGORY("Start_EntityPlayer", Profiler::Color::Gold);
+
 	LOG("Loading player");
 	//create object
 
@@ -86,6 +89,7 @@ void EntityPlayer::Start()
 	destroyed = false;
 	interactive = true;
 }
+
 void EntityPlayer::Awake()
 {
 	LOG("Loading player config");
@@ -116,6 +120,8 @@ void EntityPlayer::CleanUp()
 // Update: draw background
 bool EntityPlayer::Update(float dt)
 {
+	BROFILER_CATEGORY("Update_EntityPlayer", Profiler::Color::Gold);
+
 	//CONTROLS
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && obj->velocity.x <max_speed)
 	{
@@ -189,12 +195,16 @@ bool EntityPlayer::Update(float dt)
 
 void EntityPlayer::Draw()
 {
+	BROFILER_CATEGORY("Draw_EntityPlayer", Profiler::Color::Gold);
+
 	App->render->Blit(texture, (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
 
 }
 
 bool EntityPlayer::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate_EntityPlayer", Profiler::Color::Gold);
+
 	//DEBUG FEATURES
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
@@ -214,6 +224,8 @@ bool EntityPlayer::PreUpdate()
 
 void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 {
+	BROFILER_CATEGORY("OnCollision_EntityPlayer", Profiler::Color::Gold);
+
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_NEXT_LEVEL)
 	{
 		App->map->change_to_next_level = true;
@@ -226,6 +238,8 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 
 bool EntityPlayer::Save(pugi::xml_node& node) const
 {
+	BROFILER_CATEGORY("Save_EntityPlayer", Profiler::Color::Gold);
+
 	pugi::xml_node player = node.append_child("Player");
 	//pugi::xml_node pos = node.append_child("position");
 	player.append_attribute("x") = obj->position.x;
@@ -237,6 +251,8 @@ bool EntityPlayer::Save(pugi::xml_node& node) const
 
 bool EntityPlayer::Load(pugi::xml_node& node)
 {
+	BROFILER_CATEGORY("Load_EntityPlayer", Profiler::Color::Gold);
+
 	pugi::xml_node player_node = node.child("Player");
 	App->map->change_to_this_level = node.child("Player").attribute("current_map").as_uint();
 	App->map->initial_player_pos.x = node.child("Player").attribute("x").as_uint();

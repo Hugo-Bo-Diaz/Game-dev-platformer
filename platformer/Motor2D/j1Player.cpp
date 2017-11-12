@@ -9,7 +9,7 @@
 #include "j1Audio.h"
 #include "j1Physics.h"
 #include "SDL/include/SDL_timer.h"
-
+#include "Brofiler\Brofiler.h"
 #include<stdio.h>
 
 j1Player::j1Player()
@@ -95,6 +95,8 @@ j1Player::~j1Player()
 // Load assets
 bool j1Player::Start()
 {
+	BROFILER_CATEGORY("Start_Player", Profiler::Color::Red);
+
 	LOG("Loading player");
 	//create object
 	
@@ -113,6 +115,8 @@ bool j1Player::Start()
 // Unload assets
 bool j1Player::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp_Player", Profiler::Color::Red);
+
 	LOG("Unloading player");
 	App->tex->UnLoad(graphics);
 
@@ -122,6 +126,8 @@ bool j1Player::CleanUp()
 // Update: draw background
 bool j1Player::Update(float dt)
 {
+	BROFILER_CATEGORY("Update_Player", Profiler::Color::Red);
+
 	//CONTROLS
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->velocity.x <max_speed)
 	{
@@ -195,6 +201,8 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate_Player", Profiler::Color::Red);
+
 	//DEBUG FEATURES
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
@@ -214,6 +222,8 @@ bool j1Player::PreUpdate()
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
+	BROFILER_CATEGORY("OnCollision_Player", Profiler::Color::Red);
+
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_NEXT_LEVEL)
 	{
 		App->map->next_level();
@@ -226,6 +236,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 bool j1Player::Save(pugi::xml_node& node) const
 {
+	BROFILER_CATEGORY("Save_Player", Profiler::Color::Red);
+
 	pugi::xml_node pos = node.append_child("position");
 
 	pos.append_attribute("x") = player->position.x;
@@ -237,6 +249,8 @@ bool j1Player::Save(pugi::xml_node& node) const
 
 bool j1Player::Load(pugi::xml_node& node)
 {
+	BROFILER_CATEGORY("Load_Player", Profiler::Color::Red);
+
 	App->map->change_map(node.child("position").attribute("current_map").as_uint());
 	player->position.x = node.child("position").attribute("x").as_int();
 	player->position.y = node.child("position").attribute("y").as_int();

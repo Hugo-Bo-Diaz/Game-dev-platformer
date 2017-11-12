@@ -3,7 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
-
+#include "Brofiler\Brofiler.h"
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 
@@ -37,6 +37,8 @@ bool j1Textures::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Textures::Start()
 {
+	BROFILER_CATEGORY("Start_Textures", Profiler::Color::DarkViolet);
+
 	LOG("start textures");
 	bool ret = true;
 	return ret;
@@ -45,6 +47,8 @@ bool j1Textures::Start()
 // Called before quitting
 bool j1Textures::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp_Textures", Profiler::Color::DarkViolet);
+
 	LOG("Freeing textures and Image library");
 	p2List_item<SDL_Texture*>* item;
 
@@ -61,6 +65,8 @@ bool j1Textures::CleanUp()
 // Load new texture from file path
 SDL_Texture* const j1Textures::Load(const char* path)
 {
+	BROFILER_CATEGORY("Load_Textures", Profiler::Color::DarkViolet);
+
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
 
@@ -80,6 +86,8 @@ SDL_Texture* const j1Textures::Load(const char* path)
 // Unload texture
 bool j1Textures::UnLoad(SDL_Texture* texture)
 {
+	BROFILER_CATEGORY("UnLoad_Textures", Profiler::Color::DarkViolet);
+
 	p2List_item<SDL_Texture*>* item;
 
 	for(item = textures.start; item != NULL; item = item->next)

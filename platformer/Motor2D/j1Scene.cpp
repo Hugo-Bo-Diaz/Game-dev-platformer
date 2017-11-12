@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Player.h"
 #include "j1Physics.h"
+#include "Brofiler\Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -32,6 +33,8 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
+	BROFILER_CATEGORY("Start_Scene", Profiler::Color::LawnGreen);
+
 	App->map->Load(App->map->current_map.GetString());
 	App->audio->PlayMusic("audio/music/FindYou.ogg");
 	return true;
@@ -40,12 +43,16 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::LawnGreen);
+
 	return true;
 }
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	BROFILER_CATEGORY("Update_Scene", Profiler::Color::LawnGreen);
+
 	uint win;
 	uint i;
 	App->win->GetWindowSize(win, i);
@@ -90,6 +97,8 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdate_Scene", Profiler::Color::LawnGreen);
+
 	bool ret = true;
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -120,6 +129,8 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp_Scene", Profiler::Color::LawnGreen);
+
 	LOG("Freeing scene");
 
 	return true;

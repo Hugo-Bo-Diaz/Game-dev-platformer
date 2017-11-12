@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
+#include "Brofiler\Brofiler.h"
 
 #define MAX_KEYS 300
 
@@ -41,6 +42,8 @@ bool j1Input::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Input::Start()
 {
+	BROFILER_CATEGORY("Start_Input", Profiler::Color::DimGray);
+
 	SDL_StopTextInput();
 	return true;
 }
@@ -48,6 +51,8 @@ bool j1Input::Start()
 // Called each loop iteration
 bool j1Input::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate_Input", Profiler::Color::DimGray);
+
 	static SDL_Event event;
 	
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -134,6 +139,8 @@ bool j1Input::PreUpdate()
 // Called before quitting
 bool j1Input::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp_Input", Profiler::Color::DimGray);
+
 	LOG("Quitting SDL event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;

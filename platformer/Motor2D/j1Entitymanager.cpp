@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "p2Log.h"
 #include "EntityPlayer.h"
+#include "Brofiler\Brofiler.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -44,6 +45,8 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 Entity* j1EntityManager::AddEntity(int _x, int _y, ENTITY_TYPE type)
 {
+	BROFILER_CATEGORY("AddEntity_EntityManager", Profiler::Color::DarkOliveGreen);
+
 	Entity* ret;
 	int list_of_properties = -1;
 	switch (type)
@@ -73,6 +76,8 @@ Entity* j1EntityManager::AddEntity(int _x, int _y, ENTITY_TYPE type)
 
 bool j1EntityManager::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp_EntityManager", Profiler::Color::DarkOliveGreen);
+
 	LOG("Freeing all objects");
 	p2List_item<Entity*>* item = entities.start;
 	while(item != nullptr)
@@ -88,6 +93,8 @@ bool j1EntityManager::CleanUp()
 
 bool j1EntityManager::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate_EntityManager", Profiler::Color::DarkOliveGreen);
+
 	p2List_item<Entity*>* item = entities.start;
 	while (item != nullptr)
 	{
@@ -99,6 +106,8 @@ bool j1EntityManager::PreUpdate()
 
 bool j1EntityManager::Update(float dt)
 {
+	BROFILER_CATEGORY("Update_EntityManager", Profiler::Color::DarkOliveGreen);
+
 	p2List_item<Entity*>* item = entities.start;
 	while (item != nullptr)
 	{
@@ -117,6 +126,8 @@ bool j1EntityManager::Update(float dt)
 
 bool j1EntityManager::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdate_EntityManager", Profiler::Color::DarkOliveGreen);
+
 	p2List_item<Entity*>* item = entities.start;
 	while (item != nullptr)
 	{
@@ -128,6 +139,8 @@ bool j1EntityManager::PostUpdate()
 
 void j1EntityManager::OnCollision(Collider* c1, Collider*c2)
 {
+	BROFILER_CATEGORY("OnCollision_EntityManager", Profiler::Color::DarkOliveGreen);
+
 	p2List_item<Entity*>* item = entities.start;
 	while (item != NULL)
 	{
@@ -149,6 +162,8 @@ void j1EntityManager::OnCollision(Collider* c1, Collider*c2)
 
 bool j1EntityManager::Save(pugi::xml_node& node) const
 {
+	BROFILER_CATEGORY("Save_EntityManager", Profiler::Color::DarkOliveGreen);
+
 	p2List_item<Entity*>* item = entities.start;
 	while (item != nullptr)
 	{
@@ -160,6 +175,8 @@ bool j1EntityManager::Save(pugi::xml_node& node) const
 
 bool j1EntityManager::Load(pugi::xml_node& node)
 {
+	BROFILER_CATEGORY("Load_EntityManager", Profiler::Color::DarkOliveGreen);
+
 	p2List_item<Entity*>* item = entities.start;
 	while (item != nullptr)
 	{

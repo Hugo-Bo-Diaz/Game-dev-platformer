@@ -2,6 +2,7 @@
 #include "j1Collision.h"
 #include "j1App.h"
 #include "p2Log.h"
+#include "Brofiler\Brofiler.h"
 
 j1Physics::j1Physics()
 {	
@@ -50,6 +51,8 @@ object* j1Physics::Addobject(float _x, float _y, float _gravity, SDL_Rect* colli
 
 bool j1Physics::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp_Physics", Profiler::Color::SlateGray);
+
 	LOG("Freeing all objects");
 
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
@@ -70,6 +73,8 @@ bool j1Physics::CleanUp()
 
 bool j1Physics::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate_Physics", Profiler::Color::SlateGray);
+
 	//advance objects
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
@@ -100,6 +105,8 @@ bool j1Physics::PreUpdate()
 
 void j1Physics::OnCollision(Collider* c1,Collider*c2)
 {
+	BROFILER_CATEGORY("OnCollision_Physics", Profiler::Color::SlateGray);
+
 	//this method wil be called on an earlier update method(module collisions)
 	if (c1->type == COLLIDER_FUTURE && c2->type == COLLIDER_WALL)
 	{
@@ -172,6 +179,8 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 
 bool j1Physics::PostUpdate() 
 {
+	BROFILER_CATEGORY("PostUpdate_Physics", Profiler::Color::SlateGray);
+
 	// here is where the colliders positions are adjusted to where they should be
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{

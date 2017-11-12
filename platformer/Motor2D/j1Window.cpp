@@ -4,7 +4,7 @@
 #include "j1Window.h"
 
 #include "SDL/include/SDL.h"
-
+#include "Brofiler\Brofiler.h"
 
 j1Window::j1Window() : j1Module()
 {
@@ -82,6 +82,8 @@ bool j1Window::Awake(pugi::xml_node& config)
 // Called before quitting
 bool j1Window::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp_Window", Profiler::Color::DodgerBlue);
+
 	LOG("Destroying SDL window and quitting all SDL systems");
 
 	//Destroy window
