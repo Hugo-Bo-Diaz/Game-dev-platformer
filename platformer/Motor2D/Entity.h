@@ -7,7 +7,13 @@
 #include "p2List.h"
 #include "j1Physics.h"
 #include "j1App.h"
-#include "j1EntityManager.h"
+
+struct entity_property
+{
+	float value;
+	p2SString name;
+	int type;
+};
 
 enum ENTITY_TYPE
 {

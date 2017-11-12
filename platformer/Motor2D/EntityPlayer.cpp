@@ -85,14 +85,18 @@ void EntityPlayer::Start()
 void EntityPlayer::Awake()
 {
 	LOG("Loading player config");
-/*	width = config.child("size").attribute("width").as_int(20);
-	height = config.child("size").attribute("height").as_int(20);
-	jump_speed = config.child("acceleration").attribute("jump").as_float(-500);
-	acceleration = config.child("acceleration").attribute("horizontal").as_float(0.1);
-	max_speed = config.child("velocity").attribute("max").as_float(1.5);
-	gravity = config.child("gravity").attribute("value").as_float(0.03);
-	hability = config.child("hability").attribute("value").as_float(0.2);*/
-	int lmao = App->entities->properties.start->data.value;
+	int i = 0;
+	if (App->entities->properties[i].type == 0)
+	{
+		width = App->entities->properties[i++].value;
+		height = App->entities->properties[i++].value;
+		lifes = App->entities->properties[i++].value;
+		jump_speed = App->entities->properties[i++].value;
+		acceleration = App->entities->properties[i++].value;
+		max_speed = App->entities->properties[i++].value;
+		gravity = App->entities->properties[i++].value;
+		hability = App->entities->properties[i++].value;
+	}
 }
 
 EntityPlayer::~EntityPlayer()
@@ -155,7 +159,6 @@ bool EntityPlayer::Update(float dt)
 		obj->velocity.y = -hability;
 	}
 
-
 	//aereal animations
 	if (obj->grounded == false)
 	{
@@ -174,7 +177,9 @@ bool EntityPlayer::Update(float dt)
 				current_animation = &airborneRight;
 		}
 	}
-	//blit
+	//this is the position inherited from enitity and allows for easy access in not precise calculus
+	position.x = obj->position.x;
+	position.y = obj->position.y;
 
 	return true;
 }

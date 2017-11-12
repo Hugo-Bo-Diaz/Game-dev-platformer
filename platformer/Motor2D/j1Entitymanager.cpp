@@ -21,11 +21,11 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	{
 		pugi::xml_node propertie = entity.first_child();
 		i = entity.attribute("type").as_int(-1);
-		for (propertie = node_entities.first_child(); propertie; propertie = propertie.next_sibling())//there are still properties left
+		for (propertie = entity.first_child(); propertie; propertie = propertie.next_sibling())//there are still properties left
 		{
 			entity_property iterator_property;
 			iterator_property.name.create(propertie.attribute("name").as_string("failed_loading"));
-			iterator_property.value = propertie.attribute("value").as_int(-1);
+			iterator_property.value = propertie.attribute("value").as_float(-1);
 			iterator_property.type = i;
 			properties.add(iterator_property);
 		}

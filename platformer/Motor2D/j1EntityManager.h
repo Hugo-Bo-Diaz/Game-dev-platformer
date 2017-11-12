@@ -8,12 +8,7 @@
 #include "p2List.h"
 #include "p2DynArray.h"
 
-struct entity_property
-{
-	int value;
-	p2SString name;
-	int type;
-};
+
 
 class j1EntityManager : public j1Module
 {

@@ -480,7 +480,7 @@ bool j1Map::CreateColliders(map_layer* layer)
 					j++;
 					break;
 				case 40:
-					App->entities->AddEntity(100, 100, ENTITY_TYPE::PLAYER);
+					player = (EntityPlayer*)App->entities->AddEntity(100, 100, ENTITY_TYPE::PLAYER);
 //					App->player->initial_x = point.x;
 //					App->player->initial_y = point.y;
 					break;

@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #include "SDL/include/SDL.h"
+#include "EntityPlayer.h"
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
@@ -137,6 +138,8 @@ public:
 	p2SString current_map;
 	uint index_map=0;
 	
+	EntityPlayer* player;
+
 	void change_map(uint index);
 	void next_level();
 	void previous_level();
