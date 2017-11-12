@@ -161,6 +161,9 @@ bool j1Map::CleanUp()
 	App->tex->UnLoad(data.back->texture);
 	RELEASE(data.back);
 
+	App->physics->CleanUp();
+	App->entities->CleanUp();
+
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -480,9 +483,14 @@ bool j1Map::CreateColliders(map_layer* layer)
 					j++;
 					break;
 				case 40:
-					player = (EntityPlayer*)App->entities->AddEntity(100, 100, ENTITY_TYPE::PLAYER);
-//					App->player->initial_x = point.x;
-//					App->player->initial_y = point.y;
+					if (initial_player_pos.x == -1 && initial_player_pos.y == -1)
+					{
+						initial_player_pos = point;
+					}
+					player_start_in_map = point;
+					player = (EntityPlayer*)App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::PLAYER);
+					initial_player_pos.x = -1;
+					initial_player_pos.y = -1;
 					break;
 				case 41:
 					if (data.colliders[j] == nullptr)

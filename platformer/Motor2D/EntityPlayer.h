@@ -16,7 +16,7 @@ public:
 	~EntityPlayer();
 
 	void Start();
-	bool CleanUp();
+	void CleanUp();
 	bool PreUpdate();
 	bool Update(float dt);
 //	bool Update(float dt);
@@ -47,14 +47,15 @@ public:
 
 	//default values are added if everything that sets em up is going horrible
 	int lifes = 3;
-	int initial_x = 10;
-	int initial_y = 10;
 	int width = 200;
 	int height = 200;
 	float jump_speed = -5;
 	float acceleration = 0.1;
 	float max_speed = 1;
 	float gravity = 0.01;
+
+	int initial_x = 0;
+	int initial_y = 0;
 
 	bool destroyed = false;
 	float hability = 0.5;

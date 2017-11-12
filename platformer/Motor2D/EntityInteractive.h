@@ -7,16 +7,14 @@
 class EntityInteractive : public Entity
 {
 public:
-	object* obj;
 
-public:
-
-	EntityInteractive() {};
+	EntityInteractive() { interactive = true; };
 	EntityInteractive(float _x, float _y, float _gravity, SDL_Rect* collision, COLLIDER_TYPE TYPE)
 	{
 		obj->acceleration = fPoint(0, _gravity);
 		obj->position = fPoint(_x, _y);
 		obj->col = App->collision->AddCollider(*collision,TYPE,nullptr);
+		interactive = true;
 	};
 	~EntityInteractive() {};
 
@@ -26,6 +24,12 @@ public:
 	virtual bool PostUpdate() { return true; };
 	virtual void Awake() {};
 	virtual void Start() {};
+
+	virtual void CleanUp() { App->tex->UnLoad(texture); };
+
+
+	virtual void OnCollision(Collider* c1, Collider* c2) {};
+
 };
 
 

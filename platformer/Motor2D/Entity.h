@@ -1,12 +1,13 @@
 #ifndef __J1ENTITY_H__
 #define __J1ENTITY_H__
 
+#include "j1App.h"
 #include "p2Point.h"
 #include "j1Textures.h"
 #include "Animation.h"
 #include "p2List.h"
 #include "j1Physics.h"
-#include "j1App.h"
+
 
 struct entity_property
 {
@@ -35,11 +36,12 @@ public:
 	ENTITY_TYPE type;
 	p2List<Animation*> animations;
 	Animation* current_animation = nullptr;
+	object* obj = nullptr;
 public:
 	
 	Entity() {};
 	~Entity() {
-		App->tex->UnLoad(texture);
+		
 	};
 	
 	void SetPos(iPoint pos) 
@@ -63,6 +65,10 @@ public:
 
 	virtual void Awake() {};
 	virtual void Start() {};
+
+	virtual void OnCollision(Collider* c1, Collider* c2) {};
+	
+	virtual void CleanUp() { App->tex->UnLoad(texture); };
 
 	virtual bool Save(pugi::xml_node& node)const { return true; }; 
 	virtual bool Load(pugi::xml_node& node) { return true; };

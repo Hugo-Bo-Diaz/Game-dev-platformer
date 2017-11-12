@@ -95,6 +95,25 @@ bool j1Scene::PostUpdate()
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
+	if (App->map->change_to_next_level)
+	{
+		App->map->next_level();
+		App->map->change_to_next_level = false;
+	}
+
+	if (App->map->change_to_previous_level)
+	{
+		App->map->previous_level();
+		App->map->change_to_previous_level = false;
+	}
+	if (App->map->change_to_this_level != -1)
+	{
+		App->map->change_map(App->map->change_to_this_level);
+		App->map->change_to_this_level = -1;
+		/*App->map->player->obj->position.x = App->map->player->pos_saved_x;
+		App->map->player->obj->position.y = App->map->player->pos_saved_y;*/
+	}
+
 	return ret;
 }
 

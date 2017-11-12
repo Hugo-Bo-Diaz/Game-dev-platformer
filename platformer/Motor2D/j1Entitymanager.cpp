@@ -77,10 +77,12 @@ bool j1EntityManager::CleanUp()
 	p2List_item<Entity*>* item = entities.start;
 	while(item != nullptr)
 	{
-		delete item;
+		item->data->CleanUp();
+		//entities.del(item);
+		RELEASE(item->data);
 		item = item->next;
 	}
-
+	entities.clear();
 	return true;
 }
 
@@ -126,9 +128,22 @@ bool j1EntityManager::PostUpdate()
 
 void j1EntityManager::OnCollision(Collider* c1, Collider*c2)
 {
-	if (c1->type == COLLIDER_FUTURE && c2->type == COLLIDER_WALL)
+	p2List_item<Entity*>* item = entities.start;
+	while (item != NULL)
 	{
-
+		if (item->data->interactive)
+		{
+			// this is to talk to the item as an interactive item that has the obj property;
+			if (item->data->obj != nullptr &&
+				c1->rect.x == item->data->obj->col->rect.x &&
+				c1->rect.y == item->data->obj->col->rect.y &&
+				c1->type == item->data->obj->col->type)
+			{
+				item->data->OnCollision(c1, c2);
+			}
+			
+		}
+		item = item->next;
 	}
 };
 

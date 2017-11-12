@@ -144,6 +144,12 @@ public:
 	void next_level();
 	void previous_level();
 
+	bool change_to_next_level = false;
+	bool change_to_previous_level = false;
+	int change_to_this_level = -1;
+	
+	iPoint initial_player_pos = iPoint(-1,-1);// where he will be created
+	iPoint player_start_in_map = iPoint(0, 0);// where he will respawn when killed / swpawned
 
 private:
 

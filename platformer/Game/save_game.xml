@@ -7,11 +7,11 @@
 	<map />
 	<scene />
 	<collision />
-	<player>
-		<position x="70" y="235" current_map="1" />
-	</player>
+	<Entities>
+		<Player x="674" y="200" current_map="1" />
+	</Entities>
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-299" y="0" />
 	</renderer>
 </game_state>

@@ -61,7 +61,7 @@ bool j1Physics::CleanUp()
 			if (objects[i]->predictor != nullptr)
 				objects[i]->predictor->to_delete = true;
 			delete objects[i];
-			//objects[i] = nullptr;
+			objects[i] = nullptr;
 		}
 	}
 

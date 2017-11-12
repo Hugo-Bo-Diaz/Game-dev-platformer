@@ -74,19 +74,23 @@ void EntityPlayer::Start()
 	//create object
 
 	SDL_Rect rect;
-	rect.x = initial_x;
-	rect.y = initial_y;
+	rect.x = App->map->initial_player_pos.x;
+	rect.y = App->map->initial_player_pos.y;
 	rect.w = width;
 	rect.h = height;
 	LoadTex("textures/PilotSprites.png");
-	obj = App->physics->Addobject(initial_x, initial_y, gravity, &rect, COLLIDER_PLAYER);
+	obj = App->physics->Addobject(	App->map->initial_player_pos.x, App->map->initial_player_pos.y, 
+									gravity, &rect, COLLIDER_PLAYER, (j1Module*)App->entities);
+	position.x = obj->position.x;
+	position.y = obj->position.y;
 	destroyed = false;
+	interactive = true;
 }
 void EntityPlayer::Awake()
 {
 	LOG("Loading player config");
 	int i = 0;
-	if (App->entities->properties[i].type == 0)
+	while (i < App->entities->properties.count() && App->entities->properties[i].type == 0)
 	{
 		width = App->entities->properties[i++].value;
 		height = App->entities->properties[i++].value;
@@ -103,11 +107,10 @@ EntityPlayer::~EntityPlayer()
 {}
 
 // Unload assets
-bool EntityPlayer::CleanUp()
+void EntityPlayer::CleanUp()
 {
 	LOG("Unloading player");
-
-	return true;
+	App->tex->UnLoad(texture);
 }
 
 // Update: draw background
@@ -213,7 +216,7 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_NEXT_LEVEL)
 	{
-		App->map->next_level();
+		App->map->change_to_next_level = true;
 	}
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA)
 	{
@@ -223,30 +226,29 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 
 bool EntityPlayer::Save(pugi::xml_node& node) const
 {
-	pugi::xml_node pos = node.append_child("position");
-
-	pos.append_attribute("x") = obj->position.x;
-	pos.append_attribute("y") = obj->position.y;
-	pos.append_attribute("current_map") = App->map->index_map;
+	pugi::xml_node player = node.append_child("Player");
+	//pugi::xml_node pos = node.append_child("position");
+	player.append_attribute("x") = obj->position.x;
+	player.append_attribute("y") = obj->position.y;
+	player.append_attribute("current_map") = App->map->index_map;
 
 	return true;
 }
 
 bool EntityPlayer::Load(pugi::xml_node& node)
 {
-	App->map->change_map(node.child("position").attribute("current_map").as_uint());
-	obj->position.x = node.child("position").attribute("x").as_int();
-	obj->position.y = node.child("position").attribute("y").as_int();
-	obj->velocity.x = 0;
-	obj->velocity.y = 0;
-
+	pugi::xml_node player_node = node.child("Player");
+	App->map->change_to_this_level = node.child("Player").attribute("current_map").as_uint();
+	App->map->initial_player_pos.x = node.child("Player").attribute("x").as_uint();
+	App->map->initial_player_pos.y = node.child("Player").attribute("y").as_uint();
+	//node.child("Player").child("position").attribute("x").as_int();
 	return true;
 }
 
 void EntityPlayer::SetPosOrigin()
 {
-	obj->position.x = initial_x;
-	obj->position.y = initial_y;
+	obj->position.x = App->map->player_start_in_map.x;
+	obj->position.y = App->map->player_start_in_map.y;
 	obj->velocity.x = 0;
 	obj->velocity.y = 0;
 }
