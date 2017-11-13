@@ -206,8 +206,6 @@ bool EntityPlayer::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdate_EntityPlayer", Profiler::Color::Gold);
 
-
-
 	if (destroyed == true)
 	{
 		SetPosOrigin();

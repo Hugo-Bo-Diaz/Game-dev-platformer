@@ -54,7 +54,6 @@ public:
 
 	void LoadGame();
 	void SaveGame() const;
-	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
 private:
 

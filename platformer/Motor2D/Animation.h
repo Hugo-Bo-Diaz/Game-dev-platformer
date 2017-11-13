@@ -2,6 +2,7 @@
 #define __ANIMATION_H__
 
 #include "SDL/include/SDL_rect.h"
+#include "p2Log.h"
 #define MAX_FRAMES 30
 
 class Animation
@@ -29,7 +30,8 @@ public:
 	{}
 	~Animation()
 	{
-		delete[] frames;
+		//delete[] frames;
+		LOG("i've been deleted but not my frames lol");
 	}
 	Animation(const Animation& anim) : loop(anim.loop), speed(anim.speed), last_frame(anim.last_frame)
 	{
