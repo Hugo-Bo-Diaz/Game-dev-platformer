@@ -137,7 +137,6 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
-	// TODO 2: clean up all layer data
 	// Remove all layers
 	
 	p2List_item<map_layer*>* item_1;
@@ -145,7 +144,6 @@ bool j1Map::CleanUp()
 
 	while (item_1 != NULL)
 	{
-		
 		RELEASE(item_1->data)
 		item_1 = item_1->next;
 	}

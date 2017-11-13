@@ -34,14 +34,14 @@ public:
 	SDL_Texture* texture;
 	bool interactive;
 	ENTITY_TYPE type;
-	p2List<Animation*> animations;
+	p2List<Animation> animations;
 	Animation* current_animation = nullptr;
 	object* obj = nullptr;
 public:
 	
 	Entity() {};
 	~Entity() {
-		
+
 	};
 	
 	void SetPos(iPoint pos) 
@@ -68,7 +68,7 @@ public:
 
 	virtual void OnCollision(Collider* c1, Collider* c2) {};
 	
-	virtual void CleanUp() { App->tex->UnLoad(texture); };
+	virtual void CleanUp() { App->tex->UnLoad(texture); obj = nullptr; };
 
 	virtual bool Save(pugi::xml_node& node)const { return true; }; 
 	virtual bool Load(pugi::xml_node& node) { return true; };

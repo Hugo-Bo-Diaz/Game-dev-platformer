@@ -2,7 +2,7 @@
 #define __ANIMATION_H__
 
 #include "SDL/include/SDL_rect.h"
-#define MAX_FRAMES 500
+#define MAX_FRAMES 30
 
 class Animation
 {
@@ -27,7 +27,10 @@ public:
 
 	Animation()
 	{}
-
+	~Animation()
+	{
+		delete[] frames;
+	}
 	Animation(const Animation& anim) : loop(anim.loop), speed(anim.speed), last_frame(anim.last_frame)
 	{
 		SDL_memcpy(&frames, anim.frames, sizeof(frames));
@@ -37,6 +40,7 @@ public:
 	{
 		if (last_frame < MAX_FRAMES)
 		frames[last_frame++] = rect;
+		assert(last_frame < MAX_FRAMES);
 	}
 
 	SDL_Rect& GetCurrentFrame()

@@ -24,7 +24,7 @@ EntityPlayer::EntityPlayer()
 	idle.PushBack({ 277, 3, 45, 45 });
 	idle.PushBack({ 322, 3, 45, 45 });
 	idle.speed = 0.04f;
-	animations.add(&idle);
+	animations.add(idle);
 
 	// Move Right
 	left.PushBack({ 3, 3, 45, 45 });
@@ -34,7 +34,7 @@ EntityPlayer::EntityPlayer()
 	left.PushBack({ 182, 3, 45, 45 });
 	left.PushBack({ 227, 3, 45, 45 });
 	left.speed = 0.18f;
-	animations.add(&left);
+	animations.add(left);
 	// Move Left
 	right.PushBack({ 3, 52, 45, 45 });
 	right.PushBack({ 48, 52, 45, 45 });
@@ -43,28 +43,28 @@ EntityPlayer::EntityPlayer()
 	right.PushBack({ 182, 52, 45, 45 });
 	right.PushBack({ 227, 52, 45, 45 });
 	right.speed = 0.18f;
-	animations.add(&right);
+	animations.add(right);
 	// Jumpsquat Right animation
 
 	jumpsquatRight.PushBack({ 93, 100, 45, 45 });
 	jumpsquatRight.speed = 0.0f;
-	animations.add(&jumpsquatRight);
+	animations.add(jumpsquatRight);
 	// Airborne Right animation
 	airborneRight.PushBack({ 182, 149, 45, 45 });
 	airborneRight.PushBack({ 227, 149, 45, 45 });
 	airborneRight.speed = 0.1f;
-	animations.add(&airborneRight);
+	animations.add(airborneRight);
 	// Jumpsquat Left animation
 	jumpsquatLeft.PushBack({ 93, 198, 45, 45 });
 	jumpsquatLeft.speed = 0.0f;
-	animations.add(&jumpsquatLeft);
+	animations.add(jumpsquatLeft);
 	// Airborne Left animation
 	airborneLeft.PushBack({ 182, 247, 45, 45 });
 	airborneLeft.PushBack({ 227, 247, 45, 45 });
 	airborneLeft.speed = 0.1f;
-	animations.add(&airborneLeft);
+	animations.add(airborneLeft);
 
-	current_animation = animations.start->data;
+	current_animation = &animations.start->data;
 
 
 }
@@ -94,16 +94,16 @@ void EntityPlayer::Awake()
 {
 	LOG("Loading player config");
 	int i = 0;
-	while (i < App->entities->properties.count() && App->entities->properties[i].type == 0)
+	while (i < App->entities->properties.count() && App->entities->properties[i]->type == 0)
 	{
-		width = App->entities->properties[i++].value;
-		height = App->entities->properties[i++].value;
-		lifes = App->entities->properties[i++].value;
-		jump_speed = App->entities->properties[i++].value;
-		acceleration = App->entities->properties[i++].value;
-		max_speed = App->entities->properties[i++].value;
-		gravity = App->entities->properties[i++].value;
-		hability = App->entities->properties[i++].value;
+		width = App->entities->properties[i++]->value;
+		height = App->entities->properties[i++]->value;
+		lifes = App->entities->properties[i++]->value;
+		jump_speed = App->entities->properties[i++]->value;
+		acceleration = App->entities->properties[i++]->value;
+		max_speed = App->entities->properties[i++]->value;
+		gravity = App->entities->properties[i++]->value;
+		hability = App->entities->properties[i++]->value;
 	}
 }
 
@@ -115,6 +115,8 @@ void EntityPlayer::CleanUp()
 {
 	LOG("Unloading player");
 	App->tex->UnLoad(texture);
+	
+
 }
 
 // Update: draw background
@@ -147,7 +149,6 @@ bool EntityPlayer::Update(float dt)
 		current_animation = &idle;
 		obj->velocity.x = 0; //this stops the player
 		obj->acceleration.x = 0;
-		LOG("%d", obj->velocity.x);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
 		&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
@@ -247,9 +248,9 @@ bool EntityPlayer::Load(pugi::xml_node& node)
 	BROFILER_CATEGORY("Load_EntityPlayer", Profiler::Color::Gold);
 
 	pugi::xml_node player_node = node.child("Player");
-	App->map->change_to_this_level = node.child("Player").attribute("current_map").as_uint();
-	App->map->initial_player_pos.x = node.child("Player").attribute("x").as_uint();
-	App->map->initial_player_pos.y = node.child("Player").attribute("y").as_uint();
+	App->map->change_to_this_level = player_node.attribute("current_map").as_uint();
+	App->map->initial_player_pos.x = player_node.attribute("x").as_uint();
+	App->map->initial_player_pos.y = player_node.attribute("y").as_uint();
 	//node.child("Player").child("position").attribute("x").as_int();
 	return true;
 }

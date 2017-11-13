@@ -186,6 +186,8 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 void j1App::PrepareUpdate()
 {
 	BROFILER_CATEGORY("PrepareUpdate", Profiler::Color::Turquoise);
+	frame_count++;
+	last_sec_frame_count++;
 
 	frame_time.Start();
 }

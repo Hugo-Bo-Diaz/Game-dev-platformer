@@ -12,6 +12,8 @@ j1EntityManager::j1EntityManager()
 
 }
 
+
+
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	pugi::xml_node node_entities = config;
@@ -24,10 +26,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 		i = entity.attribute("type").as_int(-1);
 		for (propertie = entity.first_child(); propertie; propertie = propertie.next_sibling())//there are still properties left
 		{
-			entity_property iterator_property;
-			iterator_property.name.create(propertie.attribute("name").as_string("failed_loading"));
-			iterator_property.value = propertie.attribute("value").as_float(-1);
-			iterator_property.type = i;
+			entity_property* iterator_property = new entity_property;
+			iterator_property->name.create(propertie.attribute("name").as_string("failed_loading"));
+			iterator_property->value = propertie.attribute("value").as_float(-1);
+			iterator_property->type = i;
 			properties.add(iterator_property);
 		}
 	}
@@ -80,14 +82,22 @@ bool j1EntityManager::CleanUp()
 
 	LOG("Freeing all objects");
 	p2List_item<Entity*>* item = entities.start;
-	while(item != nullptr)
+	while(item != NULL)
 	{
+		/*p2List_item<Animation>* item_animation = item->data->animations.start;
+		while (item_animation != NULL)
+		{
+			item_animation->data.~Animation();
+			item_animation = item_animation->next;
+		}
+		item->data->animations.clear();*/
+
 		item->data->CleanUp();
-		//entities.del(item);
-		RELEASE(item->data);
+		delete item->data;
 		item = item->next;
 	}
 	entities.clear();
+
 	return true;
 }
 

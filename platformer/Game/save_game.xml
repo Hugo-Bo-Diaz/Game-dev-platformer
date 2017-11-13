@@ -8,7 +8,7 @@
 	<scene />
 	<collision />
 	<Entities>
-		<Player x="223" y="290" current_map="1" />
+		<Player x="35" y="235" current_map="0" />
 	</Entities>
 	<:anonymous />
 	<renderer>

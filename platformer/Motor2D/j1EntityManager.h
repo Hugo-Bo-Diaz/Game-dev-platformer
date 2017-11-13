@@ -14,7 +14,15 @@ class j1EntityManager : public j1Module
 {
 public:
 	j1EntityManager();
-	~j1EntityManager() {};
+	~j1EntityManager() {
+		p2List_item<entity_property*>* item_1 = properties.start;
+		while (item_1 != nullptr)
+		{
+			RELEASE(item_1->data);
+			item_1 = item_1->next;
+		}
+		properties.clear();
+	};
 
 
 	bool PreUpdate();
@@ -35,7 +43,7 @@ public:
 	bool Load(pugi::xml_node& node);
 
 	p2List<Entity*> entities;
-	p2List<entity_property> properties;
+	p2List<entity_property*> properties;
 	
 };
 #endif // !__J1ENTITIES_H__

@@ -26,6 +26,7 @@ struct map_layer
 	~map_layer()
 	{
 		RELEASE_ARRAY(data);
+
 	}
 };
 
