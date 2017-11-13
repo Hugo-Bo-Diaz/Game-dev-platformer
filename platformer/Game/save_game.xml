@@ -8,10 +8,10 @@
 	<scene />
 	<collision />
 	<Entities>
-		<Player x="674" y="200" current_map="1" />
+		<Player x="223" y="290" current_map="1" />
 	</Entities>
 	<:anonymous />
 	<renderer>
-		<camera x="-299" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

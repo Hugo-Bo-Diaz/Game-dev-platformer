@@ -205,15 +205,8 @@ bool EntityPlayer::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdate_EntityPlayer", Profiler::Color::Gold);
 
-	//DEBUG FEATURES
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		App->map->change_to_this_level=0;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		SetPosOrigin();
-	}
+
+
 	if (destroyed == true)
 	{
 		SetPosOrigin();

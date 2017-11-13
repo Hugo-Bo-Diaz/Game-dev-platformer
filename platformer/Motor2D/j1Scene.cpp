@@ -45,6 +45,9 @@ bool j1Scene::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::LawnGreen);
 
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		App->map->player->SetPosOrigin();
+
 	return true;
 }
 
@@ -61,6 +64,10 @@ bool j1Scene::Update(float dt)
 	{App->render->camera.x = 0;}
 	if (-App->render->camera.x > ((App->map->data.width*App->map->data.tile_width)-win))
 	{App->render->camera.x = -(App->map->data.width*App->map->data.tile_width)+win;}
+
+	//DEBUG FEATURES
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		App->map->change_to_this_level = 0;
 
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
@@ -88,9 +95,9 @@ bool j1Scene::Update(float dt)
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count(),_x,_y);*/
-	p2SString title("Where's my plane?");
+	//p2SString title("Where's my plane?");
 
-	App->win->SetTitle(title.GetString());
+	//App->win->SetTitle(title.GetString());
 	return true;
 }
 
@@ -103,6 +110,8 @@ bool j1Scene::PostUpdate()
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+
 
 	if (App->map->change_to_next_level)
 	{
