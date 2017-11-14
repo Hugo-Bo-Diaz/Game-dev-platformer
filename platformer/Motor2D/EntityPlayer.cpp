@@ -24,7 +24,6 @@ EntityPlayer::EntityPlayer()
 	idle.PushBack({ 277, 3, 45, 45 });
 	idle.PushBack({ 322, 3, 45, 45 });
 	idle.speed = 0.04f;
-	animations.add(idle);
 
 	// Move Right
 	left.PushBack({ 3, 3, 45, 45 });
@@ -34,7 +33,7 @@ EntityPlayer::EntityPlayer()
 	left.PushBack({ 182, 3, 45, 45 });
 	left.PushBack({ 227, 3, 45, 45 });
 	left.speed = 0.18f;
-	animations.add(left);
+
 	// Move Left
 	right.PushBack({ 3, 52, 45, 45 });
 	right.PushBack({ 48, 52, 45, 45 });
@@ -43,28 +42,26 @@ EntityPlayer::EntityPlayer()
 	right.PushBack({ 182, 52, 45, 45 });
 	right.PushBack({ 227, 52, 45, 45 });
 	right.speed = 0.18f;
-	animations.add(right);
-	// Jumpsquat Right animation
 
+	// Jumpsquat Right animation
 	jumpsquatRight.PushBack({ 93, 100, 45, 45 });
 	jumpsquatRight.speed = 0.0f;
-	animations.add(jumpsquatRight);
+
 	// Airborne Right animation
 	airborneRight.PushBack({ 182, 149, 45, 45 });
 	airborneRight.PushBack({ 227, 149, 45, 45 });
 	airborneRight.speed = 0.1f;
-	animations.add(airborneRight);
+
 	// Jumpsquat Left animation
 	jumpsquatLeft.PushBack({ 93, 198, 45, 45 });
 	jumpsquatLeft.speed = 0.0f;
-	animations.add(jumpsquatLeft);
+
 	// Airborne Left animation
 	airborneLeft.PushBack({ 182, 247, 45, 45 });
 	airborneLeft.PushBack({ 227, 247, 45, 45 });
 	airborneLeft.speed = 0.1f;
-	animations.add(airborneLeft);
 
-	current_animation = &animations.start->data;
+	current_animation = &idle;
 
 
 }
@@ -108,15 +105,15 @@ void EntityPlayer::Awake()
 }
 
 EntityPlayer::~EntityPlayer()
-{}
+{
+	LOG("I've been deleted, ouch!");
+}
 
 // Unload assets
 void EntityPlayer::CleanUp()
 {
-	LOG("Unloading player");
-	App->tex->UnLoad(texture);
-	
 
+	LOG("Unloading player");
 }
 
 // Update: draw background
@@ -199,7 +196,6 @@ void EntityPlayer::Draw()
 	BROFILER_CATEGORY("Draw_EntityPlayer", Profiler::Color::Gold);
 
 	App->render->Blit(texture, (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
-
 }
 
 bool EntityPlayer::PreUpdate()

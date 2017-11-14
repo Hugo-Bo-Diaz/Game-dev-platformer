@@ -20,23 +20,23 @@ EntityEnemyBat::EntityEnemyBat()
 	idle.PushBack({ 32, 0, 30, 28 });
 	idle.PushBack({ 64, 0, 30, 28 });
 	idle.speed = 0.12f;
-	animations.add(idle);
+	//animations.add(idle);
 	//Moving left animation
 	left.PushBack({ 0, 60, 18, 28 });
 	left.PushBack({ 20, 60, 18, 28 });
 	left.PushBack({ 40, 60, 18, 28 });
 	left.PushBack({ 60, 60, 18, 28 });
 	left.speed = 0.15f;
-	animations.add(left);
+	//animations.add(left);
 	//Moving right animation
 	right.PushBack({ 0, 30, 18, 28 });
 	right.PushBack({ 20, 30, 18, 28 });
 	right.PushBack({ 40, 30, 18, 28 });
 	right.PushBack({ 60, 30, 18, 28 });
 	right.speed = 0.15f;
-	animations.add(right);
+	//animations.add(right);
 
-	current_animation = &animations.start->data;
+	current_animation = &idle;
 }
 
 void EntityEnemyBat::Start()

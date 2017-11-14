@@ -8,7 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-#include "j1Player.h"
+//#include "j1Player.h"
 #include "j1Physics.h"
 #include "Brofiler\Brofiler.h"
 
@@ -41,7 +41,7 @@ bool j1Scene::Start()
 }
 
 // Called each loop iteration
-bool j1Scene::PreUpdate()
+bool j1Scene::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::LawnGreen);
 
@@ -102,7 +102,7 @@ bool j1Scene::Update(float dt)
 }
 
 // Called each loop iteration
-bool j1Scene::PostUpdate()
+bool j1Scene::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("PostUpdate_Scene", Profiler::Color::LawnGreen);
 
