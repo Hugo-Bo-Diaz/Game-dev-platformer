@@ -456,6 +456,7 @@ bool j1Map::CreateColliders(map_layer* layer)
 			{
 				int i =layer->Get(_x, _y);
 				iPoint point = MapToWorld(_x, _y);
+	
 				SDL_Rect rect;
 				rect.x = point.x;
 				rect.y = point.y;
@@ -470,22 +471,22 @@ bool j1Map::CreateColliders(map_layer* layer)
 
 				switch (layer->data[i])
 				{
-				case 26:
+				case 27:
 					if (data.colliders[j] == nullptr)
 						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_NEXT_LEVEL);
 					j++;
 					break;
-				case 27:
+				case 28:
 					if (data.colliders[j] == nullptr)
 						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_WALL);
 					j++;
 					break;
-				case 28:
+				case 29:
 					if (data.colliders[j] == nullptr)
 						data.colliders[j] = App->collision->AddCollider(recthalf, COLLIDER_WALL);
 					j++;
 					break;
-				case 40:
+				case 42:
 					if (initial_player_pos.x == -1 && initial_player_pos.y == -1)
 					{
 						initial_player_pos = point;
@@ -495,10 +496,15 @@ bool j1Map::CreateColliders(map_layer* layer)
 					initial_player_pos.x = -1;
 					initial_player_pos.y = -1;
 					break;
-				case 41:
+				case 43:
 					if (data.colliders[j] == nullptr)
 						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_LAVA);
 					j++;
+					break;
+				case 44:
+					if (data.colliders[j] == nullptr)
+						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_SLOPE_LEFT);
+					++j;
 					break;
 				default:
 					break;

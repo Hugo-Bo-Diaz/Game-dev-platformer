@@ -37,14 +37,14 @@
 
   <Entities>
     <Player type ="0">
-      <property value="22"    name ="width"/>
-      <property value ="45"   name ="height"/>
-      <property value="3"     name ="lifes"/>
-      <property value="10"    name="jump_accel"/>
+      <property value = "22"    name ="width"/>
+      <property value = "45"   name ="height"/>
+      <property value = "3"     name ="lifes"/>
+      <property value = "10"    name="jump_accel"/>
       <property value = "2"   name="ground_accel"/>
-      <property value="4"     name ="velocity"/>
-      <property value="0.45"  name ="gravity"/>
-      <property value="5.3"   name ="hability"/>
+      <property value = "4"     name ="velocity"/>
+      <property value = "0.45"  name ="gravity"/>
+      <property value = "5.3"   name ="hability"/>
     </Player>
     <Bat type ="1">
       <property value="30"    name ="width"/>
