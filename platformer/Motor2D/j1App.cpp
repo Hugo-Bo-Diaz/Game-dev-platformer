@@ -213,11 +213,7 @@ void j1App::FinishUpdate()
 	float seconds_since_startup = startup_time.ReadSec();
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
-<<<<<<< HEAD
 	dt = 1000 / frame_cap - last_frame_ms;
-=======
-	//dt = ;
->>>>>>> 15e3785725eaeeb8465828798794568852ad0309
 
 	static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
