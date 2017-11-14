@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EntityEnemyBat.cpp" />
     <ClCompile Include="EntityInteractive.cpp" />
     <ClCompile Include="EntityPlayer.cpp" />
     <ClCompile Include="j1Collision.cpp" />
@@ -98,6 +99,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityEnemyBat.h" />
     <ClInclude Include="EntityInteractive.h" />
     <ClInclude Include="EntityPlayer.h" />
     <ClInclude Include="j1EntityManager.h" />
