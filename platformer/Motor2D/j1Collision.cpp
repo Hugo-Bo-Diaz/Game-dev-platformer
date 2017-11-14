@@ -67,7 +67,7 @@ bool j1Collision::Awake(pugi::xml_node& node)
 	return true;
 }
 
-bool j1Collision::PreUpdate()
+bool j1Collision::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_Collision", Profiler::Color::Snow);
 
@@ -123,7 +123,7 @@ bool j1Collision::Update(float dt)
 	return true;
 }
 
-bool j1Collision::PostUpdate()
+bool j1Collision::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("PostUpdate_Collision", Profiler::Color::Snow);
 

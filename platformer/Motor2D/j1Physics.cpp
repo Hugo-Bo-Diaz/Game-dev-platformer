@@ -71,19 +71,21 @@ bool j1Physics::CleanUp()
 	return true;
 }
 
-bool j1Physics::PreUpdate()
+bool j1Physics::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_Physics", Profiler::Color::SlateGray);
 
 	//advance objects
+	float normalize_factor = (dt * App->frame_cap)/1000;
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 	{
 		if (objects[i] != nullptr)
 		{
-			objects[i]->velocity += objects[i]->acceleration;
+			objects[i]->velocity.x += objects[i]->acceleration.x*normalize_factor;
+			objects[i]->velocity.y += objects[i]->acceleration.y*normalize_factor;
 
-			objects[i]->predictor->SetPos(	objects[i]->position.x + objects[i]->velocity.x, 
-											objects[i]->position.y + objects[i]->velocity.y);
+			objects[i]->predictor->SetPos(	objects[i]->position.x + objects[i]->velocity.x* normalize_factor,
+											objects[i]->position.y + objects[i]->velocity.y* normalize_factor);
 		}
 	}
 //we set up the colliders that will check the collisions in the near future
@@ -91,9 +93,9 @@ bool j1Physics::PreUpdate()
 	{
 		if (objects[i] != nullptr)
 		{
-			float change_x = objects[i]->velocity.x +objects[i]->acceleration.y;
-			float change_y = objects[i]->velocity.y +objects[i]->acceleration.y;
-			LOG("%f %f",change_x,change_y);
+			float change_x = objects[i]->velocity.x* normalize_factor +objects[i]->acceleration.y* normalize_factor;
+			float change_y = objects[i]->velocity.y* normalize_factor +objects[i]->acceleration.y* normalize_factor;
+			//LOG("%f %f",change_x,change_y);
 			objects[i]->predictor->SetPos(objects[i]->position.x + change_x,
 										objects[i]->position.y + change_y);
 		}
@@ -177,7 +179,7 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 	*/
 };
 
-bool j1Physics::PostUpdate() 
+bool j1Physics::PostUpdate(float dt) 
 {
 	BROFILER_CATEGORY("PostUpdate_Physics", Profiler::Color::SlateGray);
 

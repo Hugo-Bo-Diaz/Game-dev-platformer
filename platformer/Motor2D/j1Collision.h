@@ -54,9 +54,9 @@ public:
 	j1Collision();
 	~j1Collision();
 
-	bool PreUpdate();
+	bool PreUpdate(float dt);
 	bool Update(float dt);
-	bool PostUpdate();
+	bool PostUpdate(float dt);
 	bool CleanUp();
 	bool Awake(pugi::xml_node&);
 

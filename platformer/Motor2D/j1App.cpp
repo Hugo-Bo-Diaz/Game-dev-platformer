@@ -213,7 +213,7 @@ void j1App::FinishUpdate()
 	float seconds_since_startup = startup_time.ReadSec();
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
-	dt = ;
+	dt = 1000 / frame_cap - last_frame_ms;
 
 	static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
@@ -230,16 +230,9 @@ void j1App::FinishUpdate()
 	{
 		SDL_Delay(framecapminuslastframesms);
 	}
-	/*else if (1000 / (frame_cap / 2) - last_frame_ms > 0)
-		SDL_Delay(1000 / (frame_cap / 2) - last_frame_ms);
-	else if (1000 / (frame_cap / 3) - last_frame_ms > 0)
-		SDL_Delay(1000 / (frame_cap / 3) - last_frame_ms);
-	else if (1000 / (frame_cap / 4) - last_frame_ms > 0)
-		SDL_Delay(1000 / (frame_cap / 4) - last_frame_ms);*/
-
 	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
 	int print = time_stopped->ReadMs();
-	LOG("we waited for %d ms", print);
+//	LOG("we waited for %d ms", print);
 }
 
 // Call modules before each loop iteration
@@ -260,7 +253,7 @@ bool j1App::PreUpdate()
 			continue;
 		}
 
-		ret = item->data->PreUpdate();
+		ret = item->data->PreUpdate(dt);
 	}
 
 	return ret;
@@ -307,7 +300,7 @@ bool j1App::PostUpdate()
 			continue;
 		}
 
-		ret = item->data->PostUpdate();
+		ret = item->data->PostUpdate(dt);
 	}
 
 	return ret;

@@ -34,14 +34,14 @@ public:
 	SDL_Texture* texture;
 	bool interactive;
 	ENTITY_TYPE type;
-	p2List<Animation> animations;
 	Animation* current_animation = nullptr;
 	object* obj = nullptr;
+
 public:
 	
 	Entity() {};
 	~Entity() {
-
+	//	LOG("I've been deleted, ouch!");
 	};
 	
 	void SetPos(iPoint pos) 
@@ -59,9 +59,9 @@ public:
 	{
 		return type;
 	}
-	virtual bool PreUpdate() { return true; };
+	virtual bool PreUpdate(float dt) { return true; };
 	virtual bool Update(float dt) { return true; };
-	virtual bool PostUpdate() { return true; };
+	virtual bool PostUpdate(float dt) { return true; };
 
 	virtual void Awake() {};
 	virtual void Start() {};

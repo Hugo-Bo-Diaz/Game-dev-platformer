@@ -9,10 +9,7 @@ j1EntityManager::j1EntityManager()
 {
 	name.create("Entities");
 	//here we initialise all object to nullptr
-
 }
-
-
 
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
@@ -55,7 +52,7 @@ Entity* j1EntityManager::AddEntity(int _x, int _y, ENTITY_TYPE type)
 	{
 	case ENTITY_TYPE::PLAYER:
 	{
-		ret = new EntityPlayer;
+		 ret = new EntityPlayer;
 		list_of_properties = 0;
 	}
 	default:
@@ -66,11 +63,9 @@ Entity* j1EntityManager::AddEntity(int _x, int _y, ENTITY_TYPE type)
 	ret->SetPos(iPoint(_x,_y));
 	ret->type = type;
 	
-	//char number = (char)entities.find(ret);// the entity name will be its number on the list by default
-	//ret->name.create(&number);
-	
 	ret->Awake();
 	ret->Start();
+
 	entities.add(ret);
 	return ret;
 
@@ -84,16 +79,9 @@ bool j1EntityManager::CleanUp()
 	p2List_item<Entity*>* item = entities.start;
 	while(item != NULL)
 	{
-		/*p2List_item<Animation>* item_animation = item->data->animations.start;
-		while (item_animation != NULL)
-		{
-			item_animation->data.~Animation();
-			item_animation = item_animation->next;
-		}
-		item->data->animations.clear();*/
-
+		App->tex->UnLoad(item->data->texture);
 		item->data->CleanUp();
-		delete item->data;
+		RELEASE(item->data);
 		item = item->next;
 	}
 	entities.clear();
@@ -101,14 +89,14 @@ bool j1EntityManager::CleanUp()
 	return true;
 }
 
-bool j1EntityManager::PreUpdate()
+bool j1EntityManager::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_EntityManager", Profiler::Color::DarkOliveGreen);
 
 	p2List_item<Entity*>* item = entities.start;
 	while (item != nullptr)
 	{
-		item->data->PreUpdate();
+		item->data->PreUpdate(dt);
 		item = item->next;
 	}
 	return true;
@@ -134,14 +122,14 @@ bool j1EntityManager::Update(float dt)
 	return true;
 }
 
-bool j1EntityManager::PostUpdate()
+bool j1EntityManager::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("PostUpdate_EntityManager", Profiler::Color::DarkOliveGreen);
 
 	p2List_item<Entity*>* item = entities.start;
 	while (item != nullptr)
 	{
-		item->data->PostUpdate();
+		item->data->PostUpdate(dt);
 		item = item->next;
 	}
 	return true;

@@ -25,9 +25,9 @@ public:
 	};
 
 
-	bool PreUpdate();
+	bool PreUpdate(float dt);
 	bool Update(float dt);
-	bool PostUpdate();
+	bool PostUpdate(float dt);
 
 	bool Awake(pugi::xml_node& config);
 

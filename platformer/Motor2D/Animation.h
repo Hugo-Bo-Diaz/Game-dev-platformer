@@ -28,11 +28,7 @@ public:
 
 	Animation()
 	{}
-	~Animation()
-	{
-		//delete[] frames;
-		LOG("i've been deleted but not my frames lol");
-	}
+
 	Animation(const Animation& anim) : loop(anim.loop), speed(anim.speed), last_frame(anim.last_frame)
 	{
 		SDL_memcpy(&frames, anim.frames, sizeof(frames));
