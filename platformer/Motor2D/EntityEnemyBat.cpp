@@ -112,11 +112,3 @@ bool EntityEnemyBat::Load(pugi::xml_node& node)
 {
 	return true;
 }
-
-void EntityEnemyBat::SetPosOrigin()
-{
-	obj->position.x = 0;
-	obj->position.y = 0;
-	obj->velocity.x = 0;
-	obj->velocity.y = 0;
-}

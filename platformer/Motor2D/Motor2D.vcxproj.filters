@@ -46,9 +46,6 @@
     <ClCompile Include="EntityPlayer.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="EntityInteractive.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="j1PerfTimer.cpp">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClCompile>

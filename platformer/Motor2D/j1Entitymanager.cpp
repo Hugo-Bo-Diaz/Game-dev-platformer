@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "p2Log.h"
 #include "EntityPlayer.h"
+#include "EntityEnemyBat.h"
 #include "Brofiler\Brofiler.h"
 
 j1EntityManager::j1EntityManager()
@@ -47,13 +48,15 @@ Entity* j1EntityManager::AddEntity(int _x, int _y, ENTITY_TYPE type)
 	BROFILER_CATEGORY("AddEntity_EntityManager", Profiler::Color::DarkOliveGreen);
 
 	Entity* ret;
-	int list_of_properties = -1;
 	switch (type)
 	{
 	case ENTITY_TYPE::PLAYER:
 	{
 		 ret = new EntityPlayer;
-		list_of_properties = 0;
+	}
+	case ENTITY_TYPE::BAT:
+	{
+		ret = new EntityEnemyBat;
 	}
 	default:
 		ret = new EntityPlayer;

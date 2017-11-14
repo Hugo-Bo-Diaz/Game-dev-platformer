@@ -137,22 +137,22 @@ bool EntityPlayer::Update(float dt)
 	}
 	if (obj->velocity.x > max_speed || obj->velocity.x < -max_speed)
 	{
-		obj->acceleration.x = 0;
+		obj->acceleration.x = 0.0f;
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
 		&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
 	{
 		current_animation = &idle;
-		obj->velocity.x = 0; //this stops the player
-		obj->acceleration.x = 0;
+		obj->velocity.x = 0.0f; //this stops the player
+		obj->acceleration.x = 0.0f;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
 		&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		current_animation = &idle;
-		obj->velocity.x = 0; //this stops the player
-		obj->acceleration.x = 0;
+		obj->velocity.x = 0.0f; //this stops the player
+		obj->acceleration.x = 0.0f;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && obj->grounded && obj->velocity.y < 0.5)
@@ -198,7 +198,7 @@ void EntityPlayer::Draw()
 	App->render->Blit(texture, (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
 }
 
-bool EntityPlayer::PreUpdate()
+bool EntityPlayer::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_EntityPlayer", Profiler::Color::Gold);
 

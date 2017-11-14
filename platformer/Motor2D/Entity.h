@@ -19,7 +19,7 @@ struct entity_property
 enum ENTITY_TYPE
 {
 	BACKGROUND,
-	MOVING_BACKGROUND,
+	BAT,
 	PLAYER,
 	ENEMY
 };

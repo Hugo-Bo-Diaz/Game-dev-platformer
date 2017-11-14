@@ -24,8 +24,6 @@ public:
 
 	void Awake();
 
-	void SetPosOrigin();// sets enemy to the starting position
-
 	void Draw();
 
 	bool Save(pugi::xml_node&) const;
