@@ -3,8 +3,8 @@
 
 #include "SDL/include/SDL_rect.h"
 #include "p2Log.h"
-#define MAX_FRAMES 30
-
+#define MAX_FRAMES 10
+//max 10 frames
 class Animation
 {
 public:

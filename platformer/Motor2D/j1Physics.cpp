@@ -196,9 +196,13 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		SDL_Rect c3;
 		c3.x = c2->rect.x;
 		c3.w = c2->rect.w;
-		c3.y = (c2->rect.y + c2->rect.h) - (c1->rect.x+(0.5*c1->rect.w) - c2->rect.x) - 3;
+		c3.y = (c2->rect.y + c2->rect.h) - (c1->rect.x+(0.6*c1->rect.w) - c2->rect.x);
 		c3.h = c2->rect.h;
 
+		if (c3.y < c2->rect.y)// this makes it more consistent at the peak of the slope so the player is not moved over the floor
+		{
+			c3.y = c2->rect.y;
+		}
 		//DEBUG PURPOSES
 		//App->render->DrawQuad(c3, 0, 255, 255,80);
 
@@ -206,16 +210,41 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		if (_bool)//this means they collided 4 real
 		{
 			//logic operations
-			if (result.h <= result.w)
-			{
-				obj->predictor->rect.y -= result.h;
-				obj->grounded = true;
-				obj->velocity.y = 0;
-			}
+			obj->predictor->rect.y -= result.h;
+			obj->grounded = true;
+			obj->velocity.y = 0;
 		}
 	}
 
-	
+	if (c1->type == COLLIDER_FUTURE && c2->type == COLLIDER_SLOPE_RIGHT)
+	{
+		SDL_Rect result;//this is the rectangle that they share when they are colliding
+						//from here we know how much they are colliding and know how much to push back these collisions
+		object* obj = GetObjectFromRect_predictor(&c1->rect);
+		SDL_Rect c3;
+		c3.x = c2->rect.x;
+		c3.w = c2->rect.w;
+		c3.y = c2->rect.y + (c1->rect.x + (0.2*c1->rect.w) - c2->rect.x);
+		c3.h = c2->rect.h;
+		
+		if (c3.y < c2->rect.y)
+		{
+			c3.y = c2->rect.y;
+		}
+		//DEBUG PURPOSES
+		//App->render->DrawQuad(c3, 0, 255, 255, 80);
+
+		SDL_bool _bool = SDL_IntersectRect(&c1->rect, &c3, &result);
+		if (_bool)//this means they collided 4 real
+		{
+			//logic operations
+			obj->predictor->rect.y -= result.h;
+			obj->grounded = true;
+			obj->velocity.y = 0;
+			
+		}
+	}
+
 };
 
 bool j1Physics::PostUpdate(float dt) 
