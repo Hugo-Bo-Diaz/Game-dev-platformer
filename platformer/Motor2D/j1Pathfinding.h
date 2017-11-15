@@ -18,30 +18,13 @@ public:
 
 	~j1Pathfinding();
 
-	// Called before render is available
-	bool Awake(pugi::xml_node& conf);
-	bool Start();
-
-	// Called each loop iteration
-	void Draw();
-
-	// Called before quitting
-	bool CleanUp();
-
-	// Load new map
-	bool Load(const char* path);
-
-	iPoint MapToWorld(int x, int y) const;
-	iPoint WorldToMap(int x, int y) const;
-
 	// Pathfinding
-	int MovementCost(int x, int y) const;
-	void ResetPath();
-	void DrawPath();
-	void Path(int x, int y);
-	void PathAStar(int x, int y);
+	bool IsWalkable(int x, int y) const;
+	void ResetPath(p2DynArray<iPoint>& path_);
+	//void DrawPath();
+	void Path(iPoint goal_, p2DynArray<iPoint>& path_);
 
-	void PropagateAStar();
+	bool PropagateAStar(p2DynArray<iPoint>& path_, Entity* entity_, Entity* target_);
 
 private:
 
@@ -49,9 +32,6 @@ private:
 	p2List<iPoint>		visited;
 	p2List<iPoint>		breadcrumbs;
 	uint				cost_so_far[COST_MAP][COST_MAP];
-	p2DynArray<iPoint>	path;
-	SDL_Texture*		tile_x = nullptr;
-	iPoint				A_Star_Goal;
 };
 
 #endif

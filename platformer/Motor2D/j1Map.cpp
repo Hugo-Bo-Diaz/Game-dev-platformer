@@ -96,6 +96,15 @@ void j1Map::Draw()
 	}
 }
 
+iPoint j1Map::WorldToMap(int x, int y) const
+{
+	iPoint ret;
+
+	ret.x = x / data.tile_width;
+	ret.y = y / data.tile_height;
+
+	return ret;
+}
 
 iPoint j1Map::MapToWorld(int x, int y) const
 {

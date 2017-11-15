@@ -114,6 +114,7 @@ public:
 	bool Load(const char* path);
 
 	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
+	iPoint WorldToMap(int x, int y) const;
 	iPoint MapToWorld(int x, int y) const;
 	/*{
 		iPoint p;
