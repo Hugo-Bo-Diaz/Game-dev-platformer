@@ -31,7 +31,6 @@ public:
 	p2SString	name;
 
 	iPoint position;
-	SDL_Texture* texture;
 	bool interactive;
 	ENTITY_TYPE type;
 	Animation* current_animation = nullptr;
@@ -49,10 +48,6 @@ public:
 		position = pos; 
 	};
 
-	void LoadTex(const char* path) 
-	{
-		texture = App->tex->Load(path);
-	};
 
 	virtual void Draw() {};
 	ENTITY_TYPE Get_type()
@@ -68,7 +63,7 @@ public:
 
 	virtual void OnCollision(Collider* c1, Collider* c2) {};
 	
-	virtual void CleanUp() { App->tex->UnLoad(texture); obj = nullptr; };
+	virtual void CleanUp() { obj = nullptr; };
 
 	virtual bool Save(pugi::xml_node& node)const { return true; }; 
 	virtual bool Load(pugi::xml_node& node) { return true; };

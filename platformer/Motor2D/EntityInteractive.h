@@ -16,7 +16,10 @@ public:
 		obj->col = App->collision->AddCollider(*collision,TYPE,nullptr);
 		interactive = true;
 	};
-	~EntityInteractive() {};
+	~EntityInteractive()
+	{
+	
+	};
 
 	virtual void Draw() {};
 	virtual bool PreUpdate() { return true; };
@@ -25,7 +28,7 @@ public:
 	virtual void Awake() {};
 	virtual void Start() {};
 
-	virtual void CleanUp() { App->tex->UnLoad(texture); };
+	virtual void CleanUp() {};
 
 
 	virtual void OnCollision(Collider* c1, Collider* c2) {};

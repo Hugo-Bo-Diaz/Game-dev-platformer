@@ -53,7 +53,6 @@ void EntityEnemyBat::Start()
 	rect.y = App->map->initial_player_pos.y;
 	rect.w = width;
 	rect.h = height;
-	LoadTex("textures/Bat.png");
 	obj = App->physics->Addobject(	App->map->initial_player_pos.x, App->map->initial_player_pos.y, 
 									gravity, &rect, COLLIDER_LAVA, (j1Module*)App->entities);
 	position.x = obj->position.x;
@@ -104,50 +103,11 @@ bool EntityEnemyBat::Update(float dt)
 	BROFILER_CATEGORY("Update_EntityEnemyBat", Profiler::Color::Purple);
 
 	//CONTROLS
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && obj->velocity.y < max_speed)//UP
-	{
-		obj->acceleration.y = acceleration;
-		current_animation = &idle;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && obj->velocity.y > -max_speed)//DOWN
-	{
-		obj->acceleration.y = -acceleration;
-		current_animation = &idle;
-	}
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && obj->velocity.x < max_speed)//RIGHT
-	{
-		obj->acceleration.x = acceleration;
-		current_animation = &right;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && obj->velocity.x > -max_speed)//LEFT
-	{
-		obj->acceleration.x = -acceleration;
-		current_animation = &left;
-	}
-	if (obj->velocity.x > max_speed || obj->velocity.x < -max_speed)
-	{
-		obj->acceleration.x = 0.0f;
-	}
-
-	if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
-		&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
-	{
-		current_animation = &idle;
-		obj->velocity.x = 0.0f;
-		obj->acceleration.x = 0.0f;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
-		&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		current_animation = &idle;
-		obj->velocity.x = 0.0f;
-		obj->acceleration.x = 0.0f;
-	}
-
-	position.x = obj->position.x;//??
+	position.x = obj->position.x;
 	position.y = obj->position.y;
-
+	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
+	//references and also not all entities have objects whose position is calculated automatically
 	return true;
 }
 
@@ -155,7 +115,7 @@ void EntityEnemyBat::Draw()
 {
 	BROFILER_CATEGORY("Draw_EntityEnemyBat", Profiler::Color::Purple);
 
-	App->render->Blit(texture, (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
+	App->render->Blit(App->entities->GetTex(1), (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
 }
 
 void EntityEnemyBat::OnCollision(Collider* c1, Collider* c2)
@@ -167,10 +127,10 @@ bool EntityEnemyBat::Save(pugi::xml_node& node) const//Save positions of alive b
 {
 	BROFILER_CATEGORY("Save_EntityEnemyBat", Profiler::Color::Purple);
 
-	pugi::xml_node bat = node.append_child("Bat");
+	/*pugi::xml_node bat = node.append_child("Bat");
 	bat.append_attribute("x") = obj->position.x;
 	bat.append_attribute("y") = obj->position.y;
-	
+	*/
 	return true;
 }
 

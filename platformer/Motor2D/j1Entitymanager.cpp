@@ -12,9 +12,10 @@ j1EntityManager::j1EntityManager()
 	//here we initialise all object to nullptr
 }
 
+
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
-	pugi::xml_node node_entities = config;
+	pugi::xml_node node_entities = config.child("properties");
 
 	pugi::xml_node entity;
 	int i = 0;
@@ -31,15 +32,30 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 			properties.add(iterator_property);
 		}
 	}
+	pugi::xml_node node_textures = config.child("textures");
 
-	/*p2List_item<Entity*>* item;
-	item = entities.start;
+	pugi::xml_node texture;
+	int j = 0;
+	for (texture = node_textures.first_child(); texture; texture = texture.next_sibling())// there are more entities with properties
+	{
+		texture_struct* tex = new texture_struct;
+		tex->path = texture.attribute("path").as_string();
+		textures.add(tex);
+	}
+
+
+	return true;
+}
+
+bool j1EntityManager::Start()
+{
+	p2List_item<texture_struct*>* item = textures.start;
 	while (item != NULL)
 	{
-		item->data->Awake(config.child(item->data->name.GetString()));
+		item->data->texture = App->tex->Load(item->data->path.GetString());
 		item = item->next;
-	}*/
-
+	}
+	
 	return true;
 }
 
@@ -82,12 +98,13 @@ bool j1EntityManager::CleanUp()
 	p2List_item<Entity*>* item = entities.start;
 	while(item != NULL)
 	{
-		App->tex->UnLoad(item->data->texture);
 		item->data->CleanUp();
 		RELEASE(item->data);
 		item = item->next;
 	}
 	entities.clear();
+
+
 
 	return true;
 }

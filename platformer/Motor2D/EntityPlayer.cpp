@@ -78,7 +78,6 @@ void EntityPlayer::Start()
 	rect.y = App->map->initial_player_pos.y;
 	rect.w = width;
 	rect.h = height;
-	LoadTex("textures/PilotSprites.png");
 	obj = App->physics->Addobject(	App->map->initial_player_pos.x, App->map->initial_player_pos.y, 
 									gravity, &rect, COLLIDER_PLAYER, (j1Module*)App->entities);
 	position.x = obj->position.x;
@@ -196,10 +195,11 @@ bool EntityPlayer::Update(float dt)
 void EntityPlayer::Draw()
 {
 	BROFILER_CATEGORY("Draw_EntityPlayer", Profiler::Color::Gold);
-
-	App->render->Blit(texture, (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
+	if (App->entities->GetTex(0) != nullptr)
+	{
+		App->render->Blit(App->entities->GetTex(0), (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
+	}
 }
-
 bool EntityPlayer::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_EntityPlayer", Profiler::Color::Gold);

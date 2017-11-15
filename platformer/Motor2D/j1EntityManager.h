@@ -8,7 +8,11 @@
 #include "p2List.h"
 #include "p2DynArray.h"
 
-
+struct texture_struct
+{
+	p2SString path;
+	SDL_Texture* texture = nullptr;
+};
 
 class j1EntityManager : public j1Module
 {
@@ -22,8 +26,20 @@ public:
 			item_1 = item_1->next;
 		}
 		properties.clear();
+
+		p2List_item<texture_struct*>* item_2 = textures.start;
+		while (item_2 != NULL)
+		{
+			App->tex->UnLoad(item_2->data->texture);
+			RELEASE(item_2->data);
+			item_2 = item_2->next;
+		}
+		textures.clear();
+
+		
 	};
 
+	bool Start();
 
 	bool PreUpdate(float dt);
 	bool Update(float dt);
@@ -44,6 +60,14 @@ public:
 
 	p2List<Entity*> entities;
 	p2List<entity_property*> properties;
+
+	p2List<texture_struct*> textures;
+	SDL_Texture* GetTex(int index)
+	{
+		SDL_Texture* ret;
+		ret = textures[index]->texture;
+		return ret;
+	}
 	
 };
 #endif // !__J1ENTITIES_H__
