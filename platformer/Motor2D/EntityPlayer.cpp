@@ -122,16 +122,18 @@ bool EntityPlayer::Update(float dt)
 	BROFILER_CATEGORY("Update_EntityPlayer", Profiler::Color::Gold);
 
 	//CONTROLS
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && obj->velocity.x <max_speed)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT /*&& obj->velocity.x <max_speed*/)
 	{
-		obj->acceleration.x = acceleration;
+		//obj->acceleration.x = acceleration;
 		//player->velocity.x = max_speed-1;
+		obj->velocity.x = max_speed;
 		current_animation = &left;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && obj->velocity.x >-max_speed)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT /*&& obj->velocity.x >-max_speed*/)
 	{
-		obj->acceleration.x = -acceleration;
+		//obj->acceleration.x = -acceleration;
 		//player->velocity.x = max_speed + 1;
+		obj->velocity.x = -max_speed;
 
 		current_animation = &right;
 	}

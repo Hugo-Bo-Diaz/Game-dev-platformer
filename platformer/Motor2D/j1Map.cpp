@@ -486,6 +486,11 @@ bool j1Map::CreateColliders(map_layer* layer)
 						data.colliders[j] = App->collision->AddCollider(recthalf, COLLIDER_WALL);
 					j++;
 					break;
+				case 30:
+					if (data.colliders[j] == nullptr)
+						data.colliders[j] = App->collision->AddCollider(rect,COLLIDER_SLOPE_RIGHT);
+					++j;
+					break;
 				case 42:
 					if (initial_player_pos.x == -1 && initial_player_pos.y == -1)
 					{
