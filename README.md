@@ -11,7 +11,7 @@ Unzip file and execute inside game folder. Nice and simple :)
 + *W* = Jump
 + *Space*  = Hover. Press it rapidly to maximize its effect.
 ## Github repository
-https://github.com/Adria-F/Game-Development
+https://github.com/Hugo-Bo-Diaz/Game-dev-platformer
 ## Authors
-+ Hugo Bó
-+ Albert Mas
++ Hugo Bó: https://github.com/Hugo-Bo-Diaz
++ Albert Mas: https://github.com/albertmas
