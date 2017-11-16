@@ -8,10 +8,17 @@
 #include "p2List.h"
 #include "p2DynArray.h"
 
-struct texture_struct
+struct texture_struct//this is for loading textures from a xml file
 {
 	p2SString path;
 	SDL_Texture* texture = nullptr;
+};
+
+struct entity_saved //this is to load the entities from the xml, then the map will create them
+{
+	float x;
+	float y;
+	ENTITY_TYPE type;
 };
 
 class j1EntityManager : public j1Module
@@ -35,6 +42,14 @@ public:
 			item_2 = item_2->next;
 		}
 		textures.clear();
+
+		p2List_item<entity_saved*>* item_3 = entities_saved.start;
+		while (item_3 != NULL)
+		{
+			RELEASE(item_3->data);
+			item_3 = item_3->next;
+		}
+		entities_saved.clear();
 
 		
 	};
@@ -68,6 +83,9 @@ public:
 		ret = textures[index]->texture;
 		return ret;
 	}
-	
+
+	p2List<entity_saved*> entities_saved;
+	bool Load_entites();
+
 };
 #endif // !__J1ENTITIES_H__

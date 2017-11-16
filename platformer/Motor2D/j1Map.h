@@ -161,6 +161,8 @@ private:
 
 	bool Save(pugi::xml_node& node) const;
 	bool Load(pugi::xml_node& node);
+
+	bool coming_from_save = false;
 };
 
 #endif // __j1MAP_H__

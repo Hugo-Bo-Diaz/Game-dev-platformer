@@ -10,10 +10,10 @@
 	<scene />
 	<collision />
 	<Entities>
-		<Player x="329" y="105" />
+		<Player x="532" y="235" type="2" />
 	</Entities>
 	<physics />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-157" y="0" />
 	</renderer>
 </game_state>
