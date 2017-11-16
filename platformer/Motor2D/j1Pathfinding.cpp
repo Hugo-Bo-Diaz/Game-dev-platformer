@@ -37,12 +37,13 @@ bool j1Pathfinding::IsWalkable(int x, int y) const
 {
 	
 	bool ret = false;
-	int id = 1;
+	int id = -1;
 	if (x >= 0 && x < App->map->data.width && y >= 0)
 	{
-		return true;
-		p2List_item<map_layer*>* item = nullptr;
+		//return true;
+		/*p2List_item<map_layer*>* item = nullptr;
 		item = App->map->data.layers.start;
+		
 		while (item != NULL)
 		{
 			if (item->data->logic_layer)
@@ -51,9 +52,13 @@ bool j1Pathfinding::IsWalkable(int x, int y) const
 			}
 			item = item->next;
 		}
+		item = nullptr;*/
+
+		/*int a = App->map->data.width * y + x;
+		id = App->map->data.layers.start->next->next->data->data[a];
 		if (id == 0)
-			ret = true;
-		item = nullptr;
+			ret = true;*/
+		return true;
 	}
 
 	return ret;
@@ -190,7 +195,8 @@ bool j1Pathfinding::PropagateBFS(p2DynArray<iPoint>& path_, iPoint pos_org, iPoi
 	if (visited.find(goal) != -1)
 	{
 		Path(goal, path_);
-		DrawPath(path_);
+		if (App->collision->debug == true)
+			DrawPath(path_);
 	}
 
 	return true;

@@ -109,11 +109,11 @@ bool EntityEnemyZombie::Update(float dt)
 	BROFILER_CATEGORY("Update_EntityEnemyZombie", Profiler::Color::Purple);
 
 	//CONTROLS
-	/*obj->velocity.x = 3;
+	obj->velocity.x = 1;
 	if (obj->velocity.y == 0)
 	{
 		obj->velocity.y = -5;
-	}*/
+	}
 	
 
 	position.x = obj->position.x;

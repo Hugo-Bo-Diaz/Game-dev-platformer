@@ -7,6 +7,7 @@
 #include "j1Map.h"
 #include "j1Audio.h"
 #include "j1Physics.h"
+#include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
@@ -106,6 +107,12 @@ bool EntityEnemyBat::PreUpdate()
 bool EntityEnemyBat::Update(float dt)
 {
 	BROFILER_CATEGORY("Update_EntityEnemyBat", Profiler::Color::Purple);
+
+	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
+	{
+		p2DynArray<iPoint> path;
+		App->path->PropagateBFS(path, position, App->map->player->position);
+	}
 
 	position.x = obj->position.x;
 	position.y = obj->position.y;
