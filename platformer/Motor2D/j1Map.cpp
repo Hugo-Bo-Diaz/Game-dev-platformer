@@ -171,7 +171,6 @@ bool j1Map::CleanUp()
 
 	App->physics->CleanUp();
 	App->entities->CleanUp();
-
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -275,6 +274,11 @@ bool j1Map::Load(const char* file_name)
 	}
 
 	map_loaded = ret;
+	if (coming_from_save)
+	{
+		App->entities->Load_entites();
+		coming_from_save = false;
+	}
 
 	return ret;
 }
@@ -501,12 +505,12 @@ bool j1Map::CreateColliders(map_layer* layer)
 					++j;
 					break;
 				case 42:
-					if (initial_player_pos.x == -1 && initial_player_pos.y == -1)
+					if (initial_player_pos.x == -1 && initial_player_pos.y == -1)//player spawned from map point
 					{
 						initial_player_pos = point;
+						player = (EntityPlayer*)App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::PLAYER);
 					}
 					player_start_in_map = point;
-					player = (EntityPlayer*)App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::PLAYER);
 					initial_player_pos.x = -1;
 					initial_player_pos.y = -1;
 					break;
@@ -587,5 +591,6 @@ bool j1Map::Save(pugi::xml_node& node) const
 bool j1Map::Load(pugi::xml_node& node)
 {
 	change_to_this_level = node.child("current_map").attribute("value").as_int();
+	coming_from_save = true;
 	return true;
 }

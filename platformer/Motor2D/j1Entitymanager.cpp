@@ -2,6 +2,7 @@
 #include "j1Collision.h"
 #include "j1App.h"
 #include "p2Log.h"
+#include "j1Map.h"
 #include "EntityPlayer.h"
 #include "EntityEnemyBat.h"
 #include "Brofiler\Brofiler.h"
@@ -188,6 +189,7 @@ bool j1EntityManager::Save(pugi::xml_node& node) const
 		pugi::xml_node item_node = node.append_child(item->data->name.GetString());
 		item_node.append_attribute("x") = item->data->position.x;
 		item_node.append_attribute("y") = item->data->position.y;
+		item_node.append_attribute("type") = item->data->type;
 		//item->data->Save(node);
 		item = item->next;
 	}
@@ -197,21 +199,52 @@ bool j1EntityManager::Save(pugi::xml_node& node) const
 bool j1EntityManager::Load(pugi::xml_node& node)
 {
 	BROFILER_CATEGORY("Load_EntityManager", Profiler::Color::DarkOliveGreen);
-		
-	p2List_item<Entity*>* item = entities.start;
-	pugi::xml_node item_node = node.first_child();
-	while (item != nullptr)
+	
+	CleanUp();
+
+	//p2List_item<Entity*>* item = entities.start;
+	pugi::xml_node item_node;
+	for (item_node = node.first_child(); item_node; item_node = item_node.next_sibling())
 	{
-		item->data->position.x = item_node.attribute("x").as_float();
-		item->data->position.y = item_node.attribute("y").as_float();
-		if (item->data->obj != nullptr)
-		{
-			item->data->obj->position.x = item_node.attribute("x").as_float();
-			item->data->obj->position.y = item_node.attribute("y").as_float();
-			item->data->obj->velocity.x = 0;
-			item->data->obj->velocity.y = 0;
-		}
-		item = item->next;
+		//if(item_node.)
+		entity_saved* ent = new entity_saved;
+		ent->x = item_node.attribute("x").as_float();
+		ent->y = item_node.attribute("y").as_float();
+		ent->type = (ENTITY_TYPE)item_node.attribute("type").as_int();
+		entities_saved.add(ent);
 	}
 	return true;
 }
+
+bool j1EntityManager::Load_entites()
+{
+	BROFILER_CATEGORY("Load_EntityManager", Profiler::Color::DarkOliveGreen);
+
+	CleanUp();
+
+	p2List_item<entity_saved*>* item = entities_saved.start;
+	while(item != NULL)
+	{
+		switch (item->data->type)
+		{
+		case ENTITY_TYPE::PLAYER:
+		{
+			Entity* ent;
+				App->map->initial_player_pos.x = item->data->x;
+				App->map->initial_player_pos.y = item->data->y;
+				ent = AddEntity(item->data->x, item->data->y, item->data->type);
+				App->map->player = (EntityPlayer*)ent;
+		
+		}
+		break;
+		default:
+		break;
+	
+		}
+
+	item = item->next;
+	}
+	entities_saved.clear();
+	return true;
+}
+
