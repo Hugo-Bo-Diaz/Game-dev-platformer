@@ -586,5 +586,6 @@ bool j1Map::Save(pugi::xml_node& node) const
 
 bool j1Map::Load(pugi::xml_node& node)
 {
+	change_to_this_level = node.child("current_map").attribute("value").as_int();
 	return true;
 }

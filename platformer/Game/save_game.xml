@@ -10,7 +10,7 @@
 	<scene />
 	<collision />
 	<Entities>
-		<Player x="163" y="235" />
+		<Player x="329" y="105" />
 	</Entities>
 	<physics />
 	<renderer>

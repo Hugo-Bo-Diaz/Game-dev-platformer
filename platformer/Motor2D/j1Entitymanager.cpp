@@ -197,7 +197,7 @@ bool j1EntityManager::Save(pugi::xml_node& node) const
 bool j1EntityManager::Load(pugi::xml_node& node)
 {
 	BROFILER_CATEGORY("Load_EntityManager", Profiler::Color::DarkOliveGreen);
-
+		
 	p2List_item<Entity*>* item = entities.start;
 	pugi::xml_node item_node = node.first_child();
 	while (item != nullptr)
@@ -208,6 +208,8 @@ bool j1EntityManager::Load(pugi::xml_node& node)
 		{
 			item->data->obj->position.x = item_node.attribute("x").as_float();
 			item->data->obj->position.y = item_node.attribute("y").as_float();
+			item->data->obj->velocity.x = 0;
+			item->data->obj->velocity.y = 0;
 		}
 		item = item->next;
 	}
