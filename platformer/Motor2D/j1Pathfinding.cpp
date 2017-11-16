@@ -41,14 +41,14 @@ bool j1Pathfinding::IsWalkable(int x, int y) const
 	return ret;
 }
 
-bool j1Pathfinding::PropagateAStar(p2DynArray<iPoint>& path_, Entity* entity_, Entity* target_)
+bool j1Pathfinding::PropagateAStar(p2DynArray<iPoint>& path_, Entity* enemy_entity_, Entity* target_)
 {
 	bool ret = false;
 
 	ResetPath(path_);
 
 	iPoint goal = App->map->WorldToMap(target_->position.x, target_->position.y);
-	iPoint origin = App->map->WorldToMap(entity_->position.x, entity_->position.y);
+	iPoint origin = App->map->WorldToMap(enemy_entity_->position.x, enemy_entity_->position.y);
 
 	frontier.Push(origin, 0);
 	visited.add(origin);
