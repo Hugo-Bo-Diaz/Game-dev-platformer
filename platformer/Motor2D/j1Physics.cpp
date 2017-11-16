@@ -205,7 +205,8 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 			c3.y = c2->rect.y;
 		}
 		//DEBUG PURPOSES
-		//App->render->DrawQuad(c3, 0, 255, 255,80);
+		if (App->collision->debug)
+		App->render->DrawQuad(c3, 0, 255, 255,80);
 
 		SDL_bool _bool = SDL_IntersectRect(&c1->rect, &c3, &result);
 		if (_bool)//this means they collided 4 real
@@ -233,7 +234,8 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 			c3.y = c2->rect.y;
 		}
 		//DEBUG PURPOSES
-		//App->render->DrawQuad(c3, 0, 255, 255, 80);
+		if (App->collision->debug)
+		App->render->DrawQuad(c3, 0, 255, 255, 80);
 
 		SDL_bool _bool = SDL_IntersectRect(&c1->rect, &c3, &result);
 		if (_bool)//this means they collided 4 real
@@ -242,7 +244,6 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 			obj->predictor->rect.y -= result.h;
 			obj->grounded = true;
 			obj->velocity.y = 0;
-			
 		}
 	}
 

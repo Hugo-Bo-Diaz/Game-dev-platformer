@@ -17,7 +17,7 @@ class j1Scene;
 class j1Map;
 
 class j1EntityManager;
-//class j1Player;
+class j1Pathfinding;
 class j1Collision;
 class j1Physics;
 
@@ -91,7 +91,7 @@ public:
 	j1Map*				map;
 
 	j1EntityManager*	entities;
-//	j1Player*			player;
+	j1Pathfinding*		path;
 	j1Collision*		collision;
 	j1Physics*			physics;
 

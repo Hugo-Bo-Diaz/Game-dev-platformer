@@ -26,7 +26,7 @@ public:
 	void DrawPath(p2DynArray<iPoint>& path_);
 	void Path(iPoint goal_, p2DynArray<iPoint>& path_);
 
-	bool PropagateAStar(p2DynArray<iPoint>& path_, Entity* enemy_entity_, Entity* target_);
+	bool PropagateAStar(p2DynArray<iPoint>& path_, iPoint pos_org, iPoint pos_dest);
 
 private:
 

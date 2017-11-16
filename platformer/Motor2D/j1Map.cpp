@@ -562,21 +562,18 @@ void j1Map::change_map(uint map)
 	index_map = map;
 	CleanUp();
 	Load(maps[index_map].GetString());
-	//App->player->SetPosOrigin();
 }
 void j1Map::next_level()
 {
 	index_map += 1;
 	CleanUp();
 	Load(maps[index_map].GetString());
-	//App->player->SetPosOrigin();
 }
 void j1Map::previous_level()
 {
 	index_map += 1;
 	CleanUp();
 	Load(maps[index_map].GetString());
-	//App->player->SetPosOrigin();
 }
 
 bool j1Map::Save(pugi::xml_node& node) const

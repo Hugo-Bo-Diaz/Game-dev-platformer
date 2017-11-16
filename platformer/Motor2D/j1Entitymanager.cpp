@@ -225,21 +225,23 @@ bool j1EntityManager::Load_entites()
 	p2List_item<entity_saved*>* item = entities_saved.start;
 	while(item != NULL)
 	{
+		Entity* ent;
 		switch (item->data->type)
 		{
-		case ENTITY_TYPE::PLAYER:
-		{
-			Entity* ent;
+			case ENTITY_TYPE::PLAYER:
+			{
 				App->map->initial_player_pos.x = item->data->x;
 				App->map->initial_player_pos.y = item->data->y;
 				ent = AddEntity(item->data->x, item->data->y, item->data->type);
 				App->map->player = (EntityPlayer*)ent;
+			}
+			case ENTITY_TYPE::BAT:
+			{
 		
-		}
-		break;
-		default:
-		break;
-	
+			}
+			break;
+			default:
+			break;
 		}
 
 	item = item->next;

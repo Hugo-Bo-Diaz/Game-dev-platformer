@@ -8,6 +8,7 @@
 #include "j1Audio.h"
 #include "j1Physics.h"
 #include "j1EntityManager.h"
+#include "j1Pathfinding.h"
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
 
@@ -119,7 +120,8 @@ void EntityPlayer::CleanUp()
 bool EntityPlayer::Update(float dt)
 {
 	BROFILER_CATEGORY("Update_EntityPlayer", Profiler::Color::Gold);
-
+	p2DynArray<iPoint> path;
+	App->path->PropagateAStar(path,position,iPoint(0,0));
 	//CONTROLS
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT /*&& obj->velocity.x <max_speed*/)
 	{

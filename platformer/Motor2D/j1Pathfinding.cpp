@@ -18,7 +18,7 @@ j1Pathfinding::~j1Pathfinding()
 
 bool j1Pathfinding::Start()
 {
-	target_tile = App->tex->Load("map/path_target.png");
+	target_tile = App->tex->Load("maps/path_target.png");
 
 	return true;
 }
@@ -55,14 +55,14 @@ bool j1Pathfinding::IsWalkable(int x, int y) const
 	return ret;
 }
 
-bool j1Pathfinding::PropagateAStar(p2DynArray<iPoint>& path_, Entity* enemy_entity_, Entity* target_)
+bool j1Pathfinding::PropagateAStar(p2DynArray<iPoint>& path_, iPoint pos_org, iPoint pos_dest)
 {
 	bool ret = false;
 
 	ResetPath(path_);
 
-	iPoint goal = App->map->WorldToMap(target_->position.x, target_->position.y);
-	iPoint origin = App->map->WorldToMap(enemy_entity_->position.x, enemy_entity_->position.y);
+	iPoint goal = App->map->WorldToMap(pos_dest.x, pos_dest.y);
+	iPoint origin = App->map->WorldToMap(pos_org.x, pos_org.y);
 
 	frontier.Push(origin, 0);
 	visited.add(origin);
