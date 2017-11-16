@@ -16,6 +16,13 @@ j1Pathfinding::j1Pathfinding()
 j1Pathfinding::~j1Pathfinding()
 {}
 
+bool j1Pathfinding::Start()
+{
+	target_tile = App->tex->Load("map/path_target.png");
+
+	return true;
+}
+
 void j1Pathfinding::ResetPath(p2DynArray<iPoint>& path_)
 {
 	frontier.Clear();
@@ -103,7 +110,11 @@ bool j1Pathfinding::PropagateAStar(p2DynArray<iPoint>& path_, Entity* enemy_enti
 		ret = true;
 	}
 
-	Path(goal, path_);
+	if (visited.find(goal) != -1)
+	{
+		Path(goal, path_);
+		DrawPath(path_);
+	}
 
 	return ret;
 }
@@ -122,5 +133,14 @@ void j1Pathfinding::Path(iPoint goal_, p2DynArray<iPoint>& path_)
 			path_.PushBack(current);
 		}
 		path_.Flip();
+	}
+}
+
+void j1Pathfinding::DrawPath(p2DynArray<iPoint>& path_)
+{
+	for (uint i = 0; i < path_.Count(); ++i)
+	{
+		iPoint pos = App->map->MapToWorld(path_[i].x, path_[i].y);
+		App->render->Blit(target_tile, pos.x, pos.y);
 	}
 }

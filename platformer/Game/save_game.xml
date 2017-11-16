@@ -5,15 +5,15 @@
 	<textures />
 	<audio />
 	<map>
-		<current_map value="0" />
+		<current_map value="1" />
 	</map>
 	<scene />
 	<collision />
 	<Entities>
-		<Player x="329" y="105" />
+		<Player x="1092" y="165" />
 	</Entities>
 	<physics />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-717" y="0" />
 	</renderer>
 </game_state>
