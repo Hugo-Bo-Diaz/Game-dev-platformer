@@ -59,12 +59,18 @@ bool j1Scene::Update(float dt)
 	uint win;
 	uint i;
 	App->win->GetWindowSize(win, i);
-	App->render->camera.x = -App->map->player->position.x + win / 2;
-	if (App->render->camera.x < win / 2)
-	{App->render->camera.x = 0;}
-	if (-App->render->camera.x > ((App->map->data.width*App->map->data.tile_width)-win))
-	{App->render->camera.x = -(App->map->data.width*App->map->data.tile_width)+win;}
-
+	if (App->map->player != nullptr)
+	{
+		App->render->camera.x = -App->map->player->position.x + win / 2;
+		if (App->render->camera.x < win / 2)
+		{
+			App->render->camera.x = 0;
+		}
+		if (-App->render->camera.x > ((App->map->data.width*App->map->data.tile_width) - win))
+		{
+			App->render->camera.x = -(App->map->data.width*App->map->data.tile_width) + win;
+		}
+	}
 	//DEBUG FEATURES
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		App->map->change_to_this_level = 0;

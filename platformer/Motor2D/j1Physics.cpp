@@ -197,7 +197,7 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		SDL_Rect c3;
 		c3.x = c2->rect.x;
 		c3.w = c2->rect.w;
-		c3.y = (c2->rect.y + c2->rect.h) - (c1->rect.x+(0.6*c1->rect.w) - c2->rect.x);
+		c3.y = (c2->rect.y + c2->rect.h) - (c1->rect.x+(0.6*c1->rect.w) - c2->rect.x) -5;
 		c3.h = c2->rect.h;
 
 		if (c3.y < c2->rect.y)// this makes it more consistent at the peak of the slope so the player is not moved over the floor
@@ -226,7 +226,7 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		SDL_Rect c3;
 		c3.x = c2->rect.x;
 		c3.w = c2->rect.w;
-		c3.y = c2->rect.y + (c1->rect.x + (0.2*c1->rect.w) - c2->rect.x);
+		c3.y = c2->rect.y + (c1->rect.x + (0.2*c1->rect.w) - c2->rect.x) -5;
 		c3.h = c2->rect.h;
 		
 		if (c3.y < c2->rect.y)

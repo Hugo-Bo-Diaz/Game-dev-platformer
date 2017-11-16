@@ -50,8 +50,6 @@ public:
 			item_3 = item_3->next;
 		}
 		entities_saved.clear();
-
-		
 	};
 
 	bool Start();

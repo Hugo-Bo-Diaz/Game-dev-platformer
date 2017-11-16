@@ -8,12 +8,14 @@
 		<current_map value="1" />
 	</map>
 	<scene />
+	<pathfinding />
 	<collision />
 	<Entities>
-		<Player x="147" y="270" type="2" />
+		<Player x="2694" y="130" type="2" />
+		<Bat x="100" y="150" type="1" />
 	</Entities>
 	<physics />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-2050" y="0" />
 	</renderer>
 </game_state>

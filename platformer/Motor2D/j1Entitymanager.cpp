@@ -5,6 +5,7 @@
 #include "j1Map.h"
 #include "EntityPlayer.h"
 #include "EntityEnemyBat.h"
+#include "EntityEnemyZombie.h"
 #include "Brofiler\Brofiler.h"
 
 j1EntityManager::j1EntityManager()
@@ -70,13 +71,21 @@ Entity* j1EntityManager::AddEntity(int _x, int _y, ENTITY_TYPE type)
 	case ENTITY_TYPE::PLAYER:
 	{
 		 ret = new EntityPlayer;
+		 break;
 	}
 	case ENTITY_TYPE::BAT:
 	{
 		ret = new EntityEnemyBat;
+		break;
+	}
+	case ENTITY_TYPE::ZOMBIE:
+	{
+		ret = new EntityEnemyZombie;
+		break;
 	}
 	default:
-		ret = new EntityPlayer;
+		ret = new EntityEnemyZombie;
+		break;
 	}
 
 	//assign all the entity properties
@@ -190,7 +199,6 @@ bool j1EntityManager::Save(pugi::xml_node& node) const
 		item_node.append_attribute("x") = item->data->position.x;
 		item_node.append_attribute("y") = item->data->position.y;
 		item_node.append_attribute("type") = item->data->type;
-		//item->data->Save(node);
 		item = item->next;
 	}
 	return true;
@@ -225,21 +233,25 @@ bool j1EntityManager::Load_entites()
 	p2List_item<entity_saved*>* item = entities_saved.start;
 	while(item != NULL)
 	{
-		Entity* ent;
 		switch (item->data->type)
 		{
 			case ENTITY_TYPE::PLAYER:
-			{
+			{		
 				App->map->initial_player_pos.x = item->data->x;
 				App->map->initial_player_pos.y = item->data->y;
-				ent = AddEntity(item->data->x, item->data->y, item->data->type);
-				App->map->player = (EntityPlayer*)ent;
+				App->map->player = (EntityPlayer*)AddEntity(item->data->x, item->data->y, item->data->type);
+				break;
 			}
 			case ENTITY_TYPE::BAT:
 			{
-		
+				AddEntity(item->data->x,item->data->y,item->data->type);
+				break;
 			}
-			break;
+			case ENTITY_TYPE::ZOMBIE:
+			{
+				AddEntity(item->data->x, item->data->y, item->data->type);
+				break;
+			}
 			default:
 			break;
 		}

@@ -11,20 +11,20 @@
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
 
-#include "EntityEnemyBat.h"
+#include "EntityEnemyZombie.h"
 
-EntityEnemyBat::EntityEnemyBat()
+EntityEnemyZombie::EntityEnemyZombie()
 {
-	name.create("Bat");
+	name.create("Zombie");
 
 	// Idle animation
-	idle.PushBack({ 0, 0, 30, 28 });
-	idle.PushBack({ 32, 0, 30, 28 });
-	idle.PushBack({ 64, 0, 30, 28 });
+	idle.PushBack({ 0, 82, 30, 38 });
+	idle.PushBack({ 32, 82, 30, 38 });
+	idle.PushBack({ 64, 82, 30, 38 });
 	idle.speed = 0.12f;
 	//animations.add(idle);
 	//Moving left animation
-	left.PushBack({ 0, 30, 18, 28 });
+	/*left.PushBack({ 0, 30, 18, 28 });
 	left.PushBack({ 20, 30, 18, 28 });
 	left.PushBack({ 40, 30, 18, 28 });
 	left.PushBack({ 60, 30, 18, 28 });
@@ -37,15 +37,15 @@ EntityEnemyBat::EntityEnemyBat()
 	right.PushBack({ 60, 60, 18, 28 });
 	right.speed = 0.15f;
 	//animations.add(right);
-
+	*/
 	current_animation = &idle;
 }
 
-void EntityEnemyBat::Start()
+void EntityEnemyZombie::Start()
 {
-	BROFILER_CATEGORY("Start_EntityEnemyBat", Profiler::Color::Purple);
+	BROFILER_CATEGORY("Start_EntityEnemyZombie", Profiler::Color::Purple);
 
-	LOG("Loading enemy bat");
+	LOG("Loading enemy Zombie");
 	//create object
 
 	SDL_Rect rect;
@@ -59,14 +59,14 @@ void EntityEnemyBat::Start()
 	interactive = true;
 }
 
-void EntityEnemyBat::Awake()
+void EntityEnemyZombie::Awake()
 {
 	LOG("Loading bat config");
 	int j = 0;
 	int i = 0;
 	for (j=0;j<App->entities->properties.count();++j)
 	{
-		if (App->entities->properties[j]->type == 1)
+		if (App->entities->properties[j]->type == 2)
 		{
 			i = j;
 			break;
@@ -81,19 +81,19 @@ void EntityEnemyBat::Awake()
 	
 }
 
-EntityEnemyBat::~EntityEnemyBat()
+EntityEnemyZombie::~EntityEnemyZombie()
 {
 	LOG("I've been deleted, ouch!");
 }
 
-void EntityEnemyBat::CleanUp()
+void EntityEnemyZombie::CleanUp()
 {
-	LOG("Unloading Bat :(");
+	LOG("Unloading Zombie :(");
 }
 
-bool EntityEnemyBat::PreUpdate()
+bool EntityEnemyZombie::PreUpdate()
 {
-	BROFILER_CATEGORY("PreUpdate_EntityEnemyBat", Profiler::Color::Purple);
+	BROFILER_CATEGORY("PreUpdate_EntityEnemyZombie", Profiler::Color::Purple);
 
 	if (destroyed == true)
 	{
@@ -103,10 +103,16 @@ bool EntityEnemyBat::PreUpdate()
 	return true;
 }
 
-bool EntityEnemyBat::Update(float dt)
+bool EntityEnemyZombie::Update(float dt)
 {
-	BROFILER_CATEGORY("Update_EntityEnemyBat", Profiler::Color::Purple);
+	BROFILER_CATEGORY("Update_EntityEnemyZombie", Profiler::Color::Purple);
 
+	//CONTROLS
+	obj->velocity.x = 3;
+	if (obj->velocity.y == 0)
+	{
+		obj->velocity.y = -5;
+	}
 	position.x = obj->position.x;
 	position.y = obj->position.y;
 	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
@@ -114,14 +120,14 @@ bool EntityEnemyBat::Update(float dt)
 	return true;
 }
 
-void EntityEnemyBat::Draw()
+void EntityEnemyZombie::Draw()
 {
-	BROFILER_CATEGORY("Draw_EntityEnemyBat", Profiler::Color::Purple);
+	BROFILER_CATEGORY("Draw_EntityEnemyZombie", Profiler::Color::Purple);
 
-	App->render->Blit(App->entities->GetTex(1), (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
+	App->render->Blit(App->entities->GetTex(2), (int)obj->position.x, (int)obj->position.y+1, &(current_animation->GetCurrentFrame()));
 }
 
-void EntityEnemyBat::OnCollision(Collider* c1, Collider* c2)
+void EntityEnemyZombie::OnCollision(Collider* c1, Collider* c2)
 {
-	BROFILER_CATEGORY("OnCollision_EntityEnemyBat", Profiler::Color::Purple);
+	BROFILER_CATEGORY("OnCollision_EntityEnemyZombie", Profiler::Color::Purple);
 }

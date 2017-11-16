@@ -274,6 +274,7 @@ bool j1Map::Load(const char* file_name)
 	}
 
 	map_loaded = ret;
+
 	if (coming_from_save)
 	{
 		App->entities->Load_entites();
@@ -505,10 +506,12 @@ bool j1Map::CreateColliders(map_layer* layer)
 					++j;
 					break;
 				case 42:
-					if (initial_player_pos.x == -1 && initial_player_pos.y == -1)//player spawned from map point
+					if (/*initial_player_pos.x == -1 && initial_player_pos.y == -1 &&*/ !coming_from_save)//player spawned from map point
 					{
 						initial_player_pos = point;
-						player = (EntityPlayer*)App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::PLAYER);
+						player = (EntityPlayer*)App->entities->AddEntity(0,0,ENTITY_TYPE::PLAYER);
+						App->entities->AddEntity(100, 150, ENTITY_TYPE::BAT);
+						App->entities->AddEntity(150, 200, ENTITY_TYPE::ZOMBIE);
 					}
 					player_start_in_map = point;
 					initial_player_pos.x = -1;
