@@ -9,7 +9,7 @@
 
 j1Pathfinding::j1Pathfinding()
 {
-	//name.create("pathfinding");
+	name.create("pathfinding");
 }
 
 
@@ -29,11 +29,18 @@ void j1Pathfinding::ResetPath(p2DynArray<iPoint>& path_)
 bool j1Pathfinding::IsWalkable(int x, int y) const
 {
 	bool ret = false;
-
+	int id = 1;
 	if (x >= 0 && x < App->map->data.width && y >= 0)
 	{
-		int id = App->map->data.layers.start->next->data->Get(x, y);
-
+		p2List_item<map_layer*>* item = App->map->data.layers.start;
+		while (item != NULL)
+		{
+			if (item->data->logic_layer)
+			{
+				int id = item->data->Get(x, y);
+			}
+			item = item->next;
+		}
 		if (id == 0)
 			ret = true;
 	}

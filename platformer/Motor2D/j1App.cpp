@@ -188,6 +188,12 @@ void j1App::PrepareUpdate()
 	BROFILER_CATEGORY("PrepareUpdate", Profiler::Color::Turquoise);
 	frame_count++;
 	last_sec_frame_count++;
+	dt = 1000 / frame_time.Read();
+
+	if (dt > 1000 / App->frame_cap)
+	{
+		dt = 1000 / App->frame_cap;
+	}
 
 	frame_time.Start();
 }
@@ -213,12 +219,7 @@ void j1App::FinishUpdate()
 	float seconds_since_startup = startup_time.ReadSec();
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
-	dt = 1000 / frame_cap - last_frame_ms;
 
-	if (dt > 1000 / App->frame_cap)
-	{
-	dt = 1000 / App->frame_cap;
-	}
 
 	static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",

@@ -65,7 +65,5 @@ public:
 	
 	virtual void CleanUp() { obj = nullptr; };
 
-	virtual bool Save(pugi::xml_node& node)const { return true; }; 
-	virtual bool Load(pugi::xml_node& node) { return true; };
 };
 #endif // !__J1ENTITY_H__

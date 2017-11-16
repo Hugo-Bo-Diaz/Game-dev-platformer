@@ -551,6 +551,8 @@ bool j1Map::LoadBackground(pugi::xml_node& node, background* back)
 	}
 	return ret;
 }
+
+
 void j1Map::change_map(uint map)
 {
 	index_map = map;
@@ -571,4 +573,18 @@ void j1Map::previous_level()
 	CleanUp();
 	Load(maps[index_map].GetString());
 	//App->player->SetPosOrigin();
+}
+
+bool j1Map::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node map_node = node.append_child("current_map");
+
+	map_node.append_attribute("value") = index_map;
+	
+	return true;
+}
+
+bool j1Map::Load(pugi::xml_node& node)
+{
+	return true;
 }

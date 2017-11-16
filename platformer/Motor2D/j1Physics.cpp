@@ -10,6 +10,7 @@
 
 j1Physics::j1Physics()
 {	
+	name.create("physics");
 	//here we initialise all object to nullptr
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 		objects[i] = nullptr;
