@@ -158,6 +158,9 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+
+	bool Save(pugi::xml_node& node) const;
+	bool Load(pugi::xml_node& node);
 };
 
 #endif // __j1MAP_H__

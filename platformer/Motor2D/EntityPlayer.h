@@ -27,8 +27,6 @@ public:
 	
 	void Draw();
 
-	bool Save(pugi::xml_node&) const;
-	bool Load(pugi::xml_node&);
 	void InitialPos()
 	{
 		position.x = 0;

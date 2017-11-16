@@ -226,31 +226,6 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 	}
 }
 
-bool EntityPlayer::Save(pugi::xml_node& node) const
-{
-	BROFILER_CATEGORY("Save_EntityPlayer", Profiler::Color::Gold);
-
-	pugi::xml_node player = node.append_child("Player");
-	//pugi::xml_node pos = node.append_child("position");
-	player.append_attribute("x") = obj->position.x;
-	player.append_attribute("y") = obj->position.y;
-	player.append_attribute("current_map") = App->map->index_map;
-
-	return true;
-}
-
-bool EntityPlayer::Load(pugi::xml_node& node)
-{
-	BROFILER_CATEGORY("Load_EntityPlayer", Profiler::Color::Gold);
-
-	pugi::xml_node player_node = node.child("Player");
-	App->map->change_to_this_level = player_node.attribute("current_map").as_uint();
-	App->map->initial_player_pos.x = player_node.attribute("x").as_uint();
-	App->map->initial_player_pos.y = player_node.attribute("y").as_uint();
-	//node.child("Player").child("position").attribute("x").as_int();
-	return true;
-}
-
 void EntityPlayer::SetPosOrigin()
 {
 	obj->position.x = App->map->player_start_in_map.x;

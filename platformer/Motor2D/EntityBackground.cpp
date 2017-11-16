@@ -47,25 +47,3 @@ void EntityBackground::Draw()
 
 	App->render->Blit(App->entities->GetTex(1), (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
 }
-
-bool EntityBackground::Save(pugi::xml_node& node) const//Save positions of alive bats. Still to do
-{
-	BROFILER_CATEGORY("Save_EntityEnemyBat", Profiler::Color::Purple);
-
-	//pugi::xml_node bat = node.append_child("background");
-	//bat.append_attribute("x") = obj->position.x;
-	//bat.append_attribute("y") = obj->position.y;
-	
-	return true;
-}
-
-bool EntityBackground::Load(pugi::xml_node& node)//Create Bats in saved positions
-{
-	BROFILER_CATEGORY("Load_EntityEnemyBat", Profiler::Color::Purple);
-
-	//pugi::xml_node bat_node = node.child("Bat");
-	//App->map->initial_player_pos.x = bat_node.attribute("x").as_uint();
-	//App->map->initial_player_pos.y = bat_node.attribute("y").as_uint();
-	
-	return true;
-}
