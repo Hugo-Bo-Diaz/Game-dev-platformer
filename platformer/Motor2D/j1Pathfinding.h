@@ -27,6 +27,7 @@ public:
 	void Path(iPoint goal_, p2DynArray<iPoint>& path_);
 
 	bool PropagateAStar(p2DynArray<iPoint>& path_, iPoint pos_org, iPoint pos_dest);
+	bool PropagateBFS(p2DynArray<iPoint>& path_, iPoint pos_org, iPoint pos_dest);
 
 private:
 

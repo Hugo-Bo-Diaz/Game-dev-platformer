@@ -35,11 +35,14 @@ void j1Pathfinding::ResetPath(p2DynArray<iPoint>& path_)
 
 bool j1Pathfinding::IsWalkable(int x, int y) const
 {
+	
 	bool ret = false;
 	int id = 1;
 	if (x >= 0 && x < App->map->data.width && y >= 0)
 	{
-		p2List_item<map_layer*>* item = App->map->data.layers.start;
+		return true;
+		p2List_item<map_layer*>* item = nullptr;
+		item = App->map->data.layers.start;
 		while (item != NULL)
 		{
 			if (item->data->logic_layer)
@@ -50,6 +53,7 @@ bool j1Pathfinding::IsWalkable(int x, int y) const
 		}
 		if (id == 0)
 			ret = true;
+		item = nullptr;
 	}
 
 	return ret;
@@ -112,8 +116,8 @@ bool j1Pathfinding::PropagateAStar(p2DynArray<iPoint>& path_, iPoint pos_org, iP
 
 	if (visited.find(goal) != -1)
 	{
-		Path(goal, path_);
-		DrawPath(path_);
+		//Path(goal, path_);
+		//DrawPath(path_);
 	}
 
 	return ret;
@@ -143,4 +147,51 @@ void j1Pathfinding::DrawPath(p2DynArray<iPoint>& path_)
 		iPoint pos = App->map->MapToWorld(path_[i].x, path_[i].y);
 		App->render->Blit(target_tile, pos.x, pos.y);
 	}
+}
+
+bool j1Pathfinding::PropagateBFS(p2DynArray<iPoint>& path_, iPoint pos_org, iPoint pos_dest)
+{
+	ResetPath(path_);
+
+	iPoint goal = App->map->WorldToMap(pos_dest.x, pos_dest.y);
+	goal.y += 1;
+	iPoint origin = App->map->WorldToMap(pos_org.x, pos_org.y);
+	origin.y += 1;
+
+	frontier.Push(origin, 0);
+	visited.add(origin);
+	breadcrumbs.add(origin);
+	while (visited.find(goal) == -1)
+	{
+		iPoint curr;
+		if (frontier.Pop(curr))
+		{
+			iPoint neighbors[4];
+			neighbors[0].create(curr.x + 1, curr.y + 0);
+			neighbors[1].create(curr.x + 0, curr.y + 1);
+			neighbors[2].create(curr.x - 1, curr.y + 0);
+			neighbors[3].create(curr.x + 0, curr.y - 1);
+
+			for (uint i = 0; i < 4; ++i)
+			{
+				if (IsWalkable(neighbors[i].x, neighbors[i].y))
+				{
+					if (visited.find(neighbors[i]) == -1)
+					{
+						frontier.Push(neighbors[i], 0);
+						visited.add(neighbors[i]);
+
+						breadcrumbs.add(curr);
+					}
+				}
+			}
+		}
+	}
+	if (visited.find(goal) != -1)
+	{
+		Path(goal, path_);
+		DrawPath(path_);
+	}
+
+	return true;
 }
