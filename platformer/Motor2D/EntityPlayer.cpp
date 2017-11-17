@@ -122,6 +122,12 @@ bool EntityPlayer::Update(float dt, bool logic)
 	BROFILER_CATEGORY("Update_EntityPlayer", Profiler::Color::Gold);
 	/*p2DynArray<iPoint> path;
 	App->path->PropagateAStar(path,position,iPoint(0,0));*/
+
+	if (logic == true)
+	{
+		LOG("LOL THIS WORKS");
+	}
+
 	//CONTROLS
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT /*&& obj->velocity.x <max_speed*/)
 	{
