@@ -40,7 +40,7 @@ public:
 	
 	Entity() {};
 	~Entity() {
-	//	LOG("I've been deleted, ouch!");
+
 	};
 	
 	void SetPos(iPoint pos) 
@@ -64,6 +64,8 @@ public:
 	virtual void OnCollision(Collider* c1, Collider* c2) {};
 	
 	virtual void CleanUp() { obj = nullptr; };
+	
+	bool destroyed;
 
 };
 #endif // !__J1ENTITY_H__

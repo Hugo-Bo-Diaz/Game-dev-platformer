@@ -55,7 +55,7 @@ void EntityEnemyBat::Start()
 	rect.w = width;
 	rect.h = height;
 	obj = App->physics->Addobject(position.x + 8, position.y,
-									gravity, &rect, COLLIDER_LAVA, (j1Module*)App->entities);
+									gravity, &rect, COLLIDER_ENEMY, (j1Module*)App->entities);
 	destroyed = false;
 	interactive = true;
 }

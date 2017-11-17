@@ -111,6 +111,7 @@ bool j1EntityManager::CleanUp()
 	while(item != NULL)
 	{
 		item->data->CleanUp();
+		if (item->data->obj != nullptr){App->physics->destroy_object(item->data->obj);}
 		RELEASE(item->data);
 		item = item->next;
 	}
@@ -149,7 +150,8 @@ bool j1EntityManager::Update(float dt)
 		item->data->Update(dt,update_logic);
 		item = item->next;
 
-	}		
+	}
+
 	if (update_logic) 
 	{update_logic = false;}
 
@@ -170,8 +172,24 @@ bool j1EntityManager::PostUpdate(float dt)
 	while (item != nullptr)
 	{
 		item->data->PostUpdate(dt);
-		item = item->next;
+		p2List_item<Entity*>* item_next = item->next;
+		if (item->data->destroyed == true)
+		{
+			App->physics->destroy_object(item->data->obj);
+			App->entities->destroy_entity(item);
+			App->map->player->obj->velocity.y = -10;
+		}
+		if (item != nullptr)
+		{
+			item = item->next;
+		}
+		else
+		{
+			item = item_next;
+		}
+
 	}
+
 	return true;
 }
 
@@ -272,3 +290,9 @@ bool j1EntityManager::Load_entites()
 	return true;
 }
 
+void j1EntityManager::destroy_entity(p2List_item<Entity*>* ent)
+{
+			ent->data->CleanUp();
+			RELEASE(ent->data);
+			entities.del(ent);
+}

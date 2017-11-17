@@ -49,8 +49,6 @@ public:
 	int initial_x = 0;
 	int initial_y = 0;
 
-	bool destroyed = false;
-
 	p2DynArray<iPoint> path;
 };
 

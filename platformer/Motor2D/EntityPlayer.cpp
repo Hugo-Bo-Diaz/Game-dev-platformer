@@ -100,7 +100,8 @@ void EntityPlayer::Awake()
 		acceleration = App->entities->properties[i++]->value;
 		max_speed = App->entities->properties[i++]->value;
 		gravity = App->entities->properties[i++]->value;
-		hability = App->entities->properties[i++]->value;
+		hability_stored = App->entities->properties[i++]->value;
+		hability = hability_stored;
 	}
 }
 
@@ -123,9 +124,17 @@ bool EntityPlayer::Update(float dt, bool logic)
 	/*p2DynArray<iPoint> path;
 	App->path->PropagateAStar(path,position,iPoint(0,0));*/
 
-	if (logic == true)
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
-		LOG("LOL THIS WORKS");
+		godmode = !godmode;
+		if (godmode)
+		{
+			hability = 7;
+		}
+		else
+		{
+			hability = hability_stored;
+		}
 	}
 
 	//CONTROLS
@@ -228,9 +237,18 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 	{
 		App->map->change_to_next_level = true;
 	}
-	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA)
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA && !godmode)
 	{
 		destroyed = true;
+	}
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_ENEMY && !godmode)
+	{
+		SDL_Rect Intersection;
+		SDL_IntersectRect(&c1->rect, &c2->rect, &Intersection);
+		if (c1->rect.y > c2->rect.y || Intersection.w < Intersection.h)
+		{
+			destroyed = true;
+		}
 	}
 }
 

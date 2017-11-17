@@ -55,7 +55,7 @@ void EntityEnemyZombie::Start()
 	rect.w = width;
 	rect.h = height;
 	obj = App->physics->Addobject(position.x, position.y,
-									gravity, &rect, COLLIDER_LAVA, (j1Module*)App->entities);
+									gravity, &rect, COLLIDER_ENEMY, (j1Module*)App->entities);
 	destroyed = false;
 	interactive = true;
 }
@@ -96,10 +96,7 @@ bool EntityEnemyZombie::PreUpdate()
 {
 	BROFILER_CATEGORY("PreUpdate_EntityEnemyZombie", Profiler::Color::Purple);
 
-	if (destroyed == true)
-	{
-		//Destroy bat
-	}
+
 
 	return true;
 }
@@ -141,4 +138,15 @@ void EntityEnemyZombie::Draw()
 void EntityEnemyZombie::OnCollision(Collider* c1, Collider* c2)
 {
 	BROFILER_CATEGORY("OnCollision_EntityEnemyZombie", Profiler::Color::Purple);
+	if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_PLAYER)
+	{
+		SDL_Rect Intersection;
+		SDL_IntersectRect(&c1->rect, &c2->rect, &Intersection);
+		if (c1->rect.y > c2->rect.y && Intersection.w > Intersection.h)
+		{
+			LOG("delet this");
+			destroyed = true;
+
+		}
+	}
 }

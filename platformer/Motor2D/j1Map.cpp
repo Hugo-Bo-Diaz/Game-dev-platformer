@@ -464,6 +464,8 @@ bool j1Map::CreateColliders(map_layer* layer)
 	int j = 0;
 	data.colliders[j] = App->collision->AddCollider({-31,0,35,(int)layer->height*35}, COLLIDER_WALL); ++j;
 	data.colliders[j] = App->collision->AddCollider({ (int)layer->width*35-4, 0, 35, (int)layer->height * 35 }, COLLIDER_WALL); ++j;
+	data.colliders[j] = App->collision->AddCollider({ 0,(int)layer->height * 35 ,(int)layer->width * 35,10 }, COLLIDER_WALL); ++j;
+
 		for (int _y = 0; _y < layer->height; ++_y)
 		{
 			for (int _x = 0; _x < layer->width; ++_x)
