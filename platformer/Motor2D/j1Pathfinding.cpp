@@ -58,7 +58,6 @@ bool j1Pathfinding::IsWalkable(int x, int y) const
 		id = App->map->data.layers.start->next->next->data->data[a];
 		if (id != 28 && id != 29)
 			ret = true;
-		//return true;
 	}
 
 	return ret;
@@ -154,14 +153,14 @@ void j1Pathfinding::DrawPath(p2DynArray<iPoint>& path_)
 	}
 }
 
-bool j1Pathfinding::PropagateBFS(p2DynArray<iPoint>& path_, iPoint pos_org, iPoint pos_dest)
+bool j1Pathfinding::PropagateBFS(p2DynArray<iPoint>& path_, iPoint pos_org, iPoint pos_dest, bool groundEnemy_)
 {
+	isGroundEnemy = groundEnemy_;
+
 	ResetPath(path_);
 
-	iPoint goal = App->map->WorldToMap(pos_dest.x, pos_dest.y);
-	goal.y += 1;
-	iPoint origin = App->map->WorldToMap(pos_org.x, pos_org.y);
-	origin.y += 1;
+	iPoint goal = App->map->WorldToMap(pos_dest.x, pos_dest.y);	
+	iPoint origin = App->map->WorldToMap(pos_org.x, pos_org.y);	
 
 	frontier.Push(origin, 0);
 	visited.add(origin);

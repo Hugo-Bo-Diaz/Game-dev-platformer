@@ -50,6 +50,8 @@ public:
 	int initial_y = 0;
 
 	bool destroyed = false;
+
+	p2DynArray<iPoint> path;
 };
 
 #endif*/

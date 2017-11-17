@@ -118,11 +118,13 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 
 	position.x = obj->position.x;
 	position.y = obj->position.y;
-
-	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 17 && App->map->player->position.y > 6)
+	if (logic == true)
 	{
-		p2DynArray<iPoint> path;
-		App->path->PropagateBFS(path, position, App->map->player->position);//int 45
+		if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 17 && App->map->player->position.y > 6)
+		{
+			iPoint player_center = { App->map->player->position.x + App->map->player->width / 2, App->map->player->position.y + App->map->player->height / 2 };
+			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, player_center);//int 45
+		}
 	}
 	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
 	//references and also not all entities have objects whose position is calculated automatically

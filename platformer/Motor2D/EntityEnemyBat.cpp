@@ -108,10 +108,13 @@ bool EntityEnemyBat::Update(float dt, bool logic)
 {
 	BROFILER_CATEGORY("Update_EntityEnemyBat", Profiler::Color::Purple);
 
-	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
+	if (logic == true)
 	{
-		p2DynArray<iPoint> path;
-		App->path->PropagateBFS(path, position, App->map->player->position);//int 60
+		if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
+		{
+			iPoint player_center = { App->map->player->position.x + App->map->player->width / 2, App->map->player->position.y + App->map->player->height / 2 };
+			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, player_center, false);
+		}
 	}
 
 	position.x = obj->position.x;

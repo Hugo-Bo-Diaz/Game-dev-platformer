@@ -27,7 +27,7 @@ public:
 	void Path(iPoint goal_, p2DynArray<iPoint>& path_);
 
 	bool PropagateAStar(p2DynArray<iPoint>& path_, iPoint pos_org, iPoint pos_dest);
-	bool PropagateBFS(p2DynArray<iPoint>& path_, iPoint pos_org, iPoint pos_dest);
+	bool PropagateBFS(p2DynArray<iPoint>& path_, iPoint pos_org, iPoint pos_dest, bool groundEnemy_ = true);
 
 private:
 
@@ -36,6 +36,7 @@ private:
 	p2List<iPoint>		breadcrumbs;
 	uint				cost_so_far[COST_MAP][COST_MAP];
 	SDL_Texture*		target_tile = nullptr;
+	bool				isGroundEnemy = true;
 };
 
 #endif
