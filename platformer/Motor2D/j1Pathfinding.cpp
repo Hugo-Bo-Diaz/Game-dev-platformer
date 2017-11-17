@@ -54,11 +54,11 @@ bool j1Pathfinding::IsWalkable(int x, int y) const
 		}
 		item = nullptr;*/
 
-		/*int a = App->map->data.width * y + x;
+		int a = App->map->data.width * y + x;
 		id = App->map->data.layers.start->next->next->data->data[a];
-		if (id == 0)
-			ret = true;*/
-		return true;
+		if (id != 28 && id != 29)
+			ret = true;
+		//return true;
 	}
 
 	return ret;

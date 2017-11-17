@@ -109,20 +109,20 @@ bool EntityEnemyZombie::Update(float dt)
 	BROFILER_CATEGORY("Update_EntityEnemyZombie", Profiler::Color::Purple);
 
 	//CONTROLS
-	obj->velocity.x = 1;
+	/*obj->velocity.x = 1;
 	if (obj->velocity.y == 0)
 	{
 		obj->velocity.y = -5;
-	}
+	}*/
 	
 
 	position.x = obj->position.x;
 	position.y = obj->position.y;
 
-	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
+	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 17 && App->map->player->position.y > 6)
 	{
 		p2DynArray<iPoint> path;
-		App->path->PropagateBFS(path, position, App->map->player->position);
+		App->path->PropagateBFS(path, position, App->map->player->position);//int 45
 	}
 	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
 	//references and also not all entities have objects whose position is calculated automatically

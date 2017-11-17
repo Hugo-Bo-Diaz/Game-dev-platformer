@@ -5,15 +5,14 @@
 	<textures />
 	<audio />
 	<map>
-		<current_map value="2" />
+		<current_map value="0" />
 	</map>
 	<scene />
 	<pathfinding />
 	<collision />
 	<Entities>
-		<Player x="46" y="235" type="2" />
+		<Player x="255" y="206" type="2" />
 		<Bat x="100" y="150" type="1" />
-		<Zombie x="150" y="242" type="3" />
 	</Entities>
 	<physics />
 	<renderer>

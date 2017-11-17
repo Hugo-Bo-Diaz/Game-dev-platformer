@@ -54,7 +54,7 @@ void EntityEnemyBat::Start()
 	rect.y = position.y;
 	rect.w = width;
 	rect.h = height;
-	obj = App->physics->Addobject(position.x, position.y,
+	obj = App->physics->Addobject(position.x + 8, position.y,
 									gravity, &rect, COLLIDER_LAVA, (j1Module*)App->entities);
 	destroyed = false;
 	interactive = true;
@@ -111,7 +111,7 @@ bool EntityEnemyBat::Update(float dt)
 	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
 	{
 		p2DynArray<iPoint> path;
-		App->path->PropagateBFS(path, position, App->map->player->position);
+		App->path->PropagateBFS(path, position, App->map->player->position);//int 60
 	}
 
 	position.x = obj->position.x;
@@ -125,7 +125,7 @@ void EntityEnemyBat::Draw()
 {
 	BROFILER_CATEGORY("Draw_EntityEnemyBat", Profiler::Color::Purple);
 
-	App->render->Blit(App->entities->GetTex(1), (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
+	App->render->Blit(App->entities->GetTex(1), (int)obj->position.x, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
 }
 
 void EntityEnemyBat::OnCollision(Collider* c1, Collider* c2)
