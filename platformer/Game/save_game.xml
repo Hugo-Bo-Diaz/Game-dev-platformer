@@ -11,8 +11,13 @@
 	<pathfinding />
 	<collision />
 	<Entities>
-		<Player x="255" y="206" type="2" />
-		<Bat x="100" y="150" type="1" />
+		<Player x="286" y="200" type="2" />
+		<Zombie x="140" y="242" type="3" />
+		<Zombie x="665" y="242" type="3" />
+		<Zombie x="700" y="242" type="3" />
+		<Zombie x="735" y="242" type="3" />
+		<Zombie x="770" y="242" type="3" />
+		<Zombie x="805" y="242" type="3" />
 	</Entities>
 	<physics />
 	<renderer>
