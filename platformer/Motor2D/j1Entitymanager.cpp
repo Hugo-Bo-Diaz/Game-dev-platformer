@@ -137,9 +137,10 @@ bool j1EntityManager::PreUpdate(float dt)
 bool j1EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("Update_EntityManager", Profiler::Color::DarkOliveGreen);
-	if (logic_timer.Read() == 0/*time*/)
+	if (logic_timer.ReadSec() > 0.2)
 	{
-
+		update_logic = true;
+		logic_timer.Start();
 	}
 
 	p2List_item<Entity*>* item = entities.start;
@@ -147,9 +148,10 @@ bool j1EntityManager::Update(float dt)
 	{
 		item->data->Update(dt,update_logic);
 		item = item->next;
-		if (update_logic) 
-		{update_logic = false;}
-	}
+
+	}		
+	if (update_logic) 
+	{update_logic = false;}
 
 	p2List_item<Entity*>* item_1 = entities.start;
 	while (item_1 != nullptr)
