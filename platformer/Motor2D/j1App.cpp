@@ -191,7 +191,8 @@ void j1App::PrepareUpdate()
 	BROFILER_CATEGORY("PrepareUpdate", Profiler::Color::Turquoise);
 	frame_count++;
 	last_sec_frame_count++;
-	int frame_time_read = frame_time.Read();
+
+	float frame_time_read = frame_time.Read();
 	dt = frame_time_read;
 
 	if (dt > 1000 / App->frame_cap)

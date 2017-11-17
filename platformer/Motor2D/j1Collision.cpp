@@ -164,7 +164,7 @@ void j1Collision::DebugDraw()
 {
 	BROFILER_CATEGORY("DebugDraw_Collision", Profiler::Color::Snow);
 
-	if(App->input->GetKey(SDL_SCANCODE_F3)== KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F9)== KEY_DOWN)
 		debug = !debug;
 
 	if(debug == false)
@@ -188,6 +188,9 @@ void j1Collision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 			case COLLIDER_LAVA: // red
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
+			break;
+			case COLLIDER_ENEMY: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
 			case COLLIDER_FUTURE: // yellow

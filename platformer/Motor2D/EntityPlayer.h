@@ -55,7 +55,8 @@ public:
 	int initial_x = 0;
 	int initial_y = 0;
 
-	bool destroyed = false;
 	float hability = 0.5;
+	float hability_stored;
+	bool godmode = false;
 };
 #endif

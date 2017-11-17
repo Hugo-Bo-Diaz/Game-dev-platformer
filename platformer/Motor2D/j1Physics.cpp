@@ -284,3 +284,21 @@ object* j1Physics::GetObjectFromRect_predictor(SDL_Rect* rectangle)
 		}
 	}
 }
+
+void j1Physics::destroy_object(object* obj)
+{
+	for (uint i = 0; i < MAX_OBJECTS; ++i)
+	{
+		if (objects[i] == obj)
+		{
+			if (objects[i]->col != nullptr)
+				objects[i]->col->to_delete = true;
+			if (objects[i]->predictor != nullptr)
+				objects[i]->predictor->to_delete = true;
+			delete(objects[i]);
+			objects[i] = nullptr;
+		}
+	}
+
+}
+

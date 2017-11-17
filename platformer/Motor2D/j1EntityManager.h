@@ -64,6 +64,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
+	void destroy_entity(p2List_item<Entity*>* ent);
 	//void Draw();
 
 	bool CleanUp();
