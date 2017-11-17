@@ -55,7 +55,7 @@ public:
 		return type;
 	}
 	virtual bool PreUpdate(float dt) { return true; };
-	virtual bool Update(float dt) { return true; };
+	virtual bool Update(float dt, bool logic) { return true; };
 	virtual bool PostUpdate(float dt) { return true; };
 
 	virtual void Awake() {};

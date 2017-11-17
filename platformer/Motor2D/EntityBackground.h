@@ -15,7 +15,7 @@ public:
 	};
 
 	void Draw();
-	bool Update(float dt);
+	bool Update(float dt, bool logic);
 	void Start();
 
 	void CleanUp();

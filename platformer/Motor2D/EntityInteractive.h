@@ -23,7 +23,7 @@ public:
 
 	virtual void Draw() {};
 	virtual bool PreUpdate() { return true; };
-	virtual bool Update(float dt) { return true; };
+	virtual bool Update(float dt, bool logic) { return true; };
 	virtual bool PostUpdate() { return true; };
 	virtual void Awake() {};
 	virtual void Start() {};

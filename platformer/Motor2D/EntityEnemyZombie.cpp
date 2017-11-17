@@ -104,7 +104,7 @@ bool EntityEnemyZombie::PreUpdate()
 	return true;
 }
 
-bool EntityEnemyZombie::Update(float dt)
+bool EntityEnemyZombie::Update(float dt, bool logic)
 {
 	BROFILER_CATEGORY("Update_EntityEnemyZombie", Profiler::Color::Purple);
 

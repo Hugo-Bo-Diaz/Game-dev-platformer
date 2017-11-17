@@ -117,7 +117,7 @@ void EntityPlayer::CleanUp()
 }
 
 // Update: draw background
-bool EntityPlayer::Update(float dt)
+bool EntityPlayer::Update(float dt, bool logic)
 {
 	BROFILER_CATEGORY("Update_EntityPlayer", Profiler::Color::Gold);
 	/*p2DynArray<iPoint> path;

@@ -85,5 +85,7 @@ public:
 	p2List<entity_saved*> entities_saved;
 	bool Load_entites();
 
+	bool update_logic = true;
+	j1Timer logic_timer;
 };
 #endif // !__J1ENTITIES_H__
