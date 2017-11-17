@@ -19,7 +19,7 @@ public:
 	void CleanUp();
 	bool PreUpdate(float dt);
 //	bool Update(float dt);
-	bool Update(float dt);
+	bool Update(float dt,bool logic);
 	void OnCollision(Collider* c1, Collider* c2);
 	void Awake();
 

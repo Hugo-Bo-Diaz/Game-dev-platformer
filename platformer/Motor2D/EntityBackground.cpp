@@ -33,7 +33,7 @@ void EntityBackground::CleanUp()
 	LOG("Unloading background :(");
 }
 
-bool EntityBackground::Update(float dt)
+bool EntityBackground::Update(float dt, bool logic)
 {
 	BROFILER_CATEGORY("Update_Background", Profiler::Color::Purple);
 
