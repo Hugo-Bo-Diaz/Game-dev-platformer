@@ -128,7 +128,6 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 			obj->velocity.x = 3;
 		if (obj->position.x > worldStep.x)
 			obj->velocity.x = -3;
-		fPoint a = obj->velocity;
 	}
 
 
@@ -148,14 +147,20 @@ void EntityEnemyZombie::Draw()
 void EntityEnemyZombie::OnCollision(Collider* c1, Collider* c2)
 {
 	BROFILER_CATEGORY("OnCollision_EntityEnemyZombie", Profiler::Color::Purple);
+
 	if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_PLAYER)
 	{
 		SDL_Rect Intersection;
 		SDL_IntersectRect(&c1->rect, &c2->rect, &Intersection);
 		if (c1->rect.y > c2->rect.y && Intersection.w > Intersection.h)
 		{
-			LOG("delet this");
+			LOG("A zombie was crushed!");
 			destroyed = true;
 		}
+	}
+	if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_LAVA)
+	{
+		LOG("A zombie was barbecued!");
+		destroyed = true;
 	}
 }

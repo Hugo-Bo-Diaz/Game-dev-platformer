@@ -125,7 +125,6 @@ bool EntityEnemyBat::Update(float dt, bool logic)
 		obj->velocity.y = 1;
 		else if (obj->position.y > worldStep.y)
 		obj->velocity.y = -1;
-		fPoint a = obj->velocity;
 	}
 
 	position.x = obj->position.x;
@@ -152,8 +151,13 @@ void EntityEnemyBat::OnCollision(Collider* c1, Collider* c2)
 		SDL_IntersectRect(&c1->rect, &c2->rect, &Intersection);
 		if (c1->rect.y > c2->rect.y && Intersection.w > Intersection.h)
 		{
-			LOG("delet this");
+			LOG("A bat was crushed");
 			destroyed = true;
 		}
+	}
+	if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_LAVA)
+	{
+		LOG("A bat was barbecued!");
+		destroyed = true;
 	}
 }

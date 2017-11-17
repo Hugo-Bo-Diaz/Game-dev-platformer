@@ -34,7 +34,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_FUTURE] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_NEXT_LEVEL] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_LAVA] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_LAVA] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_SLOPE_LEFT] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_SLOPE_RIGHT] = false;
 
