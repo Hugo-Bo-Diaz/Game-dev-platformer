@@ -120,7 +120,7 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 	position.y = obj->position.y;
 	if (logic == true)
 	{
-		if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 17 && App->map->player->position.y > 6)
+		if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
 		{
 			iPoint player_center = { App->map->player->position.x + App->map->player->width / 2, App->map->player->position.y + App->map->player->height / 2 };
 			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, player_center);//int 45

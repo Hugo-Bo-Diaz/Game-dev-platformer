@@ -55,9 +55,19 @@ bool j1Pathfinding::IsWalkable(int x, int y) const
 		item = nullptr;*/
 
 		int a = App->map->data.width * y + x;
-		id = App->map->data.layers.start->next->next->data->data[a];
-		if (id != 28 && id != 29)
-			ret = true;
+		if (!isGroundEnemy)
+		{
+			id = App->map->data.layers.start->next->next->data->data[a];
+			if (id != 28 && id != 29)
+				ret = true;
+		}
+		else
+		{
+			id = App->map->data.layers.start->next->next->next->data->data[a];
+			if (id == 75)
+				ret = true;
+		}
+
 	}
 
 	return ret;
@@ -159,13 +169,13 @@ bool j1Pathfinding::PropagateBFS(p2DynArray<iPoint>& path_, iPoint pos_org, iPoi
 
 	ResetPath(path_);
 
+	iPoint origin = App->map->WorldToMap(pos_org.x, pos_org.y);
 	iPoint goal = App->map->WorldToMap(pos_dest.x, pos_dest.y);	
-	iPoint origin = App->map->WorldToMap(pos_org.x, pos_org.y);	
-
+	
 	frontier.Push(origin, 0);
 	visited.add(origin);
 	breadcrumbs.add(origin);
-	while (visited.find(goal) == -1)
+	while (visited.find(goal) == -1 && frontier.Count() > 0)
 	{
 		iPoint curr;
 		if (frontier.Pop(curr))
@@ -190,6 +200,18 @@ bool j1Pathfinding::PropagateBFS(p2DynArray<iPoint>& path_, iPoint pos_org, iPoi
 				}
 			}
 		}
+	}
+	if (visited.find(goal) == -1)
+	{
+		iPoint semigoal = { 0, 0 };
+		for (int i = 0; i < visited.count(); i++)
+		{
+			if (abs(visited.At(i)->data.x - goal.x) < abs(semigoal.x - goal.x))
+				semigoal = visited.At(i)->data;
+		}
+		Path(semigoal, path_);
+		if (App->collision->debug == true)
+			DrawPath(path_);
 	}
 	if (visited.find(goal) != -1)
 	{
