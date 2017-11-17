@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="80" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
  <tileset firstgid="1" name="tileset_1" tilewidth="35" tileheight="35" spacing="1" margin="1" tilecount="165" columns="15">
   <image source="tileset_1.png" width="540" height="431"/>
  </tileset>
@@ -2910,7 +2910,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="IsWalkableGround" width="80" height="12" visible="0">
+ <layer name="IsWalkable" width="80" height="12" visible="0">
   <properties>
    <property name="collider_layer" type="bool" value="true"/>
   </properties>

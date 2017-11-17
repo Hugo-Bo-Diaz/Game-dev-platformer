@@ -50,6 +50,7 @@ public:
 	int initial_y = 0;
 
 	p2DynArray<iPoint> path;
+	iPoint step;
 };
 
 #endif

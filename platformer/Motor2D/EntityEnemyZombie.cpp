@@ -115,14 +115,24 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 
 	position.x = obj->position.x;
 	position.y = obj->position.y;
-	if (logic == true)
+	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
 	{
-		if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
+		if (logic == true)
 		{
 			iPoint player_center = { App->map->player->position.x + App->map->player->width / 2, App->map->player->position.y + App->map->player->height / 2 };
-			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, player_center);//int 45
-		}
+			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, player_center);
+			path.Pop(step);
+		}		
+		iPoint worldStep = App->map->MapToWorld(step.x, step.y);
+		if (obj->position.x < worldStep.x)
+			obj->velocity.x = 3;
+		if (obj->position.x > worldStep.x)
+			obj->velocity.x = -3;
+		fPoint a = obj->velocity;
 	}
+
+
+
 	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
 	//references and also not all entities have objects whose position is calculated automatically
 	return true;
@@ -146,7 +156,6 @@ void EntityEnemyZombie::OnCollision(Collider* c1, Collider* c2)
 		{
 			LOG("delet this");
 			destroyed = true;
-
 		}
 	}
 }

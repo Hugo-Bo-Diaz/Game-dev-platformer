@@ -108,13 +108,24 @@ bool EntityEnemyBat::Update(float dt, bool logic)
 {
 	BROFILER_CATEGORY("Update_EntityEnemyBat", Profiler::Color::Purple);
 
-	if (logic == true)
+	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
 	{
-		if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
+		if (logic == true)
 		{
 			iPoint player_center = { App->map->player->position.x + App->map->player->width / 2, App->map->player->position.y + App->map->player->height / 2 };
 			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, player_center, false);
+			path.Pop(step);
 		}
+		iPoint worldStep = App->map->MapToWorld(step.x, step.y);
+		if (obj->position.x < worldStep.x)
+			obj->velocity.x = 1;
+		if (obj->position.x > worldStep.x)
+			obj->velocity.x = -1;
+		if (obj->position.y < worldStep.y)
+		obj->velocity.y = 1;
+		else if (obj->position.y > worldStep.y)
+		obj->velocity.y = -1;
+		fPoint a = obj->velocity;
 	}
 
 	position.x = obj->position.x;
@@ -134,4 +145,15 @@ void EntityEnemyBat::Draw()
 void EntityEnemyBat::OnCollision(Collider* c1, Collider* c2)
 {
 	BROFILER_CATEGORY("OnCollision_EntityEnemyBat", Profiler::Color::Purple);
+
+	if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_PLAYER)
+	{
+		SDL_Rect Intersection;
+		SDL_IntersectRect(&c1->rect, &c2->rect, &Intersection);
+		if (c1->rect.y > c2->rect.y && Intersection.w > Intersection.h)
+		{
+			LOG("delet this");
+			destroyed = true;
+		}
+	}
 }
