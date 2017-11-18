@@ -30,7 +30,7 @@
     <folder>maps/</folder>
     <initial_map value ="0"/>
     <background r ="60" g="240" b="225"/>
-    <map directory ="map0 - copia.tmx"/>
+    <map directory ="map0.tmx"/>
     <map directory ="map1.tmx"/>
     <map directory ="map2.tmx"/>
   </map>

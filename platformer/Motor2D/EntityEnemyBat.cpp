@@ -116,7 +116,7 @@ bool EntityEnemyBat::Update(float dt, bool logic)
 			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, player_center, false);
 			path.Pop(step);
 		}
-		iPoint worldStep = App->map->MapToWorld(step.x, step.y);
+		/*iPoint worldStep = App->map->MapToWorld(step.x, step.y);
 		if (obj->position.x < worldStep.x && obj->velocity.x < max_speed)
 			obj->acceleration.x = max_speed;
 		else if (obj->position.x > worldStep.x && obj->velocity.x > -max_speed)
@@ -128,17 +128,31 @@ bool EntityEnemyBat::Update(float dt, bool logic)
 		else
 		{
 			obj->acceleration.x = 0;
-		}
+		}*/
+
+		if (App->map->WorldToMap(obj->position.x, obj->position.y).x < step.x)
+			obj->velocity.x = max_speed;
+		if (App->map->WorldToMap(obj->position.x, obj->position.y).x > step.x)
+			obj->velocity.x = -max_speed;
+		if (App->map->WorldToMap(obj->position.x, obj->position.y).y < step.y)
+			obj->velocity.y = max_speed;
+		if (App->map->WorldToMap(obj->position.x, obj->position.y).y > step.y)
+			obj->velocity.y = -max_speed;
+	}
+	else
+	{
+		obj->velocity.x = 0;
+		obj->velocity.y = 0;
 	}
 
-	if (obj->velocity.x < -max_speed)
+	/*if (obj->velocity.x < -max_speed)
 		obj->velocity.x = -max_speed;
 	if (obj->velocity.x > max_speed)
 		obj->velocity.x = max_speed;
 	if (obj->velocity.y < -max_speed)
 		obj->velocity.y = -max_speed;
 	if (obj->velocity.y > max_speed)
-		obj->velocity.y = max_speed;
+		obj->velocity.y = max_speed;*/
 
 	position.x = obj->position.x;
 	position.y = obj->position.y;

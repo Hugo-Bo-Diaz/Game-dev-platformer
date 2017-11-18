@@ -123,7 +123,7 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, player_center);
 			path.Pop(step);
 		}		
-		iPoint worldStep = App->map->MapToWorld(step.x, step.y);
+		/*iPoint worldStep = App->map->MapToWorld(step.x, step.y);
 		if (obj->position.x < worldStep.x - 40 && obj->velocity.x < max_speed)
 			obj->acceleration.x = max_speed;
 		else if (obj->position.x > worldStep.x + 40 && obj->velocity.x > -max_speed)
@@ -131,16 +131,21 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 		else
 		{
 			obj->acceleration.x = 0;
-		}		
+		}*/
+
+		if (App->map->WorldToMap(obj->position.x, obj->position.y).x < step.x)
+			obj->velocity.x = max_speed;
+		if (App->map->WorldToMap(obj->position.x, obj->position.y).x > step.x)
+			obj->velocity.x = -max_speed;
 	}
 	else {
-		obj->acceleration.x = 0;
+		obj->velocity.x = 0;
 	}
 
-	if (obj->velocity.x < -max_speed)
+	/*if (obj->velocity.x < -max_speed)
 		obj->velocity.x = -max_speed;
 	if (obj->velocity.x > max_speed)
-		obj->velocity.x = max_speed;
+		obj->velocity.x = max_speed;*/
 
 	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
 	//references and also not all entities have objects whose position is calculated automatically
