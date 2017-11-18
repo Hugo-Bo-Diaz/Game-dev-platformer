@@ -172,12 +172,12 @@ bool j1EntityManager::PostUpdate(float dt)
 	while (item != nullptr)
 	{
 		item->data->PostUpdate(dt);
+		// maybe this object is going to be destroyed so i need to get the next member before i do;
 		p2List_item<Entity*>* item_next = item->next;
 		if (item->data->destroyed == true)
 		{
 			App->physics->destroy_object(item->data->obj);
 			App->entities->destroy_entity(item);
-			App->map->player->obj->velocity.y = -10;
 		}
 		if (item != nullptr)
 		{

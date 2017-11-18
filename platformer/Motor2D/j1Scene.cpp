@@ -46,7 +46,7 @@ bool j1Scene::PreUpdate(float dt)
 	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::LawnGreen);
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->map->player->SetPosOrigin();
+		App->map->change_to_this_level = App->map->index_map;
 
 	return true;
 }

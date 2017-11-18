@@ -124,10 +124,17 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 			path.Pop(step);
 		}		
 		iPoint worldStep = App->map->MapToWorld(step.x, step.y);
-		if (obj->position.x < worldStep.x)
-			obj->velocity.x = 3;
-		if (obj->position.x > worldStep.x)
-			obj->velocity.x = -3;
+		if (obj->position.x < worldStep.x && obj->velocity.x < max_speed)
+			obj->acceleration.x = max_speed;
+		else if (obj->position.x > worldStep.x && obj->velocity.x > -max_speed)
+			obj->acceleration.x = -max_speed;
+		else
+		{
+			obj->acceleration.x = 0;
+		}
+	}
+	else {
+		obj->acceleration.x = 0;
 	}
 
 

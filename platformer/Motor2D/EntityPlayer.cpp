@@ -221,10 +221,10 @@ bool EntityPlayer::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_EntityPlayer", Profiler::Color::Gold);
 
-	if (destroyed == true)
+	if (set_to_start_pos == true)
 	{
 		SetPosOrigin();
-		destroyed = false;
+		set_to_start_pos = false;
 	}
 	return true;
 }
@@ -239,7 +239,7 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 	}
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA && !godmode)
 	{
-		destroyed = true;
+		set_to_start_pos = true;
 	}
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_ENEMY && !godmode)
 	{
@@ -247,9 +247,14 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 		SDL_IntersectRect(&c1->rect, &c2->rect, &Intersection);
 		if (c1->rect.y > c2->rect.y || Intersection.w < Intersection.h)
 		{
-			destroyed = true;
+			set_to_start_pos = true;
+		}
+		else
+		{
+			App->map->player->obj->velocity.y = -10;
 		}
 	}
+
 }
 
 void EntityPlayer::SetPosOrigin()

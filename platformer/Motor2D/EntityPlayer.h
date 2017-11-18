@@ -58,5 +58,7 @@ public:
 	float hability = 0.5;
 	float hability_stored;
 	bool godmode = false;
+	// if this is true, the player will change its position to the original one at the start of the update
+	bool set_to_start_pos = false;
 };
 #endif
