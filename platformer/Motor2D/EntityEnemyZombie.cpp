@@ -115,7 +115,7 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 
 	position.x = obj->position.x;
 	position.y = obj->position.y;
-	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 7 && App->map->player->position.y > 6)
+	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 5 && App->map->player->position.y > 6)
 	{
 		if (logic == true)
 		{
@@ -124,20 +124,23 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 			path.Pop(step);
 		}		
 		iPoint worldStep = App->map->MapToWorld(step.x, step.y);
-		if (obj->position.x < worldStep.x && obj->velocity.x < max_speed)
+		if (obj->position.x < worldStep.x - 40 && obj->velocity.x < max_speed)
 			obj->acceleration.x = max_speed;
-		else if (obj->position.x > worldStep.x && obj->velocity.x > -max_speed)
+		else if (obj->position.x > worldStep.x + 40 && obj->velocity.x > -max_speed)
 			obj->acceleration.x = -max_speed;
 		else
 		{
 			obj->acceleration.x = 0;
-		}
+		}		
 	}
 	else {
 		obj->acceleration.x = 0;
 	}
 
-
+	if (obj->velocity.x < -max_speed)
+		obj->velocity.x = -max_speed;
+	if (obj->velocity.x > max_speed)
+		obj->velocity.x = max_speed;
 
 	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
 	//references and also not all entities have objects whose position is calculated automatically

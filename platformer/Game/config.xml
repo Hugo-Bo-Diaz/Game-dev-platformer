@@ -1,7 +1,7 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap ="60">
+  <app framerate_cap ="30">
     <title>Game Development Testbed</title>
     <organization>UPC</organization>
   </app>
@@ -30,7 +30,7 @@
     <folder>maps/</folder>
     <initial_map value ="0"/>
     <background r ="60" g="240" b="225"/>
-    <map directory ="testbed - copia.tmx"/>
+    <map directory ="map0 - copia.tmx"/>
     <map directory ="map1.tmx"/>
     <map directory ="map2.tmx"/>
   </map>
@@ -52,7 +52,7 @@
         <property value ="28"    name ="height"/>
         <property value ="1"     name ="lifes"/>
         <property value ="2"     name ="ground_accel"/>
-        <property value ="4"     name ="velocity"/>
+        <property value ="2"     name ="velocity"/>
         <property value ="0.0"   name ="gravity"/>
       </Bat>
       <Zombie type ="2">
@@ -60,7 +60,7 @@
         <property value="38"    name ="height"/>
         <property value="1"     name ="lifes"/>
         <property value="2"     name ="ground_accel"/>
-        <property value="4"     name ="velocity"/>
+        <property value="2"     name ="velocity"/>
         <property value="0.45"   name ="gravity"/>
       </Zombie>
     </properties>

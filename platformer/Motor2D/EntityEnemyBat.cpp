@@ -117,15 +117,28 @@ bool EntityEnemyBat::Update(float dt, bool logic)
 			path.Pop(step);
 		}
 		iPoint worldStep = App->map->MapToWorld(step.x, step.y);
-		if (obj->position.x < worldStep.x)
-			obj->velocity.x = 1;
-		if (obj->position.x > worldStep.x)
-			obj->velocity.x = -1;
-		if (obj->position.y < worldStep.y)
-		obj->velocity.y = 1;
-		else if (obj->position.y > worldStep.y)
-		obj->velocity.y = -1;
+		if (obj->position.x < worldStep.x && obj->velocity.x < max_speed)
+			obj->acceleration.x = max_speed;
+		else if (obj->position.x > worldStep.x && obj->velocity.x > -max_speed)
+			obj->acceleration.x = -max_speed;
+		else if (obj->position.y < worldStep.y && obj->velocity.y < max_speed)
+			obj->acceleration.y = max_speed;
+		else if (obj->position.y > worldStep.y && obj->velocity.y > -max_speed)
+			obj->acceleration.y = -max_speed;
+		else
+		{
+			obj->acceleration.x = 0;
+		}
 	}
+
+	if (obj->velocity.x < -max_speed)
+		obj->velocity.x = -max_speed;
+	if (obj->velocity.x > max_speed)
+		obj->velocity.x = max_speed;
+	if (obj->velocity.y < -max_speed)
+		obj->velocity.y = -max_speed;
+	if (obj->velocity.y > max_speed)
+		obj->velocity.y = max_speed;
 
 	position.x = obj->position.x;
 	position.y = obj->position.y;
