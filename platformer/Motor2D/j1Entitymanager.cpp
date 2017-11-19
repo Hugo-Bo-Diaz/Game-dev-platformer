@@ -6,6 +6,7 @@
 #include "EntityPlayer.h"
 #include "EntityEnemyBat.h"
 #include "EntityEnemyZombie.h"
+#include "EntityPlane.h"
 #include "Brofiler\Brofiler.h"
 
 j1EntityManager::j1EntityManager()
@@ -83,6 +84,11 @@ Entity* j1EntityManager::AddEntity(int _x, int _y, ENTITY_TYPE type)
 	case ENTITY_TYPE::ZOMBIE:
 	{
 		ret = new EntityEnemyZombie;
+		break;
+	}
+	case ENTITY_TYPE::PLANE:
+	{
+		ret = new EntityPlane;
 		break;
 	}
 	default:

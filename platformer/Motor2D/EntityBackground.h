@@ -8,17 +8,17 @@ class EntityBackground : public Entity
 {
 public:
 
-	EntityBackground();
+	EntityBackground() {};
 	~EntityBackground()
 	{
 	
 	};
 
-	void Draw();
-	bool Update(float dt, bool logic);
-	void Start();
+	virtual void Draw() {};
+	virtual bool Update(float dt, bool logic) { return true; };
+	virtual void Start() {};
 
-	void CleanUp();
+	virtual void CleanUp() {};
 
 };
 

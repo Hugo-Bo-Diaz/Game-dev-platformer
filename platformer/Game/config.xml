@@ -69,6 +69,7 @@
       <tex path ="textures/PilotSprites.png" for ="player"/>
       <tex path ="textures/Bat.png" for ="bat"/>
       <tex path ="textures/Zombie11.png" for ="zombie"/>
+      <tex path ="textures/Biplane.png" for ="plane"/>
     </textures>
   </Entities>
   
