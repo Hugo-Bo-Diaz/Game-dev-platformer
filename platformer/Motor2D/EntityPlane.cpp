@@ -11,15 +11,15 @@
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
 
-#include "EntityBackground.h"
+#include "EntityPlane.h"
 
-EntityBackground::EntityBackground()
+EntityPlane::EntityPlane()
 {
 	name.create("background");
 	interactive = false;
 }
 
-void EntityBackground::Start()
+void EntityPlane::Start()
 {
 	BROFILER_CATEGORY("Start_EntityBackground", Profiler::Color::Purple);
 
@@ -28,22 +28,14 @@ void EntityBackground::Start()
 	interactive = false;
 }
 
-void EntityBackground::CleanUp()
+void EntityPlane::CleanUp()
 {
 	LOG("Unloading background :(");
 }
 
-bool EntityBackground::Update(float dt, bool logic)
-{
-	BROFILER_CATEGORY("Update_Background", Profiler::Color::Purple);
-
-	
-	return true;
-}
-
-void EntityBackground::Draw()
+void EntityPlane::Draw()
 {
 	BROFILER_CATEGORY("Draw_EntityBackground", Profiler::Color::Purple);
 
-	App->render->Blit(App->entities->GetTex(1), (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
+	App->render->Blit(App->entities->GetTex(3), position.x, position.y);
 }

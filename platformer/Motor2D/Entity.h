@@ -21,7 +21,8 @@ enum ENTITY_TYPE
 	BACKGROUND,
 	BAT,
 	PLAYER,
-	ZOMBIE
+	ZOMBIE,
+	PLANE
 };
 
 class Entity
