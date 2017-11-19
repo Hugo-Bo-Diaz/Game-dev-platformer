@@ -8,11 +8,13 @@
 	<pathfinding />
 	<collision />
 	<map>
-		<current_map value="0" />
+		<current_map value="1" />
 	</map>
 	<Entities>
-		<Player x="35" y="235" type="2" />
-		<Plane x="385" y="210" type="4" />
+		<Bat x="420" y="70" type="1" />
+		<Bat x="2590" y="105" type="1" />
+		<Zombie x="1120" y="172" type="3" />
+		<Player x="119" y="270" type="2" />
 	</Entities>
 	<physics />
 	<renderer>
