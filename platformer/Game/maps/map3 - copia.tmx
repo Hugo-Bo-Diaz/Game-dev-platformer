@@ -4,7 +4,7 @@
   <image source="tileset_1.png" width="540" height="431"/>
  </tileset>
  <imagelayer name="Background">
-  <image source="Backgrounds/Clouds.png" width="840" height="420"/>
+  <image source="Backgrounds/CloudsBiplane.png" width="840" height="420"/>
   <properties>
    <property name="parallax" type="float" value="1"/>
   </properties>
@@ -1948,6 +1948,18 @@
    <property name="collider_layer" type="bool" value="true"/>
   </properties>
   <data>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2027,6 +2039,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2106,6 +2119,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2185,6 +2199,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2264,22 +2279,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2359,6 +2359,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2438,8 +2439,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="28"/>
    <tile gid="0"/>
-   <tile gid="90"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2518,8 +2519,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="28"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>

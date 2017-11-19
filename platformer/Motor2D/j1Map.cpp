@@ -512,7 +512,6 @@ bool j1Map::CreateColliders(map_layer* layer)
 					{
 						initial_player_pos = point;
 						player = (EntityPlayer*)App->entities->AddEntity(0,0,ENTITY_TYPE::PLAYER);
-						//App->entities->AddEntity(0, 0, ENTITY_TYPE::PLANE);
 					}
 					player_start_in_map = point;
 					initial_player_pos.x = -1;
@@ -539,6 +538,14 @@ bool j1Map::CreateColliders(map_layer* layer)
 					{
 						App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::ZOMBIE);
 					}
+					break;
+				case 90:
+					if (!coming_from_save)
+					{
+						App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::PLANE);
+					}
+					else
+						App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::PLANE);
 					break;
 				default:
 					break;
