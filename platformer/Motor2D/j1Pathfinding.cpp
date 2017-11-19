@@ -129,8 +129,9 @@ bool j1Pathfinding::PropagateAStar(p2DynArray<iPoint>& path_, iPoint pos_org, iP
 
 	if (visited.find(goal) != -1)
 	{
-		//Path(goal, path_);
-		//DrawPath(path_);
+		Path(goal, path_);
+		if (App->collision->debug == true)
+			DrawPath(path_);
 	}
 
 	return ret;
@@ -138,7 +139,7 @@ bool j1Pathfinding::PropagateAStar(p2DynArray<iPoint>& path_, iPoint pos_org, iP
 
 void j1Pathfinding::Path(iPoint goal_, p2DynArray<iPoint>& path_)
 {
-	iPoint current = goal_; // breadcrumbs.At(visited.find(goal))->data;
+	iPoint current = breadcrumbs.At(visited.find(goal_))->data;
 
 	if (visited.find(goal_) != -1)
 	{
