@@ -14,9 +14,6 @@ public:
 
 	void Draw();
 	void Start();
-
-	void CleanUp();
-
 };
 
 

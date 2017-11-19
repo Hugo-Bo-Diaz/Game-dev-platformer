@@ -48,7 +48,7 @@ void EntityEnemyBat::Start()
 
 	LOG("Loading enemy bat");
 	//create object
-
+	original_pos = position;
 	SDL_Rect rect;
 	rect.x = position.x;
 	rect.y = position.y;
@@ -119,8 +119,21 @@ bool EntityEnemyBat::Update(float dt, bool logic)
 	}
 	else
 	{
-		obj->velocity.x = 0;
-		obj->velocity.y = 0;
+		if (logic == true)
+		{
+			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, original_pos, false);
+			path.Pop(step);
+
+		iPoint pos = App->map->WorldToMap(obj->position.x, obj->position.y);
+		if (pos.x < step.x)
+			obj->velocity.x = max_speed;
+		if (pos.x > step.x)
+			obj->velocity.x = -max_speed;
+		if (pos.y < step.y)
+			obj->velocity.y = max_speed;
+		if (pos.y > step.y)
+			obj->velocity.y = -max_speed;
+		}
 	}
 
 	/*if (obj->velocity.x < -max_speed)

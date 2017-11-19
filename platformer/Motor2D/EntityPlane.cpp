@@ -15,8 +15,7 @@
 
 EntityPlane::EntityPlane()
 {
-	name.create("background");
-	interactive = false;
+	name.create("Plane");
 }
 
 void EntityPlane::Start()
@@ -24,13 +23,7 @@ void EntityPlane::Start()
 	BROFILER_CATEGORY("Start_EntityBackground", Profiler::Color::Purple);
 
 	LOG("Loading background entity");
-	//create object
 	interactive = false;
-}
-
-void EntityPlane::CleanUp()
-{
-	LOG("Unloading background :(");
 }
 
 void EntityPlane::Draw()

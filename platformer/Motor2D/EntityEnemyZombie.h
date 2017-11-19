@@ -49,6 +49,8 @@ public:
 	p2DynArray<iPoint> path;
 	iPoint step;
 	iPoint player_center;
+
+	iPoint original_pos;
 };
 
 #endif*/

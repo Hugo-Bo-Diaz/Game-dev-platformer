@@ -11,10 +11,8 @@
 		<current_map value="0" />
 	</map>
 	<Entities>
-		<Bat x="1653" y="35" type="1" />
-		<Player x="50" y="235" type="2" />
-		<Zombie x="385" y="207" type="3" />
-		<Zombie x="1365" y="242" type="3" />
+		<Player x="35" y="235" type="2" />
+		<Plane x="385" y="210" type="4" />
 	</Entities>
 	<physics />
 	<renderer>

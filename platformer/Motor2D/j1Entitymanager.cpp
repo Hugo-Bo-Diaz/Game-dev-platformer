@@ -123,8 +123,6 @@ bool j1EntityManager::CleanUp()
 	}
 	entities.clear();
 
-
-
 	return true;
 }
 
@@ -282,6 +280,11 @@ bool j1EntityManager::Load_entites()
 				break;
 			}
 			case ENTITY_TYPE::ZOMBIE:
+			{
+				AddEntity(item->data->x, item->data->y, item->data->type);
+				break;
+			}
+			case ENTITY_TYPE::PLANE:
 			{
 				AddEntity(item->data->x, item->data->y, item->data->type);
 				break;

@@ -544,8 +544,6 @@ bool j1Map::CreateColliders(map_layer* layer)
 					{
 						App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::PLANE);
 					}
-					else
-						App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::PLANE);
 					break;
 				default:
 					break;

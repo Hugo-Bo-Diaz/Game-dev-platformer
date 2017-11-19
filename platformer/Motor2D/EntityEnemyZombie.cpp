@@ -46,7 +46,7 @@ void EntityEnemyZombie::Start()
 
 	LOG("Loading enemy Zombie");
 	//create object
-
+	original_pos = position;
 	SDL_Rect rect;
 	rect.x = position.x;
 	rect.y = position.y;
@@ -102,7 +102,7 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 			iPoint player_center = { App->map->player->position.x + App->map->player->width / 2, App->map->player->position.y + App->map->player->height / 2 };
 			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, player_center);
 			path.Pop(step);
-		}		
+		}
 		/*iPoint worldStep = App->map->MapToWorld(step.x, step.y);
 		if (obj->position.x < worldStep.x - 40 && obj->velocity.x < max_speed)
 			obj->acceleration.x = max_speed;
@@ -119,7 +119,30 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 			obj->velocity.x = -max_speed;
 	}
 	else {
-		obj->velocity.x = 0;
+		if (logic == true && position != original_pos)
+		{
+			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, original_pos);
+			path.Pop(step);
+
+			iPoint pos = App->map->WorldToMap(obj->position.x, obj->position.y);
+			if (pos.x < step.x)
+				obj->velocity.x = max_speed;
+			if (pos.x > step.x + 1)
+				obj->velocity.x = -max_speed;
+		};
+	}
+
+	if (obj->velocity.x > 0)
+	{
+		current_animation = &right;
+	}
+	else if (obj->velocity.x < 0)
+	{
+		current_animation = &left;
+	}
+	else
+	{
+		current_animation = &idle;
 	}
 
 	/*if (obj->velocity.x < -max_speed)
