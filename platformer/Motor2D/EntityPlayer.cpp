@@ -9,6 +9,7 @@
 #include "j1Physics.h"
 #include "j1EntityManager.h"
 #include "j1Pathfinding.h"
+#include "j1Scene.h"
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
 
@@ -95,7 +96,6 @@ void EntityPlayer::Awake()
 	{
 		width = App->entities->properties[i++]->value;
 		height = App->entities->properties[i++]->value;
-		lifes = App->entities->properties[i++]->value;
 		jump_speed = App->entities->properties[i++]->value;
 		acceleration = App->entities->properties[i++]->value;
 		max_speed = App->entities->properties[i++]->value;
@@ -103,18 +103,6 @@ void EntityPlayer::Awake()
 		hability_stored = App->entities->properties[i++]->value;
 		hability = hability_stored;
 	}
-}
-
-EntityPlayer::~EntityPlayer()
-{
-	LOG("I've been deleted, ouch!");
-}
-
-// Unload assets
-void EntityPlayer::CleanUp()
-{
-
-	LOG("Unloading player");
 }
 
 // Update: draw background
@@ -127,19 +115,6 @@ bool EntityPlayer::Update(float dt, bool logic)
 	float thousanddivdt = 1000 / dt;// ~ frame_cap
 
 	normalize_factor = 60 / thousanddivdt;//60 is the max framerate we support	
-
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-	{
-		godmode = !godmode;
-		if (godmode)
-		{
-			hability = 7;
-		}
-		else
-		{
-			hability = hability_stored;
-		}
-	}
 
 	//CONTROLS
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT /*&& obj->velocity.x <max_speed*/)
@@ -206,10 +181,11 @@ bool EntityPlayer::Update(float dt, bool logic)
 				current_animation = &airborneRight;
 		}
 	}
-	//this is the position inherited from enitity and allows for easy access in not precise calculus
+
 	position.x = obj->position.x;
 	position.y = obj->position.y;
-
+	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
+	//references and also not all entities have objects whose position is calculated automatically
 	return true;
 }
 
@@ -241,11 +217,11 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 	{
 		App->map->change_to_next_level = true;
 	}
-	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA && !godmode)
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA && !App->scene->godmode)
 	{
 		set_to_start_pos = true;
 	}
-	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_ENEMY && !godmode)
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_ENEMY && !App->scene->godmode)
 	{
 		SDL_Rect Intersection;
 		SDL_IntersectRect(&c1->rect, &c2->rect, &Intersection);

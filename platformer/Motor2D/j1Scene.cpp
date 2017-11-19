@@ -8,7 +8,6 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-//#include "j1Player.h"
 #include "j1Physics.h"
 #include "Brofiler\Brofiler.h"
 
@@ -55,6 +54,21 @@ bool j1Scene::PreUpdate(float dt)
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Update_Scene", Profiler::Color::LawnGreen);
+
+
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		godmode = !godmode;
+		if (godmode)
+		{
+			App->map->player->hability = 7;
+		}
+		else
+		{
+			App->map->player->hability = App->map->player->hability_stored;
+		}
+	}
+
 
 	uint win;
 	uint i;
@@ -117,8 +131,6 @@ bool j1Scene::PostUpdate(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-
-
 	if (App->map->change_to_next_level)
 	{
 		App->map->next_level();
@@ -134,8 +146,6 @@ bool j1Scene::PostUpdate(float dt)
 	{
 		App->map->change_map(App->map->change_to_this_level);
 		App->map->change_to_this_level = -1;
-		/*App->map->player->obj->position.x = App->map->player->pos_saved_x;
-		App->map->player->obj->position.y = App->map->player->pos_saved_y;*/
 	}
 
 	return ret;

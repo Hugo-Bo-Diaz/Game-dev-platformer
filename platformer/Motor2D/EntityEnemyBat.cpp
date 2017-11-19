@@ -75,33 +75,10 @@ void EntityEnemyBat::Awake()
 	}
 	width = App->entities->properties[i++]->value;
 	height = App->entities->properties[i++]->value;
-	lifes = App->entities->properties[i++]->value;
 	acceleration = App->entities->properties[i++]->value;
 	max_speed = App->entities->properties[i++]->value;
 	gravity = App->entities->properties[i++]->value;
 	
-}
-
-EntityEnemyBat::~EntityEnemyBat()
-{
-	LOG("I've been deleted, ouch!");
-}
-
-void EntityEnemyBat::CleanUp()
-{
-	LOG("Unloading Bat :(");
-}
-
-bool EntityEnemyBat::PreUpdate()
-{
-	BROFILER_CATEGORY("PreUpdate_EntityEnemyBat", Profiler::Color::Purple);
-
-	if (destroyed == true)
-	{
-		//Destroy bat
-	}
-
-	return true;
 }
 
 bool EntityEnemyBat::Update(float dt, bool logic)
