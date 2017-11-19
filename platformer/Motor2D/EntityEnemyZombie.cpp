@@ -135,7 +135,7 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 
 		if (App->map->WorldToMap(obj->position.x, obj->position.y).x < step.x)
 			obj->velocity.x = max_speed;
-		if (App->map->WorldToMap(obj->position.x, obj->position.y).x > step.x)
+		if (App->map->WorldToMap(obj->position.x, obj->position.y).x > step.x + 1)
 			obj->velocity.x = -max_speed;
 	}
 	else {

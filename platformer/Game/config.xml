@@ -33,6 +33,7 @@
     <map directory ="map0.tmx"/>
     <map directory ="map1.tmx"/>
     <map directory ="map2.tmx"/>
+    <map directory ="map3.tmx"/>
   </map>
 
   <Entities>

@@ -54,20 +54,19 @@ bool j1Pathfinding::IsWalkable(int x, int y) const
 		}
 		item = nullptr;*/
 
-		int a = App->map->data.width * y + x;
+		int tile = App->map->data.width * y + x;
 		if (!isGroundEnemy)
 		{
-			id = App->map->data.layers.start->next->next->data->data[a];
+			id = App->map->data.layers.start->next->next->data->data[tile];
 			if (id != 28 && id != 29)
 				ret = true;
 		}
 		else
 		{
-			id = App->map->data.layers.start->next->next->next->data->data[a];
+			id = App->map->data.layers.start->next->next->next->data->data[tile];
 			if (id == 75)
 				ret = true;
 		}
-
 	}
 
 	return ret;
