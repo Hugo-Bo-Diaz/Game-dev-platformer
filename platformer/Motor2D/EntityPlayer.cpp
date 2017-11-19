@@ -91,9 +91,16 @@ void EntityPlayer::Start()
 void EntityPlayer::Awake()
 {
 	LOG("Loading player config");
+	int j = 0;
 	int i = 0;
-	while (i < App->entities->properties.count() && App->entities->properties[i]->type == 0)
+	for (j = 0; j<App->entities->properties.count(); ++j)
 	{
+		if (App->entities->properties[j]->type == 0)
+		{
+			i = j;
+			break;
+		}
+	}
 		width = App->entities->properties[i++]->value;
 		height = App->entities->properties[i++]->value;
 		jump_speed = App->entities->properties[i++]->value;
@@ -101,8 +108,14 @@ void EntityPlayer::Awake()
 		max_speed = App->entities->properties[i++]->value;
 		gravity = App->entities->properties[i++]->value;
 		hability_stored = App->entities->properties[i++]->value;
-		hability = hability_stored;
-	}
+		if (!App->scene->godmode)
+		{
+			hability = hability_stored;
+		}
+		else
+		{
+			hability = 7;
+		}
 }
 
 // Update: draw background

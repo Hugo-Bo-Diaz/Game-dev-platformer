@@ -239,7 +239,6 @@ bool j1Map::Load(const char* file_name)
 		data.back = set;
 	}
 
-	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	
 	if(ret == true)
@@ -258,9 +257,6 @@ bool j1Map::Load(const char* file_name)
 			LOG("spacing: %d margin: %d", s->spacing, s->margin);
 			item = item->next;
 		}
-
-		// TODO 4: Add info here about your loaded layers
-		// Adapt this vcode with your own variables
 		
 		p2List_item<map_layer*>* item_layer = data.layers.start;
 		while(item_layer != NULL)
@@ -476,8 +472,8 @@ bool j1Map::CreateColliders(map_layer* layer)
 				SDL_Rect rect;
 				rect.x = point.x;
 				rect.y = point.y;
-				rect.w = 35;//WE WILL HAVE TO CHANGE THIS
-				rect.h = 35;//WE WILL HAVE TO CHANGE THIS TOO
+				rect.w = 35;
+				rect.h = 35;
 
 				SDL_Rect recthalf;
 				recthalf.x = point.x;
