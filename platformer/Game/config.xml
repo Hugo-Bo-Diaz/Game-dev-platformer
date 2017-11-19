@@ -67,6 +67,7 @@
       <tex path ="textures/Bat.png" for ="bat"/>
       <tex path ="textures/Zombie.png" for ="zombie"/>
       <tex path ="textures/Biplane.png" for ="plane"/>
+      <tex path ="textures/endscreen.png" for ="end_screen"/>
     </textures>
   </Entities>
   

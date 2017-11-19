@@ -11,33 +11,24 @@
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
 
-#include "EntityPlane.h"
+#include "EntityThanksforplaying.h"
 
-EntityPlane::EntityPlane()
+EntityEndScreen::EntityEndScreen()
 {
-	name.create("Plane");
+	name.create("end_screen");
 }
 
-void EntityPlane::CleanUp()
-{
-	if (col != nullptr)
-	{
-		col->to_delete = true;
-	}
-}
-
-void EntityPlane::Start()
+void EntityEndScreen::Start()
 {
 	BROFILER_CATEGORY("Start_EntityBackground", Profiler::Color::Purple);
 
 	LOG("Loading background entity");
-	col = App->collision->AddCollider({position.x,position.y,300,164},COLLIDER_PLANE);
 	interactive = false;
 }
 
-void EntityPlane::Draw()
+void EntityEndScreen::Draw()
 {
 	BROFILER_CATEGORY("Draw_EntityBackground", Profiler::Color::Purple);
 
-	App->render->Blit(App->entities->GetTex(3), position.x, position.y);
+	App->render->Blit(App->entities->GetTex(4), -App->render->camera.x, -App->render->camera.y);
 }

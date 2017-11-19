@@ -59,5 +59,6 @@ public:
 	bool set_to_start_pos = false;
 
 	float normalize_factor;
+	bool ended = false;
 };
 #endif

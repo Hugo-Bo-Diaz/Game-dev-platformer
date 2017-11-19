@@ -22,7 +22,8 @@ enum ENTITY_TYPE
 	BAT,
 	PLAYER,
 	ZOMBIE,
-	PLANE
+	PLANE,
+	END
 };
 
 class Entity

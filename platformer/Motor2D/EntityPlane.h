@@ -3,6 +3,7 @@
 
 #include "j1Physics.h"
 #include "EntityBackground.h"
+#include "j1Collision.h"
 
 class EntityPlane : public EntityBackground
 {
@@ -14,6 +15,9 @@ public:
 
 	void Draw();
 	void Start();
+	void CleanUp();
+
+	Collider* col = nullptr;
 };
 
 
