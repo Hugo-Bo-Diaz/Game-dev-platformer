@@ -9,10 +9,7 @@ class EntityBackground : public Entity
 public:
 
 	EntityBackground() {};
-	~EntityBackground()
-	{
-	
-	};
+	~EntityBackground() {};
 
 	virtual void Draw() {};
 	virtual bool Update(float dt, bool logic) { return true; };

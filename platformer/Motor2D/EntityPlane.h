@@ -10,9 +10,7 @@ public:
 
 	EntityPlane();
 	~EntityPlane()
-	{
-	
-	};
+	{};
 
 	void Draw();
 	void Start();
