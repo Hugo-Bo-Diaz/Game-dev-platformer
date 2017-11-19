@@ -14,9 +14,6 @@ public:
 	virtual void Draw() {};
 	virtual bool Update(float dt, bool logic) { return true; };
 	virtual void Start() {};
-
-	virtual void CleanUp() {};
-
 };
 
 

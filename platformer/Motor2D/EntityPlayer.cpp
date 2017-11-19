@@ -242,7 +242,11 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 			App->map->player->obj->velocity.y = -5*normalize_factor;
 		}
 	}
-
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_PLANE && ended == false)
+	{
+		App->entities->AddEntity(0, 0, ENTITY_TYPE::END);
+		ended = true;
+	}
 }
 
 void EntityPlayer::SetPosOrigin()
