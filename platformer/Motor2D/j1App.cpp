@@ -50,7 +50,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(path);//7
 	AddModule(collision);//8
-	AddModule(map);//5//this may cause errors
+	AddModule(map);//5
 	AddModule(entities);//9
 	AddModule(physics);//10
 

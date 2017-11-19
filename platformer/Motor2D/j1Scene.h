@@ -32,6 +32,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool godmode = false;
 private:
 };
 

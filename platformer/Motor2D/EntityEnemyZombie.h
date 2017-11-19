@@ -13,13 +13,10 @@ class EntityEnemyZombie : public EntityInteractive
 {
 public:
 	EntityEnemyZombie();
-	~EntityEnemyZombie();
+	~EntityEnemyZombie() {};
 
 	void Start();
-	void CleanUp();
-	bool PreUpdate();
 	bool Update(float dt, bool logic);
-	//	bool Update(float dt);
 	void OnCollision(Collider* c1, Collider* c2);
 
 	void Awake();

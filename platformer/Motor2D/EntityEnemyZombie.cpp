@@ -25,20 +25,18 @@ EntityEnemyZombie::EntityEnemyZombie()
 	idle.speed = 0.12f;
 	//animations.add(idle);
 	//Moving left animation
-	/*left.PushBack({ 0, 30, 18, 28 });
-	left.PushBack({ 20, 30, 18, 28 });
-	left.PushBack({ 40, 30, 18, 28 });
-	left.PushBack({ 60, 30, 18, 28 });
+	left.PushBack({ 0, 42, 30, 38 });
+	left.PushBack({ 32, 42, 30, 38 });
+	left.PushBack({ 64, 42, 30, 38 });
 	left.speed = 0.15f;
 	//animations.add(left);
 	//Moving right animation
-	right.PushBack({ 0, 60, 18, 28 });
-	right.PushBack({ 20, 60, 18, 28 });
-	right.PushBack({ 40, 60, 18, 28 });
-	right.PushBack({ 60, 60, 18, 28 });
+	right.PushBack({ 0, 122, 30, 38 });
+	right.PushBack({ 32, 122, 30, 38 });
+	right.PushBack({ 64, 122, 30, 38 });
 	right.speed = 0.15f;
 	//animations.add(right);
-	*/
+	
 	current_animation = &idle;
 }
 
@@ -75,30 +73,10 @@ void EntityEnemyZombie::Awake()
 	}
 	width = App->entities->properties[i++]->value;
 	height = App->entities->properties[i++]->value;
-	lifes = App->entities->properties[i++]->value;
 	acceleration = App->entities->properties[i++]->value;
 	max_speed = App->entities->properties[i++]->value;
 	gravity = App->entities->properties[i++]->value;
 	
-}
-
-EntityEnemyZombie::~EntityEnemyZombie()
-{
-	LOG("I've been deleted, ouch!");
-}
-
-void EntityEnemyZombie::CleanUp()
-{
-	LOG("Unloading Zombie :(");
-}
-
-bool EntityEnemyZombie::PreUpdate()
-{
-	BROFILER_CATEGORY("PreUpdate_EntityEnemyZombie", Profiler::Color::Purple);
-
-
-
-	return true;
 }
 
 bool EntityEnemyZombie::Update(float dt, bool logic)
@@ -115,6 +93,8 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 
 	position.x = obj->position.x;
 	position.y = obj->position.y;
+	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
+	//references and also not all entities have objects whose position is calculated automatically
 	if (abs(position.x - App->map->player->position.x) < App->map->data.tile_width * 5 && App->map->player->position.y > 6)
 	{
 		if (logic == true)
@@ -146,9 +126,6 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 		obj->velocity.x = -max_speed;
 	if (obj->velocity.x > max_speed)
 		obj->velocity.x = max_speed;*/
-
-	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
-	//references and also not all entities have objects whose position is calculated automatically
 	return true;
 }
 

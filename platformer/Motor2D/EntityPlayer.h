@@ -13,12 +13,10 @@ class EntityPlayer : public EntityInteractive
 {
 public:
 	EntityPlayer();
-	~EntityPlayer();
+	~EntityPlayer() {};
 
 	void Start();
-	void CleanUp();
 	bool PreUpdate(float dt);
-//	bool Update(float dt);
 	bool Update(float dt,bool logic);
 	void OnCollision(Collider* c1, Collider* c2);
 	void Awake();
@@ -57,7 +55,6 @@ public:
 
 	float hability = 0.5;
 	float hability_stored;
-	bool godmode = false;
 	// if this is true, the player will change its position to the original one at the start of the update
 	bool set_to_start_pos = false;
 
