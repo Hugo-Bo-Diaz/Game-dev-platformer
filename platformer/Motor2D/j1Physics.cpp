@@ -81,7 +81,6 @@ bool j1Physics::PreUpdate(float dt)
 	BROFILER_CATEGORY("PreUpdate_Physics", Profiler::Color::SlateGray);
 
 	//advance objects
-	LOG("%f",dt);
 	float thousanddivdt = 1000 / dt;// ~ frame_cap
 
 	float normalize_factor = 60/ thousanddivdt;//60 is the max framerate we support	
@@ -175,7 +174,7 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 				}
 				obj->velocity.x = 0;
 			}
-			else if (result.h <= result.w)
+			else if (result.h  <= result.w)
 			{
 				if (c1->rect.y < c2->rect.y)
 				{obj->predictor->rect.y -= result.h;
@@ -197,7 +196,7 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		SDL_Rect c3;
 		c3.x = c2->rect.x;
 		c3.w = c2->rect.w;
-		c3.y = (c2->rect.y + c2->rect.h) - (c1->rect.x+(0.6*c1->rect.w) - c2->rect.x) -7;
+		c3.y = (c2->rect.y + c2->rect.h) - (c1->rect.x+(0.6*c1->rect.w) - c2->rect.x) -4;
 		c3.h = c2->rect.h;
 
 		if (c3.y < c2->rect.y)// this makes it more consistent at the peak of the slope so the player is not moved over the floor
@@ -226,7 +225,7 @@ void j1Physics::OnCollision(Collider* c1,Collider*c2)
 		SDL_Rect c3;
 		c3.x = c2->rect.x;
 		c3.w = c2->rect.w;
-		c3.y = c2->rect.y + (c1->rect.x + (0.2*c1->rect.w) - c2->rect.x) -7;//this -7 is just a little help so that its easier to get to the top
+		c3.y = c2->rect.y + (c1->rect.x + (0.2*c1->rect.w) - c2->rect.x)-5;//this -7 is just a little help so that its easier to get to the top
 		c3.h = c2->rect.h;
 		
 		if (c3.y < c2->rect.y)

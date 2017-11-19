@@ -41,5 +41,6 @@ public:
 	object* GetObjectFromRect_predictor(SDL_Rect* rectangle);
 
 	void destroy_object(object* obj);
+
 };
 #endif // !__J1PHYSICS_H__

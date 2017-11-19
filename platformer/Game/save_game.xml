@@ -4,17 +4,17 @@
 	<window />
 	<textures />
 	<audio />
-	<map>
-		<current_map value="2" />
-	</map>
 	<scene />
 	<pathfinding />
 	<collision />
+	<map>
+		<current_map value="2" />
+	</map>
 	<Entities>
 		<Bat x="840" y="0" type="1" />
 		<Bat x="2310" y="105" type="1" />
 		<Bat x="1365" y="140" type="1" />
-		<Player x="70" y="235" type="2" />
+		<Player x="154" y="235" type="2" />
 	</Entities>
 	<physics />
 	<renderer>

@@ -124,6 +124,10 @@ bool EntityPlayer::Update(float dt, bool logic)
 	/*p2DynArray<iPoint> path;
 	App->path->PropagateAStar(path,position,iPoint(0,0));*/
 
+	float thousanddivdt = 1000 / dt;// ~ frame_cap
+
+	normalize_factor = 60 / thousanddivdt;//60 is the max framerate we support	
+
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		godmode = !godmode;
@@ -251,7 +255,7 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 		}
 		else
 		{
-			App->map->player->obj->velocity.y = -10;
+			App->map->player->obj->velocity.y = -5*normalize_factor;
 		}
 	}
 

@@ -21,7 +21,7 @@ EntityBackground::EntityBackground()
 
 void EntityBackground::Start()
 {
-	BROFILER_CATEGORY("Start_EntityEnemyBat", Profiler::Color::Purple);
+	BROFILER_CATEGORY("Start_EntityBackground", Profiler::Color::Purple);
 
 	LOG("Loading background entity");
 	//create object
@@ -43,7 +43,7 @@ bool EntityBackground::Update(float dt, bool logic)
 
 void EntityBackground::Draw()
 {
-	BROFILER_CATEGORY("Draw_EntityEnemyBat", Profiler::Color::Purple);
+	BROFILER_CATEGORY("Draw_EntityBackground", Profiler::Color::Purple);
 
 	App->render->Blit(App->entities->GetTex(1), (int)obj->position.x - 10, (int)obj->position.y, &(current_animation->GetCurrentFrame()));
 }

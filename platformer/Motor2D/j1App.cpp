@@ -46,11 +46,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);//2
 	AddModule(tex);//3
 	AddModule(audio);//4
-	AddModule(map);//5
 	AddModule(scene);//6
 
 	AddModule(path);//7
 	AddModule(collision);//8
+	AddModule(map);//5//this may cause errors
 	AddModule(entities);//9
 	AddModule(physics);//10
 

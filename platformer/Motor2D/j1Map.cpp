@@ -531,14 +531,14 @@ bool j1Map::CreateColliders(map_layer* layer)
 					if (!coming_from_save)
 					{
 						App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::BAT);
-						break;
-					}				
+					}
+					break;
 				case 60:
 					if (!coming_from_save)
 					{
 						App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::ZOMBIE);
-						break;
 					}
+					break;
 				default:
 					break;
 				}
