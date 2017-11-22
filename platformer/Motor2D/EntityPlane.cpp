@@ -23,6 +23,7 @@ void EntityPlane::CleanUp()
 	if (col != nullptr)
 	{
 		col->to_delete = true;
+		col = nullptr;
 	}
 }
 

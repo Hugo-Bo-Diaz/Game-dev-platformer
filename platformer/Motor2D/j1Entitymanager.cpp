@@ -8,6 +8,7 @@
 #include "EntityEnemyZombie.h"
 #include "EntityPlane.h"
 #include "Entitythanksforplaying.h"
+#include "EntityCoin.h"
 #include "Brofiler\Brofiler.h"
 
 j1EntityManager::j1EntityManager()
@@ -95,6 +96,11 @@ Entity* j1EntityManager::AddEntity(int _x, int _y, ENTITY_TYPE type)
 	case ENTITY_TYPE::END:
 	{
 		ret = new EntityEndScreen;
+		break;
+	}
+	case ENTITY_TYPE::COIN:
+	{
+		ret = new EntityCoin;
 		break;
 	}
 	default:
@@ -295,8 +301,16 @@ bool j1EntityManager::Load_entites()
 				AddEntity(item->data->x, item->data->y, item->data->type);
 				break;
 			}
+			case ENTITY_TYPE::COIN:
+			{
+				AddEntity(item->data->x, item->data->y, item->data->type);
+				break;
+			}
 			default:
-			break;
+			{
+				AddEntity(item->data->x, item->data->y, item->data->type);
+				break;
+			}
 		}
 
 	item = item->next;

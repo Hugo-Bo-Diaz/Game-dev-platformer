@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Window.h"
+#include "SDL_image/include/SDL_image.h"
 
 #include "SDL/include/SDL.h"
 #include "Brofiler\Brofiler.h"
@@ -16,6 +17,15 @@ j1Window::j1Window() : j1Module()
 // Destructor
 j1Window::~j1Window()
 {
+}
+
+bool j1Window::Start()
+{
+	SDL_Surface* icon = IMG_Load("icon.png");
+	SDL_SetWindowIcon(window, icon);
+	SDL_FreeSurface(icon);
+
+	return true;
 }
 
 // Called before render is available
@@ -85,6 +95,7 @@ bool j1Window::CleanUp()
 	BROFILER_CATEGORY("CleanUp_Window", Profiler::Color::DodgerBlue);
 
 	LOG("Destroying SDL window and quitting all SDL systems");
+
 
 	//Destroy window
 	if(window != NULL)

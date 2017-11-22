@@ -101,6 +101,17 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLANE][COLLIDER_SLOPE_RIGHT] = false;
 	matrix[COLLIDER_PLANE][COLLIDER_PLANE] = false;
 
+	matrix[COLLIDER_COIN][COLLIDER_FUTURE] = false;
+	matrix[COLLIDER_COIN][COLLIDER_WALL] = false;
+	matrix[COLLIDER_COIN][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_COIN][COLLIDER_NEXT_LEVEL] = false;
+	matrix[COLLIDER_COIN][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_COIN][COLLIDER_LAVA] = false;
+	matrix[COLLIDER_COIN][COLLIDER_SLOPE_LEFT] = false;
+	matrix[COLLIDER_COIN][COLLIDER_SLOPE_RIGHT] = false;
+	matrix[COLLIDER_COIN][COLLIDER_PLANE] = false;
+
+
 	name.create("collision");
 }
 
@@ -224,6 +235,9 @@ void j1Collision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
 			case COLLIDER_PLANE: // yellow
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
+			break;
+			case COLLIDER_COIN:
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
 		}

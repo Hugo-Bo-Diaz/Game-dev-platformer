@@ -23,6 +23,7 @@ enum ENTITY_TYPE
 	PLAYER,
 	ZOMBIE,
 	PLANE,
+	COIN,
 	END
 };
 

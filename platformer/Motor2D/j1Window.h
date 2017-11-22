@@ -15,6 +15,9 @@ public:
 	// Destructor
 	virtual ~j1Window();
 
+	//needed to set the window icon///////////////
+	bool Start();
+
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
 
@@ -42,6 +45,7 @@ private:
 	uint		width;
 	uint		height;
 	uint		scale;
+
 };
 
 #endif // __j1WINDOW_H__
