@@ -30,8 +30,8 @@ public:
 	Animation spin;
 
 	//default values are added if everything that sets em up is going horrible
-	int width = 16;
-	int height = 16;
+	int width = 25;
+	int height = 25;
 
 	//this is the offset they will have from the grid.
 	int offset_x = 10;

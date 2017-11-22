@@ -62,10 +62,10 @@
         <property value="0.45"   name ="gravity"/>
       </Zombie>
       <Coin type ="3">
-        <property value="16"    name ="width"/>
-        <property value="16"    name ="height"/>
-        <property value="15"    name ="offset_x"/>
-        <property value="15"    name ="offset_y"/>
+        <property value="25"    name ="width"/>
+        <property value="25"    name ="height"/>
+        <property value="10"    name ="offset_x"/>
+        <property value="10"    name ="offset_y"/>
       </Coin>
     </properties>
     <textures>
@@ -74,7 +74,7 @@
       <tex path ="textures/Zombie.png" for ="zombie" num ="2"/>
       <tex path ="textures/Biplane.png" for ="plane" num ="3"/>
       <tex path ="textures/endscreen.png" for ="end_screen" num ="4"/>
-      <tex path ="textures/GasCoin.png" for ="coin" num ="5"/>
+      <tex path ="textures/GasCoin25.png" for ="coin" num ="5"/>
     </textures>
   </Entities>
   

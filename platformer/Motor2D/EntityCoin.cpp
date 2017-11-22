@@ -19,7 +19,7 @@ EntityCoin::EntityCoin()
 	name.create("Coin");
 
 	// Idle animation
-	spin.PushBack({ 0, 0, 16, 16 });
+	spin.PushBack({ 0, 0, 25, 25 });
 	spin.speed = 1.0f;
 
 	current_animation = &spin;

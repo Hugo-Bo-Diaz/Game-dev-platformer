@@ -508,7 +508,7 @@ bool j1Map::CreateColliders(map_layer* layer)
 					{
 						initial_player_pos = point;
 						player = (EntityPlayer*)App->entities->AddEntity(0,0,ENTITY_TYPE::PLAYER);
-						App->entities->AddEntity(point.x,point.y,ENTITY_TYPE::COIN);
+						App->entities->AddEntity(point.x + 200,point.y,ENTITY_TYPE::COIN);
 					}
 					player_start_in_map = point;
 					initial_player_pos.x = -1;
