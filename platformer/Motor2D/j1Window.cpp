@@ -21,7 +21,7 @@ j1Window::~j1Window()
 
 bool j1Window::Start()
 {
-	SDL_Surface* icon = IMG_Load("icon.png");
+	SDL_Surface* icon = IMG_Load("GasIcon.png");
 	SDL_SetWindowIcon(window, icon);
 	SDL_FreeSurface(icon);
 

@@ -74,7 +74,7 @@
       <tex path ="textures/Zombie.png" for ="zombie" num ="2"/>
       <tex path ="textures/Biplane.png" for ="plane" num ="3"/>
       <tex path ="textures/endscreen.png" for ="end_screen" num ="4"/>
-      <tex path ="textures/coin.png" for ="coin" num ="5"/>
+      <tex path ="textures/GasCoin.png" for ="coin" num ="5"/>
     </textures>
   </Entities>
   
