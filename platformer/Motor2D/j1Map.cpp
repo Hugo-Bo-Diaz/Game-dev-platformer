@@ -462,93 +462,94 @@ bool j1Map::CreateColliders(map_layer* layer)
 	data.colliders[j] = App->collision->AddCollider({ (int)layer->width*35-4, 0, 35, (int)layer->height * 35 }, COLLIDER_WALL); ++j;
 	data.colliders[j] = App->collision->AddCollider({ 0,(int)layer->height * 35 ,(int)layer->width * 35,10 }, COLLIDER_WALL); ++j;
 
-		for (int _y = 0; _y < layer->height; ++_y)
+	for (int _y = 0; _y < layer->height; ++_y)
+	{
+		for (int _x = 0; _x < layer->width; ++_x)
 		{
-			for (int _x = 0; _x < layer->width; ++_x)
-			{
-				int i =layer->Get(_x, _y);
-				iPoint point = MapToWorld(_x, _y);
-	
-				SDL_Rect rect;
-				rect.x = point.x;
-				rect.y = point.y;
-				rect.w = 35;
-				rect.h = 35;
+			int i =layer->Get(_x, _y);
+			iPoint point = MapToWorld(_x, _y);
 
-				SDL_Rect recthalf;
-				recthalf.x = point.x;
-				recthalf.y = point.y;
-				recthalf.w = 35;
-				recthalf.h = 20;
-
+			SDL_Rect rect;
+			rect.x = point.x;
+			rect.y = point.y;
+			rect.w = 35;
+			rect.h = 35;
+			SDL_Rect recthalf;
+			recthalf.x = point.x;
+			recthalf.y = point.y;
+			recthalf.w = 35;
+			recthalf.h = 20;
 				switch (layer->data[i])
+			{
+			case 27:
+				if (data.colliders[j] == nullptr)
+					data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_NEXT_LEVEL);
+				j++;
+				break;
+			case 28:
+				if (data.colliders[j] == nullptr)
+					data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_WALL);
+				j++;
+				break;
+			case 29:
+				if (data.colliders[j] == nullptr)
+					data.colliders[j] = App->collision->AddCollider(recthalf, COLLIDER_WALL);
+				j++;
+				break;
+			case 30:
+				if (data.colliders[j] == nullptr)
+					data.colliders[j] = App->collision->AddCollider(rect,COLLIDER_SLOPE_RIGHT);
+				++j;
+				break;
+			case 42:
+				if (!coming_from_save)//player spawned from map point
 				{
-				case 27:
-					if (data.colliders[j] == nullptr)
-						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_NEXT_LEVEL);
-					j++;
-					break;
-				case 28:
-					if (data.colliders[j] == nullptr)
-						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_WALL);
-					j++;
-					break;
-				case 29:
-					if (data.colliders[j] == nullptr)
-						data.colliders[j] = App->collision->AddCollider(recthalf, COLLIDER_WALL);
-					j++;
-					break;
-				case 30:
-					if (data.colliders[j] == nullptr)
-						data.colliders[j] = App->collision->AddCollider(rect,COLLIDER_SLOPE_RIGHT);
-					++j;
-					break;
-				case 42:
-					if (!coming_from_save)//player spawned from map point
-					{
-						initial_player_pos = point;
-						player = (EntityPlayer*)App->entities->AddEntity(0,0,ENTITY_TYPE::PLAYER);
-						App->entities->AddEntity(point.x + 200,point.y,ENTITY_TYPE::COIN);
-					}
-					player_start_in_map = point;
-					initial_player_pos.x = -1;
-					initial_player_pos.y = -1;
-					break;
-				case 43:
-					if (data.colliders[j] == nullptr)
-						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_LAVA);
-					j++;
-					break;
-				case 44:
-					if (data.colliders[j] == nullptr)
-						data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_SLOPE_LEFT);
-					++j;
-					break;
-				case 45:
-					if (!coming_from_save)
-					{
-						App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::BAT);
-					}
-					break;
-				case 60:
-					if (!coming_from_save)
-					{
-						App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::ZOMBIE);
-					}
-					break;
-				case 90:
-					if (!coming_from_save)
-					{
-						App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::PLANE);
-					}
-					break;
-				default:
-					break;
+					initial_player_pos = point;
+					player = (EntityPlayer*)App->entities->AddEntity(0,0,ENTITY_TYPE::PLAYER);
 				}
+				player_start_in_map = point;
+				initial_player_pos.x = -1;
+				initial_player_pos.y = -1;
+				break;
+			case 43:
+				if (data.colliders[j] == nullptr)
+					data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_LAVA);
+				j++;
+				break;
+			case 44:
+				if (data.colliders[j] == nullptr)
+					data.colliders[j] = App->collision->AddCollider(rect, COLLIDER_SLOPE_LEFT);
+				++j;
+				break;
+			case 45:
+				if (!coming_from_save)
+				{
+					App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::BAT);
+				}
+				break;
+			case 60:
+				if (!coming_from_save)
+				{
+					App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::ZOMBIE);
+				}
+				break;
+			case 90:
+				if (!coming_from_save)
+				{
+					App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::PLANE);
+				}
+				break;
+			case 105:
+				if (!coming_from_save)
+				{
+					App->entities->AddEntity(point.x, point.y, ENTITY_TYPE::COIN);
+				}
+				break;
+			default:
+				break;
 			}
 		}
-
-	
+	}
 
 	return true;
 }

@@ -8,13 +8,16 @@
 	<pathfinding />
 	<collision />
 	<map>
-		<current_map value="1" />
+		<current_map value="0" />
 	</map>
 	<Entities>
-		<Bat x="420" y="70" type="1" />
-		<Bat x="2590" y="105" type="1" />
-		<Zombie x="1120" y="172" type="3" />
-		<Player x="119" y="270" type="2" />
+		<Bat x="1653" y="35" type="1" />
+		<Player x="35" y="235" type="2" />
+		<Coin x="210" y="175" type="5" />
+		<Zombie x="385" y="207" type="3" />
+		<Coin x="140" y="245" type="5" />
+		<Coin x="175" y="245" type="5" />
+		<Zombie x="1365" y="242" type="3" />
 	</Entities>
 	<physics />
 	<renderer>

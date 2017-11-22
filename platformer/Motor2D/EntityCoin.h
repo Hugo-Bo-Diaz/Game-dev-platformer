@@ -36,6 +36,7 @@ public:
 	//this is the offset they will have from the grid.
 	int offset_x = 10;
 	int offset_y = 10;
+	
 };
 
 #endif

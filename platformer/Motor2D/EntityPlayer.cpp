@@ -211,6 +211,7 @@ bool EntityPlayer::PreUpdate(float dt)
 
 	if (set_to_start_pos == true)
 	{
+		App->scene->lifes -= 1;
 		App->map->change_to_this_level = App->map->index_map;
 		set_to_start_pos = false;
 	}

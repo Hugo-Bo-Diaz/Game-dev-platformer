@@ -47,6 +47,14 @@ bool j1Scene::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->map->change_to_this_level = App->map->index_map;
 
+	if (lifes <= 0)//reset stats NEEDS TO BE LOADED IN CONFIG, MyBad WorkInProgress
+	{
+		LOG("LOL U BAD");
+		score = 0;
+		coins = 0;
+		lifes = 3;
+	}
+
 	return true;
 }
 
@@ -68,7 +76,6 @@ bool j1Scene::Update(float dt)
 			App->map->player->hability = App->map->player->hability_stored;
 		}
 	}
-
 
 	uint win;
 	uint i;

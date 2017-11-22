@@ -19,7 +19,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_WALL][COLLIDER_SLOPE_LEFT] = false;
 	matrix[COLLIDER_WALL][COLLIDER_SLOPE_RIGHT] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLANE] = false;
-
+	matrix[COLLIDER_WALL][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
@@ -30,6 +30,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_SLOPE_LEFT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_SLOPE_RIGHT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLANE] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_COIN] = true;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
@@ -40,6 +41,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_ENEMY][COLLIDER_SLOPE_LEFT] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_SLOPE_RIGHT] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLANE] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_FUTURE][COLLIDER_FUTURE] = false;
 	matrix[COLLIDER_FUTURE][COLLIDER_WALL] = true;
@@ -50,6 +52,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_FUTURE][COLLIDER_SLOPE_LEFT] = true;
 	matrix[COLLIDER_FUTURE][COLLIDER_SLOPE_RIGHT] = true;
 	matrix[COLLIDER_FUTURE][COLLIDER_PLANE] = true;
+	matrix[COLLIDER_FUTURE][COLLIDER_COIN] = true;
 
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_FUTURE] = false;
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_WALL] = false;
@@ -60,6 +63,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_SLOPE_LEFT] = false;
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_SLOPE_RIGHT] = false;
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_PLANE] = false;
+	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_LAVA][COLLIDER_FUTURE] = false;
 	matrix[COLLIDER_LAVA][COLLIDER_WALL] = false;
@@ -70,6 +74,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_LAVA][COLLIDER_SLOPE_LEFT] = false;
 	matrix[COLLIDER_LAVA][COLLIDER_SLOPE_RIGHT] = false;
 	matrix[COLLIDER_LAVA][COLLIDER_PLANE] = false;
+	matrix[COLLIDER_LAVA][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_SLOPE_LEFT][COLLIDER_FUTURE] = true;
 	matrix[COLLIDER_SLOPE_LEFT][COLLIDER_WALL] = true;
@@ -80,6 +85,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_SLOPE_LEFT][COLLIDER_SLOPE_LEFT] = false;
 	matrix[COLLIDER_SLOPE_LEFT][COLLIDER_SLOPE_RIGHT] = false;
 	matrix[COLLIDER_SLOPE_LEFT][COLLIDER_PLANE] = false;
+	matrix[COLLIDER_SLOPE_LEFT][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_SLOPE_RIGHT][COLLIDER_FUTURE] = true;
 	matrix[COLLIDER_SLOPE_RIGHT][COLLIDER_WALL] = true;
@@ -90,6 +96,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_SLOPE_RIGHT][COLLIDER_SLOPE_LEFT] = false;
 	matrix[COLLIDER_SLOPE_RIGHT][COLLIDER_SLOPE_RIGHT] = false;
 	matrix[COLLIDER_SLOPE_RIGHT][COLLIDER_PLANE] = false;
+	matrix[COLLIDER_SLOPE_RIGHT][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_PLANE][COLLIDER_FUTURE] = false;
 	matrix[COLLIDER_PLANE][COLLIDER_WALL] = false;
@@ -100,6 +107,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLANE][COLLIDER_SLOPE_LEFT] = false;
 	matrix[COLLIDER_PLANE][COLLIDER_SLOPE_RIGHT] = false;
 	matrix[COLLIDER_PLANE][COLLIDER_PLANE] = false;
+	matrix[COLLIDER_PLANE][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_COIN][COLLIDER_FUTURE] = false;
 	matrix[COLLIDER_COIN][COLLIDER_WALL] = false;
@@ -110,6 +118,8 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_COIN][COLLIDER_SLOPE_LEFT] = false;
 	matrix[COLLIDER_COIN][COLLIDER_SLOPE_RIGHT] = false;
 	matrix[COLLIDER_COIN][COLLIDER_PLANE] = false;
+	matrix[COLLIDER_COIN][COLLIDER_COIN] = false;
+
 
 
 	name.create("collision");

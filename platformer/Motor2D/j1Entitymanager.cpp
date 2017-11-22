@@ -192,7 +192,8 @@ bool j1EntityManager::PostUpdate(float dt)
 		p2List_item<Entity*>* item_next = item->next;
 		if (item->data->destroyed == true)
 		{
-			App->physics->destroy_object(item->data->obj);
+			if (item->data->obj != nullptr)
+				App->physics->destroy_object(item->data->obj);
 			App->entities->destroy_entity(item);
 		}
 		if (item != nullptr)
@@ -219,14 +220,23 @@ void j1EntityManager::OnCollision(Collider* c1, Collider*c2)
 		if (item->data->interactive)
 		{
 			// this is to talk to the item as an interactive item that has the obj property;
-			if (item->data->obj != nullptr &&
-				c1->rect.x == item->data->obj->col->rect.x &&
-				c1->rect.y == item->data->obj->col->rect.y &&
-				c1->type == item->data->obj->col->type)
-			{
-				item->data->OnCollision(c1, c2);
+			if (item->data->obj != nullptr)
+			{// this checks the object if there is any it uses its properties
+				if (c1->rect.x == item->data->obj->col->rect.x &&
+					c1->rect.y == item->data->obj->col->rect.y &&
+					c1->type == item->data->obj->col->type)
+				{
+					item->data->OnCollision(c1, c2);
+				}
 			}
-			
+			else
+			{
+				if (c1->rect.x == item->data->position.x &&//if there is no object this will still look for a collision because the object is interactive
+					c1->rect.y == item->data->position.y )//we check the position because this object isn't moving(else it would have an object))
+				{//sadly we can't check if they are the same type of colliders but its the 99.999% chance they are
+					item->data->OnCollision(c1, c2);
+				}
+			}
 		}
 		item = item->next;
 	}
@@ -286,26 +296,26 @@ bool j1EntityManager::Load_entites()
 				App->map->player = (EntityPlayer*)AddEntity(item->data->x, item->data->y, item->data->type);
 				break;
 			}
-			case ENTITY_TYPE::BAT:
-			{
-				AddEntity(item->data->x,item->data->y,item->data->type);
-				break;
-			}
-			case ENTITY_TYPE::ZOMBIE:
-			{
-				AddEntity(item->data->x, item->data->y, item->data->type);
-				break;
-			}
-			case ENTITY_TYPE::PLANE:
-			{
-				AddEntity(item->data->x, item->data->y, item->data->type);
-				break;
-			}
-			case ENTITY_TYPE::COIN:
-			{
-				AddEntity(item->data->x, item->data->y, item->data->type);
-				break;
-			}
+			//case ENTITY_TYPE::BAT:
+			//{
+			//	AddEntity(item->data->x,item->data->y,item->data->type);
+			//	break;
+			//}
+			//case ENTITY_TYPE::ZOMBIE:
+			//{
+			//	AddEntity(item->data->x, item->data->y, item->data->type);
+			//	break;
+			//}
+			//case ENTITY_TYPE::PLANE:
+			//{
+			//	AddEntity(item->data->x, item->data->y, item->data->type);
+			//	break;
+			//}
+			//case ENTITY_TYPE::COIN:
+			//{
+			//	AddEntity(item->data->x, item->data->y, item->data->type);
+			//	break;
+			//}
 			default:
 			{
 				AddEntity(item->data->x, item->data->y, item->data->type);
@@ -321,7 +331,7 @@ bool j1EntityManager::Load_entites()
 
 void j1EntityManager::destroy_entity(p2List_item<Entity*>* ent)
 {
-			ent->data->CleanUp();
-			RELEASE(ent->data);
-			entities.del(ent);
+	ent->data->CleanUp();
+	RELEASE(ent->data);
+	entities.del(ent);
 }

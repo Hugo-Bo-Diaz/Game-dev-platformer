@@ -1,14 +1,11 @@
 #include "p2Log.h"
 #include "j1App.h"
-#include "j1Textures.h"
-#include "j1Input.h"
 #include "j1Render.h"
 #include "j1Collision.h"
 #include "j1Map.h"
 #include "j1Audio.h"
-#include "j1Physics.h"
-#include "j1Pathfinding.h"
 #include "j1EntityManager.h"
+#include "j1Scene.h"
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
 
@@ -31,9 +28,6 @@ void EntityCoin::Start()
 
 	LOG("Loading enemy bat");
 	//create object
-
-	position.x += offset_x;
-	position.y += offset_y;
 
 	SDL_Rect rect;
 	rect.x = position.x;
@@ -79,8 +73,9 @@ void EntityCoin::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1->type == COLLIDER_COIN && c2->type == COLLIDER_PLAYER)
 	{
+		App->scene->coins += 1;
+		App->scene->score += 100;
 		destroyed = true;
-		LOG("money money money money");
 	}
 }
 

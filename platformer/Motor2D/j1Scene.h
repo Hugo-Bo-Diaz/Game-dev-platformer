@@ -33,6 +33,11 @@ public:
 	bool CleanUp();
 
 	bool godmode = false;
+
+	int score = 0;
+	uint coins = 0;
+	uint lifes = 3;
+
 private:
 };
 
