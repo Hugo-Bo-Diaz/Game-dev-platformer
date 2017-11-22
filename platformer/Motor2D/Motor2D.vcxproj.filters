@@ -168,6 +168,7 @@
     <ClInclude Include="Entitythanksforplaying.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -191,5 +192,11 @@
     <Filter Include="Desenvolupament  ========\Entities">
       <UniqueIdentifier>{4a721b95-d1c8-463a-bcd5-b841a8e3ae46}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WhereIsMyPlane.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\textures\icon.ico" />
   </ItemGroup>
 </Project>
