@@ -48,7 +48,6 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 		textures.add(tex);
 	}
 
-
 	return true;
 }
 

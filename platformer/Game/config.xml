@@ -82,4 +82,7 @@
     <debug value ="false"/>
   </collision>
 
+  <gui>
+    <atlas file ="gui/atlas.png"/>
+  </gui>
 </config>

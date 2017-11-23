@@ -5,6 +5,8 @@
 	<textures />
 	<audio />
 	<scene />
+	<gui />
+	<fonts />
 	<pathfinding />
 	<collision />
 	<map>

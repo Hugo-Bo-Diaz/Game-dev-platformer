@@ -81,9 +81,9 @@ bool j1Physics::PreUpdate(float dt)
 	BROFILER_CATEGORY("PreUpdate_Physics", Profiler::Color::SlateGray);
 
 	//advance objects
-	float thousanddivdt = 1000 / dt;// ~ frame_cap
+	float thousanddivdt = 1000 / dt;// ~ frame RATE
 
-	float normalize_factor = 60/ thousanddivdt;//60 is the max framerate we support	
+	float normalize_factor = 60/ thousanddivdt;//60 is the ideal framerate for the given speeds	
 
 	if (normalize_factor < 1) { normalize_factor = 1; }
 
