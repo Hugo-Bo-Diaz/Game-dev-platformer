@@ -16,6 +16,8 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 
+class j1Gui;
+class j1Fonts;
 class j1EntityManager;
 class j1Pathfinding;
 class j1Collision;
@@ -90,6 +92,8 @@ public:
 	j1Scene*			scene;
 	j1Map*				map;
 
+	j1Gui*				gui;
+	j1Fonts*			fonts;
 	j1EntityManager*	entities;
 	j1Pathfinding*		path;
 	j1Collision*		collision;

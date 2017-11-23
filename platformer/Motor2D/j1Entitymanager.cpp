@@ -323,6 +323,7 @@ bool j1EntityManager::Load_entites()
 			}
 		}
 
+	delete item->data;
 	item = item->next;
 	}
 	entities_saved.clear();

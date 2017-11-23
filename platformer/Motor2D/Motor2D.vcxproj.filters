@@ -70,6 +70,12 @@
     <ClCompile Include="EntityCoin.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -175,6 +181,12 @@
     <ClInclude Include="EntityCoin.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -197,6 +209,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Entities">
       <UniqueIdentifier>{4a721b95-d1c8-463a-bcd5-b841a8e3ae46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\UI Elements">
+      <UniqueIdentifier>{2e467448-4bcf-4583-9e77-10c4a180f1ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

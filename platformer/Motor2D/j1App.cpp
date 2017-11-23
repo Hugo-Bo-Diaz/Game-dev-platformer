@@ -15,6 +15,8 @@
 #include "j1Physics.h"
 #include "j1EntityManager.h"
 #include "j1Pathfinding.h"
+#include "j1Gui.h"
+#include "j1Fonts.h"
 
 #include "Brofiler\Brofiler.h"
 
@@ -35,6 +37,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	map = new j1Map();
 
+	gui = new j1Gui();
+	fonts = new j1Fonts();
 	path = new j1Pathfinding();
 	entities = new j1EntityManager();
 	collision= new j1Collision();
@@ -48,14 +52,16 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);//4
 	AddModule(scene);//6
 
-	AddModule(path);//7
-	AddModule(collision);//8
+	AddModule(gui);//7
+	AddModule(fonts);//8
+	AddModule(path);//9
+	AddModule(collision);//10
 	AddModule(map);//5
-	AddModule(entities);//9
-	AddModule(physics);//10
+	AddModule(entities);//11
+	AddModule(physics);//12
 
 	// render last to swap buffer
-	AddModule(render);//11
+	AddModule(render);//13
 
 	PERF_PEEK(ptimer);
 
