@@ -7,6 +7,7 @@
 #include "j1Collision.h"
 #include "j1Physics.h"
 #include "j1EntityManager.h"
+#include "j1Gui.h"
 #include "Brofiler\Brofiler.h"
 #include <math.h>
 
@@ -172,6 +173,8 @@ bool j1Map::CleanUp()
 	App->physics->CleanUp();
 	App->entities->CleanUp();
 	// Clean up the pugui tree
+	App->gui->CleanUp();
+
 	map_file.reset();
 
 	return true;
@@ -443,6 +446,11 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 		{	
 			layer->parallax = node.child("properties").child("property").attribute("value").as_float(0.0);
 		}
+		p2SString n3 = "UI_layer";
+		if (str==n3)
+		{
+			layer->UI_layer = node.child("properties").child("property").attribute("value").as_bool(false);
+		}
 	}
 
 	if (layer->logic_layer)
@@ -452,7 +460,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 
 	if (layer->UI_layer)
 	{
-		//CreateUI(layer);
+		CreateUI(layer);
 	}
 	return ret;
 }
@@ -558,6 +566,42 @@ bool j1Map::CreateColliders(map_layer* layer)
 
 	return true;
 }
+
+bool j1Map::CreateUI(map_layer* layer)
+{
+	BROFILER_CATEGORY("CreateUI_Map", Profiler::Color::Sienna);
+
+	for (int _y = 0; _y < layer->height; ++_y)
+	{
+		for (int _x = 0; _x < layer->width; ++_x)
+		{
+			int i = layer->Get(_x, _y);
+			iPoint point = MapToWorld(_x, _y);
+			int width = 143;
+			int height = 71;
+			switch (layer->data[i])
+			{
+			case 1://start button
+				App->gui->GUIAdd_button(point.x, point.y, {1,1,width,height},"",button_type::NEW_GAME);
+				break;
+			case 2://settings button
+				App->gui->GUIAdd_button(point.x, point.y, { 144,1,width,height }, "", button_type::SETTINGS);
+				break;
+			case 3://quit button
+				App->gui->GUIAdd_button(point.x, point.y, {1,73,width,height},"",button_type::QUIT);
+				break;
+			case 4:
+				App->gui->GUIAdd_button(point.x, point.y, {144,73,width,height},"",button_type::LOAD_GAME);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	return true;
+}
+
 bool j1Map::LoadBackground(pugi::xml_node& node, background* back)
 {
 	bool ret = true;

@@ -9,6 +9,7 @@ enum button_type
 	NEW_GAME,
 	LOAD_GAME,
 	CREDITS,
+	SETTINGS,
 	QUIT,
 	NUL
 };

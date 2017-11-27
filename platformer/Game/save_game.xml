@@ -10,19 +10,15 @@
 	<pathfinding />
 	<collision />
 	<map>
-		<current_map value="0" />
+		<current_map value="1" />
 	</map>
 	<Entities>
-		<Bat x="1653" y="35" type="1" />
-		<Player x="35" y="235" type="2" />
-		<Coin x="210" y="175" type="5" />
-		<Zombie x="385" y="207" type="3" />
-		<Coin x="140" y="245" type="5" />
-		<Coin x="175" y="245" type="5" />
+		<Bat x="1645" y="35" type="1" />
+		<Player x="479" y="213" type="2" />
 		<Zombie x="1365" y="242" type="3" />
 	</Entities>
 	<physics />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-97" y="0" />
 	</renderer>
 </game_state>

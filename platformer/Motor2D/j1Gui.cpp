@@ -94,6 +94,8 @@ bool j1Gui::CleanUp()
 		RELEASE(item->data);
 		item = item->next;
 	}
+	elements.clear();
+
 	return true;
 }
 

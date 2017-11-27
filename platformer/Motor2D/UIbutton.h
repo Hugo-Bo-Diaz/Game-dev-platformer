@@ -7,6 +7,7 @@
 #include "j1Fonts.h"
 #include "j1App.h"
 #include "j1Gui.h"
+#include "j1Map.h"
 #include "j1Render.h"
 #include "UIelement.h"
 
@@ -16,8 +17,8 @@ class UIButton : public UIelement
 public:
 	bool mouseover = false;
 	bool clicked = false;
-	SDL_Rect pressed = {0,105,133,34};
-	SDL_Rect glow = {0,139,144,46};
+	SDL_Rect pressed = {290,1,20,20};
+	SDL_Rect glow = {290,22,20,20};
 	button_type type = NUL;
 	p2SString string;
 	int text_w;
@@ -37,18 +38,19 @@ public:
 	~UIButton() { App->tex->UnLoad(tex); };
 
 	void Draw() {
+			//WRONG PLACE
+		App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &portion);
 
 		if (clicked)
 		{
 			App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &pressed);
 		}
-		else 
+		else //change this when we have real buttons
 		{
-			App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &portion);
 		}
 		if (mouseover)
 		{
-			App->render->Blit(App->gui->GetAtlas(), position.x - 6, position.y - 6, &glow);
+			App->render->Blit(App->gui->GetAtlas(), position.x + 50, position.y, &glow);
 			mouseover = false;
 		}
 		App->render->Blit(tex, position.x + portion.w / 2 - text_w / 2, (position.y + portion.h / 2 - text_h / 2) -2);
@@ -64,6 +66,14 @@ public:
 		{ 
 			switch (type)
 			{
+			case NEW_GAME:
+			{LOG("trying to start new gmae");
+			App->map->change_to_next_level = true;
+			break; }
+			case LOAD_GAME:
+			{LOG("previously on where is my plane...");
+			App->LoadGame();
+			break; }
 			case QUIT:
 			{ret = false;
 			break; }

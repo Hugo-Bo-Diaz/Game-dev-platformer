@@ -133,6 +133,7 @@ private:
 	bool LoadLayer(pugi::xml_node& node, map_layer* layer);
 	bool LoadBackground(pugi::xml_node&node, background* back);
 	bool CreateColliders(map_layer* layer);
+	bool CreateUI(map_layer*layer);
 
 public:
 
