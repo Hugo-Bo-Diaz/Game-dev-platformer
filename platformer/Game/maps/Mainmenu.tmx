@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="21" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
+ <tileset firstgid="1" name="tileset_1" tilewidth="35" tileheight="35" spacing="1" margin="1" tilecount="165" columns="15">
+  <image source="tileset_1.png" width="540" height="431"/>
+ </tileset>
+ <imagelayer name="background">
+  <image source="Backgrounds/startscreen.png" width="750" height="420"/>
+ </imagelayer>
+</map>

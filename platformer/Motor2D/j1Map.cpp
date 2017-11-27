@@ -77,7 +77,7 @@ void j1Map::Draw()
 	//draws the layers
 		while (item != NULL)
 		{	
-			if (item->data->logic_layer == false)
+			if (item->data->logic_layer == false && item->data->UI_layer == false)
 			{
 			for (int _y = 0; _y < item->data->height; ++_y)
 			{
@@ -448,6 +448,11 @@ bool j1Map::LoadLayer(pugi::xml_node& node, map_layer* layer)
 	if (layer->logic_layer)
 	{
 		CreateColliders(layer);
+	}
+
+	if (layer->UI_layer)
+	{
+		//CreateUI(layer);
 	}
 	return ret;
 }

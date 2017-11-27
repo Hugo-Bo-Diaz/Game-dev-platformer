@@ -18,6 +18,7 @@ struct map_layer
 	uint width = 0;
 	uint height = 0;
 	bool logic_layer = false;
+	bool UI_layer = false;
 	float parallax = 0.0;
 	inline uint Get(int x, int y)const
 	{

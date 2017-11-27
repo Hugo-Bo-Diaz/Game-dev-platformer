@@ -63,33 +63,35 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Update_Scene", Profiler::Color::LawnGreen);
 
-
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-	{
-		godmode = !godmode;
-		if (godmode)
-		{
-			App->map->player->hability = 7;
-		}
-		else
-		{
-			App->map->player->hability = App->map->player->hability_stored;
-		}
-	}
-
-	uint win;
-	uint i;
-	App->win->GetWindowSize(win, i);
 	if (App->map->player != nullptr)
 	{
-		App->render->camera.x = -App->map->player->position.x + win / 2;
-		if (App->render->camera.x < win / 2)
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		{
-			App->render->camera.x = 0;
+			godmode = !godmode;
+			if (godmode)
+			{
+				App->map->player->hability = 7;
+			}
+			else
+			{
+				App->map->player->hability = App->map->player->hability_stored;
+			}
 		}
-		if (-App->render->camera.x > ((App->map->data.width*App->map->data.tile_width) - win))
+
+		uint win;
+		uint i;
+		App->win->GetWindowSize(win, i);
+		if (App->map->player != nullptr)
 		{
-			App->render->camera.x = -(App->map->data.width*App->map->data.tile_width) + win;
+			App->render->camera.x = -App->map->player->position.x + win / 2;
+			if (App->render->camera.x < win / 2)
+			{
+				App->render->camera.x = 0;
+			}
+			if (-App->render->camera.x > ((App->map->data.width*App->map->data.tile_width) - win))
+			{
+				App->render->camera.x = -(App->map->data.width*App->map->data.tile_width) + win;
+			}
 		}
 	}
 	//DEBUG FEATURES
