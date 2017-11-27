@@ -92,6 +92,12 @@ bool j1Input::PreUpdate(float dt)
 				windowEvents[WE_QUIT] = true;
 			break;
 
+			case SDL_TEXTINPUT:
+			{
+				buffered_text = event.text.text;
+			}
+			break;
+
 			case SDL_WINDOWEVENT:
 				switch(event.window.event)
 				{

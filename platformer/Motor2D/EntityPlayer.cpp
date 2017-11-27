@@ -10,7 +10,7 @@
 #include "j1EntityManager.h"
 #include "j1Pathfinding.h"
 #include "j1Scene.h"
-#include "j1Fonts.h"
+#include "j1Gui.h"
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
 
@@ -75,6 +75,7 @@ void EntityPlayer::Start()
 
 	LOG("Loading player");
 	//create object
+
 
 	SDL_Rect rect;
 	rect.x = App->map->initial_player_pos.x;
@@ -196,9 +197,9 @@ bool EntityPlayer::Update(float dt, bool logic)
 	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
 	//references and also not all entities have objects whose position is calculated automatically
 
-	SDL_Texture* tex = App->fonts->Print("IDIOT", {255,0,0,255}, App->fonts->fonts.start->data);
-	App->render->Blit(tex, position.x - 5, position.y - 10);
-	SDL_DestroyTexture(tex);
+	//SDL_Texture* tex = App->font->Print("IDIOT", {255,0,0,255}, App->font->fonts.start->data);
+	//App->render->Blit(tex, position.x - 5, position.y - 10);
+	//SDL_DestroyTexture(tex);
 	return true;
 }
 

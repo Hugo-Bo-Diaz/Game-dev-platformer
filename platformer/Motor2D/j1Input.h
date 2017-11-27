@@ -2,6 +2,7 @@
 #define __j1INPUT_H__
 
 #include "j1Module.h"
+#include "SDL\include\SDL.h"
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
@@ -67,6 +68,18 @@ public:
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+
+	p2SString buffered_text;
+	void StartKeyInput()
+	{
+		buffered_text.Clear();
+		SDL_StartTextInput();
+	}
+	void StopKeyInput()
+	{
+		buffered_text.Clear();
+		SDL_StopTextInput();
+	}
 
 private:
 	bool		windowEvents[WE_COUNT];

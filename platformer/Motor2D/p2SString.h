@@ -264,6 +264,14 @@ public:
 			str[i] = start[i];
 	}
 
+	void CutLast()
+	{
+		uint len = Length();
+
+		str[len - 1] = '\0';
+	}
+
+
 	uint Substitute(const char* src, const char *dst)
 	{
 		assert(src);

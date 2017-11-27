@@ -93,7 +93,7 @@ public:
 	j1Map*				map;
 
 	j1Gui*				gui;
-	j1Fonts*			fonts;
+	j1Fonts*			font;
 	j1EntityManager*	entities;
 	j1Pathfinding*		path;
 	j1Collision*		collision;
