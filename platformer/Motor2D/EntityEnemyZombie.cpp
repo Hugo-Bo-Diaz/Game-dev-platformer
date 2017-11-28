@@ -118,18 +118,18 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 		if (pos.x > step.x + 1)
 			obj->velocity.x = -max_speed;
 	}
-	else {
-		if (logic == true && position != original_pos)
+	else if (position.x != original_pos.x)
+	{
+		if (logic == true)
 		{
 			App->path->PropagateBFS(path, { position.x + width / 2, position.y + height / 2 }, original_pos);
-			path.Pop(step);
-
-			iPoint pos = App->map->WorldToMap(obj->position.x, obj->position.y);
-			if (pos.x < step.x)
-				obj->velocity.x = max_speed;
-			if (pos.x > step.x + 1)
-				obj->velocity.x = -max_speed;
-		};
+			path.Pop(step);			
+		}
+		iPoint pos = App->map->WorldToMap(obj->position.x, obj->position.y);
+		if (pos.x < step.x)
+			obj->velocity.x = max_speed;
+		if (pos.x > step.x + 1)
+			obj->velocity.x = -max_speed;
 	}
 
 	if (obj->velocity.x > 0)
