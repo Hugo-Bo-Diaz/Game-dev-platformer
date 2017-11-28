@@ -24,6 +24,8 @@ public:
 		//text.create(_text);
 		texture = App->tex->textures.add(App->font->Print(_text,_color,font))->data;
 		//color = _color;
+		type_of_element = TEXT;
+
 	}
 	~UItext() { App->tex->UnLoad(texture); };
 

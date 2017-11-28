@@ -40,12 +40,14 @@ public:
 
 	SDL_Texture* GetAtlas() const;
 	
+	bool UIinteraction(UIelement* element);
 
-	UIelement* GUIAdd_text(int x, int y, const char* text, SDL_Color color = {175,175,175,255}, _TTF_Font* font = App->font->default);
-	UIelement* GUIAdd_image(int x, int y, SDL_Rect portion);
-	UIelement* GUIAdd_button(int x, int y, SDL_Rect portion, const char* text, button_type type = button_type::NUL);
-	UIelement* GUIAdd_checkbox(int x, int y, SDL_Rect portion, const char* text);
-	UIelement* GUIAdd_textbox(int x, int y, const char* title = "");
+
+	UIelement* GUIAdd_text(int x, int y, const char* text, j1Module* callback = nullptr, SDL_Color color = {175,175,175,255}, _TTF_Font* font = App->font->default);
+	UIelement* GUIAdd_image(int x, int y, SDL_Rect portion, j1Module* callback = nullptr);
+	UIelement* GUIAdd_button(int x, int y, SDL_Rect portion, j1Module* callback = nullptr, const char* text = "", button_type type = button_type::NUL);
+	UIelement* GUIAdd_checkbox(int x, int y, SDL_Rect portion, j1Module* callback = nullptr, const char* text = "");
+	UIelement* GUIAdd_textbox(int x, int y, j1Module* callback = nullptr, const char* title = "");
 
 	//portion in this functions means the part of the atlas they get to draw
 

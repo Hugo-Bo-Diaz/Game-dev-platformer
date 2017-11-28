@@ -3,6 +3,7 @@
 
 #include "p2Point.h"
 #include "p2Log.h"
+#include "j1Module.h"
 
 enum button_type
 {
@@ -14,20 +15,42 @@ enum button_type
 	NUL
 };
 
+enum UIelement_type
+{
+	BUTTON,
+	CHECKBOX,
+	IMAGE,
+	TEXT,
+	TEXTBOX,
+	NONE
+};
+
 class UIelement
 {
 public:
 	iPoint position;
 	SDL_Rect portion = {0,0,0,0};
+	UIelement_type type_of_element = NONE;
+	j1Module* callback;
+	bool mouseover = false;
 public:
 	UIelement() {};
 	~UIelement() {};
 
 	virtual void OnClick() {};
 	virtual bool OnRelease() { return true; };
-	virtual void OnMouseOver() {  };
 
 	virtual void Draw() {};
+
+	virtual bool OnActivation()
+	{
+		bool ret = true;
+		if (callback != nullptr)
+		{
+			ret = callback->UIinteraction(this);
+		}
+		return ret;
+	};
 
 	SDL_Rect GetRect()
 	{

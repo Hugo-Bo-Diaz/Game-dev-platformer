@@ -19,7 +19,6 @@ enum check_type
 class UICheckBox : public UIelement
 {
 public:
-	bool mouseover = false;
 	bool clicked = false;
 	bool active = false;
 	SDL_Rect cross = {199,170,16,16};
@@ -34,6 +33,7 @@ public:
 	UICheckBox() {};
 	UICheckBox(iPoint pos,const char* text, check_type _type = NULLL)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
+		type_of_element = CHECKBOX;
 		position = pos;
 		portion = {219,169,16,16};
 		type = _type;

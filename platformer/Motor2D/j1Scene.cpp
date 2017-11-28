@@ -137,8 +137,20 @@ bool j1Scene::PostUpdate(float dt)
 
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	//if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	//	ret = false;
+
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		if (App->paused_game)
+		{
+			App->ResumeGame();
+		}
+		else
+		{
+			App->PauseGame();
+		}
+	}
 
 	if (App->map->change_to_next_level)
 	{
@@ -169,3 +181,4 @@ bool j1Scene::CleanUp()
 
 	return true;
 }
+

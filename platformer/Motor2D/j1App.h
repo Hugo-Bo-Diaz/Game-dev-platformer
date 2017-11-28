@@ -57,6 +57,8 @@ public:
 	void LoadGame();
 	void SaveGame() const;
 
+	void PauseGame();
+	void ResumeGame();
 private:
 
 	// Load config file
@@ -81,6 +83,11 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
+	//pause / resume
+
+	bool PauseGameNow();
+	bool ResumeGameNow();
+
 public:
 
 	// Modules
@@ -99,7 +106,8 @@ public:
 	j1Collision*		collision;
 	j1Physics*			physics;
 
-	uint32 frame_cap = 0;
+	uint32				frame_cap = 0;
+	bool				paused_game;
 
 private:
 
@@ -119,6 +127,9 @@ private:
 	p2SString			load_game;
 	mutable p2SString	save_game;
 	
+	bool				want_to_pause;
+	bool				want_to_resume;
+
 	uint64				frame_count = 0;
 	j1Timer				startup_time;
 	j1Timer				frame_time;

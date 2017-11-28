@@ -14,7 +14,6 @@
 class UITextbox : public UIelement
 {
 public:
-	bool mouseover = false;
 	bool clicked = false;
 	p2SString string;
 	int title_w;
@@ -34,8 +33,10 @@ public:
 		tex = App->tex->textures.add(App->font->Print(string.GetString(), { 255,255,0,255 }, App->font->default))->data;
 		SDL_QueryTexture(tex, NULL, NULL, &title_w, &title_h);
 		portion = { 123,0,126,22 };
+		type_of_element = TEXTBOX;
 	}
 	~UITextbox() { App->tex->UnLoad(tex); };
+
 
 	void Draw() {
 		//text box
@@ -80,10 +81,7 @@ public:
 		App->input->StartKeyInput();
 		clicked = false;
 	};
-	void OnMouseOver()
-	{
-		mouseover = true;
-	}
+
 	bool OnRelease() 
 	{
 		bool ret = true;

@@ -130,68 +130,69 @@ bool EntityPlayer::Update(float dt, bool logic)
 	float thousanddivdt = 1000 / dt;// ~ frame_cap
 
 	normalize_factor = 60 / thousanddivdt;//60 is the max framerate we support	
-
-	//CONTROLS
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT /*&& obj->velocity.x <max_speed*/)
+	if (!App->paused_game)
 	{
-		obj->velocity.x = max_speed;
-		current_animation = &left;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT /*&& obj->velocity.x >-max_speed*/)
-	{
-		obj->velocity.x = -max_speed;
-		current_animation = &right;
-	}
-	if (obj->velocity.x > max_speed || obj->velocity.x < -max_speed)
-	{
-		obj->acceleration.x = 0.0f;
-	}
-
-	if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
-		&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
-	{
-		current_animation = &idle;
-		obj->velocity.x = 0.0f; //this stops the player
-		obj->acceleration.x = 0.0f;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
-		&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		current_animation = &idle;
-		obj->velocity.x = 0.0f; //this stops the player
-		obj->acceleration.x = 0.0f;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && obj->grounded && obj->velocity.y < 0.5)
-	{
-		obj->velocity.y = -jump_speed;
-		obj->grounded = false;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		obj->velocity.y = -hability;
-	}
-
-	//aereal animations
-	if (obj->grounded == false)
-	{
-		if (obj->velocity.y < 0)
+		//CONTROLS
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT /*&& obj->velocity.x <max_speed*/)
 		{
-			if (obj->velocity.x < 0)
-				current_animation = &jumpsquatLeft;
-			if (obj->velocity.x >= 0)
-				current_animation = &jumpsquatRight;
+			obj->velocity.x = max_speed;
+			current_animation = &left;
 		}
-		else
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT /*&& obj->velocity.x >-max_speed*/)
 		{
-			if (obj->velocity.x < 0)
-				current_animation = &airborneLeft;
-			if (obj->velocity.x >= 0)
-				current_animation = &airborneRight;
+			obj->velocity.x = -max_speed;
+			current_animation = &right;
+		}
+		if (obj->velocity.x > max_speed || obj->velocity.x < -max_speed)
+		{
+			obj->acceleration.x = 0.0f;
+		}
+
+		if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+			&& (App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE))
+		{
+			current_animation = &idle;
+			obj->velocity.x = 0.0f; //this stops the player
+			obj->acceleration.x = 0.0f;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
+			&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			current_animation = &idle;
+			obj->velocity.x = 0.0f; //this stops the player
+			obj->acceleration.x = 0.0f;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && obj->grounded && obj->velocity.y < 0.5)
+		{
+			obj->velocity.y = -jump_speed;
+			obj->grounded = false;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			obj->velocity.y = -hability;
+		}
+
+		//aereal animations
+		if (obj->grounded == false)
+		{
+			if (obj->velocity.y < 0)
+			{
+				if (obj->velocity.x < 0)
+					current_animation = &jumpsquatLeft;
+				if (obj->velocity.x >= 0)
+					current_animation = &jumpsquatRight;
+			}
+			else
+			{
+				if (obj->velocity.x < 0)
+					current_animation = &airborneLeft;
+				if (obj->velocity.x >= 0)
+					current_animation = &airborneRight;
+			}
 		}
 	}
-
 	position.x = obj->position.x;
 	position.y = obj->position.y;
 	//position is an easy way of telling where it is for other objects, not actually needed but useful in 

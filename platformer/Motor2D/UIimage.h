@@ -18,6 +18,7 @@ public:
 	UIimage() {};
 	UIimage(iPoint pos,SDL_Rect _rect)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
+		type_of_element = IMAGE;
 		position = pos;
 		portion = _rect;
 	}

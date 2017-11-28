@@ -51,7 +51,7 @@ bool j1Gui::PreUpdate(float dt)
 	{
 		if (MouseInside(&item->data->GetRect()))
 		{
-			item->data->OnMouseOver();
+			item->data->mouseover = true;
 			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)//left click
 			{
 				item->data->OnClick();
@@ -122,42 +122,74 @@ bool j1Gui::MouseInside(SDL_Rect* rect)
 
 // class Gui ---------------------------------------------------
 
-UIelement* j1Gui::GUIAdd_text(int x, int y, const char* text, SDL_Color color, _TTF_Font* font)
+UIelement* j1Gui::GUIAdd_text(int x, int y, const char* text, j1Module* callback, SDL_Color color, _TTF_Font* font)
 {
 	iPoint pos = { x,y };
 	UIelement* ret = new UItext(pos,text, color, font);
+	ret->callback = callback;
 	elements.add(ret);
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_button(int x, int y, SDL_Rect portion, const char* text, button_type type)
+UIelement* j1Gui::GUIAdd_button(int x, int y, SDL_Rect portion, j1Module* callback, const char* text, button_type type)
 {
 	iPoint pos = { x,y };
 	UIelement* ret = new UIButton(pos, text, type, portion);
+	ret->callback = callback;
 	elements.add(ret);
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_image(int x, int y, SDL_Rect portion)
+UIelement* j1Gui::GUIAdd_image(int x, int y, SDL_Rect portion, j1Module* callback)
 {
 	iPoint pos = { x,y };
 	UIelement* ret = new UIimage(pos, portion);
+	ret->callback = callback;
 	elements.add(ret);
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_checkbox(int x, int y, SDL_Rect portion, const char* text)
+UIelement* j1Gui::GUIAdd_checkbox(int x, int y, SDL_Rect portion, j1Module* callback, const char* text)
 {
 	iPoint pos = { x,y };
 	UIelement* ret = new UICheckBox(pos,text);
+	ret->callback = callback;
 	elements.add(ret);
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_textbox(int x, int y, const char* title)
+UIelement* j1Gui::GUIAdd_textbox(int x, int y, j1Module* callback, const char* title)
 {
 	iPoint pos = { x,y };
 	UIelement* ret = new UICheckBox(pos, title);
+	ret->callback = callback;
 	elements.add(ret);
+	return ret;
+}
+
+bool j1Gui::UIinteraction(UIelement* element)
+{
+	bool ret = true;
+	if (element->type_of_element == BUTTON)
+	{
+		UIButton* button = (UIButton*)element;
+		switch (button->type)
+		{
+			case NEW_GAME:
+			{LOG("trying to start new gmae");
+			App->map->change_to_next_level = true;
+			break; }
+			case LOAD_GAME:
+			{LOG("previously on where is my plane...");
+			App->LoadGame();
+			break; }
+			case QUIT:
+			{ret = false;
+			break; }
+			default:
+			{LOG("ERROR");
+			break; }
+		}
+	}
 	return ret;
 }

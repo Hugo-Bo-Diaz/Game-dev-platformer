@@ -15,7 +15,6 @@
 class UIButton : public UIelement
 {
 public:
-	bool mouseover = false;
 	bool clicked = false;
 	SDL_Rect pressed = {290,1,20,20};
 	SDL_Rect glow = {290,22,20,20};
@@ -28,12 +27,16 @@ public:
 	UIButton() {};
 	UIButton(iPoint pos,const char* text = "" , button_type _type = NUL, SDL_Rect _portion = { 0,73,133,34 })// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
+		type_of_element = BUTTON;
 		position = pos;
 		portion = _portion;
 		type = _type;
 		string = text;
-		tex = App->tex->textures.add(App->font->Print(string.GetString(), { 255,255,0,255 }, App->font->default))->data;
-		SDL_QueryTexture(tex, NULL, NULL, &text_w, &text_h);
+		if (string != "")
+		{
+			tex = App->tex->textures.add(App->font->Print(string.GetString(), { 255,255,0,255 }, App->font->default))->data;
+			SDL_QueryTexture(tex, NULL, NULL, &text_w, &text_h);
+		}
 	}
 	~UIButton() { App->tex->UnLoad(tex); };
 
@@ -53,7 +56,8 @@ public:
 			App->render->Blit(App->gui->GetAtlas(), position.x + 50, position.y, &glow);
 			mouseover = false;
 		}
-		App->render->Blit(tex, position.x + portion.w / 2 - text_w / 2, (position.y + portion.h / 2 - text_h / 2) -2);
+		if (tex != nullptr)
+			App->render->Blit(tex, position.x + portion.w / 2 - text_w / 2, (position.y + portion.h / 2 - text_h / 2) -2);
 		};
 
 	void OnClick() { clicked = true; };
@@ -64,23 +68,24 @@ public:
 
 		if (mouseover && clicked) 
 		{ 
-			switch (type)
-			{
-			case NEW_GAME:
-			{LOG("trying to start new gmae");
-			App->map->change_to_next_level = true;
-			break; }
-			case LOAD_GAME:
-			{LOG("previously on where is my plane...");
-			App->LoadGame();
-			break; }
-			case QUIT:
-			{ret = false;
-			break; }
-			default:
-			{LOG("LOL U DUMB");
-			break; }
-			}
+			//switch (type)
+			//{
+			//case NEW_GAME:
+			//{LOG("trying to start new gmae");
+			//App->map->change_to_next_level = true;
+			//break; }
+			//case LOAD_GAME:
+			//{LOG("previously on where is my plane...");
+			//App->LoadGame();
+			//break; }
+			//case QUIT:
+			//{ret = false;
+			//break; }
+			//default:
+			//{LOG("LOL U DUMB");
+			//break; }
+			//}
+			OnActivation();
 		} 
 		clicked = false;
 		return ret;

@@ -11,6 +11,7 @@
 
 class j1App;
 struct Collider;
+class UIelement;
 
 class j1Module
 {
@@ -85,6 +86,22 @@ public:
 	}
 
 	virtual void OnCollision(Collider*, Collider*) {};
+
+	virtual bool Pause()
+	{
+		return true;
+	};
+
+	virtual bool Resume()
+	{
+		return true;
+	};
+
+
+	virtual bool UIinteraction(UIelement* element)
+	{
+		return true;
+	}
 
 public:
 

@@ -3,6 +3,7 @@
 
 #include "SDL/include/SDL_rect.h"
 #include "p2Log.h"
+#include "j1App.h"
 #define MAX_FRAMES 10
 //max 10 frames
 class Animation
@@ -47,7 +48,8 @@ public:
 		{
 		case pingpong::forward:
 		{
-			current_frame += speed;
+			if (!App->paused_game)
+			{current_frame += speed;}
 			if (current_frame >= last_frame)
 			{
 				current_frame = (loop || pingpong) ? 0.0f : last_frame - 1;

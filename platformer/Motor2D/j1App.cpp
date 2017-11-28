@@ -219,6 +219,14 @@ void j1App::FinishUpdate()
 
 	if(want_to_load == true)
 		LoadGameNow();
+
+	if (want_to_pause == true)
+		PauseGameNow();
+
+	if (want_to_resume == true)
+		ResumeGameNow();
+
+
 	if (last_sec_frame_time.Read() > 1000)
 	{
 		last_sec_frame_time.Start();
@@ -457,3 +465,52 @@ bool j1App::SavegameNow() const
 	want_to_save = false;
 	return ret;
 }
+
+void j1App::PauseGame()
+{
+	want_to_pause = true;
+}
+
+void j1App::ResumeGame()
+{
+	want_to_resume = true;
+}
+
+bool j1App::PauseGameNow()
+{
+	bool ret = true;
+	want_to_pause = false;
+	
+	//call pause_methods
+	p2List_item<j1Module*>* item = modules.start;
+	while (item != NULL && ret == true)
+	{
+		ret = item->data->Pause();
+		item = item->next;
+	}
+	
+	if (ret)
+	{paused_game = true;
+	LOG("paused game");}
+	return ret;
+}
+
+bool j1App::ResumeGameNow()
+{
+	bool ret = true;
+	want_to_resume = false;
+
+	//call resume_methods
+	p2List_item<j1Module*>* item = modules.start;
+	while (item != NULL && ret == true)
+	{
+		ret = item->data->Resume();
+		item = item->next;
+	}
+
+	if (ret)
+	{paused_game = false;
+	LOG("resumed game");}
+	return ret;
+}
+
