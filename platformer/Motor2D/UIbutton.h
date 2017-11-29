@@ -16,8 +16,8 @@ class UIButton : public UIelement
 {
 public:
 	bool clicked = false;
-	SDL_Rect pressed = {290,1,20,20};
-	SDL_Rect glow = {290,22,20,20};
+	SDL_Rect pressed = {144,1,143,71};
+	SDL_Rect glow = {0,71,174,101};
 	button_type type = NUL;
 	p2SString string;
 	int text_w;
@@ -45,7 +45,6 @@ public:
 
 	void Draw() {
 			//WRONG PLACE
-		App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &portion);
 
 		if (clicked)
 		{
@@ -53,10 +52,11 @@ public:
 		}
 		else //change this when we have real buttons
 		{
+			App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &portion);
 		}
 		if (mouseover)
 		{
-			App->render->Blit(App->gui->GetAtlas(), position.x + 50, position.y, &glow);
+			App->render->Blit(App->gui->GetAtlas(), position.x -15, position.y-15, &glow);
 			mouseover = false;
 		}
 		if (tex != nullptr)

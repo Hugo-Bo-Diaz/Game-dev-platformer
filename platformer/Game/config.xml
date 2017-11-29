@@ -84,6 +84,10 @@
   </collision>
 
   <gui>
-    <atlas file ="gui/atlas_to_improve.png"/>
+    <atlas file ="gui/atlas.png"/>
   </gui>
+
+  <transition>
+    <speed value="15"/>
+  </transition>
 </config>

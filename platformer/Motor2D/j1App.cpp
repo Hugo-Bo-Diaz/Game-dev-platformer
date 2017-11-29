@@ -17,6 +17,7 @@
 #include "j1Pathfinding.h"
 #include "j1Gui.h"
 #include "j1Fonts.h"
+#include "j1Transition.h"
 
 #include "Brofiler\Brofiler.h"
 
@@ -37,6 +38,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	map = new j1Map();
 
+	transition = new j1Transition();
 	gui = new j1Gui();
 	font = new j1Fonts();
 	path = new j1Pathfinding();
@@ -59,6 +61,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);//5
 	AddModule(entities);//11
 	AddModule(physics);//12
+
+	AddModule(transition);//last to overcome all the other blits
 
 	// render last to swap buffer
 	AddModule(render);//13

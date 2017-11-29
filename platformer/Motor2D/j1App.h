@@ -16,6 +16,7 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 
+class j1Transition;
 class j1Gui;
 class j1Fonts;
 class j1EntityManager;
@@ -99,6 +100,7 @@ public:
 	j1Scene*			scene;
 	j1Map*				map;
 
+	j1Transition*		transition;
 	j1Gui*				gui;
 	j1Fonts*			font;
 	j1EntityManager*	entities;
