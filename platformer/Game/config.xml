@@ -86,4 +86,8 @@
   <gui>
     <atlas file ="gui/atlas.png"/>
   </gui>
+
+  <transition>
+    <speed value="15"/>
+  </transition>
 </config>

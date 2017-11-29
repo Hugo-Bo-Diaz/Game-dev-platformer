@@ -61,6 +61,7 @@ private:
 	p2List<UIelement*> elements;
 
 	bool MouseInside(SDL_Rect* rect);
+	SDL_Texture* screen = nullptr;
 };
 
 #endif // __j1GUI_H__

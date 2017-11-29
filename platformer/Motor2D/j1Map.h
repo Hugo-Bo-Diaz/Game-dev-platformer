@@ -7,6 +7,7 @@
 #include "j1Module.h"
 #include "SDL/include/SDL.h"
 #include "EntityPlayer.h"
+#include "j1Timer.h"
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
@@ -155,6 +156,8 @@ public:
 	iPoint initial_player_pos = iPoint(-1,-1);// where he will be created
 	iPoint player_start_in_map = iPoint(0, 0);// where he will respawn when killed / swpawned
 
+	j1Timer timer;//NEEDS IMPLEMENTING 174*101
+	int time_left;
 private:
 
 	pugi::xml_document	map_file;

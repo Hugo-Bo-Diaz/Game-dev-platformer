@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Physics.h"
+#include "j1Transition.h"
 #include "Brofiler\Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -166,6 +167,7 @@ bool j1Scene::UIinteraction(UIelement* element)
 	case EXIT:
 	{App->map->change_to_this_level = 0;
 	App->ResumeGame();
+	App->transition->StartTransition();
 	break; }
 	default:
 	{LOG("ERROR");
@@ -176,8 +178,8 @@ bool j1Scene::UIinteraction(UIelement* element)
 
 bool j1Scene::Pause()
 {
-	Continue = (UIButton*)App->gui->GUIAdd_button(200, 100, {1,143,143,71},this,"CONTINUE",CONTINUE);
-	Exit = (UIButton*)App->gui->GUIAdd_button(200, 200, {144,143,143,71},this,"EXIT", EXIT);
+	Continue = (UIButton*)App->gui->GUIAdd_button(200, 100, {0,0,143,71},this,"CONTINUE",CONTINUE);
+	Exit = (UIButton*)App->gui->GUIAdd_button(200, 200, {0,0,143,71},this,"EXIT", EXIT);
 	return true;
 }
 bool j1Scene::Resume()

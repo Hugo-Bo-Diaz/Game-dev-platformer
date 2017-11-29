@@ -7,6 +7,7 @@
 #include "j1Input.h"
 #include "j1Gui.h"
 #include "j1Window.h"
+#include "j1Transition.h"
 
 #include "UItext.h"
 #include "UIimage.h"
@@ -40,6 +41,9 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
+
+	//SDL_Surface *sshot = SDL_CreateRGBSurface(0, 750, 420, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+	//SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
 
 	return true;
 }
@@ -81,6 +85,8 @@ bool j1Gui::PostUpdate(float dt)
 		item->data->Draw();
 		item = item->next;
 	}
+
+
 	return true;
 }
 
@@ -193,10 +199,12 @@ bool j1Gui::UIinteraction(UIelement* element)
 			case NEW_GAME:
 			{LOG("trying to start new gmae");
 			App->map->change_to_next_level = true;
+			App->transition->StartTransition();
 			break; }
 			case LOAD_GAME:
 			{LOG("previously on where is my plane...");
 			App->LoadGame();
+			App->transition->StartTransition();
 			break; }
 			case QUIT:
 			{ret = false;
