@@ -12,6 +12,8 @@ enum button_type
 	CREDITS,
 	SETTINGS,
 	QUIT,
+	CONTINUE,
+	EXIT,
 	NUL
 };
 

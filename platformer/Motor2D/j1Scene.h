@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "UIbutton.h"
 
 struct SDL_Texture;
 
@@ -32,6 +33,13 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//pause and resume functions
+	bool Pause();
+	bool Resume();
+
+	//UI interactions for the pause menu
+	bool UIinteraction(UIelement* element);
+
 	bool godmode = false;
 
 	int score = 0;
@@ -39,6 +47,9 @@ public:
 	uint lifes = 3;
 
 private:
+
+	UIButton* Continue;
+	UIButton* Exit;
 };
 
 #endif // __j1SCENE_H__

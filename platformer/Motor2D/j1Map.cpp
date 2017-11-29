@@ -170,11 +170,13 @@ bool j1Map::CleanUp()
 	App->tex->UnLoad(data.back->texture);
 	RELEASE(data.back);
 
+	//sets everything to new to make space
 	App->physics->CleanUp();
 	App->entities->CleanUp();
-	// Clean up the pugui tree
 	App->gui->CleanUp();
+	player = nullptr;
 
+	// Clean up the pugui tree
 	map_file.reset();
 
 	return true;
@@ -582,16 +584,16 @@ bool j1Map::CreateUI(map_layer* layer)
 			switch (layer->data[i])
 			{
 			case 1://start button
-				App->gui->GUIAdd_button(point.x, point.y, {1,1,width,height},App->gui,"",button_type::NEW_GAME);
+				App->gui->GUIAdd_button(point.x, point.y, {1,1,width,height},App->gui,"NEW GAME",button_type::NEW_GAME);
 				break;
 			case 2://settings button
-				App->gui->GUIAdd_button(point.x, point.y, { 144,1,width,height }, App->gui, "", button_type::SETTINGS);
+				App->gui->GUIAdd_button(point.x, point.y, { 144,1,width,height }, App->gui, " SETTINGS", button_type::SETTINGS);
 				break;
 			case 3://quit button
-				App->gui->GUIAdd_button(point.x, point.y, {1,73,width,height}, App->gui,"",button_type::QUIT);
+				App->gui->GUIAdd_button(point.x, point.y, {1,73,width,height}, App->gui,"QUIT",button_type::QUIT);
 				break;
 			case 4:
-				App->gui->GUIAdd_button(point.x, point.y, {144,73,width,height}, App->gui,"",button_type::LOAD_GAME);
+				App->gui->GUIAdd_button(point.x, point.y, {144,73,width,height}, App->gui,"LOAD GAME",button_type::LOAD_GAME);
 				break;
 			default:
 				break;

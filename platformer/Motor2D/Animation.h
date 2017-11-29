@@ -60,7 +60,8 @@ public:
 		break;
 		case pingpong::backward:
 		{
-			current_frame -= speed;
+			if (!App->paused_game)
+			{current_frame -= speed;}
 			if (current_frame <= 0.0f)
 			{
 				current_frame = 0.0f;

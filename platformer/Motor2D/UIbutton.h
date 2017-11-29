@@ -34,11 +34,14 @@ public:
 		string = text;
 		if (string != "")
 		{
-			tex = App->tex->textures.add(App->font->Print(string.GetString(), { 255,255,0,255 }, App->font->default))->data;
+			tex = App->tex->textures.add(App->font->Print(string.GetString(), { 0,0,0,255 }, App->font->default))->data;
 			SDL_QueryTexture(tex, NULL, NULL, &text_w, &text_h);
 		}
 	}
-	~UIButton() { App->tex->UnLoad(tex); };
+	~UIButton() 
+	{ 
+		App->tex->UnLoad(tex);
+	};
 
 	void Draw() {
 			//WRONG PLACE
@@ -68,24 +71,7 @@ public:
 
 		if (mouseover && clicked) 
 		{ 
-			//switch (type)
-			//{
-			//case NEW_GAME:
-			//{LOG("trying to start new gmae");
-			//App->map->change_to_next_level = true;
-			//break; }
-			//case LOAD_GAME:
-			//{LOG("previously on where is my plane...");
-			//App->LoadGame();
-			//break; }
-			//case QUIT:
-			//{ret = false;
-			//break; }
-			//default:
-			//{LOG("LOL U DUMB");
-			//break; }
-			//}
-			OnActivation();
+			ret = OnActivation();
 		} 
 		clicked = false;
 		return ret;

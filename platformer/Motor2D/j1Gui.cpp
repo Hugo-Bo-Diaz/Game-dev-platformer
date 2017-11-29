@@ -21,7 +21,9 @@ j1Gui::j1Gui() : j1Module()
 
 // Destructor
 j1Gui::~j1Gui()
-{}
+{
+	App->tex->UnLoad(atlas);
+}
 
 // Called before render is available
 bool j1Gui::Awake(pugi::xml_node& conf)
@@ -165,6 +167,19 @@ UIelement* j1Gui::GUIAdd_textbox(int x, int y, j1Module* callback, const char* t
 	ret->callback = callback;
 	elements.add(ret);
 	return ret;
+}
+
+bool j1Gui::delete_element(UIelement* element)//after using me don't forget to set your UIelement* to nullptr
+{
+	int i = elements.find(element);
+	if (i != -1) 
+	{
+		p2List_item<UIelement*>* elem = elements.At(i);
+		LOG("deleting element %d", elem->data->type_of_element);
+		RELEASE(elem->data);
+		elements.del(elem);
+	}
+	return true;
 }
 
 bool j1Gui::UIinteraction(UIelement* element)

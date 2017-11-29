@@ -140,34 +140,6 @@ bool j1Scene::PostUpdate(float dt)
 	//if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	//	ret = false;
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	{
-		if (App->paused_game)
-		{
-			App->ResumeGame();
-		}
-		else
-		{
-			App->PauseGame();
-		}
-	}
-
-	if (App->map->change_to_next_level)
-	{
-		App->map->next_level();
-		App->map->change_to_next_level = false;
-	}
-
-	if (App->map->change_to_previous_level)
-	{
-		App->map->previous_level();
-		App->map->change_to_previous_level = false;
-	}
-	if (App->map->change_to_this_level != -1)
-	{
-		App->map->change_map(App->map->change_to_this_level);
-		App->map->change_to_this_level = -1;
-	}
 
 	return ret;
 }
@@ -182,3 +154,44 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
+bool j1Scene::UIinteraction(UIelement* element)
+{
+	bool ret = true;
+	UIButton* button = (UIButton*)element;
+	switch (button->type)
+	{
+	case CONTINUE:
+	{App->ResumeGame();
+	break; }
+	case EXIT:
+	{App->map->change_to_this_level = 0;
+	App->ResumeGame();
+	break; }
+	default:
+	{LOG("ERROR");
+	break; }
+	}
+	return ret;
+}
+
+bool j1Scene::Pause()
+{
+	Continue = (UIButton*)App->gui->GUIAdd_button(200, 100, {1,143,143,71},this,"CONTINUE",CONTINUE);
+	Exit = (UIButton*)App->gui->GUIAdd_button(200, 200, {144,143,143,71},this,"EXIT", EXIT);
+	return true;
+}
+bool j1Scene::Resume()
+{
+	if (Continue != nullptr)
+	{
+		App->gui->delete_element(Continue);
+		Continue = nullptr;
+	}
+	if (Exit != nullptr)
+	{
+		App->gui->delete_element(Exit);
+		Exit = nullptr;
+	}
+
+	return true;
+}

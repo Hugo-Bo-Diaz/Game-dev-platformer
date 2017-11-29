@@ -51,6 +51,8 @@ public:
 
 	//portion in this functions means the part of the atlas they get to draw
 
+	bool delete_element(UIelement* element);
+
 private:
 
 	SDL_Texture* atlas;

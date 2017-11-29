@@ -226,6 +226,22 @@ void j1App::FinishUpdate()
 	if (want_to_resume == true)
 		ResumeGameNow();
 
+	if (App->map->change_to_next_level)
+	{
+		App->map->next_level();
+		App->map->change_to_next_level = false;
+	}
+
+	if (App->map->change_to_previous_level)
+	{
+		App->map->previous_level();
+		App->map->change_to_previous_level = false;
+	}
+	if (App->map->change_to_this_level != -1)
+	{
+		App->map->change_map(App->map->change_to_this_level);
+		App->map->change_to_this_level = -1;
+	}
 
 	if (last_sec_frame_time.Read() > 1000)
 	{

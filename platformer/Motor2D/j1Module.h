@@ -97,7 +97,6 @@ public:
 		return true;
 	};
 
-
 	virtual bool UIinteraction(UIelement* element)
 	{
 		return true;

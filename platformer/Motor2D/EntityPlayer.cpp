@@ -222,6 +222,15 @@ bool EntityPlayer::PreUpdate(float dt)
 		App->map->change_to_this_level = App->map->index_map;
 		set_to_start_pos = false;
 	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		if (!App->paused_game)
+		{
+			App->PauseGame();
+		}
+	}
 	return true;
 }
 
