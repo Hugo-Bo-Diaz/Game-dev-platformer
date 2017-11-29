@@ -584,16 +584,16 @@ bool j1Map::CreateUI(map_layer* layer)
 			switch (layer->data[i])
 			{
 			case 1://start button
-				App->gui->GUIAdd_button(point.x, point.y, {1,1,width,height},App->gui,"NEW GAME",button_type::NEW_GAME);
+				App->gui->GUIAdd_button(point.x, point.y, { 120, 163, 117, 52 },App->gui,"NEW GAME",button_type::NEW_GAME);//{1,1,width,height}
 				break;
 			case 2://settings button
-				App->gui->GUIAdd_button(point.x, point.y, { 144,1,width,height }, App->gui, " SETTINGS", button_type::SETTINGS);
+				App->gui->GUIAdd_button(point.x, point.y, { 0, 163, 117, 52 }, App->gui, " SETTINGS", button_type::SETTINGS);//{ 144,1,width,height }
 				break;
 			case 3://quit button
-				App->gui->GUIAdd_button(point.x, point.y, {1,73,width,height}, App->gui,"QUIT",button_type::QUIT);
+				App->gui->GUIAdd_button(point.x, point.y, { 0, 0, 117, 52 }, App->gui,"QUIT",button_type::QUIT);//{ 1, 73, width, height }
 				break;
-			case 4:
-				App->gui->GUIAdd_button(point.x, point.y, {144,73,width,height}, App->gui,"LOAD GAME",button_type::LOAD_GAME);
+			case 4://Load button
+				App->gui->GUIAdd_button(point.x, point.y, { 120, 0, 117, 52 }, App->gui,"LOAD GAME",button_type::LOAD_GAME);//{ 144, 73, width, height}
 				break;
 			default:
 				break;

@@ -176,8 +176,8 @@ bool j1Scene::UIinteraction(UIelement* element)
 
 bool j1Scene::Pause()
 {
-	Continue = (UIButton*)App->gui->GUIAdd_button(200, 100, {1,143,143,71},this,"CONTINUE",CONTINUE);
-	Exit = (UIButton*)App->gui->GUIAdd_button(200, 200, {144,143,143,71},this,"EXIT", EXIT);
+	Continue = (UIButton*)App->gui->GUIAdd_button(200, 100, { 120, 163, 117, 52 },this,"CONTINUE",CONTINUE);//{1,143,143,71}
+	Exit = (UIButton*)App->gui->GUIAdd_button(200, 200, { 0, 0, 117, 52 },this,"EXIT", EXIT);//{144,143,143,71}
 	return true;
 }
 bool j1Scene::Resume()
