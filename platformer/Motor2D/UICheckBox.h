@@ -34,7 +34,8 @@ public:
 	UICheckBox(iPoint pos,const char* text, check_type _type = NULLL)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
 		type_of_element = CHECKBOX;
-		position = pos;
+		winposition = pos;
+		position = {0, 0};
 		portion = {219,169,16,16};
 		type = _type;
 		string = text;
@@ -45,22 +46,22 @@ public:
 
 	void Draw() {
 
-		App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &portion);
+		App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &portion);
 
 		if (mouseover)
 		{
-			App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &glow);
+			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &glow);
 			mouseover = false;
 		}
 		if (clicked)
 		{
-			App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &pressed);
+			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &pressed);
 		}
 		if (active)
 		{
-			App->render->Blit(App->gui->GetAtlas(), position.x+1, position.y+1, &cross);
+			App->render->Blit(App->gui->GetAtlas(), winposition.x+1, winposition.y+1, &cross);
 		}
-		App->render->Blit(tex, position.x + 20, (position.y + portion.h / 2 - text_h / 2));
+		App->render->Blit(tex, winposition.x + 20, (winposition.y + portion.h / 2 - text_h / 2));
 	};
 
 	void OnClick() { clicked = true; };

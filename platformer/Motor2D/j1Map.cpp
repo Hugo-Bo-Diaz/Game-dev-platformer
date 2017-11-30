@@ -175,7 +175,8 @@ bool j1Map::CleanUp()
 	App->entities->CleanUp();
 	App->gui->CleanUp();
 	player = nullptr;
-
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
 	// Clean up the pugui tree
 	map_file.reset();
 

@@ -23,7 +23,7 @@ public:
 	bool PostUpdate(float dt);
 
 	// Called to start a transition
-	void StartTransition();
+	bool StartTransition();
 
 	// Called before quitting
 	bool CleanUp();

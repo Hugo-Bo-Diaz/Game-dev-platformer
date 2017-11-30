@@ -49,7 +49,6 @@ bool j1Transition::PostUpdate(float dt)
 		}
 		else
 		{
-			pos.x = 0;
 			transitioning = false;
 			App->tex->UnLoad(transition);
 		}
@@ -58,11 +57,21 @@ bool j1Transition::PostUpdate(float dt)
 }
 
 // calculate size of a text
-void j1Transition::StartTransition()
+bool j1Transition::StartTransition()
 {
-	SDL_Surface *sshot = SDL_CreateRGBSurface(0, 750, 420, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
-	SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
-	transition = App->tex->LoadSurface(sshot);
-	SDL_FreeSurface(sshot);
-	transitioning = true;
+	if (!transitioning)
+	{
+		SDL_Surface *sshot = SDL_CreateRGBSurface(0, 750, 420, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+		SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
+		transition = App->tex->LoadSurface(sshot);
+		SDL_FreeSurface(sshot);
+		transitioning = true;
+		pos.x = 0;
+		return true;
+	}
+	else
+	{
+		LOG("transition already in progress, try again wen it finishes");
+		return false;
+	}
 }

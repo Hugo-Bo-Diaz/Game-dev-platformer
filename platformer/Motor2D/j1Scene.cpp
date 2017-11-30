@@ -165,9 +165,12 @@ bool j1Scene::UIinteraction(UIelement* element)
 	{App->ResumeGame();
 	break; }
 	case EXIT:
-	{App->map->change_to_this_level = 0;
-	App->ResumeGame();
-	App->transition->StartTransition();
+	{
+		if (App->transition->StartTransition())
+		{
+			App->map->change_to_this_level = 0;
+			App->ResumeGame();
+		}
 	break; }
 	default:
 	{LOG("ERROR");
@@ -181,8 +184,8 @@ bool j1Scene::Pause()
 	/*Continue = (UIButton*)App->gui->GUIAdd_button(200, 100, { 120, 163, 117, 52 },this,"CONTINUE",CONTINUE);//{1,143,143,71}
 	Exit = (UIButton*)App->gui->GUIAdd_button(200, 200, { 0, 0, 117, 52 },this,"EXIT", EXIT);//{144,143,143,71}*/
 
-	Continue = (UIButton*)App->gui->GUIAdd_button(200, 100, {0,0,143,71},this,"CONTINUE",CONTINUE);
-	Exit = (UIButton*)App->gui->GUIAdd_button(200, 200, {0,0,143,71},this,"EXIT", EXIT);
+	Continue = (UIButton*)App->gui->GUIAdd_button(-App->render->camera.x+200, 100, {0,0,143,71},this,"CONTINUE",CONTINUE);
+	Exit = (UIButton*)App->gui->GUIAdd_button(-App->render->camera.x+200, 200, {0,0,143,71},this,"EXIT", EXIT);
 	return true;
 }
 bool j1Scene::Resume()
