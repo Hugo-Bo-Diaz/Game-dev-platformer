@@ -19,13 +19,13 @@ public:
 	UIimage(iPoint pos,SDL_Rect _rect)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
 		type_of_element = IMAGE;
-		position = pos;
+		winposition = pos;
 		portion = _rect;
 	}
 	~UIimage() {};
 
 	virtual void Draw() { 
-		App->render->Blit(App->gui->GetAtlas(),position.x,position.y,&portion); 
+		App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y,&portion);
 	};
 };
 

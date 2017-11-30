@@ -28,7 +28,7 @@ public:
 	UITextbox() {};
 	UITextbox(iPoint pos,const char* name)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
-		position = pos;
+		winposition = pos;
 		string = name;
 		tex = App->tex->textures.add(App->font->Print(string.GetString(), { 255,255,0,255 }, App->font->default))->data;
 		SDL_QueryTexture(tex, NULL, NULL, &title_w, &title_h);
@@ -40,7 +40,7 @@ public:
 
 	void Draw() {
 		//text box
-		App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &portion);
+		App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &portion);
 
 		if (App->input->GetMouseButtonDown(1) == KEY_UP && !mouseover)
 		{
@@ -65,13 +65,12 @@ public:
 			
 			SDL_QueryTexture(text_texture, NULL, NULL, &text_w, &text_h);
 
-			App->render->Blit(text_texture, position.x + portion.w / 2 - text_w / 2, position.y);
+			App->render->Blit(text_texture, winposition.x + portion.w / 2 - text_w / 2, winposition.y);
 			App->tex->UnLoad(text_texture);
 		}
 		//title
-		App->render->Blit(tex, position.x + portion.w / 2 - title_w / 2, (position.y + portion.h / 2 - title_h / 2) -22);
+		App->render->Blit(tex, winposition.x + portion.w / 2 - title_w / 2, (winposition.y + portion.h / 2 - title_h / 2) -22);
 	
-
 		mouseover = false;
 	};
 

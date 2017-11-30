@@ -5,11 +5,12 @@
 #include "UIelement.h"
 #include "j1Fonts.h"
 
-
 #define CURSOR_WIDTH 2
 
 // TODO 1: Create your structure of classes
 
+class UIwindow;
+class UIButton;
 // ---------------------------------------------------
 class j1Gui : public j1Module
 {
@@ -48,10 +49,13 @@ public:
 	UIelement* GUIAdd_button(int x, int y, SDL_Rect portion, j1Module* callback = nullptr, const char* text = "", button_type type = button_type::NUL);
 	UIelement* GUIAdd_checkbox(int x, int y, SDL_Rect portion, j1Module* callback = nullptr, const char* text = "");
 	UIelement* GUIAdd_textbox(int x, int y, j1Module* callback = nullptr, const char* title = "");
-
+	UIelement* GUIAdd_window(int x, int y, SDL_Rect portion, const char* title, bool dragable);
 	//portion in this functions means the part of the atlas they get to draw
 
 	bool delete_element(UIelement* element);
+
+	UIwindow* window_ui;
+	UIButton* button_test;
 
 private:
 

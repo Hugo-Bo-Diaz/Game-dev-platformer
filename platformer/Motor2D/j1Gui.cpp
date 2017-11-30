@@ -14,6 +14,7 @@
 #include "UIbutton.h"
 #include "UICheckBox.h"
 #include "UItextbox.h"
+#include "UIwindow.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -42,8 +43,11 @@ bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
 
-	//SDL_Surface *sshot = SDL_CreateRGBSurface(0, 750, 420, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
-	//SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
+	window_ui= (UIwindow*) GUIAdd_window(100, 100, {294,3,206,191}, "title lol", false);
+
+	button_test = (UIButton*)GUIAdd_button(0, 0, { 0,0,143,71 }, App->gui, "NEW GAME", button_type::NEW_GAME);
+
+	window_ui->Attach(button_test, { 50,10 });
 
 	return true;
 }
@@ -118,6 +122,8 @@ bool j1Gui::MouseInside(SDL_Rect* rect)
 	int x = 0;
 	int y = 0;
 	App->input->GetMousePosition(x, y);
+	x -= App->render->camera.x;
+	y -= App->render->camera.y;
 	if (x < (rect->x + rect->w) && x > rect->x &&y < (rect->y + rect->h) && y > rect->y)
 	{
 		return true;
@@ -175,6 +181,15 @@ UIelement* j1Gui::GUIAdd_textbox(int x, int y, j1Module* callback, const char* t
 	return ret;
 }
 
+UIelement* j1Gui::GUIAdd_window(int x, int y, SDL_Rect portion, const char* title, bool dragable)
+{
+	iPoint pos = { x,y };
+	UIelement* ret = new UIwindow(pos, title,portion,dragable);
+	elements.add(ret);
+	return ret;
+}
+
+
 bool j1Gui::delete_element(UIelement* element)//after using me don't forget to set your UIelement* to nullptr
 {
 	int i = elements.find(element);
@@ -198,13 +213,13 @@ bool j1Gui::UIinteraction(UIelement* element)
 		{
 			case NEW_GAME:
 			{LOG("trying to start new gmae");
-			App->map->change_to_next_level = true;
-			App->transition->StartTransition();
+			if (App->transition->StartTransition())
+				App->map->change_to_next_level = true;
 			break; }
 			case LOAD_GAME:
 			{LOG("previously on where is my plane...");
-			App->LoadGame();
-			App->transition->StartTransition();
+			if (App->transition->StartTransition())
+				App->LoadGame();
 			break; }
 			case QUIT:
 			{ret = false;

@@ -1,7 +1,6 @@
 #ifndef __UI_TEXT__
 #define __UI_TEXT__
 
-#include "p2Point.h"
 #include "p2SString.h"
 #include "j1Textures.h"
 #include "j1Fonts.h"
@@ -20,7 +19,7 @@ public:
 	UItext() {};
 	UItext(iPoint pos, const char* _text, SDL_Color _color, _TTF_Font* font = App->font->default)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
-		position = pos;
+		winposition = pos;
 		//text.create(_text);
 		texture = App->tex->textures.add(App->font->Print(_text,_color,font))->data;
 		//color = _color;
@@ -31,7 +30,7 @@ public:
 
 	virtual void Draw() 
 	{ 
-		App->render->Blit(texture, position.x, position.y); 
+		App->render->Blit(texture, winposition.x, winposition.y);
 	};
 };
 

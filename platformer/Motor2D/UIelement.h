@@ -24,6 +24,7 @@ enum UIelement_type
 	IMAGE,
 	TEXT,
 	TEXTBOX,
+	WINDOW,
 	NONE
 };
 
@@ -31,13 +32,15 @@ class UIelement
 {
 public:
 	iPoint position;
+	iPoint winposition;
 	SDL_Rect portion = {0,0,0,0};
 	UIelement_type type_of_element = NONE;
 	j1Module* callback;
 	bool mouseover = false;
+
 public:
 	UIelement() {};
-	~UIelement() {};
+	virtual ~UIelement() {};
 
 	virtual void OnClick() {};
 	virtual bool OnRelease() { return true; };
@@ -56,7 +59,7 @@ public:
 
 	SDL_Rect GetRect()
 	{
-		return {position.x,position.y,portion.w,portion.h};
+		return {winposition.x,winposition.y,portion.w,portion.h};
 	}
 };
 

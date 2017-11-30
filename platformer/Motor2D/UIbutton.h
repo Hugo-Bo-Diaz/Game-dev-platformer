@@ -27,8 +27,10 @@ public:
 	UIButton() {};
 	UIButton(iPoint pos,const char* text = "" , button_type _type = NUL, SDL_Rect _portion = { 0,73,133,34 })// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
+
+		winposition = pos;
 		type_of_element = BUTTON;
-		position = pos;
+		position = {0,0};
 		portion = _portion;
 		type = _type;
 		string = text;
@@ -43,25 +45,24 @@ public:
 		App->tex->UnLoad(tex);
 	};
 
-	void Draw() {
-			//WRONG PLACE
-
+	void Draw() 
+	{
 		if (clicked)
 		{
-			App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &pressed);
+			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &pressed);
 		}
 		else //change this when we have real buttons
 		{
-			App->render->Blit(App->gui->GetAtlas(), position.x, position.y, &portion);
+			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &portion);
 		}
 		if (mouseover)
 		{
-			App->render->Blit(App->gui->GetAtlas(), position.x -15, position.y-15, &glow);
+			App->render->Blit(App->gui->GetAtlas(), winposition.x -15, winposition.y-15, &glow);
 			mouseover = false;
 		}
 		if (tex != nullptr)
-			App->render->Blit(tex, position.x + portion.w / 2 - text_w / 2, (position.y + portion.h / 2 - text_h / 2) -2);
-		};
+			App->render->Blit(tex, winposition.x + portion.w / 2 - text_w / 2, (winposition.y + portion.h / 2 - text_h / 2) -2);
+	};
 
 	void OnClick() { clicked = true; };
 	void OnMouseOver() { mouseover = true; };
