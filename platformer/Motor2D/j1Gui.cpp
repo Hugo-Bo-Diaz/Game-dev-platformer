@@ -43,12 +43,6 @@ bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
 
-	window_ui= (UIwindow*) GUIAdd_window(100, 100, {294,3,206,191}, "title lol", false);
-
-	button_test = (UIButton*)GUIAdd_button(0, 0, { 0,0,143,71 }, App->gui, "NEW GAME", button_type::NEW_GAME);
-
-	window_ui->Attach(button_test, { 50,10 });
-
 	return true;
 }
 

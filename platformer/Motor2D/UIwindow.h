@@ -7,7 +7,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "UIelement.h"
-
+#include "j1Input.h"
 
 class UIwindow : public UIelement
 {
@@ -17,7 +17,7 @@ public:
 	int text_w;
 	int text_h;
 	SDL_Texture* tex;
-
+	iPoint mouse_stored;
 	p2List<UIelement*> contents;
 	bool active = false;
 public:
@@ -40,24 +40,36 @@ public:
 	};
 
 	void Draw() 
-	{
+	{		
+		if (active)
+		{
+			int x;
+			int y; 
+			App->input->GetMousePosition(x, y);
+			if (mouse_stored.x != x)
+				winposition.x += x-mouse_stored.x;
+			if (mouse_stored.y != y)
+				winposition.y += y-mouse_stored.y;
+		}
 		App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &portion);
 		if (mouseover)
 		{
 			mouseover = false;
 		}
 		if (tex != nullptr)
-			App->render->Blit(tex, winposition.x + portion.w / 2 - text_w / 2, (winposition.y + portion.h / 2 - text_h / 2) -2);
+			App->render->Blit(tex, winposition.x + portion.w / 2 - text_w / 2, winposition.y+ 10);
 
 		p2List_item<UIelement*>* item = contents.start;
 		while (item != NULL)
 		{
 			item->data->winposition.x = winposition.x + item->data->position.x;
 			item->data->winposition.y = winposition.y + item->data->position.y;
-
 			item = item->next;
 		}
-
+		int sx;
+		int sy;
+		App->input->GetMousePosition(sx, sy);
+		mouse_stored = { sx,sy };
 	};
 
 	void Attach(UIelement* element, iPoint pos)//relative to the window 
@@ -66,17 +78,18 @@ public:
 		contents.add(element);
 	}
 
-	void OnClick() { clicked = true; };
+	void OnClick() 
+	{
+		active = true;
+		clicked = true;
+	};
 	void OnMouseOver() { mouseover = true; };
 	bool OnRelease() 
 	{
 		bool ret = true;
 
-		if (mouseover && clicked) 
-		{ 
-			ret = OnActivation();
-		} 
-		clicked = false;
+		active = false;
+
 		return ret;
 	};
 

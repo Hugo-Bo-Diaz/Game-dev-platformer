@@ -11,6 +11,8 @@
 #include "Brofiler\Brofiler.h"
 #include <math.h>
 
+#include "UIwindow.h"
+
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
@@ -584,27 +586,16 @@ bool j1Map::CreateUI(map_layer* layer)
 			int height = 71;
 			switch (layer->data[i])
 			{
-			case 1://start button
-				/*App->gui->GUIAdd_button(point.x, point.y, { 120, 163, 117, 52 },App->gui,"NEW GAME",button_type::NEW_GAME);//{1,1,width,height}
-				break;
-			case 2://settings button
-				App->gui->GUIAdd_button(point.x, point.y, { 0, 163, 117, 52 }, App->gui, " SETTINGS", button_type::SETTINGS);//{ 144,1,width,height }
-				break;
-			case 3://quit button
-				App->gui->GUIAdd_button(point.x, point.y, { 0, 0, 117, 52 }, App->gui,"QUIT",button_type::QUIT);//{ 1, 73, width, height }
-				break;
-			case 4://Load button
-				App->gui->GUIAdd_button(point.x, point.y, { 120, 0, 117, 52 }, App->gui,"LOAD GAME",button_type::LOAD_GAME);//{ 144, 73, width, height}*/
-				App->gui->GUIAdd_button(point.x, point.y, {0,0,width,height},App->gui,"NEW GAME",button_type::NEW_GAME);
-				break;
-			case 2://settings button
-				App->gui->GUIAdd_button(point.x, point.y, { 0,0,width,height }, App->gui, " SETTINGS", button_type::SETTINGS);
-				break;
+			case 1:
+			{
+			UIwindow* start_menu = (UIwindow*)App->gui->GUIAdd_window(point.x, point.y, { 282,0,210,300 }, "MENU", true);
+			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, App->gui, "NEW GAME", button_type::NEW_GAME), { 35,35 });
+			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, App->gui, "LOAD GAME", button_type::LOAD_GAME), { 35,117 });
+			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, App->gui, "SETTINGS", button_type::SETTINGS), { 35,200 });
+			break;
+			}
 			case 3://quit button
 				App->gui->GUIAdd_button(point.x, point.y, {0,0,width,height}, App->gui,"QUIT",button_type::QUIT);
-				break;
-			case 4:
-				App->gui->GUIAdd_button(point.x, point.y, {0,0,width,height}, App->gui,"LOAD GAME",button_type::LOAD_GAME);
 				break;
 			default:
 				break;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="21" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="21" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
  <tileset firstgid="1" name="tileset_menu" tilewidth="143" tileheight="71" spacing="1" margin="1" tilecount="4" columns="2">
   <image source="tileset_menu.png" width="289" height="145"/>
  </tileset>
@@ -11,7 +11,6 @@
    <property name="UI_layer" type="bool" value="true"/>
   </properties>
   <data>
-   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -105,7 +104,6 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="4"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -147,7 +145,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="2"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
