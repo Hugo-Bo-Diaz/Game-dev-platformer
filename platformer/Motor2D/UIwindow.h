@@ -20,14 +20,16 @@ public:
 	iPoint mouse_stored;
 	p2List<UIelement*> contents;
 	bool active = false;
+	bool dragable=false;
 public:
 	UIwindow() {};
-	UIwindow(iPoint pos,const char* text = "" , SDL_Rect _portion = { 0,73,133,34 }, bool dragable = false)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
+	UIwindow(iPoint pos,const char* text = "" , SDL_Rect _portion = { 0,73,133,34 }, bool _dragable = false)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
 		type_of_element = WINDOW;
 		winposition = pos;
 		portion = _portion;
 		title = text;
+		dragable = _dragable;
 		if (title != "")
 		{
 			tex = App->tex->textures.add(App->font->Print(title.GetString(), { 0,0,0,255 }, App->font->default))->data;
@@ -41,7 +43,7 @@ public:
 
 	void Draw() 
 	{		
-		if (active)
+		if (active && dragable)
 		{
 			int x;
 			int y; 
