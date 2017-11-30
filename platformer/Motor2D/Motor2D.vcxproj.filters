@@ -214,6 +214,9 @@
     <ClInclude Include="UIwindow.h">
       <Filter>Desenvolupament  ========\UI Elements</Filter>
     </ClInclude>
+    <ClInclude Include="UIVarDisplay.h">
+      <Filter>Desenvolupament  ========\UI Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">

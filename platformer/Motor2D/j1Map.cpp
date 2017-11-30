@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Scene.h"
 #include "j1Map.h"
 #include "j1Collision.h"
 #include "j1Physics.h"
@@ -52,6 +53,8 @@ bool j1Map::Awake(pugi::xml_node& config)
 	pugi::xml_node colors = config.child("background");
 	data.background_color = { (Uint8)colors.attribute("r").as_uint(), (Uint8)colors.attribute("g").as_uint(), (Uint8)colors.attribute("b").as_uint(), 0 };
 	App->render->SetBackgroundColor(data.background_color);
+
+	max_time = config.child("timer").attribute("value").as_int();
 
 	return ret;
 }
@@ -284,6 +287,8 @@ bool j1Map::Load(const char* file_name)
 		App->entities->Load_entites();
 		coming_from_save = false;
 	}
+
+	App->gui->GUIAdd_VarDisplay(10, 10, &App->scene->time_left);
 
 	return ret;
 }
@@ -635,18 +640,21 @@ void j1Map::change_map(uint map)
 	index_map = map;
 	CleanUp();
 	Load(maps[index_map].GetString());
+	timer.Start();
 }
 void j1Map::next_level()
 {
 	index_map += 1;
 	CleanUp();
 	Load(maps[index_map].GetString());
+	timer.Start();
 }
 void j1Map::previous_level()
 {
 	index_map += 1;
 	CleanUp();
 	Load(maps[index_map].GetString());
+	timer.Start();
 }
 
 bool j1Map::Save(pugi::xml_node& node) const
@@ -662,5 +670,16 @@ bool j1Map::Load(pugi::xml_node& node)
 {
 	change_to_this_level = node.child("current_map").attribute("value").as_int();
 	coming_from_save = true;
+	return true;
+}
+
+bool j1Map::Pause()
+{
+	timer.Pause();
+	return true;
+}
+bool j1Map::Resume()
+{
+	timer.Resume();
 	return true;
 }

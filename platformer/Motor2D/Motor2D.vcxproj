@@ -148,6 +148,7 @@
     <ClInclude Include="UIimage.h" />
     <ClInclude Include="UItext.h" />
     <ClInclude Include="UItextbox.h" />
+    <ClInclude Include="UIVarDisplay.h" />
     <ClInclude Include="UIwindow.h" />
   </ItemGroup>
   <ItemGroup>

@@ -46,6 +46,8 @@ public:
 	uint coins = 0;
 	uint lifes = 3;
 
+	float time_left = 0;
+
 private:
 
 	UIButton* Continue;

@@ -149,6 +149,9 @@ public:
 	void next_level();
 	void previous_level();
 
+	bool Pause();
+	bool Resume();
+
 	bool change_to_next_level = false;
 	bool change_to_previous_level = false;
 	int change_to_this_level = -1;
@@ -157,7 +160,13 @@ public:
 	iPoint player_start_in_map = iPoint(0, 0);// where he will respawn when killed / swpawned
 
 	j1Timer timer;//NEEDS IMPLEMENTING 174*101
-	int time_left;
+
+	int max_time;
+	int time_left() 
+	{
+		return max_time - timer.ReadSec();
+	}
+
 private:
 
 	pugi::xml_document	map_file;

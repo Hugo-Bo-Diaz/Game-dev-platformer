@@ -21,11 +21,32 @@ void j1Timer::Start()
 // ---------------------------------------------
 uint32 j1Timer::Read() const
 {
-	return SDL_GetTicks() - started_at;
+	return SDL_GetTicks() - started_at - time_paused;
 }
 
 // ---------------------------------------------
 float j1Timer::ReadSec() const
 {
-	return float(SDL_GetTicks() - started_at) / 1000.0f;
+	return float(SDL_GetTicks() - started_at - time_paused) / 1000.0f;
+}
+
+// ---------------------------------------------
+void j1Timer::Pause()
+{
+	if (!paused)
+	{
+		paused_at = SDL_GetTicks();
+		paused = true;
+	}
+}
+
+// ---------------------------------------------
+void j1Timer::Resume()
+{
+	if (paused)
+	{
+		resumed_at = SDL_GetTicks();
+		time_paused += resumed_at - paused_at;
+		paused = false;
+	}
 }

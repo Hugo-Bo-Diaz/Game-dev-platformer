@@ -37,6 +37,9 @@ bool j1Scene::Start()
 
 	App->map->Load(App->map->current_map.GetString());
 	App->audio->PlayMusic("audio/music/FindYou.ogg");
+
+
+
 	return true;
 }
 
@@ -44,6 +47,14 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::LawnGreen);
+
+	if(!App->map->timer.paused)
+		time_left = App->map->max_time - App->map->timer.ReadSec();
+
+	if (time_left < 0 && !App->map->timer.paused)
+	{
+		//LOG("TIME'S UP BIACH");
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->map->change_to_this_level = App->map->index_map;

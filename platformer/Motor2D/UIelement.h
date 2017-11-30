@@ -25,6 +25,7 @@ enum UIelement_type
 	TEXT,
 	TEXTBOX,
 	WINDOW,
+	VARDISPLAY,
 	NONE
 };
 

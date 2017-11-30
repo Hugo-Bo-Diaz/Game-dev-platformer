@@ -15,6 +15,7 @@
 #include "UICheckBox.h"
 #include "UItextbox.h"
 #include "UIwindow.h"
+#include "UIVarDisplay.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -183,6 +184,13 @@ UIelement* j1Gui::GUIAdd_window(int x, int y, SDL_Rect portion, const char* titl
 	return ret;
 }
 
+UIelement* j1Gui::GUIAdd_VarDisplay(int x, int y, float* variable, SDL_Color color, _TTF_Font* font)
+{
+	iPoint pos = { x,y };
+	UIelement* ret = new UIVarDisplay(pos,variable,color,font);
+	elements.add(ret);
+	return ret;
+}
 
 bool j1Gui::delete_element(UIelement* element)//after using me don't forget to set your UIelement* to nullptr
 {
