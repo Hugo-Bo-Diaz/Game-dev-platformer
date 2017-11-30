@@ -20,14 +20,20 @@ void j1Timer::Start()
 
 // ---------------------------------------------
 uint32 j1Timer::Read() const
-{
-	return SDL_GetTicks() - started_at - time_paused;
+{	
+	if (!paused)
+		return SDL_GetTicks() - started_at - time_paused;
+	else
+		return paused_at - started_at -time_paused;
 }
 
 // ---------------------------------------------
 float j1Timer::ReadSec() const
 {
-	return float(SDL_GetTicks() - started_at - time_paused) / 1000.0f;
+	if(!paused)
+		return float(SDL_GetTicks() - started_at - time_paused) / 1000.0f;
+	else
+		return float(paused_at - started_at - time_paused)/1000.0f;
 }
 
 // ---------------------------------------------

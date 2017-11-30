@@ -48,8 +48,7 @@ bool j1Scene::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::LawnGreen);
 
-	if(!App->map->timer.paused)
-		time_left = App->map->max_time - App->map->timer.ReadSec();
+	time_left = App->map->max_time - App->map->timer.ReadSec();
 
 	if (time_left < 0 && !App->map->timer.paused)
 	{
