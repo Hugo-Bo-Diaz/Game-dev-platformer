@@ -13,14 +13,13 @@
 		<current_map value="1" />
 	</map>
 	<Entities>
-		<Bat x="1645" y="35" type="1" />
-		<Player x="98" y="235" type="2" />
-		<Coin x="210" y="175" type="5" />
-		<Zombie x="348" y="207" type="3" />
+		<Bat x="1653" y="35" type="1" />
+		<Player x="1022" y="170" type="2" />
 		<Zombie x="1365" y="242" type="3" />
 	</Entities>
 	<physics />
+	<transition />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-647" y="0" />
 	</renderer>
 </game_state>

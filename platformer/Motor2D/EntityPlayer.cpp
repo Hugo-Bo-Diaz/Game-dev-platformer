@@ -11,6 +11,7 @@
 #include "j1Pathfinding.h"
 #include "j1Scene.h"
 #include "j1Gui.h"
+#include "j1Transition.h"
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
 
@@ -222,7 +223,12 @@ bool EntityPlayer::PreUpdate(float dt)
 		App->map->change_to_this_level = App->map->index_map;
 		set_to_start_pos = false;
 	}
-
+	if (App->scene->time_left <= 0)
+	{
+		App->scene->lifes -= 1;
+		App->map->change_to_this_level = App->map->index_map;
+		set_to_start_pos = false;
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{

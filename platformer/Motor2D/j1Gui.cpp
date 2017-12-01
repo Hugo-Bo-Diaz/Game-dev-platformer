@@ -131,10 +131,10 @@ bool j1Gui::MouseInside(SDL_Rect* rect)
 
 // class Gui ---------------------------------------------------
 
-UIelement* j1Gui::GUIAdd_text(int x, int y, const char* text, j1Module* callback, SDL_Color color, _TTF_Font* font)
+UIelement* j1Gui::GUIAdd_text(int x, int y, const char* text, j1Module* callback, SDL_Color color,bool follow_camera, _TTF_Font* font)
 {
 	iPoint pos = { x,y };
-	UIelement* ret = new UItext(pos,text, color, font);
+	UIelement* ret = new UItext(pos,text, color,follow_camera, font);
 	ret->callback = callback;
 	elements.add(ret);
 	return ret;

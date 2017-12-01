@@ -44,7 +44,7 @@ public:
 	bool UIinteraction(UIelement* element);
 
 
-	UIelement* GUIAdd_text(int x, int y, const char* text, j1Module* callback = nullptr, SDL_Color color = {175,175,175,255}, _TTF_Font* font = App->font->default);
+	UIelement* GUIAdd_text(int x, int y, const char* text, j1Module* callback = nullptr, SDL_Color color = {175,175,175,255}, bool follow_camera = false, _TTF_Font* font = App->font->default);
 	UIelement* GUIAdd_image(int x, int y, SDL_Rect portion, bool follow_camera = false, j1Module* callback = nullptr);
 	UIelement* GUIAdd_button(int x, int y, SDL_Rect portion, j1Module* callback = nullptr, const char* text = "", button_type type = button_type::NUL);
 	UIelement* GUIAdd_checkbox(int x, int y, SDL_Rect portion, j1Module* callback = nullptr, const char* text = "");

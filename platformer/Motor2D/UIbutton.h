@@ -16,7 +16,7 @@ class UIButton : public UIelement
 {
 public:
 	bool clicked = false;
-	SDL_Rect pressed = {144,1,143,71};
+	SDL_Rect pressed = {144,1,133,71};
 	SDL_Rect glow = {0,71,174,101};
 	button_type type = NUL;
 	p2SString string;
@@ -51,7 +51,7 @@ public:
 		{
 			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &pressed);
 		}
-		else //change this when we have real buttons
+		else
 		{
 			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &portion);
 		}

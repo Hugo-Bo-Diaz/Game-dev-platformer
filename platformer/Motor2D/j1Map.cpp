@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Scene.h"
 #include "j1Map.h"
+#include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Physics.h"
 #include "j1EntityManager.h"
@@ -288,15 +289,24 @@ bool j1Map::Load(const char* file_name)
 		coming_from_save = false;
 	}
 
+	//PLAYER UI
 	if (index_map != 0)//we don't need timer on the main menu, needs improvement(especify in tiled??)
 	{
-		App->gui->GUIAdd_VarDisplay(10, 10, &App->scene->time_left);
-		App->gui->GUIAdd_VarDisplay(10, 50, &App->scene->coins);
-		App->gui->GUIAdd_VarDisplay(10, 100, &App->scene->lifes);
-		App->gui->GUIAdd_VarDisplay(10, 150, &App->scene->score);
+		uint winx;
+		uint winy;
+		App->win->GetWindowSize(winx,winy);
 
-		App->gui->GUIAdd_image(50, 10, {182,84,25,22},true);
-		App->gui->GUIAdd_image(50, 150, { 244,80,22,25 }, true);
+		App->gui->GUIAdd_VarDisplay(winx - 75, 25, &App->scene->time_left);
+		App->gui->GUIAdd_text(winx - 80, 10, "TIME", nullptr, {0,0,0,255},true);
+
+		App->gui->GUIAdd_VarDisplay(290, 10, &App->scene->coins);
+		App->gui->GUIAdd_image(260, 10, {182,84,24,26},true);
+
+		App->gui->GUIAdd_VarDisplay(winx - 210, 12, &App->scene->lifes);
+		App->gui->GUIAdd_image(winx - 240, 7, { 244,80,22,25 }, true);
+
+		App->gui->GUIAdd_VarDisplay(10, 25, &App->scene->score);
+		App->gui->GUIAdd_text(10, 10, "SCORE", nullptr, { 0,0,0,255 }, true);
 
 	}
 
@@ -591,6 +601,9 @@ bool j1Map::CreateUI(map_layer* layer)
 {
 	BROFILER_CATEGORY("CreateUI_Map", Profiler::Color::Sienna);
 
+	//this type of layer is only on the menus, meaning the score will reset to 0.
+	App->scene->score = 0;
+
 	for (int _y = 0; _y < layer->height; ++_y)
 	{
 		for (int _x = 0; _x < layer->width; ++_x)
@@ -647,21 +660,27 @@ bool j1Map::LoadBackground(pugi::xml_node& node, background* back)
 
 void j1Map::change_map(uint map)
 {
-	index_map = map;
+	if (index_map > 0 && map != index_map)
+		App->scene->score += time_left() * 10;
+	index_map = map;	
 	CleanUp();
 	Load(maps[index_map].GetString());
 	timer.Start();
 }
 void j1Map::next_level()
 {
-	index_map += 1;
+	if (index_map > 0)
+		App->scene->score += time_left() * 10;
+	index_map += 1;	
 	CleanUp();
 	Load(maps[index_map].GetString());
 	timer.Start();
 }
 void j1Map::previous_level()
 {
-	index_map += 1;
+	if (index_map > 0)
+		App->scene->score += time_left()*10;	
+	index_map += 1;	
 	CleanUp();
 	Load(maps[index_map].GetString());
 	timer.Start();
