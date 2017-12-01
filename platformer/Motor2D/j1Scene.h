@@ -43,10 +43,10 @@ public:
 	bool godmode = false;
 
 	int score = 0;
-	uint coins = 0;
-	uint lifes = 3;
+	int coins = 0;
+	int lifes = 3;
 
-	float time_left = 0;
+	int time_left = 0;
 
 private:
 

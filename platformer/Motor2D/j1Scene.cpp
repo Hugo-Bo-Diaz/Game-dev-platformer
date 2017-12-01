@@ -38,8 +38,6 @@ bool j1Scene::Start()
 	App->map->Load(App->map->current_map.GetString());
 	App->audio->PlayMusic("audio/music/FindYou.ogg");
 
-
-
 	return true;
 }
 
@@ -48,7 +46,7 @@ bool j1Scene::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::LawnGreen);
 
-	time_left = App->map->max_time - App->map->timer.ReadSec();
+	time_left = App->map->time_left();
 
 	if (time_left < 0 && !App->map->timer.paused)
 	{

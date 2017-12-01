@@ -13,19 +13,24 @@
 class UIimage : public UIelement
 {
 public:
-
+	bool follow_camera = false;
 public:
 	UIimage() {};
-	UIimage(iPoint pos,SDL_Rect _rect)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
+	UIimage(iPoint pos, SDL_Rect _rect, bool _follow_camera = false)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
 		type_of_element = IMAGE;
 		winposition = pos;
 		portion = _rect;
+		follow_camera = _follow_camera;
 	}
 	~UIimage() {};
 
 	virtual void Draw() { 
-		App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y,&portion);
+		if (follow_camera)
+			App->render->Blit(App->gui->GetAtlas(), -App->render->camera.x + winposition.x, -App->render->camera.y + winposition.y, &portion);
+		else
+			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &portion);
+
 	};
 };
 

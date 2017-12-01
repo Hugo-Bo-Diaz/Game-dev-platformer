@@ -288,7 +288,17 @@ bool j1Map::Load(const char* file_name)
 		coming_from_save = false;
 	}
 
-	App->gui->GUIAdd_VarDisplay(10, 10, &App->scene->time_left);
+	if (index_map != 0)//we don't need timer on the main menu, needs improvement(especify in tiled??)
+	{
+		App->gui->GUIAdd_VarDisplay(10, 10, &App->scene->time_left);
+		App->gui->GUIAdd_VarDisplay(10, 50, &App->scene->coins);
+		App->gui->GUIAdd_VarDisplay(10, 100, &App->scene->lifes);
+		App->gui->GUIAdd_VarDisplay(10, 150, &App->scene->score);
+
+		App->gui->GUIAdd_image(50, 10, {182,84,25,22},true);
+		App->gui->GUIAdd_image(50, 150, { 244,80,22,25 }, true);
+
+	}
 
 	return ret;
 }

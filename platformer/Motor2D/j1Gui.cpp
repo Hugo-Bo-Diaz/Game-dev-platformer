@@ -149,10 +149,10 @@ UIelement* j1Gui::GUIAdd_button(int x, int y, SDL_Rect portion, j1Module* callba
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_image(int x, int y, SDL_Rect portion, j1Module* callback)
+UIelement* j1Gui::GUIAdd_image(int x, int y, SDL_Rect portion, bool follow_camera, j1Module* callback)
 {
 	iPoint pos = { x,y };
-	UIelement* ret = new UIimage(pos, portion);
+	UIelement* ret = new UIimage(pos, portion,follow_camera);
 	ret->callback = callback;
 	elements.add(ret);
 	return ret;
@@ -184,7 +184,7 @@ UIelement* j1Gui::GUIAdd_window(int x, int y, SDL_Rect portion, const char* titl
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_VarDisplay(int x, int y, float* variable, SDL_Color color, _TTF_Font* font)
+UIelement* j1Gui::GUIAdd_VarDisplay(int x, int y, int* variable, SDL_Color color, _TTF_Font* font)
 {
 	iPoint pos = { x,y };
 	UIelement* ret = new UIVarDisplay(pos,variable,color,font);
