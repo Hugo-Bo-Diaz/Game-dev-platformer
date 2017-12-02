@@ -26,6 +26,8 @@ public:
 		variable = _variable;
 		type_of_element = VARDISPLAY;
 		follow_camera = _follow_camera;
+		portion.w = 150;
+		portion.h = 50;
 	}
 	~UIVarDisplay() { };
 

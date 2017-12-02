@@ -25,6 +25,8 @@ public:
 		//color = _color;
 		type_of_element = TEXT;
 		follow_camera = _follow_camera;
+		portion.w = 150;
+		portion.h = 50;
 	}
 	~UItext() { App->tex->UnLoad(texture); };
 

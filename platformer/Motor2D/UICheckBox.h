@@ -73,11 +73,11 @@ public:
 	{
 		bool ret = true;
 
-		if (mouseover && clicked) 
+		if (mouseover && active) 
 		{ 
 			active = !active;
 		} 
-		clicked = false;
+		active = false;
 		return ret;
 	};
 
