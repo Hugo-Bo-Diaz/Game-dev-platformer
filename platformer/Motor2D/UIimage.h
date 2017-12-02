@@ -7,7 +7,6 @@
 #include "j1Fonts.h"
 #include "j1App.h"
 #include "UIelement.h"
-#include "j1Gui.h"
 #include "j1Render.h"
 
 class UIimage : public UIelement
@@ -31,6 +30,10 @@ public:
 		else
 			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &portion);
 
+		if (mouseover)
+		{
+			mouseover = false;
+		}
 	};
 };
 

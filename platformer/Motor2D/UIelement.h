@@ -4,18 +4,8 @@
 #include "p2Point.h"
 #include "p2Log.h"
 #include "j1Module.h"
+#include "j1Gui.h"
 
-enum button_type
-{
-	NEW_GAME,
-	LOAD_GAME,
-	CREDITS,
-	SETTINGS,
-	QUIT,
-	CONTINUE,
-	EXIT,
-	NUL
-};
 
 enum UIelement_type
 {
@@ -37,16 +27,77 @@ public:
 	SDL_Rect portion = {0,0,0,0};
 	UIelement_type type_of_element = NONE;
 	j1Module* callback;
+
+	p2List<UIelement*> attached_elements;
+	bool attached = false;
+
+	bool selected = false;
+	iPoint mouse_stored;
+	bool active;
 	bool mouseover = false;
 
 public:
 	UIelement() {};
 	virtual ~UIelement() {};
 
-	virtual void OnClick() {};
-	virtual bool OnRelease() { return true; };
+	virtual void OnClick() 
+	{
+		if (mouseover)
+		{
+			active = true;
+		}
+	};
+	virtual bool OnRelease() { 
+		active = false;
+		return true; };
 
 	virtual void Draw() {};
+
+	void Update() 
+	{
+		if (active && App->gui->debug)
+		{
+			int x;
+			int y;
+			App->input->GetMousePosition(x, y);
+			if (attached == false)
+			{
+				if (mouse_stored.x != x)
+					winposition.x += x - mouse_stored.x;
+				if (mouse_stored.y != y)
+					winposition.y += y - mouse_stored.y;
+			}
+			else
+			{
+				if (mouse_stored.x != x)
+					position.x += x - mouse_stored.x;
+				if (mouse_stored.y != y)
+					position.y += y - mouse_stored.y;
+			}
+		}
+		int sx;
+		int sy;
+		App->input->GetMousePosition(sx, sy);
+		mouse_stored = { sx,sy };
+	};
+
+	void UpdateAttached()
+	{
+		p2List_item<UIelement*>* item = attached_elements.start;
+		while (item != NULL)
+		{
+			item->data->winposition.x = winposition.x + item->data->position.x;
+			item->data->winposition.y = winposition.y + item->data->position.y;
+			item = item->next;
+		}
+	}
+
+	void Attach(UIelement* element, iPoint pos)//relative to the window 
+	{
+		element->position = pos;//position relative to the window
+		element->attached = true;
+		attached_elements.add(element);
+	}
 
 	virtual bool OnActivation()
 	{

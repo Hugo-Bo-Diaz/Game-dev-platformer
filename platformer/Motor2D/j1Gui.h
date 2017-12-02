@@ -2,7 +2,6 @@
 #define __j1GUI_H__
 
 #include "j1Module.h"
-#include "UIelement.h"
 #include "j1Fonts.h"
 
 #define CURSOR_WIDTH 2
@@ -11,6 +10,20 @@
 
 class UIwindow;
 class UIButton;
+
+enum button_type
+{
+	NEW_GAME,
+	LOAD_GAME,
+	CREDITS,
+	SETTINGS,
+	QUIT,
+	CONTINUE,
+	EXIT,
+	NUL
+};
+
+
 // ---------------------------------------------------
 class j1Gui : public j1Module
 {
@@ -44,13 +57,13 @@ public:
 	bool UIinteraction(UIelement* element);
 
 
-	UIelement* GUIAdd_text(int x, int y, const char* text, j1Module* callback = nullptr, SDL_Color color = {175,175,175,255}, bool follow_camera = false, _TTF_Font* font = App->font->default);
-	UIelement* GUIAdd_image(int x, int y, SDL_Rect portion, bool follow_camera = false, j1Module* callback = nullptr);
+	UIelement* GUIAdd_text(int x, int y, const char* text, SDL_Color color = {175,175,175,255}, bool follow_camera = false, _TTF_Font* font = App->font->default);
+	UIelement* GUIAdd_image(int x, int y, SDL_Rect portion, bool follow_camera = false);
 	UIelement* GUIAdd_button(int x, int y, SDL_Rect portion, j1Module* callback = nullptr, const char* text = "", button_type type = button_type::NUL);
 	UIelement* GUIAdd_checkbox(int x, int y, SDL_Rect portion, j1Module* callback = nullptr, const char* text = "");
 	UIelement* GUIAdd_textbox(int x, int y, j1Module* callback = nullptr, const char* title = "");
 	UIelement* GUIAdd_VarDisplay(int x, int y, int* variable = nullptr, SDL_Color color = {0,0,0,255}, _TTF_Font* font = App->font->default);
-	UIelement* GUIAdd_window(int x, int y, SDL_Rect portion, const char* title, bool dragable);
+	UIelement* GUIAdd_window(int x, int y, SDL_Rect portion, const char* title);
 	//portion in this functions means the part of the atlas they get to draw
 
 	bool delete_element(UIelement* element);
@@ -59,6 +72,7 @@ public:
 	UIButton* button_test;
 
 	float  test = 100000;
+	bool debug = false;
 
 private:
 
@@ -66,6 +80,8 @@ private:
 	p2SString atlas_file_name;
 
 	p2List<UIelement*> elements;
+
+	void UIDebugDraw();
 
 	bool MouseInside(SDL_Rect* rect);
 	SDL_Texture* screen = nullptr;

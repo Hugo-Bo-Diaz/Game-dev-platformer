@@ -140,7 +140,10 @@ bool j1Scene::Update(float dt)
 
 	if (App->paused_game && pause_background != nullptr )
 	{
+		uint x; uint y;
+		App->win->GetWindowSize(x, y);
 		App->render->Blit(pause_background,-App->render->camera.x,-App->render->camera.y);
+		App->render->DrawQuad({ -App->render->camera.x,-App->render->camera.y,(int)x,(int)y }, 0, 0, 0, 50);
 	}
 	return true;
 }

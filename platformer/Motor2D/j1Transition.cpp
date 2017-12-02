@@ -8,6 +8,7 @@
 j1Transition::j1Transition() : j1Module()
 {
 	name.create("transition");
+	active_in_pause = false;
 }
 
 // Destructor

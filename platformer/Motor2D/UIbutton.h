@@ -6,16 +6,15 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 #include "j1App.h"
-#include "j1Gui.h"
 #include "j1Map.h"
 #include "j1Render.h"
+#include "j1Input.h"
 #include "UIelement.h"
 
 
 class UIButton : public UIelement
 {
 public:
-	bool clicked = false;
 	SDL_Rect pressed = {144,1,133,71};
 	SDL_Rect glow = {0,71,174,101};
 	button_type type = NUL;
@@ -23,11 +22,12 @@ public:
 	int text_w;
 	int text_h;
 	SDL_Texture* tex;
+
 public:
 	UIButton() {};
-	UIButton(iPoint pos,const char* text = "" , button_type _type = NUL, SDL_Rect _portion = { 0,73,133,34 })// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
+	UIButton(iPoint pos,const char* text = "" , button_type _type = NUL, SDL_Rect _portion = { 0,73,133,34 }, bool _attached = false)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	{
-
+		attached = _attached;
 		winposition = pos;
 		type_of_element = BUTTON;
 		position = {0,0};
@@ -39,6 +39,12 @@ public:
 			tex = App->tex->textures.add(App->font->Print(string.GetString(), { 0,0,0,255 }, App->font->default))->data;
 			SDL_QueryTexture(tex, NULL, NULL, &text_w, &text_h);
 		}
+
+		int sx;
+		int sy;
+		App->input->GetMousePosition(sx, sy);
+		mouse_stored = { sx,sy };
+
 	}
 	~UIButton() 
 	{ 
@@ -47,7 +53,7 @@ public:
 
 	void Draw() 
 	{
-		if (clicked)
+		if (active)
 		{
 			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &pressed);
 		}
@@ -64,17 +70,23 @@ public:
 			App->render->Blit(tex, winposition.x + portion.w / 2 - text_w / 2, (winposition.y + portion.h / 2 - text_h / 2) -2);
 	};
 
-	void OnClick() { clicked = true; };
-	void OnMouseOver() { mouseover = true; };
+	void OnClick()
+	{
+		if (mouseover)
+		{
+			active = true;
+		}
+	};
 	bool OnRelease() 
 	{
 		bool ret = true;
 
-		if (mouseover && clicked) 
+		if (mouseover && active)
 		{ 
 			ret = OnActivation();
 		} 
-		clicked = false;
+		active = false;
+
 		return ret;
 	};
 

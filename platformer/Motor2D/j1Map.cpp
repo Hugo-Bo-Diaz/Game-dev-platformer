@@ -297,7 +297,7 @@ bool j1Map::Load(const char* file_name)
 		App->win->GetWindowSize(winx,winy);
 
 		App->gui->GUIAdd_VarDisplay(winx - 75, 25, &App->scene->time_left);
-		App->gui->GUIAdd_text(winx - 80, 10, "TIME", nullptr, {0,0,0,255},true);
+		App->gui->GUIAdd_text(winx - 80, 10, "TIME",  {0,0,0,255},true);
 
 		App->gui->GUIAdd_VarDisplay(290, 10, &App->scene->coins);
 		App->gui->GUIAdd_image(260, 10, {182,84,24,26},true);
@@ -306,7 +306,7 @@ bool j1Map::Load(const char* file_name)
 		App->gui->GUIAdd_image(winx - 240, 7, { 244,80,22,25 }, true);
 
 		App->gui->GUIAdd_VarDisplay(10, 25, &App->scene->score);
-		App->gui->GUIAdd_text(10, 10, "SCORE", nullptr, { 0,0,0,255 }, true);
+		App->gui->GUIAdd_text(10, 10, "SCORE", { 0,0,0,255 }, true);
 
 	}
 
@@ -616,7 +616,9 @@ bool j1Map::CreateUI(map_layer* layer)
 			{
 			case 1:
 			{
-			UIwindow* start_menu = (UIwindow*)App->gui->GUIAdd_window(point.x, point.y, { 282,0,210,300 }, "MENU", false);
+			UIwindow* test = (UIwindow*)App->gui->GUIAdd_window(point.x, point.y, { 282,0,210,300 }, "MENU");
+			UIwindow* start_menu = (UIwindow*)App->gui->GUIAdd_window(0, 0, { 282,0,210,300 }, "MENU");
+			test->Attach(start_menu, {50,50});
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, App->gui, "NEW GAME", button_type::NEW_GAME), { 35,35 });
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, App->gui, "LOAD GAME", button_type::LOAD_GAME), { 35,117 });
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, App->gui, "SETTINGS", button_type::SETTINGS), { 35,200 });

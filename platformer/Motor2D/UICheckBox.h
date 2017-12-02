@@ -6,7 +6,6 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 #include "j1App.h"
-#include "j1Gui.h"
 #include "j1Render.h"
 #include "UIelement.h"
 
@@ -19,8 +18,6 @@ enum check_type
 class UICheckBox : public UIelement
 {
 public:
-	bool clicked = false;
-	bool active = false;
 	SDL_Rect cross = {199,170,16,16};
 	SDL_Rect glow = {159,170,16,16};
 	SDL_Rect pressed = { 178,170,16,16 };
@@ -53,7 +50,7 @@ public:
 			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &glow);
 			mouseover = false;
 		}
-		if (clicked)
+		if (active)
 		{
 			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &pressed);
 		}
@@ -64,7 +61,13 @@ public:
 		App->render->Blit(tex, winposition.x + 20, (winposition.y + portion.h / 2 - text_h / 2));
 	};
 
-	void OnClick() { clicked = true; };
+	void OnClick() 
+	{
+		if (mouseover)
+		{
+			active = true;
+		}
+	};
 	void OnMouseOver() { mouseover = true; };
 	bool OnRelease() 
 	{

@@ -45,6 +45,10 @@ public:
 
 			SDL_DestroyTexture(tex);
 		}
+		if (mouseover)
+		{
+			mouseover = false;
+		}
 	};
 };
 

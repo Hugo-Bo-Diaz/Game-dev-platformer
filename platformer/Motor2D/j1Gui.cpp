@@ -50,27 +50,37 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate(float dt)
 {
-	p2List_item<UIelement*>* item = elements.start;
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+		debug = !debug;
+	
+	bool item_has_been_activated = false;
 	bool ret = true;
-	while (item != NULL)
+
+	p2List_item<UIelement*>* item = elements.end;
+	while (item != NULL && !item_has_been_activated)
 	{
 		if (MouseInside(&item->data->GetRect()))
 		{
 			item->data->mouseover = true;
-			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)//left click
-			{
-				item->data->OnClick();
-			}
+		}
+		if (App->input->GetMouseButtonDown(1) == KEY_DOWN)//left click
+		{
+			item->data->OnClick();
 		}
 		if (App->input->GetMouseButtonDown(1) == KEY_UP)
 		{
 			if (ret == true)
-				ret = item->data->OnRelease();
-
+			ret = item->data->OnRelease();
 		}
-		item = item->next;
-	}
+		//NEEDS CLEANING, TESTING WATERS
+		if (item->data->mouseover /*&& App->input->GetMouseButtonDown(1) == KEY_DOWN*/)
+		{
+			//this means i am selecting an item and i don't want to select more
+			item_has_been_activated = true;
+		}
 
+		item = item->prev;
+	}
 	return ret;
 }
 
@@ -80,11 +90,18 @@ bool j1Gui::PostUpdate(float dt)
 	p2List_item<UIelement*>* item = elements.start;
 
 	while (item !=NULL)
-	{
+	{		
+		item->data->Update();
+		if (item->data->attached_elements.count() != 0)
+		{
+			item->data->UpdateAttached();
+		}
 		item->data->Draw();
 		item = item->next;
 	}
 
+	if (debug)
+		UIDebugDraw();
 
 	return true;
 }
@@ -131,11 +148,10 @@ bool j1Gui::MouseInside(SDL_Rect* rect)
 
 // class Gui ---------------------------------------------------
 
-UIelement* j1Gui::GUIAdd_text(int x, int y, const char* text, j1Module* callback, SDL_Color color,bool follow_camera, _TTF_Font* font)
+UIelement* j1Gui::GUIAdd_text(int x, int y, const char* text, SDL_Color color,bool follow_camera, _TTF_Font* font)
 {
 	iPoint pos = { x,y };
 	UIelement* ret = new UItext(pos,text, color,follow_camera, font);
-	ret->callback = callback;
 	elements.add(ret);
 	return ret;
 }
@@ -149,11 +165,10 @@ UIelement* j1Gui::GUIAdd_button(int x, int y, SDL_Rect portion, j1Module* callba
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_image(int x, int y, SDL_Rect portion, bool follow_camera, j1Module* callback)
+UIelement* j1Gui::GUIAdd_image(int x, int y, SDL_Rect portion, bool follow_camera)
 {
 	iPoint pos = { x,y };
 	UIelement* ret = new UIimage(pos, portion,follow_camera);
-	ret->callback = callback;
 	elements.add(ret);
 	return ret;
 }
@@ -176,10 +191,10 @@ UIelement* j1Gui::GUIAdd_textbox(int x, int y, j1Module* callback, const char* t
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_window(int x, int y, SDL_Rect portion, const char* title, bool dragable)
+UIelement* j1Gui::GUIAdd_window(int x, int y, SDL_Rect portion, const char* title)
 {
 	iPoint pos = { x,y };
-	UIelement* ret = new UIwindow(pos, title,portion,dragable);
+	UIelement* ret = new UIwindow(pos, title,portion);
 	elements.add(ret);
 	return ret;
 }
@@ -232,4 +247,16 @@ bool j1Gui::UIinteraction(UIelement* element)
 		}
 	}
 	return ret;
+}
+
+void j1Gui::UIDebugDraw()
+{
+	p2List_item<UIelement*>* item = elements.start;
+
+	while (item != NULL)
+	{
+		App->render->DrawQuad({ item->data->winposition.x, item->data->winposition.y, item->data->portion.w, item->data->portion.h }, 255, 0, 0, 255, false, false);
+		item = item->next;
+	}
+
 }

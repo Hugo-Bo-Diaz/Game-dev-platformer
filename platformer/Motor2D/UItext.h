@@ -6,7 +6,6 @@
 #include "j1Fonts.h"
 #include "j1App.h"
 #include "UIelement.h"
-#include "j1Gui.h"
 #include "j1Render.h"
 
 class UItext : public UIelement
@@ -35,6 +34,11 @@ public:
 			App->render->Blit(texture, -App->render->camera.x+winposition.x, -App->render->camera.y + winposition.y);
 		else
 			App->render->Blit(texture, winposition.x, winposition.y);
+		
+		if (mouseover)
+		{
+			mouseover = false;
+		}
 	};
 };
 

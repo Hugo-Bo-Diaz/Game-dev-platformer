@@ -6,7 +6,6 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 #include "j1App.h"
-#include "j1Gui.h"
 #include "j1Render.h"
 #include "j1Input.h"
 #include "UIelement.h"
@@ -14,14 +13,12 @@
 class UITextbox : public UIelement
 {
 public:
-	bool clicked = false;
 	p2SString string;
 	int title_w;
 	int title_h;
 	int text_w;	
 	int text_h;
 	SDL_Texture* tex;
-	bool active = false;
 
 	p2SString text;
 public:
@@ -71,14 +68,18 @@ public:
 		//title
 		App->render->Blit(tex, winposition.x + portion.w / 2 - title_w / 2, (winposition.y + portion.h / 2 - title_h / 2) -22);
 	
-		mouseover = false;
+		if (mouseover)
+		{
+			mouseover = false;
+		}
 	};
 
 	void OnClick() 
 	{
-		active = true;
-		App->input->StartKeyInput();
-		clicked = false;
+		if(mouseover)
+			{ active = true;
+			App->input->StartKeyInput();
+			}
 	};
 
 	bool OnRelease() 
