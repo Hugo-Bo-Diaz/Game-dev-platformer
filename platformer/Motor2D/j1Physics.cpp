@@ -11,6 +11,7 @@
 j1Physics::j1Physics()
 {	
 	name.create("physics");
+	active_in_pause = false;
 	//here we initialise all object to nullptr
 	for (uint i = 0; i < MAX_OBJECTS; ++i)
 		objects[i] = nullptr;
@@ -91,30 +92,28 @@ bool j1Physics::PreUpdate(float dt)
 	{
 		normalize_factor = 1000 / (App->frame_cap / 2);
 	}*/
-	if (!App->paused_game)
-	{
-		for (uint i = 0; i < MAX_OBJECTS; ++i)
-		{
-			if (objects[i] != nullptr)
-			{
-				objects[i]->velocity.x += objects[i]->acceleration.x * normalize_factor;
-				objects[i]->velocity.y += objects[i]->acceleration.y * normalize_factor;
 
-				objects[i]->predictor->SetPos(objects[i]->position.x + objects[i]->velocity.x * normalize_factor,
-					objects[i]->position.y + objects[i]->velocity.y * normalize_factor);
-			}
-		}
-		//we set up the colliders that will check the collisions in the near future
-		for (uint i = 0; i < MAX_OBJECTS; ++i)
+	for (uint i = 0; i < MAX_OBJECTS; ++i)
+	{
+		if (objects[i] != nullptr)
 		{
-			if (objects[i] != nullptr)
-			{
-				float change_x = objects[i]->velocity.x * normalize_factor + objects[i]->acceleration.x * normalize_factor;
-				float change_y = objects[i]->velocity.y * normalize_factor + objects[i]->acceleration.y * normalize_factor;
-				//LOG("%f %f", change_x, change_y);
-				objects[i]->predictor->SetPos(objects[i]->position.x + change_x,
-					objects[i]->position.y + change_y);
-			}
+			objects[i]->velocity.x += objects[i]->acceleration.x * normalize_factor;
+			objects[i]->velocity.y += objects[i]->acceleration.y * normalize_factor;
+
+			objects[i]->predictor->SetPos(objects[i]->position.x + objects[i]->velocity.x * normalize_factor,
+			objects[i]->position.y + objects[i]->velocity.y * normalize_factor);
+		}
+	}
+	//we set up the colliders that will check the collisions in the near future
+	for (uint i = 0; i < MAX_OBJECTS; ++i)
+	{
+		if (objects[i] != nullptr)
+		{
+			float change_x = objects[i]->velocity.x * normalize_factor + objects[i]->acceleration.x * normalize_factor;
+			float change_y = objects[i]->velocity.y * normalize_factor + objects[i]->acceleration.y * normalize_factor;
+			//LOG("%f %f", change_x, change_y);
+			objects[i]->predictor->SetPos(objects[i]->position.x + change_x,
+				objects[i]->position.y + change_y);
 		}
 	}
 	return true;

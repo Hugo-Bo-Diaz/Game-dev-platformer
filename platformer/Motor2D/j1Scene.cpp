@@ -120,7 +120,8 @@ bool j1Scene::Update(float dt)
 		App->audio->LowerVolume();
 
 	//App->render->Blit(img, 0, 0);
-	App->map->Draw();
+	if (!App->paused_game)
+		App->map->Draw();
 
 	/*int _x = 0;
 	int _y = 0;
@@ -136,6 +137,11 @@ bool j1Scene::Update(float dt)
 	//p2SString title("Where's my plane?");
 
 	//App->win->SetTitle(title.GetString());
+
+	if (App->paused_game && pause_background != nullptr )
+	{
+		App->render->Blit(pause_background,-App->render->camera.x,-App->render->camera.y);
+	}
 	return true;
 }
 
@@ -194,6 +200,13 @@ bool j1Scene::Pause()
 	
 	Continue = (UIButton*)App->gui->GUIAdd_button(-App->render->camera.x+200, 100, {0,0,143,71},this,"CONTINUE",CONTINUE);
 	Exit = (UIButton*)App->gui->GUIAdd_button(-App->render->camera.x+200, 200, {0,0,143,71},this,"EXIT", EXIT);
+	
+	SDL_Surface *sshot = SDL_CreateRGBSurface(0, 750, 420, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+	SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
+	pause_background = App->tex->LoadSurface(sshot);
+	SDL_FreeSurface(sshot);
+	sshot = nullptr;
+
 	return true;
 }
 bool j1Scene::Resume()
@@ -207,6 +220,12 @@ bool j1Scene::Resume()
 	{
 		App->gui->delete_element(Exit);
 		Exit = nullptr;
+	}
+
+	if (pause_background != nullptr)
+	{
+		App->tex->UnLoad(pause_background);
+		pause_background = nullptr;
 	}
 
 	return true;

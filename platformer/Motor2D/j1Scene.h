@@ -52,6 +52,8 @@ private:
 
 	UIButton* Continue;
 	UIButton* Exit;
+
+	SDL_Texture* pause_background;
 };
 
 #endif // __j1SCENE_H__

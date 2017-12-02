@@ -106,6 +106,7 @@ public:
 
 	p2SString	name;
 	bool		active;
+	bool active_in_pause = true;
 
 private:
 	bool enabled = true;

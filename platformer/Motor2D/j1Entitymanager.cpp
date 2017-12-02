@@ -15,6 +15,7 @@ j1EntityManager::j1EntityManager()
 {
 	name.create("Entities");
 	//here we initialise all object to nullptr
+	active_in_pause = false;
 }
 
 

@@ -65,13 +65,14 @@ bool j1Transition::StartTransition()
 		SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
 		transition = App->tex->LoadSurface(sshot);
 		SDL_FreeSurface(sshot);
+		sshot = nullptr;
 		transitioning = true;
 		pos.x = 0;
 		return true;
 	}
 	else
 	{
-		LOG("transition already in progress, try again wen it finishes");
+		LOG("transition already in progress, try again when it finishes");
 		return false;
 	}
 }

@@ -47,20 +47,20 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	physics = new j1Physics();
 
 	// Ordered for awake / Start / Update
-	// Reverse order of CleanUp
-	AddModule(input);//1
-	AddModule(win);//2
-	AddModule(tex);//3
-	AddModule(audio);//4
-	AddModule(scene);//6
+	// Reverse order of CleanUp //needed on pause
+	AddModule(input);//1 true
+	AddModule(win);//2 true
+	AddModule(tex);//3 true
+	AddModule(audio);//4 true
+	AddModule(scene);//6 true
 
-	AddModule(gui);//7
-	AddModule(font);//8
-	AddModule(path);//9
-	AddModule(collision);//10
-	AddModule(map);//5
-	AddModule(entities);//11
-	AddModule(physics);//12
+	AddModule(gui);//7 true
+	AddModule(font);//8 true
+	AddModule(path);//9 true
+	AddModule(collision);//10 false
+	AddModule(map);//5 true
+	AddModule(entities);//11 false
+	AddModule(physics);//12 false
 
 	AddModule(transition);//last to overcome all the other blits
 
@@ -506,6 +506,10 @@ bool j1App::PauseGameNow()
 	while (item != NULL && ret == true)
 	{
 		ret = item->data->Pause();
+		if (!item->data->active_in_pause)
+		{
+			item->data->active = false;
+		}
 		item = item->next;
 	}
 	
@@ -525,6 +529,7 @@ bool j1App::ResumeGameNow()
 	while (item != NULL && ret == true)
 	{
 		ret = item->data->Resume();
+		item->data->active = true;
 		item = item->next;
 	}
 

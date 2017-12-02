@@ -7,6 +7,7 @@
 
 j1Collision::j1Collision()
 {
+	active_in_pause = false;
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
