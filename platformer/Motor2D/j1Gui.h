@@ -3,6 +3,8 @@
 
 #include "j1Module.h"
 #include "j1Fonts.h"
+#include "p2List.h"
+#include "j1App.h"
 
 #define CURSOR_WIDTH 2
 
@@ -10,6 +12,7 @@
 
 class UIwindow;
 class UIButton;
+struct SDL_Rect;//WTF IS THIS??
 
 enum button_type
 {

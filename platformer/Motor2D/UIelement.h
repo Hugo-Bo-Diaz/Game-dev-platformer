@@ -5,6 +5,7 @@
 #include "p2Log.h"
 #include "j1Module.h"
 #include "j1Gui.h"
+#include "j1Input.h"
 
 
 enum UIelement_type
@@ -53,52 +54,6 @@ public:
 
 	virtual void Draw() {};
 
-	void Update() 
-	{
-		if (active && App->gui->debug)
-		{
-			int x;
-			int y;
-			App->input->GetMousePosition(x, y);
-			if (attached == false)
-			{
-				if (mouse_stored.x != x)
-					winposition.x += x - mouse_stored.x;
-				if (mouse_stored.y != y)
-					winposition.y += y - mouse_stored.y;
-			}
-			else
-			{
-				if (mouse_stored.x != x)
-					position.x += x - mouse_stored.x;
-				if (mouse_stored.y != y)
-					position.y += y - mouse_stored.y;
-			}
-		}
-		int sx;
-		int sy;
-		App->input->GetMousePosition(sx, sy);
-		mouse_stored = { sx,sy };
-	};
-
-	void UpdateAttached()
-	{
-		p2List_item<UIelement*>* item = attached_elements.start;
-		while (item != NULL)
-		{
-			item->data->winposition.x = winposition.x + item->data->position.x;
-			item->data->winposition.y = winposition.y + item->data->position.y;
-			item = item->next;
-		}
-	}
-
-	void Attach(UIelement* element, iPoint pos)//relative to the window 
-	{
-		element->position = pos;//position relative to the window
-		element->attached = true;
-		attached_elements.add(element);
-	}
-
 	virtual bool OnActivation()
 	{
 		bool ret = true;
@@ -108,6 +63,13 @@ public:
 		}
 		return ret;
 	};
+
+	void Update();
+
+	void UpdateAttached();
+
+	void Attach(UIelement* element, iPoint pos);//relative to the window 
+
 
 	SDL_Rect GetRect()
 	{

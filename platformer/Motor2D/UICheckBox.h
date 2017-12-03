@@ -3,11 +3,10 @@
 
 #include "p2Point.h"
 #include "p2SString.h"
-#include "j1Textures.h"
-#include "j1Fonts.h"
 #include "j1App.h"
-#include "j1Render.h"
 #include "UIelement.h"
+
+struct SDL_Texture;
 
 enum check_type
 {
@@ -28,60 +27,14 @@ public:
 	SDL_Texture* tex;
 public:
 	UICheckBox() {};
-	UICheckBox(iPoint pos,const char* text, check_type _type = NULLL)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
-	{
-		type_of_element = CHECKBOX;
-		winposition = pos;
-		position = {0, 0};
-		portion = {219,169,16,16};
-		type = _type;
-		string = text;
-		tex = App->tex->textures.add(App->font->Print(string.GetString(), { 255,255,0,255 }, App->font->default))->data;
-		SDL_QueryTexture(tex, NULL, NULL, &text_w, &text_h);
-	}
-	~UICheckBox() { App->tex->UnLoad(tex); };
+	UICheckBox(iPoint pos, const char* text, check_type _type = NULLL);// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 
-	void Draw() {
+	~UICheckBox();
 
-		App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &portion);
+	void Draw();
 
-		if (mouseover)
-		{
-			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &glow);
-			mouseover = false;
-		}
-		if (active)
-		{
-			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &pressed);
-		}
-		if (active)
-		{
-			App->render->Blit(App->gui->GetAtlas(), winposition.x+1, winposition.y+1, &cross);
-		}
-		App->render->Blit(tex, winposition.x + 20, (winposition.y + portion.h / 2 - text_h / 2));
-	};
-
-	void OnClick() 
-	{
-		if (mouseover)
-		{
-			active = true;
-		}
-	};
-	void OnMouseOver() { mouseover = true; };
-	bool OnRelease() 
-	{
-		bool ret = true;
-
-		if (mouseover && active) 
-		{ 
-			active = !active;
-		} 
-		active = false;
-		return ret;
-	};
-
-	//functions for the buttons
+	void OnClick() ;
+	bool OnRelease() ;
 };
 
 #endif 

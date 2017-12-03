@@ -102,6 +102,9 @@
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="j1Entitymanager.cpp" />
+    <ClCompile Include="UIbutton.cpp" />
+    <ClCompile Include="UICheckBox.cpp" />
+    <ClCompile Include="UIelement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -132,7 +135,6 @@
     <ClInclude Include="p2Log.h" />
     <ClInclude Include="p2Defs.h" />
     <ClInclude Include="p2List.h" />
-    <ClInclude Include="j1Module.h" />
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="j1Render.h" />
     <ClInclude Include="j1Textures.h" />
