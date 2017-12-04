@@ -97,6 +97,12 @@
     <ClCompile Include="UItextbox.cpp">
       <Filter>Desenvolupament  ========\UI Elements</Filter>
     </ClCompile>
+    <ClCompile Include="UIVarDisplay.cpp">
+      <Filter>Desenvolupament  ========\UI Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIwindow.cpp">
+      <Filter>Desenvolupament  ========\UI Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">

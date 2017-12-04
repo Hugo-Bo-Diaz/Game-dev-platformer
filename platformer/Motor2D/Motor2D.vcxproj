@@ -108,6 +108,8 @@
     <ClCompile Include="UIimage.cpp" />
     <ClCompile Include="UItext.cpp" />
     <ClCompile Include="UItextbox.cpp" />
+    <ClCompile Include="UIVarDisplay.cpp" />
+    <ClCompile Include="UIwindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
