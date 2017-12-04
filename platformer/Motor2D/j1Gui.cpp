@@ -8,6 +8,7 @@
 #include "j1Gui.h"
 #include "j1Window.h"
 #include "j1Transition.h"
+#include "j1Map.h"
 
 #include "UItext.h"
 #include "UIimage.h"
