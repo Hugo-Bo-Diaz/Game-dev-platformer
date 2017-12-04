@@ -88,6 +88,15 @@
     <ClCompile Include="UIelement.cpp">
       <Filter>Desenvolupament  ========\UI Elements</Filter>
     </ClCompile>
+    <ClCompile Include="UIimage.cpp">
+      <Filter>Desenvolupament  ========\UI Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UItext.cpp">
+      <Filter>Desenvolupament  ========\UI Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UItextbox.cpp">
+      <Filter>Desenvolupament  ========\UI Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">

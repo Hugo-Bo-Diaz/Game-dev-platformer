@@ -22,7 +22,7 @@ public:
 
 public:
 	UIButton() {};
-	UIButton(iPoint pos, const char* text = "", button_type _type = NUL, SDL_Rect _portion = { 0,73,133,34 }, bool _attached = false);// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
+	UIButton(iPoint pos, const char* text = "", button_type _type = NUL, SDL_Rect _portion = { 0,73,133,34 });// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	~UIButton();
 
 	void Draw();

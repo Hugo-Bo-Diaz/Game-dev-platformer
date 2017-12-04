@@ -20,8 +20,11 @@ public:
 
 	p2Point(const p2Point<TYPE>& v)
 	{
-		this->x = v.x;
-		this->y = v.y;
+		if (&v != nullptr)
+		{
+			this->x = v.x;
+			this->y = v.y;
+		}
 	}
 
 	p2Point(const TYPE& x, const TYPE& y)

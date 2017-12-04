@@ -3,9 +3,8 @@
 #include "j1Fonts.h"
 #include "j1Textures.h"
 
-UIButton::UIButton(iPoint pos, const char* text, button_type _type, SDL_Rect _portion, bool _attached)
+UIButton::UIButton(iPoint pos, const char* text, button_type _type, SDL_Rect _portion)
 {
-	attached = _attached;
 	winposition = pos;
 	type_of_element = BUTTON;
 	position = { 0,0 };

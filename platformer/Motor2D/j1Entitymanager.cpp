@@ -18,6 +18,33 @@ j1EntityManager::j1EntityManager()
 	active_in_pause = false;
 }
 
+j1EntityManager::~j1EntityManager()
+{
+	p2List_item<entity_property*>* item_1 = properties.start;
+	while (item_1 != nullptr)
+	{
+		RELEASE(item_1->data);
+		item_1 = item_1->next;
+	}
+	properties.clear();
+
+	p2List_item<texture_struct*>* item_2 = textures.start;
+	while (item_2 != NULL)
+	{
+		App->tex->UnLoad(item_2->data->texture);
+		RELEASE(item_2->data);
+		item_2 = item_2->next;
+	}
+	textures.clear();
+
+	p2List_item<entity_saved*>* item_3 = entities_saved.start;
+	while (item_3 != NULL)
+	{
+		RELEASE(item_3->data);
+		item_3 = item_3->next;
+	}
+	entities_saved.clear();
+};
 
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
