@@ -294,19 +294,20 @@ bool j1Map::Load(const char* file_name)
 	{
 		uint winx;
 		uint winy;
-		App->win->GetWindowSize(winx,winy);
+		App->win->GetWindowSize(winx, winy);
 
-		App->gui->GUIAdd_VarDisplay(winx - 75, 25, &App->scene->time_left);
-		App->gui->GUIAdd_text(winx - 80, 10, "TIME",  {0,0,0,255},true);
+		UIelement*text = App->gui->GUIAdd_text(winx - 80, 10, "TIME", { 0,0,0,255 }, true);
+		text->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &App->scene->time_left),{5, 15});
 
-		App->gui->GUIAdd_VarDisplay(290, 10, &App->scene->coins);
-		App->gui->GUIAdd_image(260, 10, {182,84,24,26},true);
+		UIelement* image_1 = App->gui->GUIAdd_image(260, 10, {182,84,24,26},true);
+		image_1->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &App->scene->coins), {30,0});
 
-		App->gui->GUIAdd_VarDisplay(winx - 210, 12, &App->scene->lifes);
-		App->gui->GUIAdd_image(winx - 240, 7, { 244,80,22,25 }, true);
+		UIelement* image_2 = App->gui->GUIAdd_image(winx - 240, 7, { 244,80,22,25 }, true);
+		image_2->Attach(App->gui->GUIAdd_VarDisplay(0,0, &App->scene->lifes), {30,5});
 
-		App->gui->GUIAdd_VarDisplay(10, 25, &App->scene->score);
-		App->gui->GUIAdd_text(10, 10, "SCORE", { 0,0,0,255 }, true);
+		UIelement* text_2 = App->gui->GUIAdd_text(10, 10, "SCORE", { 0,0,0,255 }, true);
+		text_2->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &App->scene->score), {0,15});
+
 
 	}
 
