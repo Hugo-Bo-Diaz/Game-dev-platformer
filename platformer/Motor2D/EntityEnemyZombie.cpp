@@ -85,13 +85,7 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 	BROFILER_CATEGORY("Update_EntityEnemyZombie", Profiler::Color::Purple);
 
 	//CONTROLS
-	/*obj->velocity.x = 1;
-	if (obj->velocity.y == 0)
-	{
-		obj->velocity.y = -5;
-	}*/
-	
-
+	//obj->velocity.x = 0;
 	position.x = obj->position.x;
 	position.y = obj->position.y;
 	//position is an easy way of telling where it is for other objects, not actually needed but useful in 
@@ -105,19 +99,18 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 			path.Pop(step);
 		}
 		/*iPoint worldStep = App->map->MapToWorld(step.x, step.y);
-		if (obj->position.x < worldStep.x - 40 && obj->velocity.x < max_speed)
-			obj->acceleration.x = max_speed;
-		else if (obj->position.x > worldStep.x + 40 && obj->velocity.x > -max_speed)
-			obj->acceleration.x = -max_speed;
-		else
-		{
-			obj->acceleration.x = 0;
-		}*/
+		if (obj->position.x < worldStep.x - 40)
+			obj->velocity.x = max_speed;
+		else if (obj->position.x > worldStep.x + 60)
+			obj->velocity.x = -max_speed;*/
+		
 		iPoint pos = App->map->WorldToMap(obj->position.x, obj->position.y);
 		if (pos.x < step.x)
 			obj->velocity.x = max_speed;
-		if (pos.x > step.x + 1)
+		else if (pos.x > step.x)
 			obj->velocity.x = -max_speed;
+		else
+			obj->velocity.x = 0;
 	}
 	else if (position.x != original_pos.x)
 	{
