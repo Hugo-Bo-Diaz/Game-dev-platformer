@@ -40,15 +40,19 @@ void UITextbox::Draw() {
 		text_pos += App->input->buffered_text.Length();
 		App->input->buffered_text.Clear();
 	}
+
+	//backspace and delete functions
 	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN && text.Length() >0 && active && text_pos > 0)
 	{
-		if (text_pos == text.Length())
-			text.CutLast();
-		else
-			text.Cut(text_pos-1,text_pos-1);
+		text.DeleteChar(text_pos-1);
 		text_pos -= 1;
-
 	}
+	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN && text.Length() >0 && active && text_pos != text.Length())
+	{
+		text.DeleteChar(text_pos);
+	}
+
+	//move with arrows function
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && text.Length() >0 && active && text_pos > 0)
 	{
 		text_pos -= 1;
@@ -57,6 +61,8 @@ void UITextbox::Draw() {
 	{
 		text_pos += 1;
 	}
+
+	//start and end functions
 	if (App->input->GetKey(SDL_SCANCODE_HOME) == KEY_DOWN && text.Length() >0 && active)
 	{
 		text_pos = 0;
