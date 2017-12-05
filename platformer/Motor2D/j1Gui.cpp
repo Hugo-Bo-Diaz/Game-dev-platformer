@@ -183,10 +183,10 @@ UIelement* j1Gui::GUIAdd_checkbox(int x, int y, SDL_Rect portion, j1Module* call
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_textbox(int x, int y, j1Module* callback, const char* title)
+UIelement* j1Gui::GUIAdd_textbox(int x, int y, j1Module* callback, const char* title, const char* default_text)
 {
 	iPoint pos = { x,y };
-	UIelement* ret = new UICheckBox(pos, title);
+	UIelement* ret = new UITextbox(pos, title,default_text);
 	ret->callback = callback;
 	elements.add(ret);
 	return ret;

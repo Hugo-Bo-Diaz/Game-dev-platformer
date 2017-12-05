@@ -64,7 +64,7 @@ public:
 	UIelement* GUIAdd_image(int x, int y, SDL_Rect portion, bool follow_camera = false);
 	UIelement* GUIAdd_button(int x, int y, SDL_Rect portion, j1Module* callback = nullptr, const char* text = "", button_type type = button_type::NUL);
 	UIelement* GUIAdd_checkbox(int x, int y, SDL_Rect portion, j1Module* callback = nullptr, const char* text = "");
-	UIelement* GUIAdd_textbox(int x, int y, j1Module* callback = nullptr, const char* title = "");
+	UIelement* GUIAdd_textbox(int x, int y, j1Module* callback = nullptr, const char* title = "", const char* default_text= "");
 	UIelement* GUIAdd_VarDisplay(int x, int y, int* variable = nullptr, SDL_Color color = {0,0,0,255}, _TTF_Font* font = App->font->default);
 	UIelement* GUIAdd_window(int x, int y, SDL_Rect portion, const char* title);
 	//portion in this functions means the part of the atlas they get to draw
