@@ -27,7 +27,7 @@ public:
 
 	p2SString(unsigned int size)
 	{
-		if(size > 0)
+		if (size > 0)
 			Alloc(size);
 		else
 			Alloc(1);
@@ -45,7 +45,7 @@ public:
 	{
 		size = 0;
 
-		if(format != NULL)
+		if (format != NULL)
 		{
 			static char tmp[TMP_STRING_SIZE];
 			static va_list  ap;
@@ -55,24 +55,24 @@ public:
 			int res = vsprintf_s(tmp, TMP_STRING_SIZE, format, ap);
 			va_end(ap);
 
-			if(res > 0)
+			if (res > 0)
 			{
 				Alloc(res + 1);
 				strcpy_s(str, size, tmp);
 			}
 		}
 
-		if(size == 0)
+		if (size == 0)
 		{
 			Alloc(1);
 			Clear();
 		}
 	}
-	
+
 	// Destructor
 	virtual ~p2SString()
 	{
-		if(str != NULL)
+		if (str != NULL)
 			delete[] str;
 	}
 
@@ -80,7 +80,7 @@ public:
 	{
 		size = 0;
 
-		if(format != NULL)
+		if (format != NULL)
 		{
 			static char tmp[TMP_STRING_SIZE];
 			static va_list  ap;
@@ -90,14 +90,14 @@ public:
 			int res = vsprintf_s(tmp, TMP_STRING_SIZE, format, ap);
 			va_end(ap);
 
-			if(res > 0)
+			if (res > 0)
 			{
 				Alloc(res + 1);
 				strcpy_s(str, size, tmp);
 			}
 		}
 
-		if(size == 0)
+		if (size == 0)
 		{
 			Alloc(1);
 			Clear();
@@ -114,7 +114,7 @@ public:
 
 	bool operator== (const char* string) const
 	{
-		if(string != NULL)
+		if (string != NULL)
 			return strcmp(string, str) == 0;
 		return false;
 	}
@@ -126,14 +126,14 @@ public:
 
 	bool operator!= (const char* string) const
 	{
-		if(string != NULL)
+		if (string != NULL)
 			return strcmp(string, str) != 0;
 		return true;
 	}
-	
+
 	const p2SString& operator= (const p2SString& string)
 	{
-		if(string.Length() + 1 > size)
+		if (string.Length() + 1 > size)
 		{
 			delete[] str;
 			Alloc(string.Length() + 1);
@@ -152,12 +152,12 @@ public:
 		(*this) = t;
 		return *this;
 
-		if(string != NULL)
+		if (string != NULL)
 		{
-			if(strlen(string) + 1 > size)
+			if (strlen(string) + 1 > size)
 			{
 				delete[] str;
-				Alloc(strlen(string)+1);
+				Alloc(strlen(string) + 1);
 			}
 			else
 				Clear();
@@ -171,12 +171,12 @@ public:
 
 		return(*this);
 	}
-	
+
 	const p2SString& operator+= (const p2SString& string)
 	{
 		unsigned int need_size = string.Length() + Length() + 1;
 
-		if(need_size > size)
+		if (need_size > size)
 		{
 			char* tmp = str;
 			Alloc(need_size);
@@ -191,11 +191,11 @@ public:
 
 	const p2SString& operator+= (const char* string)
 	{
-		if(string != NULL)
+		if (string != NULL)
 		{
 			unsigned int need_size = strlen(string) + Length() + 1;
 
-			if(need_size > size)
+			if (need_size > size)
 			{
 				char* tmp = str;
 				Alloc(need_size);
@@ -234,16 +234,16 @@ public:
 	{
 		uint len = Length();
 
-		if(end >= len || end == 0)
+		if (end >= len || end == 0)
 			end = len - 1;
 
-		if(begin > len || end <= begin)
+		if (begin > len || end <= begin)
 			return false;
 
 		char* p1 = str + begin;
 		char* p2 = str + end + 1;
 
-		while(*p1++ = *p2++);
+		while (*p1++ = *p2++);
 
 		return true;
 	}
@@ -252,15 +252,15 @@ public:
 	{
 		// cut right --
 		char* end = str + size;
-		while(*--end == ' ') *end = '\0';
+		while (*--end == ' ') *end = '\0';
 
 		// cut left --
 		char* start = str;
-		while(*++start == ' ');
+		while (*++start == ' ');
 
 		uint s = strlen(start);
 
-		for(uint i = 0; i < s + 1; ++i)
+		for (uint i = 0; i < s + 1; ++i)
 			str[i] = start[i];
 	}
 
@@ -271,6 +271,20 @@ public:
 		str[len - 1] = '\0';
 	}
 
+	bool DeleteChar(uint index)
+	{
+		//we need a char* to pass everything to.(technically is the exact same array, i'm just dumb but it works so its k)
+		char* tmp = str;;// tmp is a copy to make changes in
+		
+		if (index > Length())
+		{return false;}//this means the one who called the function was WRONG
+
+		int previous_length = Length();
+		for (int i = index; i < previous_length; ++i)//this will cycle all the array after the index, which we want to change
+		{
+			str[i] = tmp[i + 1];//prob works? idk
+		}
+	}
 
 	uint Substitute(const char* src, const char *dst)
 	{
