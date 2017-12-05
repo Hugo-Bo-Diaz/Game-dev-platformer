@@ -5,19 +5,22 @@
 #include "j1Render.h"
 #include "j1Input.h"
 
-UITextbox::UITextbox(iPoint pos, const char* name)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
+UITextbox::UITextbox(iPoint pos, const char* name, const char* _default_text)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 {
 	winposition = pos;
 	string = name;
-	tex = App->tex->textures.add(App->font->Print(string.GetString(), { 255,255,0,255 }, App->font->default))->data;
+	tex = App->tex->textures.add(App->font->Print(string.GetString(), { 0,0,0,255 }, App->font->default))->data;
 	SDL_QueryTexture(tex, NULL, NULL, &title_w, &title_h);
-	portion = { 123,0,126,22 };
+	portion = { 401,300,126,25 };
 	type_of_element = TEXTBOX;
+	default_text = App->tex->textures.add(App->font->Print(_default_text, { 50,50,50,255 }, App->font->default))->data;
+	Attach(App->gui->GUIAdd_VarDisplay(0, 0, &text_pos), {0,50});
 }
 
 UITextbox::~UITextbox()
 {
 	App->tex->UnLoad(tex);
+	App->tex->UnLoad(default_text);
 };
 
 
@@ -34,25 +37,68 @@ void UITextbox::Draw() {
 	if (active && text.Length() < 20)//max chars
 	{
 		text += App->input->buffered_text;
+		text_pos += App->input->buffered_text.Length();
 		App->input->buffered_text.Clear();
 	}
-	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN && text.Length() >0 && active)
+	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN && text.Length() >0 && active && text_pos > 0)
 	{
-		text.CutLast();
+		if (text_pos == text.Length())
+			text.CutLast();
+		else
+			text.Cut(text_pos-1,text_pos-1);
+		text_pos -= 1;
+
 	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && text.Length() >0 && active && text_pos > 0)
+	{
+		text_pos -= 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && text.Length() >0 && active && text_pos < text.Length())
+	{
+		text_pos += 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_HOME) == KEY_DOWN && text.Length() >0 && active)
+	{
+		text_pos = 0;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_END) == KEY_DOWN && text.Length() >0 && active)
+	{
+		text_pos = text.Length();
+	}
+
 
 	//text
 	if (text.Length() > 0)
 	{
-		SDL_Texture* text_texture = App->tex->textures.add(App->font->Print(text.GetString(), { 255,255,0,255 }, App->font->default))->data;
+		SDL_Texture* text_texture = App->tex->textures.add(App->font->Print(text.GetString(), { 50,50,50,255 }, App->font->default))->data;
 
 		SDL_QueryTexture(text_texture, NULL, NULL, &text_w, &text_h);
 
-		App->render->Blit(text_texture, winposition.x + portion.w / 2 - text_w / 2, winposition.y);
+		App->render->Blit(text_texture, winposition.x+5, winposition.y+5);
+
 		App->tex->UnLoad(text_texture);
 	}
 	//title
 	App->render->Blit(tex, winposition.x + portion.w / 2 - title_w / 2, (winposition.y + portion.h / 2 - title_h / 2) - 22);
+
+	//test text
+	if (!active && text.Length() == 0)
+		App->render->Blit(default_text, winposition.x+5, winposition.y+5);
+	//barrita
+	if (active)
+	{
+		int width = 0;
+		int height;
+		p2SString yolo = text;
+		if (text.Length() > 0)
+		{
+			char* test = (char*)yolo.GetString();
+			test[text_pos] = '\0';
+			App->font->CalcSize(test, width, height,App->font->default);
+		}
+		App->render->DrawQuad({ winposition.x + width + 5,winposition.y,2,25 }, 150, 150, 150, 255);
+	}
 
 	if (mouseover)
 	{

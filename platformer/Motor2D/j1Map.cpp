@@ -624,6 +624,8 @@ bool j1Map::CreateUI(map_layer* layer)
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, App->gui, "LOAD GAME", button_type::LOAD_GAME), { 35,117 });
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, App->gui, "SETTINGS", button_type::SETTINGS), { 35,200 });
 			App->gui->GUIAdd_image(50, 50, {0,171,270,131});
+
+			App->gui->GUIAdd_textbox(200,200,App->scene,"TEST","TEST");
 			break;
 			}
 			case 3://quit button

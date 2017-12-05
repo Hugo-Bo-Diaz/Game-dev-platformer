@@ -14,11 +14,15 @@ public:
 	int text_w;	
 	int text_h;
 	SDL_Texture* tex;
+	SDL_Texture* default_text;
 
 	p2SString text;
+
+	int text_pos=0;
+
 public:
 	UITextbox() {};
-	UITextbox(iPoint pos, const char* name);
+	UITextbox(iPoint pos, const char* name, const char* default_text);
 	~UITextbox();
 
 
