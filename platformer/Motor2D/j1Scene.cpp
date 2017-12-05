@@ -60,7 +60,9 @@ bool j1Scene::PreUpdate(float dt)
 	{
 		LOG("LOL U BAD");
 		score = 0;
+		lastscore = 0;
 		coins = 0;
+		lastcoins = 0;
 		lifes = 3;
 	}
 

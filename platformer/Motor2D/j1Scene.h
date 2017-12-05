@@ -43,7 +43,9 @@ public:
 	bool godmode = false;
 
 	int score = 0;
+	int lastscore = 0;
 	int coins = 0;
+	int lastcoins = 0;
 	int lifes = 3;
 
 	int time_left = 0;

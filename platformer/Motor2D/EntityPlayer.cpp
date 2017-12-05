@@ -220,7 +220,12 @@ bool EntityPlayer::PreUpdate(float dt)
 	if (set_to_start_pos == true)
 	{
 		App->scene->lifes -= 1;
-		App->map->change_to_this_level = App->map->index_map;
+		App->scene->score = App->scene->lastscore;
+		App->scene->coins = App->scene->lastcoins;
+		if (App->scene->lifes > 0)
+			App->map->change_to_this_level = App->map->index_map;
+		else
+			App->map->change_to_this_level = 1;
 		set_to_start_pos = false;
 	}
 	if (App->scene->time_left <= 0)
