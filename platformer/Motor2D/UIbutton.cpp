@@ -43,7 +43,7 @@ void UIButton::Draw()
 	}
 	if (mouseover)
 	{
-		App->render->Blit(App->gui->GetAtlas(), winposition.x - 15, winposition.y - 15, &glow);
+		App->render->Blit(App->gui->GetAtlas(), winposition.x - 11, winposition.y - 12, &glow);
 		mouseover = false;
 	}
 	if (tex != nullptr)

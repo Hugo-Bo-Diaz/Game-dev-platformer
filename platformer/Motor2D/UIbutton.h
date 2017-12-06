@@ -13,7 +13,7 @@ class UIButton : public UIelement
 {
 public:
 	SDL_Rect pressed = {144,1,133,71};
-	SDL_Rect glow = {0,71,174,101};
+	SDL_Rect glow = { 0,74,171,99 };
 	button_type type = NUL;
 	p2SString string;
 	int text_w;
@@ -23,7 +23,7 @@ public:
 
 public:
 	UIButton() {};
-	UIButton(iPoint pos, const char* text = "", button_type _type = NUL, SDL_Rect _portion = { 0,73,133,34 }, SDL_Rect _pressed = { 144,1,133,71 }, SDL_Rect _hover = { 0,71,174,101 });// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
+	UIButton(iPoint pos, const char* text = "", button_type _type = NUL, SDL_Rect _portion = { 0,73,133,34 }, SDL_Rect _pressed = { 144,1,133,71 }, SDL_Rect _hover = { 0,74,171,99 });// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	~UIButton();
 
 	void Draw();

@@ -4,7 +4,7 @@
   <image source="tileset_menu.png" width="289" height="145"/>
  </tileset>
  <imagelayer name="background">
-  <image source="Backgrounds/startscreen.png" width="750" height="420"/>
+  <image source="../textures/startscreen.png" width="750" height="420"/>
  </imagelayer>
  <layer name="UI" width="21" height="12">
   <properties>
