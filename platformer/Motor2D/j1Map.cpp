@@ -55,7 +55,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	data.background_color = { (Uint8)colors.attribute("r").as_uint(), (Uint8)colors.attribute("g").as_uint(), (Uint8)colors.attribute("b").as_uint(), 0 };
 	App->render->SetBackgroundColor(data.background_color);
 
-	max_time = config.child("timer").attribute("value").as_int();
+	time_left_config = config.child("timer").attribute("value").as_int();
 
 	return ret;
 }
@@ -308,7 +308,16 @@ bool j1Map::Load(const char* file_name)
 		UIelement* text_2 = App->gui->GUIAdd_text(10, 10, "SCORE", { 0,0,0,255 }, true);
 		text_2->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &App->scene->score), {0,15});
 
+	}
 
+	if (time_left_saved != -1)
+	{
+		max_time = time_left_saved;
+		time_left_saved = -1;
+	}
+	else
+	{
+		max_time = time_left_config;
 	}
 
 	return ret;
@@ -623,14 +632,13 @@ bool j1Map::CreateUI(map_layer* layer)
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "SETTINGS", button_type::SETTINGS), { 35,200 });
 			App->gui->GUIAdd_image(10, 10, {0,171,270,131});
 
-			App->gui->GUIAdd_textbox(200,200,App->scene,"TEST","TEST");
 			break;
 			}
-			case 3://quit button
-				App->gui->GUIAdd_button(point.x - 20, point.y - 10, {0,0,width,height}, { 144,1,133,71 }, { 0,74,171,99 }, App->gui,"QUIT",button_type::QUIT);
+			case 2://credits button
+				App->gui->GUIAdd_button(point.x, point.y, { 0,0,width,height }, { 144,1,133,71 }, { 0,71,174,101 }, App->gui, "CREDITS", button_type::CREDITS);
 				break;
-			case 4://credits button
-				App->gui->GUIAdd_button(point.x, point.y - 10, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "CREDITS", button_type::CREDITS);
+			case 3://quit button
+				App->gui->GUIAdd_button(point.x, point.y, {0,0,width,height}, { 144,1,133,71 }, { 0,74,171,99 }, App->gui,"QUIT",button_type::QUIT);
 				break;
 			default:
 				break;
@@ -701,6 +709,7 @@ bool j1Map::Save(pugi::xml_node& node) const
 	pugi::xml_node map_node = node.append_child("current_map");
 
 	map_node.append_attribute("value") = index_map;
+	node.append_child("time_left").append_attribute("value") = App->scene->time_left;
 	
 	return true;
 }
@@ -708,6 +717,7 @@ bool j1Map::Save(pugi::xml_node& node) const
 bool j1Map::Load(pugi::xml_node& node)
 {
 	change_to_this_level = node.child("current_map").attribute("value").as_int();
+	time_left_saved = node.child("time_left").attribute("value").as_int();
 	coming_from_save = true;
 	return true;
 }

@@ -178,6 +178,29 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
+bool j1Scene::Save(pugi::xml_node& node) const
+{
+	BROFILER_CATEGORY("Save_Scene", Profiler::Color::DarkOliveGreen);
+	
+	node.append_child("coins").append_attribute("value") = coins;
+	node.append_child("lifes").append_attribute("value") = lifes;
+	node.append_child("score").append_attribute("value") = score;
+
+	return true;
+}
+
+bool j1Scene::Load(pugi::xml_node& node)
+{
+	BROFILER_CATEGORY("Load_Scene", Profiler::Color::DarkOliveGreen);
+
+	score = node.child("score").attribute("value").as_int();
+	coins = node.child("coins").attribute("value").as_int();
+	lifes = node.child("lifes").attribute("value").as_int();
+
+	return true;
+}
+
+
 bool j1Scene::UIinteraction(UIelement* element)
 {
 	bool ret = true;

@@ -172,6 +172,8 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+	int time_left_saved = -1;
+	int time_left_config;
 
 	bool Save(pugi::xml_node& node) const;
 	bool Load(pugi::xml_node& node);

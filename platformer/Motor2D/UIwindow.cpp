@@ -26,8 +26,14 @@ UIwindow::~UIwindow()
 	{
 		App->gui->delete_element(item->data);
 		item = item->next;
+
 	}
 	App->tex->UnLoad(tex);
+
+	if (this == App->gui->Window_menu)//only needed for the window menu because you are permitted only one window at a time
+	{
+		App->gui->Window_menu = nullptr;
+	}
 }
 
 void UIwindow::Start()

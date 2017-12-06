@@ -33,6 +33,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Save(pugi::xml_node& node) const;
+	bool Load(pugi::xml_node& node);
+
+
 	//pause and resume functions
 	bool Pause();
 	bool Resume();

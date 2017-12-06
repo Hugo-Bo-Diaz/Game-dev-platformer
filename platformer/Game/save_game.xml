@@ -3,25 +3,32 @@
 	<input />
 	<window />
 	<textures />
-	<audio />
-	<scene />
+	<audio>
+		<volume value="80" />
+	</audio>
+	<scene>
+		<coins value="0" />
+		<lifes value="3" />
+		<score value="0" />
+	</scene>
 	<gui />
 	<fonts />
 	<pathfinding />
 	<collision />
 	<map>
-		<current_map value="2" />
+		<current_map value="1" />
+		<time_left value="96" />
 	</map>
 	<Entities>
-		<Bat x="428" y="70" type="1" />
-		<Coin x="1400" y="70" type="5" />
-		<Bat x="2598" y="105" type="1" />
-		<Coin x="2345" y="140" type="5" />
-		<Zombie x="1120" y="172" type="3" />
-		<Coin x="1785" y="175" type="5" />
-		<Coin x="700" y="210" type="5" />
-		<Player x="112" y="270" type="2" />
-		<Coin x="280" y="245" type="5" />
+		<Bat x="1653" y="35" type="1" />
+		<Player x="140" y="235" type="2" />
+		<Coin x="210" y="175" type="5" />
+		<Zombie x="385" y="207" type="3" />
+		<Coin x="595" y="210" type="5" />
+		<Coin x="875" y="210" type="5" />
+		<Coin x="1890" y="210" type="5" />
+		<Coin x="1330" y="245" type="5" />
+		<Zombie x="1365" y="242" type="3" />
 	</Entities>
 	<physics />
 	<transition />

@@ -78,6 +78,7 @@ public:
 	float  test = 100000;
 	bool debug = false;
 
+	UIwindow* Window_menu;
 private:
 
 	SDL_Texture* atlas;
@@ -89,6 +90,7 @@ private:
 
 	bool MouseInside(SDL_Rect* rect);
 	SDL_Texture* screen = nullptr;
+
 };
 
 #endif // __j1GUI_H__

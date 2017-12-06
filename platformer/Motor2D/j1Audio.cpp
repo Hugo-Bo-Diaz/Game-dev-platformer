@@ -224,3 +224,23 @@ bool j1Audio::LowerVolume()
 
 	return ret;
 }
+
+bool j1Audio::Save(pugi::xml_node& node) const
+{
+	BROFILER_CATEGORY("Save_Scene", Profiler::Color::DarkOliveGreen);
+
+	node.append_child("volume").append_attribute("value") = volume;
+
+	return true;
+}
+
+bool j1Audio::Load(pugi::xml_node& node)
+{
+	BROFILER_CATEGORY("Load_Scene", Profiler::Color::DarkOliveGreen);
+
+	volume = node.child("volume").attribute("value").as_uint();
+	Mix_VolumeMusic(volume);
+
+	return true;
+}
+
