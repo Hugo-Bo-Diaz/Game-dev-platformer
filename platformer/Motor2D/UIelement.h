@@ -41,6 +41,8 @@ public:
 	UIelement() {};
 	virtual ~UIelement() {};
 
+	virtual void Start() {};
+
 	virtual void OnClick() 
 	{
 		if (mouseover)

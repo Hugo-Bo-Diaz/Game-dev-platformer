@@ -1,10 +1,11 @@
 #include "UIwindow.h"
+#include "UIbutton.h"
 #include "j1Input.h"
 #include "j1Fonts.h"
 #include "j1App.h"
 #include "j1Render.h"
 
-UIwindow::UIwindow(iPoint pos, const char* text, SDL_Rect _portion)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
+UIwindow::UIwindow(iPoint pos, const char* text, SDL_Rect _portion, bool _close_button)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 {
 	type_of_element = WINDOW;
 	winposition = pos;
@@ -15,11 +16,27 @@ UIwindow::UIwindow(iPoint pos, const char* text, SDL_Rect _portion)// color is a
 		tex = App->tex->textures.add(App->font->Print(title.GetString(), { 0,0,0,255 }, App->font->default))->data;
 		SDL_QueryTexture(tex, NULL, NULL, &text_w, &text_h);
 	}
+	close_button = _close_button;
 }
 
 UIwindow::~UIwindow()
 {
+	p2List_item<UIelement*>* item = attached_elements.start;
+	while (item != NULL)
+	{
+		App->gui->delete_element(item->data);
+		item = item->next;
+	}
 	App->tex->UnLoad(tex);
+}
+
+void UIwindow::Start()
+{
+	if (close_button)
+	{
+		close = (UIButton*)App->gui->GUIAdd_button(0, 0, { 282,300,25,25 }, { 307,300,25,25 }, { 0,0,0,0 }, nullptr, "", button_type::CLOSE_WINDOW);
+		Attach(close, { portion.w - 25,0 });
+	}
 }
 
 void UIwindow::Draw()
@@ -38,6 +55,11 @@ bool UIwindow::OnRelease()
 	bool ret = true;
 
 	active = false;
+	if (close != nullptr &&close->mouseover && close->active)
+	{
+		LOG("DESTROY THIS WINDOW");
+		App->gui->delete_element(this);
+	}
 
 	return ret;
 };

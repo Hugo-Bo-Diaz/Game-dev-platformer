@@ -17,7 +17,7 @@ public:
 	SDL_Texture* default_text;
 
 	p2SString text;
-
+	bool texting = false;
 	int text_pos=0;
 
 public:

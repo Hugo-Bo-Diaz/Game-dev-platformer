@@ -31,10 +31,11 @@ void UITextbox::Draw() {
 	if (App->input->GetMouseButtonDown(1) == KEY_UP && !mouseover)
 	{
 		active = false;
+		texting = false;
 	}
 
 	//update text from the input buffer
-	if (active && text.Length() < 20)//max chars
+	if (texting && text.Length() < 20)//max chars
 	{
 		text += App->input->buffered_text;
 		text_pos += App->input->buffered_text.Length();
@@ -42,33 +43,33 @@ void UITextbox::Draw() {
 	}
 
 	//backspace and delete functions
-	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN && text.Length() >0 && active && text_pos > 0)
+	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN && text.Length() >0 && texting && text_pos > 0)
 	{
 		text.DeleteChar(text_pos-1);
 		text_pos -= 1;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN && text.Length() >0 && active && text_pos != text.Length())
+	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN && text.Length() >0 && texting && text_pos != text.Length())
 	{
 		text.DeleteChar(text_pos);
 	}
 
 	//move with arrows function
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && text.Length() >0 && active && text_pos > 0)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && text.Length() >0 && texting && text_pos > 0)
 	{
 		text_pos -= 1;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && text.Length() >0 && active && text_pos < text.Length())
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && text.Length() >0 && texting && text_pos < text.Length())
 	{
 		text_pos += 1;
 	}
 
 	//start and end functions
-	if (App->input->GetKey(SDL_SCANCODE_HOME) == KEY_DOWN && text.Length() >0 && active)
+	if (App->input->GetKey(SDL_SCANCODE_HOME) == KEY_DOWN && text.Length() >0 && texting)
 	{
 		text_pos = 0;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_END) == KEY_DOWN && text.Length() >0 && active)
+	if (App->input->GetKey(SDL_SCANCODE_END) == KEY_DOWN && text.Length() >0 && texting)
 	{
 		text_pos = text.Length();
 	}
@@ -89,10 +90,10 @@ void UITextbox::Draw() {
 	App->render->Blit(tex, winposition.x + portion.w / 2 - title_w / 2, (winposition.y + portion.h / 2 - title_h / 2) - 22);
 
 	//test text
-	if (!active && text.Length() == 0)
+	if (!texting && text.Length() == 0)
 		App->render->Blit(default_text, winposition.x+5, winposition.y+5);
 	//barrita
-	if (active)
+	if (texting)
 	{
 		int width = 0;
 		int height;
@@ -117,6 +118,7 @@ void UITextbox::OnClick()
 	if (mouseover)
 	{
 		active = true;
+		texting = true;
 		App->input->StartKeyInput();
 	}
 };
@@ -124,5 +126,9 @@ void UITextbox::OnClick()
 bool UITextbox::OnRelease()
 {
 	bool ret = true;
+	if (active)
+	{
+		active = false;
+	}
 	return ret;
 };

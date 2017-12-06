@@ -58,11 +58,12 @@ bool j1Gui::PreUpdate(float dt)
 	bool ret = true;
 
 	p2List_item<UIelement*>* item = elements.end;
-	while (item != NULL && !item_has_been_activated)
+	while (item != NULL)
 	{
-		if (MouseInside(&item->data->GetRect()))
+		if (MouseInside(&item->data->GetRect())&& !item_has_been_activated)
 		{
 			item->data->mouseover = true;
+			item_has_been_activated = true;
 		}
 		if (App->input->GetMouseButtonDown(1) == KEY_DOWN)//left click
 		{
@@ -73,13 +74,6 @@ bool j1Gui::PreUpdate(float dt)
 			if (ret == true)
 			ret = item->data->OnRelease();
 		}
-		//NEEDS CLEANING, TESTING WATERS
-		if (item->data->mouseover /*&& App->input->GetMouseButtonDown(1) == KEY_DOWN*/)
-		{
-			//this means i am selecting an item and i don't want to select more
-			item_has_been_activated = true;
-		}
-
 		item = item->prev;
 	}
 	return ret;
@@ -154,15 +148,17 @@ UIelement* j1Gui::GUIAdd_text(int x, int y, const char* text, SDL_Color color,bo
 	iPoint pos = { x,y };
 	UIelement* ret = new UItext(pos,text, color,follow_camera, font);
 	elements.add(ret);
+	ret->Start();
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_button(int x, int y, SDL_Rect portion, j1Module* callback, const char* text, button_type type)
+UIelement* j1Gui::GUIAdd_button(int x, int y, SDL_Rect portion, SDL_Rect pressed, SDL_Rect hover, j1Module* callback, const char* text, button_type type)
 {
 	iPoint pos = { x,y };
-	UIelement* ret = new UIButton(pos, text, type, portion);
+	UIelement* ret = new UIButton(pos, text, type, portion,pressed,hover);
 	ret->callback = callback;
 	elements.add(ret);
+	ret->Start();
 	return ret;
 }
 
@@ -171,6 +167,7 @@ UIelement* j1Gui::GUIAdd_image(int x, int y, SDL_Rect portion, bool follow_camer
 	iPoint pos = { x,y };
 	UIelement* ret = new UIimage(pos, portion,follow_camera);
 	elements.add(ret);
+	ret->Start();
 	return ret;
 }
 
@@ -180,6 +177,7 @@ UIelement* j1Gui::GUIAdd_checkbox(int x, int y, SDL_Rect portion, j1Module* call
 	UIelement* ret = new UICheckBox(pos,text);
 	ret->callback = callback;
 	elements.add(ret);
+	ret->Start();
 	return ret;
 }
 
@@ -189,14 +187,16 @@ UIelement* j1Gui::GUIAdd_textbox(int x, int y, j1Module* callback, const char* t
 	UIelement* ret = new UITextbox(pos, title,default_text);
 	ret->callback = callback;
 	elements.add(ret);
+	ret->Start();
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_window(int x, int y, SDL_Rect portion, const char* title)
+UIelement* j1Gui::GUIAdd_window(int x, int y, SDL_Rect portion, const char* title, bool close_button)
 {
 	iPoint pos = { x,y };
-	UIelement* ret = new UIwindow(pos, title,portion);
+	UIelement* ret = new UIwindow(pos, title,portion, close_button);
 	elements.add(ret);
+	ret->Start();
 	return ret;
 }
 
@@ -205,6 +205,7 @@ UIelement* j1Gui::GUIAdd_VarDisplay(int x, int y, int* variable, SDL_Color color
 	iPoint pos = { x,y };
 	UIelement* ret = new UIVarDisplay(pos,variable,color,font);
 	elements.add(ret);
+	ret->Start();
 	return ret;
 }
 
@@ -239,6 +240,10 @@ bool j1Gui::UIinteraction(UIelement* element)
 			if (App->transition->StartTransition())
 				App->LoadGame();
 			break; }
+			case SETTINGS:
+			{LOG("SETTINGS MENU OPENED");
+			App->gui->GUIAdd_window(200,200, { 282,0,210,300 },"SETTINGS", true);
+				break; }
 			case QUIT:
 			{ret = false;
 			break; }

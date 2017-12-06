@@ -3,12 +3,14 @@
 #include "j1Fonts.h"
 #include "j1Textures.h"
 
-UIButton::UIButton(iPoint pos, const char* text, button_type _type, SDL_Rect _portion)
+UIButton::UIButton(iPoint pos, const char* text, button_type _type, SDL_Rect _portion, SDL_Rect _pressed, SDL_Rect _hover)
 {
 	winposition = pos;
 	type_of_element = BUTTON;
 	position = { 0,0 };
 	portion = _portion;
+	pressed = _pressed;
+	glow = _hover;
 	type = _type;
 	string = text;
 	if (string != "")
@@ -47,6 +49,11 @@ void UIButton::Draw()
 	if (tex != nullptr)
 		App->render->Blit(tex, winposition.x + portion.w / 2 - text_w / 2, (winposition.y + portion.h / 2 - text_h / 2) - 2);
 
+	if (deactivate_next_frame == true)
+	{
+		active = false;
+		deactivate_next_frame = false;
+	}
 
 }
 
@@ -66,7 +73,7 @@ bool UIButton::OnRelease()
 	{
 		ret = OnActivation();
 	}
-	active = false;
-
+	deactivate_next_frame = true;
+	
 	return ret;
 };

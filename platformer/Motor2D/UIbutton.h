@@ -19,10 +19,11 @@ public:
 	int text_w;
 	int text_h;
 	SDL_Texture* tex;
+	bool deactivate_next_frame = false;//this is so the button stays active until the next frame
 
 public:
 	UIButton() {};
-	UIButton(iPoint pos, const char* text = "", button_type _type = NUL, SDL_Rect _portion = { 0,73,133,34 });// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
+	UIButton(iPoint pos, const char* text = "", button_type _type = NUL, SDL_Rect _portion = { 0,73,133,34 }, SDL_Rect _pressed = { 144,1,133,71 }, SDL_Rect _hover = { 0,71,174,101 });// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 	~UIButton();
 
 	void Draw();

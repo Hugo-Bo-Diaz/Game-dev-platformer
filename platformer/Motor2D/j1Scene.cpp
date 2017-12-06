@@ -60,10 +60,14 @@ bool j1Scene::PreUpdate(float dt)
 	{
 		LOG("LOL U BAD");
 		score = 0;
-		lastscore = 0;
 		coins = 0;
-		lastcoins = 0;
 		lifes = 3;
+		
+		lastcoins = 0;
+		lastscore = 0;
+
+		App->map->change_to_this_level = 0;
+		App->transition->StartTransition();
 	}
 
 	return true;
@@ -203,8 +207,8 @@ bool j1Scene::Pause()
 	/*Continue = (UIButton*)App->gui->GUIAdd_button(200, 100, { 120, 163, 117, 52 },this,"CONTINUE",CONTINUE);//{1,143,143,71}
 	Exit = (UIButton*)App->gui->GUIAdd_button(200, 200, { 0, 0, 117, 52 },this,"EXIT", EXIT);//{144,143,143,71}*/
 	
-	Continue = (UIButton*)App->gui->GUIAdd_button(-App->render->camera.x+200, 100, {0,0,143,71},this,"CONTINUE",CONTINUE);
-	Exit = (UIButton*)App->gui->GUIAdd_button(-App->render->camera.x+200, 200, {0,0,143,71},this,"EXIT", EXIT);
+	Continue = (UIButton*)App->gui->GUIAdd_button(-App->render->camera.x+200, 100, {0,0,143,71}, { 144,1,133,71 }, { 0,71,174,101 },this,"CONTINUE",CONTINUE);
+	Exit = (UIButton*)App->gui->GUIAdd_button(-App->render->camera.x + 200, 200, { 0,0,143,71 }, { 144,1,133,71 }, { 0,71,174,101 }, this, "EXIT", EXIT);
 	
 	SDL_Surface *sshot = SDL_CreateRGBSurface(0, 750, 420, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
 	SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
