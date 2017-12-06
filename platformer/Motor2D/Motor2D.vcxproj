@@ -106,6 +106,7 @@
     <ClCompile Include="UICheckBox.cpp" />
     <ClCompile Include="UIelement.cpp" />
     <ClCompile Include="UIimage.cpp" />
+    <ClCompile Include="UISlider.cpp" />
     <ClCompile Include="UItext.cpp" />
     <ClCompile Include="UItextbox.cpp" />
     <ClCompile Include="UIVarDisplay.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="UICheckBox.h" />
     <ClInclude Include="UIelement.h" />
     <ClInclude Include="UIimage.h" />
+    <ClInclude Include="UISlider.h" />
     <ClInclude Include="UItext.h" />
     <ClInclude Include="UItextbox.h" />
     <ClInclude Include="UIVarDisplay.h" />

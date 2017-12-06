@@ -1,6 +1,7 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
+#include "j1Audio.h"
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Fonts.h"
@@ -17,6 +18,7 @@
 #include "UItextbox.h"
 #include "UIwindow.h"
 #include "UIVarDisplay.h"
+#include "UISlider.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -209,6 +211,15 @@ UIelement* j1Gui::GUIAdd_VarDisplay(int x, int y, int* variable, SDL_Color color
 	return ret;
 }
 
+UIelement* j1Gui::GUIAdd_slider(int x, int y, SDL_Rect portion, SDL_Rect start, SDL_Rect end, SDL_Rect middle, SDL_Rect button, int* variable)
+{
+	iPoint pos = { x,y };
+	UIelement* ret = new UIslider(pos,variable,portion,start,end,middle,button);
+	elements.add(ret);
+	ret->Start();
+	return ret;
+}
+
 bool j1Gui::delete_element(UIelement* element)//after using me don't forget to set your UIelement* to nullptr
 {
 	int i = elements.find(element);
@@ -242,7 +253,8 @@ bool j1Gui::UIinteraction(UIelement* element)
 			break; }
 			case SETTINGS:
 			{LOG("SETTINGS MENU OPENED");
-				App->gui->GUIAdd_window(200,200, { 282,0,210,200 },"SETTINGS", true);
+				Window_menu = (UIwindow*)App->gui->GUIAdd_window(200,200, { 282,0,210,200 },"SETTINGS", true);
+				Window_menu->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, {185,112,19,42}, &App->audio->volume), { 50, 50 });
 				break; }
 			case CREDITS:
 			{

@@ -38,13 +38,13 @@ public:
 	bool Load(pugi::xml_node& node);
 
 	bool RiseVolume();
+	int volume = 128;
 
 	bool LowerVolume();
 private:
 
 	_Mix_Music*			music;
 	p2List<Mix_Chunk*>	fx;
-	uint volume = 128;
 };
 
 #endif // __j1AUDIO_H__

@@ -17,6 +17,7 @@ enum UIelement_type
 	TEXTBOX,
 	WINDOW,
 	VARDISPLAY,
+	SLIDER,
 	NONE
 };
 
