@@ -617,7 +617,7 @@ bool j1Map::CreateUI(map_layer* layer)
 			{
 			case 1:
 			{
-			UIwindow* start_menu = (UIwindow*)App->gui->GUIAdd_window(point.x, point.y, { 282,0,210,300 }, "MENU");
+			UIwindow* start_menu = (UIwindow*)App->gui->GUIAdd_window(point.x - 10, point.y, { 282,0,210,300 }, "MENU");
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,71,174,101 }, App->gui, "NEW GAME", button_type::NEW_GAME), { 35,35 });
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,71,174,101 }, App->gui, "LOAD GAME", button_type::LOAD_GAME), { 35,117 });
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,71,174,101 }, App->gui, "SETTINGS", button_type::SETTINGS), { 35,200 });
@@ -627,7 +627,10 @@ bool j1Map::CreateUI(map_layer* layer)
 			break;
 			}
 			case 3://quit button
-				App->gui->GUIAdd_button(point.x, point.y, {0,0,width,height}, { 144,1,133,71 }, { 0,71,174,101 }, App->gui,"QUIT",button_type::QUIT);
+				App->gui->GUIAdd_button(point.x - 20, point.y - 10, {0,0,width,height}, { 144,1,133,71 }, { 0,71,174,101 }, App->gui,"QUIT",button_type::QUIT);
+				break;
+			case 4://credits button
+				App->gui->GUIAdd_button(point.x, point.y - 10, { 0,0,width,height }, { 144,1,133,71 }, { 0,71,174,101 }, App->gui, "CREDITS", button_type::CREDITS);
 				break;
 			default:
 				break;

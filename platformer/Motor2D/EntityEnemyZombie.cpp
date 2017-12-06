@@ -122,8 +122,10 @@ bool EntityEnemyZombie::Update(float dt, bool logic)
 		iPoint pos = App->map->WorldToMap(obj->position.x, obj->position.y);
 		if (pos.x < step.x)
 			obj->velocity.x = max_speed;
-		if (pos.x > step.x + 1)
+		else if (pos.x > step.x)
 			obj->velocity.x = -max_speed;
+		else
+			obj->velocity.x = 0;
 	}
 
 	if (obj->velocity.x > 0)

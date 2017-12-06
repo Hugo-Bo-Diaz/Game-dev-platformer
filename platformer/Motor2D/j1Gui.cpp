@@ -242,8 +242,22 @@ bool j1Gui::UIinteraction(UIelement* element)
 			break; }
 			case SETTINGS:
 			{LOG("SETTINGS MENU OPENED");
-			App->gui->GUIAdd_window(200,200, { 282,0,210,300 },"SETTINGS", true);
+			App->gui->GUIAdd_window(200,100, { 282,0,210,300 },"SETTINGS", true);
 				break; }
+			case CREDITS:
+			{
+				LOG("CREDITS MENU OPENED");
+
+				UIwindow* credits = (UIwindow*)App->gui->GUIAdd_window(200, 100, { 282,0,210,300 }, "CREDITS", true);
+				credits->Attach(App->gui->GUIAdd_text(0, 0, "Game created by:", { 50, 50, 50, 255 }), { 20, 60 });
+				credits->Attach(App->gui->GUIAdd_text(0, 0, "Hugo Bó", { 50, 50, 50, 255 }), { 20, 90 });
+				credits->Attach(App->gui->GUIAdd_text(0, 0, "Albert Mas", { 50, 50, 50, 255 }), { 20, 110 });
+				credits->Attach(App->gui->GUIAdd_text(0, 0, "Art and music by:", { 50, 50, 50, 255 }), { 20, 180 });
+				credits->Attach(App->gui->GUIAdd_text(0, 0, "www.opengameart.org", { 50, 50, 50, 255 }), { 20, 210 });
+				credits->Attach(App->gui->GUIAdd_text(0, 0, "www.tannerhelland.com", { 50, 50, 50, 255 }), { 20, 230 });
+
+				break;
+			}
 			case QUIT:
 			{ret = false;
 			break; }
