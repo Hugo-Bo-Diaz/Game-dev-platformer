@@ -211,10 +211,10 @@ UIelement* j1Gui::GUIAdd_VarDisplay(int x, int y, int* variable, SDL_Color color
 	return ret;
 }
 
-UIelement* j1Gui::GUIAdd_slider(int x, int y, SDL_Rect portion, SDL_Rect start, SDL_Rect end, SDL_Rect middle, SDL_Rect button, int* variable)
+UIelement* j1Gui::GUIAdd_slider(int x, int y, SDL_Rect portion, SDL_Rect start, SDL_Rect end, SDL_Rect middle, SDL_Rect button,int max_value, int* variable,const char* title)
 {
 	iPoint pos = { x,y };
-	UIelement* ret = new UIslider(pos,variable,portion,start,end,middle,button);
+	UIelement* ret = new UIslider(pos,variable,portion,start,end,middle,button, max_value, title);
 	elements.add(ret);
 	ret->Start();
 	return ret;
@@ -254,7 +254,7 @@ bool j1Gui::UIinteraction(UIelement* element)
 			case SETTINGS:
 			{LOG("SETTINGS MENU OPENED");
 				Window_menu = (UIwindow*)App->gui->GUIAdd_window(200,200, { 282,0,210,200 },"SETTINGS", true);
-				Window_menu->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, {185,112,19,42}, &App->audio->volume), { 50, 50 });
+				Window_menu->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->volume, "Music volume"), { 5, 60 });
 				break; }
 			case CREDITS:
 			{

@@ -64,6 +64,17 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	return ret;
 }
 
+
+bool j1Audio::Update(float dt)
+{
+	if (saved_volume != volume)
+	{
+		Mix_VolumeMusic(volume);
+		saved_volume = volume;
+	}
+	return true;
+}
+
 // Called before quitting
 bool j1Audio::CleanUp()
 {

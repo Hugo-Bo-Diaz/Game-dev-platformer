@@ -25,6 +25,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//need update to change the volume of the audio if there is need of it
+	bool Update(float dt);
+
 	// Play a music file
 	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 
@@ -38,7 +41,9 @@ public:
 	bool Load(pugi::xml_node& node);
 
 	bool RiseVolume();
-	int volume = 128;
+	int volume = 56;
+
+	int saved_volume = 128;
 
 	bool LowerVolume();
 private:

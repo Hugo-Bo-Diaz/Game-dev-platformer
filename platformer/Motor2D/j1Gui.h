@@ -68,7 +68,7 @@ public:
 	UIelement* GUIAdd_textbox(int x, int y, j1Module* callback = nullptr, const char* title = "", const char* default_text= "");
 	UIelement* GUIAdd_VarDisplay(int x, int y, int* variable = nullptr, SDL_Color color = {0,0,0,255}, _TTF_Font* font = App->font->default);
 	UIelement* GUIAdd_window(int x, int y, SDL_Rect portion, const char* title, bool close_button = false);
-	UIelement* GUIAdd_slider(int x, int y, SDL_Rect portion, SDL_Rect start, SDL_Rect end, SDL_Rect middle, SDL_Rect button, int* variable = nullptr);
+	UIelement* GUIAdd_slider(int x, int y, SDL_Rect portion, SDL_Rect start, SDL_Rect end, SDL_Rect middle, SDL_Rect button,int max_value, int* variable = nullptr, const char* title = "");
 	//portion in this functions means the part of the atlas they get to draw
 
 	bool delete_element(UIelement* element);
@@ -78,6 +78,8 @@ public:
 
 	float  test = 100000;
 	bool debug = false;
+
+	bool MouseInside(SDL_Rect* rect);
 
 	UIwindow* Window_menu;
 private:
@@ -89,7 +91,6 @@ private:
 
 	void UIDebugDraw();
 
-	bool MouseInside(SDL_Rect* rect);
 	SDL_Texture* screen = nullptr;
 
 };
