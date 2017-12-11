@@ -253,7 +253,7 @@ bool j1Gui::UIinteraction(UIelement* element)
 			break; }
 			case SETTINGS:
 			{LOG("SETTINGS MENU OPENED");
-				Window_menu = (UIwindow*)App->gui->GUIAdd_window(200,200, { 282,0,210,200 },"SETTINGS", true);
+				Window_menu = (UIwindow*)App->gui->GUIAdd_window(200,150, { 494,0,210,194 },"SETTINGS", true);
 				Window_menu->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->volume, "Music volume"), { 5, 60 });
 				break; }
 			case CREDITS:
