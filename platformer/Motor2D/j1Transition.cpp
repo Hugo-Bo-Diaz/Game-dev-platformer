@@ -40,10 +40,10 @@ bool j1Transition::PostUpdate(float dt)
 	float normalize_factor = 60 / thousanddivdt;//60 is the ideal framerate for the given speeds	
 
 	if (normalize_factor < 1) { normalize_factor = 1; }
-
-	if (transitioning)
-	{
-		App->render->Blit(transition,pos.x,pos.y);
+	switch (trans)
+		case 1:
+		{
+		App->render->Blit(transition, pos.x, pos.y);
 		if (pos.x > -width)
 		{
 			pos.x -= speed*normalize_factor;//NEEDS NORMALIZATION
@@ -51,9 +51,14 @@ bool j1Transition::PostUpdate(float dt)
 		else
 		{
 			transitioning = false;
+			trans = 0;
 			App->tex->UnLoad(transition);
 		}
-	}
+		break;
+		default:
+			break;
+		}
+
 	return ret;
 }
 
@@ -76,4 +81,15 @@ bool j1Transition::StartTransition()
 		LOG("transition already in progress, try again when it finishes");
 		return false;
 	}
+
+	trans = 1;
+}
+
+bool j1Transition::FadeBlack(float time)
+{
+	fade_timer = time;
+	timer_to_black.Start();
+	trans = 2;
+
+	return true;
 }

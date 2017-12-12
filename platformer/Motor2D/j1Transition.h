@@ -25,6 +25,9 @@ public:
 	// Called to start a transition
 	bool StartTransition();
 
+	//called for a fade to black 
+	bool FadeBlack(float time);
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -32,6 +35,10 @@ public:
 
 	bool transitioning = false;
 	SDL_Texture* transition;
+
+	uint trans = 0;// 0 = no transition; 1 = scroll; 2 = fade;
+	float fade_timer = 0.0f;
+	j1Timer timer_to_black;
 
 private:
 
