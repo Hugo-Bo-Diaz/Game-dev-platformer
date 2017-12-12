@@ -10,6 +10,7 @@
 #include "j1Window.h"
 #include "j1Transition.h"
 #include "j1Map.h"
+#include "j1Scene.h"
 
 #include "UItext.h"
 #include "UIimage.h"
@@ -242,12 +243,17 @@ bool j1Gui::UIinteraction(UIelement* element)
 		switch (button->type)
 		{
 			case NEW_GAME:
-			{LOG("trying to start new gmae");
+			{LOG("Starting a new game");
 			if (App->transition->StartTransition())
+			{
 				App->map->change_to_next_level = true;
+				App->scene->lifes = 3;
+				App->scene->score = 0;
+				App->scene->coins = 0;
+			}
 			break; }
 			case LOAD_GAME:
-			{LOG("previously on where is my plane...");
+			{LOG("Previously on Where is my plane...");
 			if (App->transition->StartTransition())
 				App->LoadGame();
 			break; }
@@ -262,12 +268,15 @@ bool j1Gui::UIinteraction(UIelement* element)
 				if (Window_menu == nullptr)
 				{
 					Window_menu = (UIwindow*)App->gui->GUIAdd_window(200, 100, { 282,0,210,300 }, "CREDITS", true);
-					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Game created by:", { 50, 50, 50, 255 }), { 20, 60 });
-					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Hugo Bó", { 50, 50, 50, 255 }), { 20, 90 });
-					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Albert Mas", { 50, 50, 50, 255 }), { 20, 110 });
-					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Art and music by:", { 50, 50, 50, 255 }), { 20, 180 });
-					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "www.opengameart.org", { 50, 50, 50, 255 }), { 20, 210 });
-					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "www.tannerhelland.com", { 50, 50, 50, 255 }), { 20, 230 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Game created by:", { 50, 50, 50, 255 }), { 20, 40 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Hugo Bó", { 50, 50, 50, 255 }), { 20, 65 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Albert Mas", { 50, 50, 50, 255 }), { 20, 85 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Art and music by:", { 50, 50, 50, 255 }), { 20, 120 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "www.opengameart.org", { 50, 50, 50, 255 }), { 20, 145 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "www.tannerhelland.com", { 50, 50, 50, 255 }), { 20, 165 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "MIT License", { 50, 50, 50, 255 }), { 20, 200 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Copyright (c) 2017 Hugo Bó,", { 50, 50, 50, 255 }), { 20, 220 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Albert Mas", { 50, 50, 50, 255 }), { 20, 240 });
 				}
 				break;
 			}
