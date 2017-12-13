@@ -55,6 +55,35 @@ bool j1Transition::PostUpdate(float dt)
 			App->tex->UnLoad(transition);
 		}
 		break;
+		case 2:
+		{
+			float time = 0;
+			if (timer_to_black.Read() >= fade_timer)
+			{
+				transitioning = false;
+				trans = 0;
+			}
+
+			int alpha;
+			if (timer_to_black.Read() < fade_timer / 2)
+			{
+				alpha = (timer_to_black.Read() / (fade_timer/2))*255;
+			}
+			if (timer_to_black.Read() >= fade_timer / 2)
+			{
+				time = timer_to_black.Read();
+				alpha = 512-((time/ (fade_timer / 2)) * 255);
+			}
+			if (alpha<0)
+			{
+				alpha = 0;
+				LOG("CORRECTED");
+			}
+			LOG("alpha %d, %f ",alpha, time);
+			App->render->DrawQuad({ -App->render->camera.x ,-App->render->camera.y, 750, 480 },color_fade.r, color_fade.g, color_fade.b, alpha);
+
+		}
+		break;
 		default:
 			break;
 		}
@@ -74,6 +103,7 @@ bool j1Transition::StartTransition()
 		sshot = nullptr;
 		transitioning = true;
 		pos.x = 0;
+		trans = 1;
 		return true;
 	}
 	else
@@ -85,11 +115,22 @@ bool j1Transition::StartTransition()
 	trans = 1;
 }
 
-bool j1Transition::FadeBlack(float time)
+bool j1Transition::Fade(float time, uint r, uint g, uint b)
 {
+	if (!transitioning)
+	{
 	fade_timer = time;
 	timer_to_black.Start();
 	trans = 2;
-
+	transitioning = true;
+	color_fade.r = r;
+	color_fade.g = g;
+	color_fade.b = b;
+	}
+	else
+	{
+		LOG("transition already in progress, try again when it finishes");
+		return false;
+	}
 	return true;
 }

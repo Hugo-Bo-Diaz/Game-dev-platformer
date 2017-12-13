@@ -227,12 +227,15 @@ bool EntityPlayer::PreUpdate(float dt)
 		else
 			App->map->change_to_this_level = 1;
 		set_to_start_pos = false;
+		App->transition->Fade(500.0f, 150, 0, 0);
+
 	}
 	if (App->scene->time_left <= 0)
 	{
 		App->scene->lifes -= 1;
 		App->map->change_to_this_level = App->map->index_map;
 		set_to_start_pos = false;
+		App->transition->Fade(500.0f, 255, 255, 255);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

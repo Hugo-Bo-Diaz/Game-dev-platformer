@@ -26,7 +26,7 @@ public:
 	bool StartTransition();
 
 	//called for a fade to black 
-	bool FadeBlack(float time);
+	bool Fade(float time, uint r = 0, uint g = 0, uint b = 0);
 
 	// Called before quitting
 	bool CleanUp();
@@ -46,6 +46,7 @@ private:
 	int height = 420;
 	iPoint pos = {0,0};
 	int speed = 30;
+	SDL_Color color_fade = {0,0,0};
 };
 
 
