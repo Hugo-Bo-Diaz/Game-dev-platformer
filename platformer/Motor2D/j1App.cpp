@@ -8,7 +8,8 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
-#include "j1Scene.h"
+#include "j1SceneMenu.h"
+#include "j1SceneLevel.h"
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Collision.h"
@@ -35,7 +36,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	render = new j1Render();
 	tex = new j1Textures();
 	audio = new j1Audio();
-	scene = new j1Scene();
+	menu = new j1SceneMenu();
+	level = new j1SceneLevel();
 	map = new j1Map();
 
 	transition = new j1Transition();
@@ -52,15 +54,16 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);//2 true
 	AddModule(tex);//3 true
 	AddModule(audio);//4 true
-	AddModule(scene);//6 true
+	AddModule(menu);//6 true
+	AddModule(level);//7 true
 
-	AddModule(gui);//7 true
-	AddModule(font);//8 true
-	AddModule(path);//9 true
-	AddModule(collision);//10 false
+	AddModule(gui);//8 true
+	AddModule(font);//9 true
+	AddModule(path);//10 true
+	AddModule(collision);//11 false
 	AddModule(map);//5 true
-	AddModule(entities);//11 false
-	AddModule(physics);//12 false
+	AddModule(entities);//12 false
+	AddModule(physics);//13 false
 
 	AddModule(transition);//last to overcome all the other blits
 
@@ -150,6 +153,10 @@ bool j1App::Start()
 		item = item->next;
 	}
 	startup_time.Start();
+
+
+	level->active = false;
+
 
 	PERF_PEEK(ptimer);
 

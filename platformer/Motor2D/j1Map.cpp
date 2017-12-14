@@ -3,7 +3,8 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
-#include "j1Scene.h"
+#include "j1SceneMenu.h"
+#include "j1SceneLevel.h"
 #include "j1Map.h"
 #include "j1Window.h"
 #include "j1Collision.h"
@@ -297,16 +298,16 @@ bool j1Map::Load(const char* file_name)
 		App->win->GetWindowSize(winx, winy);
 
 		UIelement*text = App->gui->GUIAdd_text(winx - 80, 10, "TIME", { 0,0,0,255 }, true);
-		text->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &App->scene->time_left),{5, 15});
+		text->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &App->level->time_left),{5, 15});
 
 		UIelement* image_1 = App->gui->GUIAdd_image(260, 10, {182,84,24,26},true);
-		image_1->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &App->scene->coins), {30,0});
+		image_1->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &App->level->coins), {30,0});
 
 		UIelement* image_2 = App->gui->GUIAdd_image(winx - 240, 7, { 244,80,22,25 }, true);
-		image_2->Attach(App->gui->GUIAdd_VarDisplay(0,0, &App->scene->lifes), {30,5});
+		image_2->Attach(App->gui->GUIAdd_VarDisplay(0,0, &App->level->lifes), {30,5});
 
 		UIelement* text_2 = App->gui->GUIAdd_text(10, 10, "SCORE", { 0,0,0,255 }, true);
-		text_2->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &App->scene->score), {0,15});
+		text_2->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &App->level->score), {0,15});
 
 	}
 
@@ -612,7 +613,7 @@ bool j1Map::CreateUI(map_layer* layer)
 	BROFILER_CATEGORY("CreateUI_Map", Profiler::Color::Sienna);
 
 	//this type of layer is only on the menus, meaning the score will reset to 0.
-	App->scene->score = 0;
+	App->level->score = 0;
 
 	for (int _y = 0; _y < layer->height; ++_y)
 	{
@@ -626,19 +627,12 @@ bool j1Map::CreateUI(map_layer* layer)
 			{
 			case 1:
 			{
-			UIwindow* start_menu = (UIwindow*)App->gui->GUIAdd_window(point.x - 10, point.y, { 282,0,210,300 }, "MENU");
-			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "NEW GAME", button_type::NEW_GAME), { 35,35 });
-			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "LOAD GAME", button_type::LOAD_GAME), { 35,117 });
-			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "SETTINGS", button_type::SETTINGS), { 35,200 });
-			App->gui->GUIAdd_image(10, 10, {0,171,270,131});
 
 			break;
 			}
 			case 2://credits button
-				App->gui->GUIAdd_button(point.x, point.y, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "CREDITS", button_type::CREDITS);
 				break;
 			case 3://quit button
-				App->gui->GUIAdd_button(point.x, point.y, {0,0,width,height}, { 144,1,133,71 }, { 0,74,171,99 }, App->gui,"QUIT",button_type::QUIT);
 				break;
 			default:
 				break;
@@ -675,7 +669,7 @@ bool j1Map::LoadBackground(pugi::xml_node& node, background* back)
 void j1Map::change_map(uint map)
 {
 	if (index_map > 0 && map != index_map)
-		App->scene->score += time_left() * 10;
+		App->level->score += time_left() * 10;
 	index_map = map;	
 	CleanUp();
 	Load(maps[index_map].GetString());
@@ -685,9 +679,9 @@ void j1Map::next_level()
 {
 	if (index_map > 0)
 	{
-		App->scene->score += time_left() * 10;
-		App->scene->lastscore = App->scene->score;
-		App->scene->lastcoins = App->scene->coins;
+		App->level->score += time_left() * 10;
+		App->level->lastscore = App->level->score;
+		App->level->lastcoins = App->level->coins;
 	}
 	index_map += 1;	
 	CleanUp();
@@ -697,7 +691,7 @@ void j1Map::next_level()
 void j1Map::previous_level()
 {
 	if (index_map > 0)
-		App->scene->score += time_left()*10;	
+		App->level->score += time_left()*10;	
 	index_map += 1;	
 	CleanUp();
 	Load(maps[index_map].GetString());
@@ -709,7 +703,7 @@ bool j1Map::Save(pugi::xml_node& node) const
 	pugi::xml_node map_node = node.append_child("current_map");
 
 	map_node.append_attribute("value") = index_map;
-	node.append_child("time_left").append_attribute("value") = App->scene->time_left;
+	node.append_child("time_left").append_attribute("value") = App->level->time_left;
 	
 	return true;
 }

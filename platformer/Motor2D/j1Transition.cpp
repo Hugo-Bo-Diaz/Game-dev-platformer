@@ -92,7 +92,7 @@ bool j1Transition::PostUpdate(float dt)
 }
 
 // calculate size of a text
-bool j1Transition::StartTransition()
+bool j1Transition::StartTransition(j1Module* module_in, j1Module* module_out)
 {
 	if (!transitioning)
 	{
@@ -104,6 +104,18 @@ bool j1Transition::StartTransition()
 		transitioning = true;
 		pos.x = 0;
 		trans = 1;
+
+		if (module_in != nullptr)
+		{
+			module_in->active = true;
+			module_in->Start();
+		}
+		if (module_out != nullptr)
+		{
+			module_out->active = false;
+			module_out->CleanUp();
+		}
+
 		return true;
 	}
 	else
@@ -115,7 +127,7 @@ bool j1Transition::StartTransition()
 	trans = 1;
 }
 
-bool j1Transition::Fade(float time, uint r, uint g, uint b)
+bool j1Transition::Fade(float time, uint r, uint g, uint b, j1Module* module_in, j1Module* module_out)
 {
 	if (!transitioning)
 	{
@@ -126,6 +138,16 @@ bool j1Transition::Fade(float time, uint r, uint g, uint b)
 	color_fade.r = r;
 	color_fade.g = g;
 	color_fade.b = b;
+
+	if (module_in != nullptr)
+	{
+		module_in->active = true;
+	}
+	if (module_out != nullptr)
+	{
+		module_out->active = false;
+	}
+
 	}
 	else
 	{

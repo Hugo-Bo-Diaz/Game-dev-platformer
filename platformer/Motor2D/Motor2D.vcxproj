@@ -93,7 +93,8 @@
     <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Physics.cpp" />
-    <ClCompile Include="j1Scene.cpp" />
+    <ClCompile Include="j1SceneLevel.cpp" />
+    <ClCompile Include="j1SceneMenu.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1Transition.cpp" />
     <ClCompile Include="p2Log.cpp" />
@@ -132,7 +133,8 @@
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Physics.h" />
-    <ClInclude Include="j1Scene.h" />
+    <ClInclude Include="j1SceneLevel.h" />
+    <ClInclude Include="j1SceneMenu.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1Transition.h" />
     <ClInclude Include="p2DynArray.h" />

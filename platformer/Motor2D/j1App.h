@@ -13,7 +13,8 @@ class j1Input;
 class j1Render;
 class j1Textures;
 class j1Audio;
-class j1Scene;
+class j1SceneMenu;
+class j1SceneLevel;
 class j1Map;
 
 class j1Transition;
@@ -97,7 +98,8 @@ public:
 	j1Render*			render;
 	j1Textures*			tex;
 	j1Audio*			audio;
-	j1Scene*			scene;
+	j1SceneMenu*		menu;
+	j1SceneLevel*		level;
 	j1Map*				map;
 
 	j1Transition*		transition;

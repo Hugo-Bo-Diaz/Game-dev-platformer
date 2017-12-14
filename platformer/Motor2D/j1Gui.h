@@ -73,15 +73,11 @@ public:
 
 	bool delete_element(UIelement* element);
 
-	UIwindow* window_ui;
-	UIButton* button_test;
-
 	float  test = 100000;
 	bool debug = false;
 
 	bool MouseInside(SDL_Rect* rect);
 
-	UIwindow* Window_menu;
 private:
 
 	SDL_Texture* atlas;

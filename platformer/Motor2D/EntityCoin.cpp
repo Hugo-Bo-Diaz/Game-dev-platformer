@@ -5,7 +5,8 @@
 #include "j1Map.h"
 #include "j1Audio.h"
 #include "j1EntityManager.h"
-#include "j1Scene.h"
+#include "j1SceneMenu.h"
+#include "j1SceneLevel.h"
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
 
@@ -73,8 +74,8 @@ void EntityCoin::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1->type == COLLIDER_COIN && c2->type == COLLIDER_PLAYER)
 	{
-		App->scene->coins += 1;
-		App->scene->score += 100;
+		App->level->coins += 1;
+		App->level->score += 100;
 		destroyed = true;
 	}
 }
