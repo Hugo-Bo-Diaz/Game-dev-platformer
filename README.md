@@ -10,6 +10,15 @@ Unzip file and execute inside game folder. Nice and simple :)
 + *A* = Move backwards
 + *W* = Jump
 + *Space*  = Hover. Press it rapidly to maximize its effect.
+## Debug features
++ *F1* = Return to main menu
++ *F2* = Restart actual level
++ *F5* = Save game
++ *F6* = Load game
++ *F8* = Debug UI
++ *F9* = Visible colliders and pathfinding
++ *F10* = Godmode. Invincible and able to fly pressing *Space* repeatedly
++ *F11* = Enable/Disable 30 FPS cap (**TO IMPLEMENT**)
 ## Github repository
 https://github.com/Hugo-Bo-Diaz/Game-dev-platformer
 ## Authors
