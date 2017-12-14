@@ -54,7 +54,7 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		debug = !debug;
 	
 	bool item_has_been_activated = false;
