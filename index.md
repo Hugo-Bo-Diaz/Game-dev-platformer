@@ -1,4 +1,4 @@
-# Where Is My Plane?
+<br><img src="https://github.com/Hugo-Bo-Diaz/Game-dev-platformer/blob/master/platformer/Game/gui/title.png?raw=true" width = "338" height = "163" alt="Error loading img"><br>
 ## by Hugo Bó and Albert Mas
 Platformer game assignment for the video game development subject (CITM-UPC).
 
@@ -48,7 +48,7 @@ Github: https://github.com/albertmas
 + *F10* = Godmode. Invincible and able to fly pressing *Space* repeatedly
 + *F11* = Enable/Disable 30 FPS cap (**TO IMPLEMENT**)
 
-## Download the latest version of the Raiden [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer/releases/tag/v1.2.1)!
+## Download the latest version of *Where Is My Plane?* [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer/releases/tag/v1.2.1)!
 ## Chech our Github repository [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer)!
 
 ## License
