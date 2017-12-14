@@ -9,8 +9,7 @@
 #include "j1Physics.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
-#include "j1SceneMenu.h"
-#include "j1SceneLevel.h"
+#include "j1Scene.h"
 #include "SDL/include/SDL_timer.h"
 #include "Brofiler\Brofiler.h"
 
@@ -172,7 +171,7 @@ void EntityEnemyBat::OnCollision(Collider* c1, Collider* c2)
 		if (c1->rect.y > c2->rect.y && Intersection.w > Intersection.h)
 		{
 			LOG("A bat was crushed");
-			App->level->score += 100;
+			App->scene->score += 100;
 			destroyed = true;
 		}
 	}

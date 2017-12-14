@@ -1,19 +1,19 @@
-#ifndef __j1SCENELEVEL_H__
-#define __j1SCENELEVEL_H__
+#ifndef __j1SCENE_H__
+#define __j1SCENE_H__
 
 #include "j1Module.h"
 #include "UIbutton.h"
 
 struct SDL_Texture;
 
-class j1SceneLevel : public j1Module
+class j1Scene : public j1Module
 {
 public:
 
-	j1SceneLevel();
+	j1Scene();
 
 	// Destructor
-	virtual ~j1SceneLevel();
+	virtual ~j1Scene();
 
 	// Called before render is available
 	bool Awake();

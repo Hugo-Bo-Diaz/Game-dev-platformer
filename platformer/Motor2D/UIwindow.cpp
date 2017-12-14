@@ -4,7 +4,6 @@
 #include "j1Fonts.h"
 #include "j1App.h"
 #include "j1Render.h"
-#include "j1SceneMenu.h"
 
 UIwindow::UIwindow(iPoint pos, const char* text, SDL_Rect _portion, bool _close_button)// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better
 {
@@ -31,9 +30,9 @@ UIwindow::~UIwindow()
 	}
 	App->tex->UnLoad(tex);
 
-	if (this == App->menu->Window_menu)//only needed for the window menu because you are permitted only one window at a time
+	if (this == App->gui->Window_menu)//only needed for the window menu because you are permitted only one window at a time
 	{
-		App->menu->Window_menu = nullptr;
+		App->gui->Window_menu = nullptr;
 	}
 }
 

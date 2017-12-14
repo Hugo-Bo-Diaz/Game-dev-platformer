@@ -9,8 +9,7 @@
 #include "j1Physics.h"
 #include "j1EntityManager.h"
 #include "j1Pathfinding.h"
-#include "j1SceneMenu.h"
-#include "j1SceneLevel.h"
+#include "j1Scene.h"
 #include "j1Gui.h"
 #include "j1Transition.h"
 #include "SDL/include/SDL_timer.h"
@@ -112,7 +111,7 @@ void EntityPlayer::Awake()
 		max_speed = App->entities->properties[i++]->value;
 		gravity = App->entities->properties[i++]->value;
 		hability_stored = App->entities->properties[i++]->value;
-		if (!App->level->godmode)
+		if (!App->scene->godmode)
 		{
 			hability = hability_stored;
 		}
@@ -220,10 +219,10 @@ bool EntityPlayer::PreUpdate(float dt)
 
 	if (set_to_start_pos == true)
 	{
-		App->level->lifes -= 1;
-		App->level->score = App->level->lastscore;
-		App->level->coins = App->level->lastcoins;
-		if (App->level->lifes > 0)
+		App->scene->lifes -= 1;
+		App->scene->score = App->scene->lastscore;
+		App->scene->coins = App->scene->lastcoins;
+		if (App->scene->lifes > 0)
 			App->map->change_to_this_level = App->map->index_map;
 		else
 			App->map->change_to_this_level = 1;
@@ -231,9 +230,9 @@ bool EntityPlayer::PreUpdate(float dt)
 		App->transition->Fade(500.0f, 150, 0, 0);
 
 	}
-	if (App->level->time_left <= 0)
+	if (App->scene->time_left <= 0)
 	{
-		App->level->lifes -= 1;
+		App->scene->lifes -= 1;
 		App->map->change_to_this_level = App->map->index_map;
 		set_to_start_pos = false;
 		App->transition->Fade(500.0f, 255, 255, 255);
@@ -257,11 +256,11 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 	{
 		App->map->change_to_next_level = true;
 	}
-	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA && !App->level->godmode)
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA && !App->scene->godmode)
 	{
 		set_to_start_pos = true;
 	}
-	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_ENEMY && !App->level->godmode)
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_ENEMY && !App->scene->godmode)
 	{
 		SDL_Rect Intersection;
 		SDL_IntersectRect(&c1->rect, &c2->rect, &Intersection);

@@ -10,7 +10,7 @@
 #include "j1Window.h"
 #include "j1Transition.h"
 #include "j1Map.h"
-#include "j1SceneMenu.h"
+#include "j1Scene.h"
 
 #include "UItext.h"
 #include "UIimage.h"
@@ -54,7 +54,7 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		debug = !debug;
 	
 	bool item_has_been_activated = false;
@@ -237,7 +237,57 @@ bool j1Gui::delete_element(UIelement* element)//after using me don't forget to s
 bool j1Gui::UIinteraction(UIelement* element)
 {
 	bool ret = true;
-
+	if (element->type_of_element == BUTTON)
+	{
+		UIButton* button = (UIButton*)element;
+		switch (button->type)
+		{
+			case NEW_GAME:
+			{LOG("Starting a new game");
+			if (App->transition->StartTransition())
+			{
+				App->map->change_to_next_level = true;
+				App->scene->lifes = 3;
+				App->scene->score = 0;
+				App->scene->coins = 0;
+			}
+			break; }
+			case LOAD_GAME:
+			{LOG("Previously on Where is my plane...");
+			if (App->transition->StartTransition())
+				App->LoadGame();
+			break; }
+			case SETTINGS:
+			{LOG("SETTINGS MENU OPENED");
+				Window_menu = (UIwindow*)App->gui->GUIAdd_window(200,150, { 494,0,210,194 },"SETTINGS", true);
+				Window_menu->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->volume, "Music volume"), { 5, 60 });
+				break; }
+			case CREDITS:
+			{
+				LOG("CREDITS MENU OPENED");
+				if (Window_menu == nullptr)
+				{
+					Window_menu = (UIwindow*)App->gui->GUIAdd_window(200, 100, { 282,0,210,300 }, "CREDITS", true);
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Game created by:", { 50, 50, 50, 255 }), { 20, 40 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Hugo Bó", { 50, 50, 50, 255 }), { 20, 65 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Albert Mas", { 50, 50, 50, 255 }), { 20, 85 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Art and music by:", { 50, 50, 50, 255 }), { 20, 120 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "www.opengameart.org", { 50, 50, 50, 255 }), { 20, 145 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "www.tannerhelland.com", { 50, 50, 50, 255 }), { 20, 165 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "MIT License", { 50, 50, 50, 255 }), { 20, 200 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Copyright (c) 2017 Hugo Bó,", { 50, 50, 50, 255 }), { 20, 220 });
+					Window_menu->Attach(App->gui->GUIAdd_text(0, 0, "Albert Mas", { 50, 50, 50, 255 }), { 20, 240 });
+				}
+				break;
+			}
+			case QUIT:
+			{ret = false;
+			break; }
+			default:
+			{LOG("ERROR");
+			break; }
+		}
+	}
 	return ret;
 }
 

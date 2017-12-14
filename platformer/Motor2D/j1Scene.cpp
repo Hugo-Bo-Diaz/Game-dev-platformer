@@ -7,32 +7,31 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
-#include "j1SceneLevel.h"
+#include "j1Scene.h"
 #include "j1Physics.h"
 #include "j1Transition.h"
 #include "Brofiler\Brofiler.h"
 
-j1SceneLevel::j1SceneLevel() : j1Module()
+j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
 }
 
 // Destructor
-j1SceneLevel::~j1SceneLevel()
+j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1SceneLevel::Awake()
+bool j1Scene::Awake()
 {
 	LOG("Loading Scene");
 	bool ret = true;
-
 
 	return ret;
 }
 
 // Called before the first frame
-bool j1SceneLevel::Start()
+bool j1Scene::Start()
 {
 	BROFILER_CATEGORY("Start_Scene", Profiler::Color::LawnGreen);
 
@@ -43,7 +42,7 @@ bool j1SceneLevel::Start()
 }
 
 // Called each loop iteration
-bool j1SceneLevel::PreUpdate(float dt)
+bool j1Scene::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::LawnGreen);
 
@@ -68,14 +67,14 @@ bool j1SceneLevel::PreUpdate(float dt)
 		lastscore = 0;
 
 		App->map->change_to_this_level = 0;
-		App->transition->StartTransition((j1Module*)App->menu,this);
+		App->transition->StartTransition();
 	}
 
 	return true;
 }
 
 // Called each loop iteration
-bool j1SceneLevel::Update(float dt)
+bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Update_Scene", Profiler::Color::LawnGreen);
 
@@ -156,7 +155,7 @@ bool j1SceneLevel::Update(float dt)
 }
 
 // Called each loop iteration
-bool j1SceneLevel::PostUpdate(float dt)
+bool j1Scene::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("PostUpdate_Scene", Profiler::Color::LawnGreen);
 
@@ -165,11 +164,12 @@ bool j1SceneLevel::PostUpdate(float dt)
 	//if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	//	ret = false;
 
+
 	return ret;
 }
 
 // Called before quitting
-bool j1SceneLevel::CleanUp()
+bool j1Scene::CleanUp()
 {
 	BROFILER_CATEGORY("CleanUp_Scene", Profiler::Color::LawnGreen);
 
@@ -178,7 +178,7 @@ bool j1SceneLevel::CleanUp()
 	return true;
 }
 
-bool j1SceneLevel::Save(pugi::xml_node& node) const
+bool j1Scene::Save(pugi::xml_node& node) const
 {
 	BROFILER_CATEGORY("Save_Scene", Profiler::Color::DarkOliveGreen);
 	
@@ -189,7 +189,7 @@ bool j1SceneLevel::Save(pugi::xml_node& node) const
 	return true;
 }
 
-bool j1SceneLevel::Load(pugi::xml_node& node)
+bool j1Scene::Load(pugi::xml_node& node)
 {
 	BROFILER_CATEGORY("Load_Scene", Profiler::Color::DarkOliveGreen);
 
@@ -201,7 +201,7 @@ bool j1SceneLevel::Load(pugi::xml_node& node)
 }
 
 
-bool j1SceneLevel::UIinteraction(UIelement* element)
+bool j1Scene::UIinteraction(UIelement* element)
 {
 	bool ret = true;
 	UIButton* button = (UIButton*)element;
@@ -212,7 +212,7 @@ bool j1SceneLevel::UIinteraction(UIelement* element)
 	break; }
 	case EXIT:
 	{
-		if (App->transition->StartTransition((j1Module*)App->menu,this))
+		if (App->transition->StartTransition())
 		{
 			App->map->change_to_this_level = 0;
 			App->ResumeGame();
@@ -225,7 +225,7 @@ bool j1SceneLevel::UIinteraction(UIelement* element)
 	return ret;
 }
 
-bool j1SceneLevel::Pause()
+bool j1Scene::Pause()
 {
 	/*Continue = (UIButton*)App->gui->GUIAdd_button(200, 100, { 120, 163, 117, 52 },this,"CONTINUE",CONTINUE);//{1,143,143,71}
 	Exit = (UIButton*)App->gui->GUIAdd_button(200, 200, { 0, 0, 117, 52 },this,"EXIT", EXIT);//{144,143,143,71}*/
@@ -241,7 +241,7 @@ bool j1SceneLevel::Pause()
 
 	return true;
 }
-bool j1SceneLevel::Resume()
+bool j1Scene::Resume()
 {
 	if (Continue != nullptr)
 	{

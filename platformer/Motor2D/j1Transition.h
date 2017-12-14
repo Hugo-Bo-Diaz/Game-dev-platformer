@@ -23,10 +23,10 @@ public:
 	bool PostUpdate(float dt);
 
 	// Called to start a transition
-	bool StartTransition(j1Module* module_in = nullptr, j1Module* module_out = nullptr);
+	bool StartTransition();
 
 	//called for a fade to black 
-	bool Fade(float time, uint r = 0, uint g = 0, uint b = 0, j1Module* module_in = nullptr, j1Module* module_out = nullptr);
+	bool Fade(float time, uint r = 0, uint g = 0, uint b = 0);
 
 	// Called before quitting
 	bool CleanUp();
