@@ -12,7 +12,7 @@ You can watch a video of the game here:
 
 ## Team Members
 
-+ Hugo Bó
++ **Hugo Bó**
 
 (photo)
 
@@ -20,7 +20,7 @@ You can watch a video of the game here:
 
 Github: https://github.com/Hugo-Bo-Diaz
 
-+ Albert Mas
++ **Albert Mas**
 
 (photo)
 
