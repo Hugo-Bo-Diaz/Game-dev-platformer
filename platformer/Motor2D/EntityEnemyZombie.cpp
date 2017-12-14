@@ -168,11 +168,13 @@ void EntityEnemyZombie::OnCollision(Collider* c1, Collider* c2)
 			LOG("A zombie was crushed!");
 			App->scene->score += 100;
 			destroyed = true;
+			App->entities->Playfx(3);
 		}
 	}
 	if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_LAVA)
 	{
 		LOG("A zombie was barbecued!");
 		destroyed = true;
+		App->entities->Playfx(3);
 	}
 }

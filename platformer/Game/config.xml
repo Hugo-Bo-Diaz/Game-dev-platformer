@@ -78,6 +78,15 @@
       <tex path ="textures/endscreen.png" for ="end_screen" num ="4"/>
       <tex path ="textures/GasCoin25.png" for ="coin" num ="5"/>
     </textures>
+    <sounds>
+      <sfx path ="audio/fx/coin.wav" for ="coin" num ="0"/>
+      <sfx path ="audio/fx/coin2.wav" for ="coin" num ="1"/>
+      <sfx path ="audio/fx/death_bat.wav" for ="bat" num ="2"/>
+      <sfx path ="audio/fx/death_zombie.wav" for ="zombie" num ="3"/>
+      <sfx path ="audio/fx/player_death.wav" for ="player" num ="4"/>
+      <sfx path ="audio/fx/jump.wav" for ="player" num ="5"/>
+      <sfx path ="audio/fx/jump2.wav" for ="player" num ="6"/>
+    </sounds>
   </Entities>
   
   <collision>

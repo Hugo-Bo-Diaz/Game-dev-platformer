@@ -82,6 +82,8 @@ public:
 	bool MouseInside(SDL_Rect* rect);
 
 	UIwindow* Window_menu;
+
+	uint sound;
 private:
 
 	SDL_Texture* atlas;

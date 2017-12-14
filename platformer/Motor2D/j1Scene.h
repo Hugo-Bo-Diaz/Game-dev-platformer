@@ -56,8 +56,12 @@ public:
 
 private:
 
+	UIwindow* Pause_window;
 	UIButton* Continue;
+	UIButton* Settings;
 	UIButton* Exit;
+
+	UIwindow* Settings_window;
 
 	SDL_Texture* pause_background;
 };

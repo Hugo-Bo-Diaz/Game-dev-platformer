@@ -40,6 +40,8 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 
 	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
 
+	sound = App->audio->LoadFx("audio/fx/button_pressed.wav");
+
 	return ret;
 }
 
@@ -259,8 +261,13 @@ bool j1Gui::UIinteraction(UIelement* element)
 			break; }
 			case SETTINGS:
 			{LOG("SETTINGS MENU OPENED");
-				Window_menu = (UIwindow*)App->gui->GUIAdd_window(200,150, { 494,0,210,194 },"SETTINGS", true);
+			if (Window_menu == nullptr)
+			{
+				Window_menu = (UIwindow*)App->gui->GUIAdd_window(200, 150, { 494,0,210,194 }, "SETTINGS", true);
 				Window_menu->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->volume, "Music volume"), { 5, 60 });
+				Window_menu->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->fx_volume, "Sound volume"), { 5, 140 });
+
+			}
 				break; }
 			case CREDITS:
 			{

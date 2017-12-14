@@ -32,10 +32,10 @@ public:
 	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 
 	// Load a WAV in memory
-	unsigned int LoadFx(const char* path);
+	uint LoadFx(const char* path);
 
 	// Play a previously loaded WAV
-	bool PlayFx(unsigned int fx, int repeat = 0);
+	bool PlayFx(uint fx, int repeat = 0);
 
 	bool Save(pugi::xml_node& node) const;
 	bool Load(pugi::xml_node& node);
@@ -44,6 +44,9 @@ public:
 	int volume = 56;
 
 	int saved_volume = 128;
+
+	int fx_volume = 128;
+	int saved_fxvolume = 128;
 
 	bool LowerVolume();
 private:

@@ -11,6 +11,7 @@
 #include "j1Physics.h"
 #include "j1Transition.h"
 #include "Brofiler\Brofiler.h"
+#include "UIwindow.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -161,10 +162,6 @@ bool j1Scene::PostUpdate(float dt)
 
 	bool ret = true;
 
-	//if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	//	ret = false;
-
-
 	return ret;
 }
 
@@ -210,6 +207,13 @@ bool j1Scene::UIinteraction(UIelement* element)
 	case CONTINUE:
 	{App->ResumeGame();
 	break; }
+	case SETTINGS:
+	{
+		Settings_window = (UIwindow*)App->gui->GUIAdd_window(400, 150, { 494,0,210,194 }, "SETTINGS", true);
+		Settings_window->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->volume, "Music volume"), { 5, 60 });
+		Settings_window->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->fx_volume, "Sound volume"), { 5, 140 });
+		LOG("WHO PUT THIS HERE?");
+		break; }
 	case EXIT:
 	{
 		if (App->transition->StartTransition())
@@ -229,10 +233,14 @@ bool j1Scene::Pause()
 {
 	/*Continue = (UIButton*)App->gui->GUIAdd_button(200, 100, { 120, 163, 117, 52 },this,"CONTINUE",CONTINUE);//{1,143,143,71}
 	Exit = (UIButton*)App->gui->GUIAdd_button(200, 200, { 0, 0, 117, 52 },this,"EXIT", EXIT);//{144,143,143,71}*/
-	
-	Continue = (UIButton*)App->gui->GUIAdd_button(-App->render->camera.x+200, 100, {0,0,143,71}, { 144,1,133,71 }, { 0,74,171,99 },this,"CONTINUE",CONTINUE);
-	Exit = (UIButton*)App->gui->GUIAdd_button(-App->render->camera.x + 200, 200, { 0,0,143,71 }, { 144,1,133,71 }, { 0,74,171,99 }, this, "EXIT", EXIT);
-	
+	Pause_window= (UIwindow*)App->gui->GUIAdd_window(-App->render->camera.x + 200, 100, { 282,0,210,300 }, "PAUSE");
+	Continue = (UIButton*)App->gui->GUIAdd_button(0,0, {0,0,143,71}, { 144,1,133,71 }, { 0,74,171,99 },this,"CONTINUE",CONTINUE);
+	Settings = (UIButton*)App->gui->GUIAdd_button(0,0, { 0,0,143,71 }, { 144,1,133,71 }, { 0,74,171,99 }, this, "SETTINGS", SETTINGS);
+	Exit = (UIButton*)App->gui->GUIAdd_button(0,0, { 0,0,143,71 }, { 144,1,133,71 }, { 0,74,171,99 }, this, "EXIT", EXIT);
+	Pause_window->Attach(Continue, {35,35});
+	Pause_window->Attach(Settings, { 35,117 });
+	Pause_window->Attach(Exit, { 35,200 });
+
 	SDL_Surface *sshot = SDL_CreateRGBSurface(0, 750, 420, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
 	SDL_RenderReadPixels(App->render->renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
 	pause_background = App->tex->LoadSurface(sshot);
@@ -252,6 +260,17 @@ bool j1Scene::Resume()
 	{
 		App->gui->delete_element(Exit);
 		Exit = nullptr;
+	}
+	if (Settings != nullptr)
+	{
+		App->gui->delete_element(Settings);
+		Settings = nullptr;
+	}
+
+	if (Pause_window != nullptr)
+	{
+		App->gui->delete_element(Pause_window);
+		Pause_window = nullptr;
 	}
 
 	if (pause_background != nullptr)

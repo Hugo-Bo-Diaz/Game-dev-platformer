@@ -11,6 +11,9 @@
 
 #include "EntityCoin.h"
 
+#include <time.h>
+#include <stdlib.h>
+
 EntityCoin::EntityCoin()
 {
 	name.create("Coin");
@@ -76,6 +79,9 @@ void EntityCoin::OnCollision(Collider* c1, Collider* c2)
 		App->scene->coins += 1;
 		App->scene->score += 100;
 		destroyed = true;
+
+		int sound = rand() % 2 + 0;
+		App->entities->Playfx(sound);
 	}
 }
 

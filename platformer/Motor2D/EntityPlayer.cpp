@@ -18,6 +18,8 @@
 #include "EntityPlayer.h"
 
 #include<stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 EntityPlayer::EntityPlayer()
 {
@@ -168,6 +170,9 @@ bool EntityPlayer::Update(float dt, bool logic)
 		{
 			obj->velocity.y = -jump_speed;
 			obj->grounded = false;
+			srand(time(NULL));
+			int sound = rand()% 2 + 5;
+			App->entities->Playfx(sound);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
@@ -226,9 +231,10 @@ bool EntityPlayer::PreUpdate(float dt)
 			App->map->change_to_this_level = App->map->index_map;
 		else
 			App->map->change_to_this_level = 1;
+
 		set_to_start_pos = false;
 		App->transition->Fade(500.0f, 150, 0, 0);
-
+		App->entities->Playfx(4);
 	}
 	if (App->scene->time_left <= 0)
 	{
@@ -256,11 +262,11 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 	{
 		App->map->change_to_next_level = true;
 	}
-	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA && !App->scene->godmode)
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA && !App->scene->godmode&& set_to_start_pos == false)
 	{
 		set_to_start_pos = true;
 	}
-	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_ENEMY && !App->scene->godmode)
+	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_ENEMY && !App->scene->godmode && set_to_start_pos == false)
 	{
 		SDL_Rect Intersection;
 		SDL_IntersectRect(&c1->rect, &c2->rect, &Intersection);

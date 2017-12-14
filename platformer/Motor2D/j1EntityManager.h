@@ -51,6 +51,10 @@ public:
 	p2List<entity_property*> properties;
 
 	p2List<texture_struct*> textures;
+	p2List<uint> sfx;
+
+	void Playfx(int sound, int repeat = 0);
+
 	SDL_Texture* GetTex(int index)
 	{
 		SDL_Texture* ret;

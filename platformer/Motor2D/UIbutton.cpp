@@ -2,6 +2,8 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 #include "j1Textures.h"
+#include "j1Gui.h"
+#include "j1Audio.h"
 
 UIButton::UIButton(iPoint pos, const char* text, button_type _type, SDL_Rect _portion, SDL_Rect _pressed, SDL_Rect _hover)
 {
@@ -71,6 +73,7 @@ bool UIButton::OnRelease()
 
 	if (mouseover && active)
 	{
+		App->audio->PlayFx(App->gui->sound);
 		ret = OnActivation();
 	}
 	deactivate_next_frame = true;

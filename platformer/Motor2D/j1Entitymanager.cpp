@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "p2Log.h"
 #include "j1Map.h"
+#include "j1Audio.h"
 #include "EntityPlayer.h"
 #include "EntityEnemyBat.h"
 #include "EntityEnemyZombie.h"
@@ -75,6 +76,17 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 		tex->path = texture.attribute("path").as_string();
 		textures.add(tex);
 	}
+
+	pugi::xml_node node_audio = config.child("sounds");
+
+	pugi::xml_node audio;
+	j = 0;
+	for (audio = node_audio.first_child(); audio; audio = audio.next_sibling())// there are more entities with properties
+	{
+		texture_struct* tex = new texture_struct;
+		sfx.add(App->audio->LoadFx(audio.attribute("path").as_string()));
+	}
+
 
 	return true;
 }
@@ -362,4 +374,9 @@ void j1EntityManager::destroy_entity(p2List_item<Entity*>* ent)
 	ent->data->CleanUp();
 	RELEASE(ent->data);
 	entities.del(ent);
+}
+
+void j1EntityManager::Playfx(int sound, int repeat)
+{
+	App->audio->PlayFx(sfx[sound], repeat);
 }

@@ -72,6 +72,16 @@ bool j1Audio::Update(float dt)
 		Mix_VolumeMusic(volume);
 		saved_volume = volume;
 	}
+
+	if (fx_volume != saved_fxvolume)
+	{
+		for (int i = 0; i < 8; ++i)
+		{
+			Mix_Volume(i,fx_volume);//atm we need no more than 8 channel because we don't have more than 8 audios
+		}
+		saved_fxvolume = fx_volume;
+	}
+
 	return true;
 }
 

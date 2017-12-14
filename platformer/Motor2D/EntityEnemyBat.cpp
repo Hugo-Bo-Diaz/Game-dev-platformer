@@ -173,11 +173,13 @@ void EntityEnemyBat::OnCollision(Collider* c1, Collider* c2)
 			LOG("A bat was crushed");
 			App->scene->score += 100;
 			destroyed = true;
+			App->entities->Playfx(2);
 		}
 	}
 	if (c1->type == COLLIDER_ENEMY && c2->type == COLLIDER_LAVA)
 	{
 		LOG("A bat was barbecued!");
 		destroyed = true;
+		App->entities->Playfx(2);
 	}
 }
