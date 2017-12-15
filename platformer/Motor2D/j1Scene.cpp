@@ -63,12 +63,14 @@ bool j1Scene::PreUpdate(float dt)
 		score = 0;
 		coins = 0;
 		lifes = 3;
-		
+
 		lastcoins = 0;
 		lastscore = 0;
 
-		App->map->change_to_this_level = 0;
+		App->map->change_to_this_level = App->map->maps.find(App->map->maps.end->data);//this goes to the last level(the highscores)
 		App->transition->StartTransition();
+
+
 	}
 
 	return true;

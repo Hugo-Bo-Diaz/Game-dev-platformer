@@ -290,7 +290,7 @@ bool j1Map::Load(const char* file_name)
 	}
 
 	//PLAYER UI
-	if (index_map != 0)//we don't need timer on the main menu, needs improvement(especify in tiled??)
+	if (index_map != 0 && index_map != maps.count()-1)//we don't need timer on the main menu, needs improvement(especify in tiled??)
 	{
 		uint winx;
 		uint winy;
@@ -639,6 +639,26 @@ bool j1Map::CreateUI(map_layer* layer)
 				break;
 			case 3://quit button
 				App->gui->GUIAdd_button(point.x, point.y, {0,0,width,height}, { 144,1,133,71 }, { 0,74,171,99 }, App->gui,"QUIT",button_type::QUIT);
+				break;
+			case 4://highscore textbox
+				App->scene->name_highscore = (UITextbox*)App->gui->GUIAdd_textbox(point.x, point.y, App->scene,"YOUR NAME","click here");
+				break;
+			case 5://highscore leaderboard
+			{
+				UIwindow* table = (UIwindow*)App->gui->GUIAdd_window(point.x, point.y, {0,303,281,322}, "HIGHSCORE TABLE");
+				p2List_item<HighScore*>*item = App->scene->highscores.start;
+				int i = 0;
+				while (item != NULL)
+				{
+					table->Attach(App->gui->GUIAdd_text(0, 0, item->data->name.GetString(), { 0,0,0,255 }), { 10,70 + i * 50 });
+					item = item->next;
+					++i;
+				}
+			}
+				break;
+			case 6://highscore score
+				App->gui->GUIAdd_text(point.x, point.y - 30, "YOUR SCORE", {0,0,0,255});
+				App->gui->GUIAdd_VarDisplay(point.x, point.y, &App->scene->score, {0,0,0,255});
 				break;
 			default:
 				break;

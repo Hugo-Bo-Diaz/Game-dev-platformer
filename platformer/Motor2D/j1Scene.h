@@ -3,8 +3,15 @@
 
 #include "j1Module.h"
 #include "UIbutton.h"
-
+#include "UItextbox.h"
 struct SDL_Texture;
+
+struct HighScore 
+{
+	p2SString name;
+	int score;
+};
+
 
 class j1Scene : public j1Module
 {
@@ -53,6 +60,9 @@ public:
 	int lifes = 3;
 
 	int time_left = 0;
+
+	p2List<HighScore*> highscores;
+	UITextbox* name_highscore;
 
 private:
 

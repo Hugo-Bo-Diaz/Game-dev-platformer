@@ -30,12 +30,13 @@
     <folder>maps/</folder>
     <initial_map value ="0"/>
     <background r ="60" g="240" b="225"/>
-    <timer value ="11"/>
+    <timer value ="101"/>
     <map directory ="Mainmenu.tmx"/>
     <map directory ="map0.tmx"/>
     <map directory ="map1.tmx"/>
     <map directory ="map2.tmx"/>
     <map directory ="map3.tmx"/>
+    <map directory ="Highscore.tmx"/>
   </map>
 
   <Entities>
