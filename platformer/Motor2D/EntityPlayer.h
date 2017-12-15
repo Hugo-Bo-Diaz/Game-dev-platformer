@@ -25,6 +25,8 @@ public:
 	
 	void Draw();
 
+	void PlayerDeath();
+
 	void InitialPos()
 	{
 		position.x = 0;
@@ -57,6 +59,8 @@ public:
 	float hability_stored;
 	// if this is true, the player will change its position to the original one at the start of the update
 	bool set_to_start_pos = false;
+	j1Timer death;
+	bool death_timer_on = false;
 
 	float normalize_factor;
 	bool ended = false;

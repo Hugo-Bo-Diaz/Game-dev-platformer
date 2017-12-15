@@ -77,9 +77,9 @@ bool j1Transition::PostUpdate(float dt)
 			if (alpha<0)
 			{
 				alpha = 0;
-				LOG("CORRECTED");
+				//LOG("CORRECTED");
 			}
-			LOG("alpha %d, %f ",alpha, time);
+			//LOG("alpha %d, %f ",alpha, time);
 			App->render->DrawQuad({ -App->render->camera.x ,-App->render->camera.y, 750, 480 },color_fade.r, color_fade.g, color_fade.b, alpha);
 
 		}

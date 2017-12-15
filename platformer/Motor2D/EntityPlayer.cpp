@@ -222,26 +222,23 @@ bool EntityPlayer::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("PreUpdate_EntityPlayer", Profiler::Color::Gold);
 
-	if (set_to_start_pos == true)
+	if (set_to_start_pos == true && death_timer_on == false)
 	{
-		App->scene->lifes -= 1;
-		App->scene->score = App->scene->lastscore;
-		App->scene->coins = App->scene->lastcoins;
-		if (App->scene->lifes > 0)
-			App->map->change_to_this_level = App->map->index_map;
-		else
-			App->map->change_to_this_level = 1;
-
-		set_to_start_pos = false;
-		App->transition->Fade(500.0f, 150, 0, 0);
+		death.Start();
+		death_timer_on = true;
 		App->entities->Playfx(4);
+		App->transition->Fade(500.0f, 150, 0, 0);
 	}
-	if (App->scene->time_left <= 0)
+	if (App->scene->time_left <= 0 && death_timer_on == false)
 	{
-		App->scene->lifes -= 1;
-		App->map->change_to_this_level = App->map->index_map;
-		set_to_start_pos = false;
+		death.Start();
+		death_timer_on = true;
 		App->transition->Fade(500.0f, 255, 255, 255);
+	}
+
+	if (death.Read() > 250.0f && (set_to_start_pos|| App->scene->time_left <= 0))
+	{
+		PlayerDeath();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -292,4 +289,12 @@ void EntityPlayer::SetPosOrigin()
 	obj->position.y = App->map->player_start_in_map.y;
 	obj->velocity.x = 0;
 	obj->velocity.y = 0;
+}
+void EntityPlayer::PlayerDeath()
+{
+	App->scene->lifes -= 1;
+	App->scene->score = App->scene->lastscore;
+	App->scene->coins = App->scene->lastcoins;
+	App->map->change_to_this_level = App->map->index_map;
+	set_to_start_pos = false;
 }
