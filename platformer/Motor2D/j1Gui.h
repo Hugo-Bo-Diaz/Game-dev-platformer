@@ -24,6 +24,7 @@ enum button_type
 	CONTINUE,
 	EXIT,
 	CLOSE_WINDOW,
+	MAIN_MENU,
 	NUL
 };
 

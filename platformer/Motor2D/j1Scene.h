@@ -59,6 +59,8 @@ public:
 	int lastcoins = 0;
 	int lifes = 3;
 
+	int final_score = 0;
+
 	int time_left = 0;
 
 	p2List<HighScore*> highscores;
