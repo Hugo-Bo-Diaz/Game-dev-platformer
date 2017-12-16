@@ -293,8 +293,11 @@ void EntityPlayer::SetPosOrigin()
 void EntityPlayer::PlayerDeath()
 {
 	App->scene->lifes -= 1;
-	App->scene->score = App->scene->lastscore;
-	App->scene->coins = App->scene->lastcoins;
+	if (App->scene->lifes > 0)
+	{
+		App->scene->score = App->scene->lastscore;
+		App->scene->coins = App->scene->lastcoins;
+	}
 	App->map->change_to_this_level = App->map->index_map;
 	set_to_start_pos = false;
 }
