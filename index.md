@@ -11,18 +11,15 @@ You can watch a video of the game here:
 (video)
 
 ## Team Members
+<br><img src="https://github.com/Hugo-Bo-Diaz/Game-dev-platformer/blob/master/platformer/Game/GroupPhoto.jpg?raw=true" width = "661" height = "452" alt="Error loading img"><br>
 
-+ **Hugo Bó**
-
-(photo)
++ **Hugo Bó**(Left)
 
 (individual work explanation)
 
 Github: https://github.com/Hugo-Bo-Diaz
 
-+ **Albert Mas**
-
-(photo)
++ **Albert Mas**(Right)
 
 (individual work explanation)
 
