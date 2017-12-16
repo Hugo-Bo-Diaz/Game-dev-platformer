@@ -295,7 +295,7 @@ bool j1Scene::UIinteraction(UIelement* element)
 			highscores.add(new_player);
 
 			//now we reload the level again so that the highscores are displayed correctly
-			App->map->change_to_this_level = 0;
+			App->map->change_to_this_level = App->map->index_map;
 			BubbleSort_highscore();
 		}
 	}
