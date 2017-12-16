@@ -4,13 +4,16 @@
 	<window />
 	<textures />
 	<audio>
-		<volume value="0" />
-		<fx_volume value="0" />
+		<volume value="80" />
+		<fx_volume value="30" />
 	</audio>
 	<scene>
 		<coins value="0" />
 		<lifes value="3" />
 		<score value="0" />
+		<highscores>
+			<entry score="21370" name="SCORE 1" />
+		</highscores>
 	</scene>
 	<gui />
 	<fonts />
@@ -18,11 +21,11 @@
 	<collision />
 	<map>
 		<current_map value="1" />
-		<time_left value="96" />
+		<time_left value="99" />
 	</map>
 	<Entities>
 		<Bat x="1653" y="35" type="1" />
-		<Player x="77" y="235" type="2" />
+		<Player x="35" y="235" type="2" />
 		<Coin x="210" y="175" type="5" />
 		<Zombie x="385" y="207" type="3" />
 		<Coin x="595" y="210" type="5" />

@@ -189,6 +189,16 @@ bool j1Scene::Save(pugi::xml_node& node) const
 	node.append_child("lifes").append_attribute("value") = lifes;
 	node.append_child("score").append_attribute("value") = score;
 
+	pugi::xml_node highscores_node = node.append_child("highscores");
+	p2List_item<HighScore*>* item = highscores.start;
+	while (item != NULL)
+	{
+		pugi::xml_node entry_node = highscores_node.append_child("entry");
+		entry_node.append_attribute("name") = item->data->name.GetString();
+		entry_node.append_attribute("score") = item->data->score;
+		item = item->next;
+	}
+
 	return true;
 }
 
@@ -196,11 +206,32 @@ bool j1Scene::Load(pugi::xml_node& node)
 {
 	BROFILER_CATEGORY("Load_Scene", Profiler::Color::DarkOliveGreen);
 
+	//clear highscores
+	p2List_item<HighScore*>* item = highscores.start;
+	while (item != NULL)
+	{
+		delete item->data;
+		item = item->next;
+	}
+	highscores.clear();
+
+	bool ret = true;
+
 	score = node.child("score").attribute("value").as_int();
 	coins = node.child("coins").attribute("value").as_int();
 	lifes = node.child("lifes").attribute("value").as_int();
 
-	return true;
+	pugi::xml_node highscores_node = node.child("highscores");
+	pugi::xml_node highscore;
+
+	for (highscore = highscores_node.child("entry"); highscore && ret; highscore = highscore.next_sibling("entry"))
+	{
+		HighScore* ret = new HighScore;
+		ret->name = highscore.attribute("name").as_string();
+		ret->score = highscore.attribute("score").as_int();
+		highscores.add(ret);
+	}
+	return ret;
 }
 
 
