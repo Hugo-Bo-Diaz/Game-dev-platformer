@@ -18,7 +18,9 @@ enum button_type
 {
 	NEW_GAME,
 	LOAD_GAME,
+	SAVE_GAME,
 	CREDITS,
+	HIGHSCORES,
 	SETTINGS,
 	QUIT,
 	CONTINUE,

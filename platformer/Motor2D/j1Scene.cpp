@@ -256,7 +256,20 @@ bool j1Scene::UIinteraction(UIelement* element)
 		case MAIN_MENU:
 		{
 			App->map->change_to_this_level = 0;
+			App->SaveGame();
 			break; }
+		case SAVE_GAME:
+		{
+			App->ResumeGame();
+			App->SaveGame();
+			break;
+		}
+		case LOAD_GAME:
+		{
+			App->ResumeGame();
+			App->LoadGame();
+			break;
+		}
 		case EXIT:
 		{
 			if (App->transition->StartTransition())
@@ -281,38 +294,7 @@ bool j1Scene::UIinteraction(UIelement* element)
 
 		//now we reload the level again so that the highscores are displayed correctly
 		App->map->change_to_this_level = App->map->index_map;
-		//highscores.BubbleSort();
-
-		p2List_item<HighScore*>* item = highscores.start;
-		bool swapped = true;
-		while (swapped)
-		{
-			swapped = false;
-			while (item != NULL )
-			{
-				if (item->next != NULL && item->data->score < item->next->data->score)//error in the order
-				{
-					int tmp_int = item->data->score;
-					p2SString tmp_str = item->data->name;
-
-					item->data->score = item->next->data->score;
-					item->data->name = item->next->data->name;
-
-					item->next->data->score = tmp_int;
-					item->next->data->name = tmp_str;
-
-					swapped = true;
-				}
-				if (item->next != NULL)
-				{
-					item = item->next;
-				}
-				else 
-				{ 
-					break;
-				}
-			}
-		}
+		BubbleSort_highscore();
 	}
 	return ret;
 }
@@ -325,6 +307,13 @@ bool j1Scene::Pause()
 	Continue = (UIButton*)App->gui->GUIAdd_button(0,0, {0,0,143,71}, { 144,1,133,71 }, { 0,74,171,99 },this,"CONTINUE",CONTINUE);
 	Settings = (UIButton*)App->gui->GUIAdd_button(0,0, { 0,0,143,71 }, { 144,1,133,71 }, { 0,74,171,99 }, this, "SETTINGS", SETTINGS);
 	Exit = (UIButton*)App->gui->GUIAdd_button(0,0, { 0,0,143,71 }, { 144,1,133,71 }, { 0,74,171,99 }, this, "EXIT", EXIT);
+	
+	Save_button = (UIButton*)App->gui->GUIAdd_button(0, 0, { 0,0,143,71 }, { 144,1,133,71 }, { 0,74,171,99 }, this, "SAVE", SAVE_GAME);
+	Load_button= (UIButton*)App->gui->GUIAdd_button(0, 0, { 0,0,143,71 }, { 144,1,133,71 }, { 0,74,171,99 }, this, "LOAD", LOAD_GAME);
+	
+	Pause_window->Attach(Save_button, {200,117});
+	Pause_window->Attach(Load_button, {200,200});
+
 	Pause_window->Attach(Continue, {35,35});
 	Pause_window->Attach(Settings, { 35,117 });
 	Pause_window->Attach(Exit, { 35,200 });
@@ -355,6 +344,17 @@ bool j1Scene::Resume()
 		Settings = nullptr;
 	}
 
+	if (Save_button != nullptr)
+	{
+		App->gui->delete_element(Save_button);
+		Save_button = nullptr;
+	}
+	if (Load_button != nullptr)
+	{
+		App->gui->delete_element(Load_button);
+		Load_button = nullptr;
+	}
+
 	if (Pause_window != nullptr)
 	{
 		App->gui->delete_element(Pause_window);
@@ -368,4 +368,42 @@ bool j1Scene::Resume()
 	}
 
 	return true;
+}
+
+void j1Scene::BubbleSort_highscore()
+{
+
+	p2List_item<HighScore*>* item = highscores.start;
+	bool swapped = true;
+	while (swapped)
+	{
+		swapped = false;
+		while (item != NULL)
+		{
+			if (item->next != NULL && item->data->score < item->next->data->score)//error in the order
+			{
+				int tmp_int = item->data->score;
+				p2SString tmp_str = item->data->name;
+
+				item->data->score = item->next->data->score;
+				item->data->name = item->next->data->name;
+
+				item->next->data->score = tmp_int;
+				item->next->data->name = tmp_str;
+
+				swapped = true;
+			}
+			if (item->next != NULL)
+			{
+				item = item->next;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+
+
+
 }

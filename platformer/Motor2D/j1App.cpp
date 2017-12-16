@@ -218,12 +218,6 @@ void j1App::FinishUpdate()
 {
 	BROFILER_CATEGORY("FinishUpdate", Profiler::Color::Sienna);
 
-	if(want_to_save == true)
-		SavegameNow();
-
-	if(want_to_load == true)
-		LoadGameNow();
-
 	if (want_to_pause == true)
 		PauseGameNow();
 
@@ -246,6 +240,13 @@ void j1App::FinishUpdate()
 		App->map->change_map(App->map->change_to_this_level);
 		App->map->change_to_this_level = -1;
 	}
+
+	if (want_to_save == true)
+		SavegameNow();
+
+	if (want_to_load == true)
+		LoadGameNow();
+
 
 	if (last_sec_frame_time.Read() > 1000)
 	{

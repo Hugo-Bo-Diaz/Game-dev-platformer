@@ -287,6 +287,11 @@ bool j1Gui::UIinteraction(UIelement* element)
 				}
 				break;
 			}
+			case HIGHSCORES:
+			{
+				App->map->change_to_this_level = App->map->maps.count() - 1;
+				break;
+			}
 			case QUIT:
 			{ret = false;
 			break; }

@@ -73,9 +73,14 @@ private:
 	UIButton* Settings;
 	UIButton* Exit;
 
+	UIButton* Save_button;
+	UIButton* Load_button;
+
 	UIwindow* Settings_window;
 
 	SDL_Texture* pause_background;
+
+	void BubbleSort_highscore();
 };
 
 #endif // __j1SCENE_H__

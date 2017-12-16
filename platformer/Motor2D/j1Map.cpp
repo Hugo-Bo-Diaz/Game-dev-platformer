@@ -636,6 +636,7 @@ bool j1Map::CreateUI(map_layer* layer)
 			}
 			case 2://credits button
 				App->gui->GUIAdd_button(point.x, point.y, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "CREDITS", button_type::CREDITS);
+				App->gui->GUIAdd_button(point.x, point.y-100, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "HIGHSCORES", button_type::HIGHSCORES);
 				break;
 			case 3://quit button
 				App->gui->GUIAdd_button(point.x, point.y, {0,0,width,height}, { 144,1,133,71 }, { 0,74,171,99 }, App->gui,"QUIT",button_type::QUIT);
