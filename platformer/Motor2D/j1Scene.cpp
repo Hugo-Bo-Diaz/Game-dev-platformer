@@ -60,6 +60,7 @@ bool j1Scene::PreUpdate(float dt)
 	if (lifes <= 0)//reset stats NEEDS TO BE LOADED IN CONFIG, MyBad WorkInProgress
 	{
 		LOG("LOL U BAD");
+		final_score = score;
 		score = 0;
 		coins = 0;
 		lifes = 3;
@@ -163,7 +164,10 @@ bool j1Scene::PostUpdate(float dt)
 	BROFILER_CATEGORY("PostUpdate_Scene", Profiler::Color::LawnGreen);
 
 	bool ret = true;
-
+	if (godmode && App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		score += 10000;
+	}
 	return ret;
 }
 
@@ -203,30 +207,81 @@ bool j1Scene::Load(pugi::xml_node& node)
 bool j1Scene::UIinteraction(UIelement* element)
 {
 	bool ret = true;
-	UIButton* button = (UIButton*)element;
-	switch (button->type)
+	if (element->type_of_element == BUTTON)
 	{
-	case CONTINUE:
-	{App->ResumeGame();
-	break; }
-	case SETTINGS:
-	{
-		Settings_window = (UIwindow*)App->gui->GUIAdd_window(400, 150, { 494,0,210,194 }, "SETTINGS", true);
-		Settings_window->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->volume, "Music volume"), { 5, 60 });
-		Settings_window->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->fx_volume, "Sound volume"), { 5, 140 });
-		LOG("WHO PUT THIS HERE?");
+		UIButton* button = (UIButton*)element;
+		switch (button->type)
+		{
+		case CONTINUE:
+		{App->ResumeGame();
 		break; }
-	case EXIT:
-	{
-		if (App->transition->StartTransition())
+		case SETTINGS:
+		{
+			Settings_window = (UIwindow*)App->gui->GUIAdd_window(400, 150, { 494,0,210,194 }, "SETTINGS", true);
+			Settings_window->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->volume, "Music volume"), { 5, 60 });
+			Settings_window->Attach(App->gui->GUIAdd_slider(0, 0, { 0,0,200,45 }, { 207,116,25,43 }, { 251,116,25,43 }, { 232,134,18,9 }, { 185,112,19,42 }, 128, &App->audio->fx_volume, "Sound volume"), { 5, 140 });
+			LOG("WHO PUT THIS HERE?");
+			break; }
+		case MAIN_MENU:
 		{
 			App->map->change_to_this_level = 0;
-			App->ResumeGame();
+			break; }
+		case EXIT:
+		{
+			if (App->transition->StartTransition())
+			{
+				App->map->change_to_this_level = 0;
+				App->ResumeGame();
+			}
+			break; }
+		default:
+		{LOG("ERROR");
+		break; }
 		}
-	break; }
-	default:
-	{LOG("ERROR");
-	break; }
+	}
+	if (element->type_of_element == TEXTBOX && element == name_highscore)//this is the submit score function may change it to some separate thing
+	{
+		UITextbox* textbox = (UITextbox*)element;
+		HighScore* new_player = new HighScore;
+		new_player->name = textbox->text;
+		new_player->score = final_score;
+		final_score = 0;
+		highscores.add(new_player);
+
+		//now we reload the level again so that the highscores are displayed correctly
+		App->map->change_to_this_level = App->map->index_map;
+		//highscores.BubbleSort();
+
+		p2List_item<HighScore*>* item = highscores.start;
+		bool swapped = true;
+		while (swapped)
+		{
+			swapped = false;
+			while (item != NULL )
+			{
+				if (item->next != NULL && item->data->score < item->next->data->score)//error in the order
+				{
+					int tmp_int = item->data->score;
+					p2SString tmp_str = item->data->name;
+
+					item->data->score = item->next->data->score;
+					item->data->name = item->next->data->name;
+
+					item->next->data->score = tmp_int;
+					item->next->data->name = tmp_str;
+
+					swapped = true;
+				}
+				if (item->next != NULL)
+				{
+					item = item->next;
+				}
+				else 
+				{ 
+					break;
+				}
+			}
+		}
 	}
 	return ret;
 }

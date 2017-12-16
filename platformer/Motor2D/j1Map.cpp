@@ -651,14 +651,16 @@ bool j1Map::CreateUI(map_layer* layer)
 				while (item != NULL)
 				{
 					table->Attach(App->gui->GUIAdd_text(0, 0, item->data->name.GetString(), { 0,0,0,255 }), { 10,70 + i * 50 });
+					table->Attach(App->gui->GUIAdd_VarDisplay(0, 0, &item->data->score), {250,70+i*50});
 					item = item->next;
 					++i;
 				}
+				App->gui->GUIAdd_button(point.x + 330, point.y, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 },App->scene,"MENU",button_type::MAIN_MENU);
 			}
 				break;
 			case 6://highscore score
 				App->gui->GUIAdd_text(point.x, point.y - 30, "YOUR SCORE", {0,0,0,255});
-				App->gui->GUIAdd_VarDisplay(point.x, point.y, &App->scene->score, {0,0,0,255});
+				App->gui->GUIAdd_VarDisplay(point.x, point.y, &App->scene->final_score, {0,0,0,255});
 				break;
 			default:
 				break;

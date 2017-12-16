@@ -14,7 +14,7 @@ UITextbox::UITextbox(iPoint pos, const char* name, const char* _default_text)// 
 	portion = { 401,300,126,25 };
 	type_of_element = TEXTBOX;
 	default_text = App->tex->textures.add(App->font->Print(_default_text, { 50,50,50,255 }, App->font->default))->data;
-	Attach(App->gui->GUIAdd_VarDisplay(0, 0, &text_pos), {0,50});
+	//Attach(App->gui->GUIAdd_VarDisplay(0, 0, &text_pos), {0,50});
 }
 
 UITextbox::~UITextbox()
@@ -92,7 +92,7 @@ void UITextbox::Draw() {
 	//test text
 	if (!texting && text.Length() == 0)
 		App->render->Blit(default_text, winposition.x+5, winposition.y+5);
-	//barrita
+	//bar
 	if (texting)
 	{
 		int width = 0;
@@ -105,6 +105,12 @@ void UITextbox::Draw() {
 			App->font->CalcSize(test, width, height,App->font->default);
 		}
 		App->render->DrawQuad({ winposition.x + width + 5,winposition.y,2,25 }, 150, 150, 150, 255);
+	}
+
+	//we need enter to enter the text as input and call the text in whatever callback it is
+	if (texting && App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	{
+		OnActivation();
 	}
 
 	if (mouseover)
