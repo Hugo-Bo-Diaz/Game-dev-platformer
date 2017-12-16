@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="21" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="21" height="12" tilewidth="35" tileheight="35" nextobjectid="1">
+ <properties>
+  <property name="music" value="audio/music/FindYou.ogg"/>
+ </properties>
  <tileset firstgid="1" name="tileset_menu" tilewidth="143" tileheight="71" spacing="1" margin="1" tilecount="4" columns="2">
-  <image source="tileset_menu.png" width="289" height="145"/>
+  <image source="tileset_menu.png" width="289" height="215"/>
  </tileset>
  <imagelayer name="background">
   <image source="../textures/startscreen.png" width="750" height="420"/>

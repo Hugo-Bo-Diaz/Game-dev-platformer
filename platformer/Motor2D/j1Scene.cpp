@@ -293,16 +293,19 @@ bool j1Scene::UIinteraction(UIelement* element)
 	}
 	if (element->type_of_element == TEXTBOX && element == name_highscore)//this is the submit score function may change it to some separate thing
 	{
-		UITextbox* textbox = (UITextbox*)element;
-		HighScore* new_player = new HighScore;
-		new_player->name = textbox->text;
-		new_player->score = final_score;
-		final_score = 0;
-		highscores.add(new_player);
+		if (final_score != 0)
+		{
+			UITextbox* textbox = (UITextbox*)element;
+			HighScore* new_player = new HighScore;
+			new_player->name = textbox->text;
+			new_player->score = final_score;
+			final_score = 0;
+			highscores.add(new_player);
 
-		//now we reload the level again so that the highscores are displayed correctly
-		App->map->change_to_this_level = App->map->index_map;
-		BubbleSort_highscore();
+			//now we reload the level again so that the highscores are displayed correctly
+			App->map->change_to_this_level = App->map->index_map;
+			BubbleSort_highscore();
+		}
 	}
 	return ret;
 }
