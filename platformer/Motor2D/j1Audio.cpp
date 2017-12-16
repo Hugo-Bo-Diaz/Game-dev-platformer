@@ -61,6 +61,18 @@ bool j1Audio::Awake(pugi::xml_node& config)
 
 	Mix_VolumeMusic(volume);
 
+	fx_volume = config.child("fx_volume").attribute("default").as_int();
+	if (fx_volume < 0)
+		fx_volume = 0;
+	if (fx_volume != saved_fxvolume)
+	{
+		for (int i = 0; i < 8; ++i)
+		{
+			Mix_Volume(i, fx_volume);//atm we need no more than 8 channel because we don't have more than 8 audios
+		}
+		saved_fxvolume = fx_volume;
+	}
+
 	return ret;
 }
 
@@ -251,6 +263,7 @@ bool j1Audio::Save(pugi::xml_node& node) const
 	BROFILER_CATEGORY("Save_Scene", Profiler::Color::DarkOliveGreen);
 
 	node.append_child("volume").append_attribute("value") = volume;
+	node.append_child("fx_volume").append_attribute("value") = fx_volume;
 
 	return true;
 }
@@ -259,8 +272,20 @@ bool j1Audio::Load(pugi::xml_node& node)
 {
 	BROFILER_CATEGORY("Load_Scene", Profiler::Color::DarkOliveGreen);
 
-	volume = node.child("volume").attribute("value").as_uint();
+	volume = node.child("volume").attribute("value").as_uint();	
 	Mix_VolumeMusic(volume);
+
+	fx_volume = node.child("fx_volume").attribute("value").as_int();
+	if (fx_volume < 0)
+		fx_volume = 0;
+	if (fx_volume != saved_fxvolume)
+	{
+		for (int i = 0; i < 8; ++i)
+		{
+			Mix_Volume(i, fx_volume);//atm we need no more than 8 channel because we don't have more than 8 audios
+		}
+		saved_fxvolume = fx_volume;
+	}
 
 	return true;
 }

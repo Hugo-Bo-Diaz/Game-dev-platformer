@@ -5,11 +5,12 @@
 	<textures />
 	<audio>
 		<volume value="0" />
+		<fx_volume value="0" />
 	</audio>
 	<scene>
-		<coins value="1" />
+		<coins value="0" />
 		<lifes value="3" />
-		<score value="100" />
+		<score value="0" />
 	</scene>
 	<gui />
 	<fonts />
@@ -17,11 +18,12 @@
 	<collision />
 	<map>
 		<current_map value="1" />
-		<time_left value="91" />
+		<time_left value="96" />
 	</map>
 	<Entities>
 		<Bat x="1653" y="35" type="1" />
-		<Player x="166" y="235" type="2" />
+		<Player x="77" y="235" type="2" />
+		<Coin x="210" y="175" type="5" />
 		<Zombie x="385" y="207" type="3" />
 		<Coin x="595" y="210" type="5" />
 		<Coin x="875" y="210" type="5" />

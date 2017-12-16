@@ -20,6 +20,7 @@
 
   <audio>
     <volume default="80"/>
+    <fx_volume default="30"/>
   </audio>
 
   <file_system>
