@@ -56,8 +56,8 @@ bool j1Scene::PreUpdate(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		coins = lastcoins;
-		score = lastscore;
+		//coins = lastcoins;
+		//score = lastscore;
 		App->map->change_to_this_level = App->map->index_map;
 	}
 
