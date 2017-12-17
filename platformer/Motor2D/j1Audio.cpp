@@ -135,12 +135,13 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 
 	if(!active)
 		return false;
-
-	if (path == current_music.GetString())
+	p2SString p = path;
+	if (p == current_music)
 	{
 		LOG("SAME MUSIC ALREADY PLAYING");
 		return false;
 	}
+
 	if(music != NULL)
 	{
 		if(fade_time > 0.0f)

@@ -109,6 +109,7 @@ public:
 	j1Physics*			physics;
 
 	uint32				frame_cap = 0;
+	uint32				cnfgframe_cap = 0;
 	bool				paused_game = false;
 	bool first = true;
 

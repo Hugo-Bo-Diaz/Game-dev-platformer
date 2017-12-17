@@ -161,6 +161,20 @@ bool j1Scene::PostUpdate(float dt)
 	BROFILER_CATEGORY("PostUpdate_Scene", Profiler::Color::LawnGreen);
 
 	bool ret = true;
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		bool exit = false;
+		if (App->frame_cap == App->cnfgframe_cap && !exit)
+		{
+			App->frame_cap = 0;
+			exit = true;
+		}
+		if (App->frame_cap == 0 && !exit)
+		{
+			App->frame_cap = App->cnfgframe_cap;
+			exit = true;
+		}
+	}
 
 	return ret;
 }

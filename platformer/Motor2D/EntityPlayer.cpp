@@ -258,6 +258,7 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_NEXT_LEVEL)
 	{
 		App->map->change_to_next_level = true;
+		App->transition->StartTransition();
 	}
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_LAVA && !App->scene->godmode&& set_to_start_pos == false)
 	{

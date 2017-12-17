@@ -8,7 +8,7 @@
 		<fx_volume value="30" />
 	</audio>
 	<scene>
-		<coins value="0" />
+		<coins value="10" />
 		<lifes value="3" />
 		<score value="0" />
 		<highscores />
@@ -19,7 +19,7 @@
 	<collision />
 	<map>
 		<current_map value="0" />
-		<time_left value="100" />
+		<time_left value="99" />
 	</map>
 	<Entities />
 	<physics />

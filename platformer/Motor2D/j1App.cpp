@@ -113,7 +113,8 @@ bool j1App::Awake()
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 
-		frame_cap = app_config.attribute("framerate_cap").as_uint(100);
+		cnfgframe_cap = app_config.attribute("framerate_cap").as_uint(100);
+		frame_cap = cnfgframe_cap;
 	}
 	save_game = "save_game.xml";
 	load_game = "save_game.xml";
@@ -205,7 +206,7 @@ void j1App::PrepareUpdate()
 	float frame_time_read = frame_time.Read();
 	dt = frame_time_read;
 
-	if (dt > 1000 / App->frame_cap)
+	if (frame_cap != 0 && dt > 1000 / App->frame_cap )
 	{
 		dt = 1000 / App->frame_cap;
 	}
@@ -269,12 +270,14 @@ void j1App::FinishUpdate()
 	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
 
 	j1PerfTimer* time_stopped = new j1PerfTimer();
-	
-	int framecapminuslastframesms = 1000 / frame_cap - last_frame_ms;
-
-	if (framecapminuslastframesms > 0)
+	if (frame_cap != 0)
 	{
-		SDL_Delay(framecapminuslastframesms);
+		int framecapminuslastframesms = 1000 / frame_cap - last_frame_ms;
+
+		if (framecapminuslastframesms > 0)
+		{
+			SDL_Delay(framecapminuslastframesms);
+		}
 	}
 	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
 	int print = time_stopped->ReadMs();
