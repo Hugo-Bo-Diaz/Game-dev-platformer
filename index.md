@@ -62,7 +62,7 @@ We have also implemented a highscore system that will save the best runs you hav
 + *F11* = Enable/Disable 30 FPS cap
 
 ## Download the latest version of *Where Is My Plane?* [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer/releases/tag/v1.2.1)!
-## Chech out our Github repository [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer)!
+## Check out our Github repository [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer)!
 
 ## License
 MIT License
