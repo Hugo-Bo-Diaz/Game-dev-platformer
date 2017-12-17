@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "j1Audio.h"
 #include "j1Textures.h"
 #include "j1Scene.h"
 #include "j1Map.h"
@@ -336,6 +337,21 @@ bool j1Map::LoadMap()
 	}
 	else
 	{
+		pugi::xml_node properties = map.child("properties");
+		pugi::xml_node iterator;
+		for (iterator = properties.child("property"); iterator; iterator = iterator.next_sibling("property"))
+		{
+			p2SString str = iterator.attribute("name").as_string();
+			p2SString n1 = "music";
+			if (str == n1)
+			{
+				App->audio->PlayMusic(iterator.attribute("value").as_string(""));
+			}
+		}
+
+
+
+
 		data.width = map.attribute("width").as_int();
 		data.height = map.attribute("height").as_int();
 		data.tile_width = map.attribute("tilewidth").as_int();
