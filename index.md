@@ -23,7 +23,7 @@ You can watch a video of the game here:
 -Highscores
 -Normalization
 
-Github: https://github.com/Hugo-Bo-Diaz
+Github: [https://github.com/Hugo-Bo-Diaz](https://github.com/Hugo-Bo-Diaz)
 
 + **Albert Mas** (Right)
 
@@ -36,7 +36,7 @@ Github: https://github.com/Hugo-Bo-Diaz
 -Testing
 -Enemies
 
-Github: https://github.com/albertmas
+Github: [https://github.com/albertmas](https://github.com/albertmas)
 
 ## Explanation of the core subsystems and innovations
 
