@@ -23,7 +23,7 @@ public:
 	virtual ~j1Scene();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node& config);
 
 	// Called before the first frame
 	bool Start();
@@ -60,6 +60,8 @@ public:
 	int final_score = 0;
 
 	int time_left = 0;
+
+	int cnfg_lifes=0;
 
 	p2List<HighScore*> highscores;
 	UITextbox* name_highscore = nullptr;

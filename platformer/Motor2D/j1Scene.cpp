@@ -24,10 +24,12 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+
+	cnfg_lifes = config.child("starting_lifes").attribute("value").as_int(100);
 
 	return ret;
 }
@@ -57,15 +59,15 @@ bool j1Scene::PreUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->map->change_to_this_level = App->map->index_map;
 
-	if (lifes <= 0)//reset stats NEEDS TO BE LOADED IN CONFIG, MyBad WorkInProgress
+	if (lifes <= 0)
 	{
 		LOG("LOL U BAD");
 		final_score = score;
 		score = 0;
 		coins = 0;
-		lifes = 3;
+		lifes = cnfg_lifes;
 		
-		App->map->change_to_this_level = App->map->maps.find(App->map->maps.end->data);//this goes to the last level(the highscores)
+		App->map->change_to_this_level = App->map->maps.count()-1;//this goes to the last level(the highscores)
 		App->transition->StartTransition();
 
 

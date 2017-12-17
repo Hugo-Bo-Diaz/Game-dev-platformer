@@ -102,4 +102,8 @@
   <transition>
     <speed value="15"/>
   </transition>
+
+  <scene>
+    <starting_lifes value ="3"/>
+  </scene>
 </config>
