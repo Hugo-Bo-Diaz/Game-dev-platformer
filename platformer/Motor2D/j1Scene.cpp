@@ -16,6 +16,7 @@
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
+	load_at_start = true;
 }
 
 // Destructor
@@ -222,13 +223,14 @@ bool j1Scene::Load(pugi::xml_node& node)
 	highscores.clear();
 
 	bool ret = true;
-
-	score = node.child("score").attribute("value").as_int();
-	lastscore = node.child("lastscore").attribute("value").as_int();
-	coins = node.child("coins").attribute("value").as_int();
-	lastcoins = node.child("lastcoins").attribute("value").as_int();
-	lifes = node.child("lifes").attribute("value").as_int();
-
+	if (!App->first)
+	{
+		score = node.child("score").attribute("value").as_int();
+		lastscore = node.child("lastscore").attribute("value").as_int();
+		coins = node.child("coins").attribute("value").as_int();
+		lastcoins = node.child("lastcoins").attribute("value").as_int();
+		lifes = node.child("lifes").attribute("value").as_int();
+	}
 	pugi::xml_node highscores_node = node.child("highscores");
 	pugi::xml_node highscore;
 

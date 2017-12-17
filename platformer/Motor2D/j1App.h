@@ -81,7 +81,7 @@ private:
 	bool PostUpdate();
 
 	// Load / Save
-	bool LoadGameNow();
+	bool LoadGameNow(bool first_time);
 	bool SavegameNow() const;
 
 	//pause / resume
@@ -110,6 +110,7 @@ public:
 
 	uint32				frame_cap = 0;
 	bool				paused_game = false;
+	bool first = true;
 
 private:
 
