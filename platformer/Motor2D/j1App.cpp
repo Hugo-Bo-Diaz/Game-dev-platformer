@@ -442,7 +442,7 @@ bool j1App::LoadGameNow(bool first_time)
 					ret = item->data->Load(root.child(item->data->name.GetString()));
 				item = item->next;
 			}
-			first = false;
+
 		}
 		else
 		{
@@ -460,7 +460,8 @@ bool j1App::LoadGameNow(bool first_time)
 	}
 	else
 		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.GetString(), result.description());
-
+	
+	first = false;
 	want_to_load = false;
 	return ret;
 }

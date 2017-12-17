@@ -11,6 +11,7 @@ j1Audio::j1Audio() : j1Module()
 {
 	music = NULL;
 	name.create("audio");
+	load_at_start = true;
 }
 
 // Destructor
@@ -135,6 +136,11 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 	if(!active)
 		return false;
 
+	if (path == current_music.GetString())
+	{
+		LOG("SAME MUSIC ALREADY PLAYING");
+		return false;
+	}
 	if(music != NULL)
 	{
 		if(fade_time > 0.0f)

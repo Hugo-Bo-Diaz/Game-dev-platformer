@@ -87,6 +87,7 @@ struct MapData
 	// TODO 2: Add a list/array of layers to the map!
 	p2List<map_layer*> layers;
 	Collider* colliders[500];
+	p2SString			music;
 	background* back = nullptr;
 };
 

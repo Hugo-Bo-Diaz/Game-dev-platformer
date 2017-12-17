@@ -38,7 +38,6 @@ bool j1Scene::Start()
 	BROFILER_CATEGORY("Start_Scene", Profiler::Color::LawnGreen);
 
 	App->map->Load(App->map->current_map.GetString());
-	App->audio->PlayMusic("audio/music/FindYou.ogg");
 
 	return true;
 }

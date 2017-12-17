@@ -4,7 +4,7 @@
 	<window />
 	<textures />
 	<audio>
-		<volume value="80" />
+		<volume value="112" />
 		<fx_volume value="30" />
 	</audio>
 	<scene>
@@ -13,7 +13,7 @@
 		<lifes value="3" />
 		<score value="0" />
 		<lastscore value="0" />
-		<highscores/>
+		<highscores />
 	</scene>
 	<gui />
 	<fonts />
@@ -21,7 +21,7 @@
 	<collision />
 	<map>
 		<current_map value="0" />
-		<time_left value="100" />
+		<time_left value="94" />
 	</map>
 	<Entities />
 	<physics />

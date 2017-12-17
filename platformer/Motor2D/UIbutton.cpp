@@ -35,18 +35,25 @@ UIButton::~UIButton()
 
 void UIButton::Draw()
 {
-	if (active)
+	if (interactuable)
+	{
+		if (active)
+		{
+			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &pressed);
+		}
+		else
+		{
+			App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &portion);
+		}
+		if (mouseover)
+		{
+			App->render->Blit(App->gui->GetAtlas(), winposition.x - 11, winposition.y - 12, &glow);
+			mouseover = false;
+		}
+	}
+	if (!interactuable)
 	{
 		App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &pressed);
-	}
-	else
-	{
-		App->render->Blit(App->gui->GetAtlas(), winposition.x, winposition.y, &portion);
-	}
-	if (mouseover)
-	{
-		App->render->Blit(App->gui->GetAtlas(), winposition.x - 11, winposition.y - 12, &glow);
-		mouseover = false;
 	}
 	if (tex != nullptr)
 		App->render->Blit(tex, winposition.x + portion.w / 2 - text_w / 2, (winposition.y + portion.h / 2 - text_h / 2) - 2);
@@ -71,7 +78,7 @@ bool UIButton::OnRelease()
 {
 	bool ret = true;
 
-	if (mouseover && active)
+	if (mouseover && active && interactuable)
 	{
 		App->audio->PlayFx(App->gui->sound);
 		ret = OnActivation();
