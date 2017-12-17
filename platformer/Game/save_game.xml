@@ -8,7 +8,7 @@
 		<fx_volume value="30" />
 	</audio>
 	<scene>
-		<coins value="10" />
+		<coins value="0" />
 		<lifes value="3" />
 		<score value="0" />
 		<highscores />

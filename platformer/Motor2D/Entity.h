@@ -24,7 +24,7 @@ enum ENTITY_TYPE
 	ZOMBIE,
 	PLANE,
 	COIN,
-	END
+	NULLLL
 };
 
 class Entity

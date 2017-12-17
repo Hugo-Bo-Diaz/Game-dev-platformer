@@ -8,7 +8,6 @@
 #include "EntityEnemyBat.h"
 #include "EntityEnemyZombie.h"
 #include "EntityPlane.h"
-#include "Entitythanksforplaying.h"
 #include "EntityCoin.h"
 #include "Brofiler\Brofiler.h"
 
@@ -130,11 +129,6 @@ Entity* j1EntityManager::AddEntity(int _x, int _y, ENTITY_TYPE type)
 	case ENTITY_TYPE::PLANE:
 	{
 		ret = new EntityPlane;
-		break;
-	}
-	case ENTITY_TYPE::END:
-	{
-		ret = new EntityEndScreen;
 		break;
 	}
 	case ENTITY_TYPE::COIN:
