@@ -244,8 +244,8 @@ void j1App::FinishUpdate()
 	if (want_to_save == true)
 		SavegameNow();
 
-	if (want_to_load == true)
-		LoadGameNow();
+	if (want_to_load == true||first)
+		LoadGameNow(first);
 
 
 	if (last_sec_frame_time.Read() > 1000)
@@ -417,7 +417,7 @@ void j1App::SaveGame() const
 
 // ---------------------------------------
 
-bool j1App::LoadGameNow()
+bool j1App::LoadGameNow(bool first_time)
 {
 	bool ret = false;
 
@@ -434,13 +434,24 @@ bool j1App::LoadGameNow()
 
 		p2List_item<j1Module*>* item = modules.start;
 		ret = true;
-
-		while(item != NULL && ret == true)
+		if (first_time)
 		{
-			ret = item->data->Load(root.child(item->data->name.GetString()));
-			item = item->next;
+			while (item != NULL && ret == true )
+			{
+				if (item->data->load_at_start)
+					ret = item->data->Load(root.child(item->data->name.GetString()));
+				item = item->next;
+			}
+			first = false;
 		}
-
+		else
+		{
+			while (item != NULL && ret == true)
+			{
+				ret = item->data->Load(root.child(item->data->name.GetString()));
+				item = item->next;
+			}
+		}
 		data.reset();
 		if(ret == true)
 			LOG("...finished loading");

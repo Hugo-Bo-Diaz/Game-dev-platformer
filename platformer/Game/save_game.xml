@@ -8,12 +8,14 @@
 		<fx_volume value="30" />
 	</audio>
 	<scene>
-		<coins value="1" />
+		<coins value="0" />
 		<lastcoins value="0" />
-		<lifes value="2" />
+		<lifes value="3" />
 		<score value="0" />
 		<lastscore value="0" />
-		<highscores />
+		<highscores>
+			<entry name="lmao" score="400" />
+		</highscores>
 	</scene>
 	<gui />
 	<fonts />
