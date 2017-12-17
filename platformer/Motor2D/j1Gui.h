@@ -77,14 +77,13 @@ public:
 	bool delete_element(UIelement* element);
 
 	UIwindow* window_ui = nullptr;
-	UIButton* button_test = nullptr;
 
 	float  test = 100000;
 	bool debug = false;
 
 	bool MouseInside(SDL_Rect* rect);
 
-	UIwindow* Window_menu;
+	UIwindow* Window_menu = nullptr;
 
 	uint sound;
 private:
