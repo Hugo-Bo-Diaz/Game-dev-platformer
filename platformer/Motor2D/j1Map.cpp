@@ -350,8 +350,6 @@ bool j1Map::LoadMap()
 		}
 
 
-
-
 		data.width = map.attribute("width").as_int();
 		data.height = map.attribute("height").as_int();
 		data.tile_width = map.attribute("tilewidth").as_int();
@@ -644,7 +642,17 @@ bool j1Map::CreateUI(map_layer* layer)
 			{
 			UIwindow* start_menu = (UIwindow*)App->gui->GUIAdd_window(point.x - 10, point.y, { 282,0,210,300 }, "MENU");
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "NEW GAME", button_type::NEW_GAME), { 35,35 });
-			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "LOAD GAME", button_type::LOAD_GAME), { 35,117 });
+			
+			UIButton* load_button = (UIButton*)App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "LOAD GAME", button_type::LOAD_GAME);
+			pugi::xml_document doc;
+			pugi::xml_parse_result result = doc.load_file("save_game.xml");
+			if (!result)
+			{
+				load_button->interactuable = false;
+			}
+			start_menu->Attach(load_button, { 35,117 });
+			
+			
 			start_menu->Attach(App->gui->GUIAdd_button(0, 0, { 0,0,width,height }, { 144,1,133,71 }, { 0,74,171,99 }, App->gui, "SETTINGS", button_type::SETTINGS), { 35,200 });
 			App->gui->GUIAdd_image(10, 10, {0,171,270,131});
 

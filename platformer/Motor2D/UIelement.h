@@ -38,6 +38,8 @@ public:
 	bool active = false;
 	bool mouseover = false;
 
+	bool interactuable = true;
+
 public:
 	UIelement() {};
 	virtual ~UIelement() {};
