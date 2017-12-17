@@ -127,11 +127,11 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
-	//if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
-	//	App->audio->RiseVolume();
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
+		App->audio->RiseVolume();
 
-	//if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
-	//	App->audio->LowerVolume();
+	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
+		App->audio->LowerVolume();
 
 	//App->render->Blit(img, 0, 0);
 	if (!App->paused_game)
