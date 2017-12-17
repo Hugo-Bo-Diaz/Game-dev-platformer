@@ -15,13 +15,26 @@ You can watch a video of the game here:
 
 + **Hugo Bó**(Left)
 
-(individual work explanation)
+-Physics
+-UI
+-Entities
+-Map loading
+-Config
+-Highscores
+-Normalization
 
 Github: https://github.com/Hugo-Bo-Diaz
 
 + **Albert Mas**(Right)
 
-(individual work explanation)
+-Pathfinding
+-Map design
+-This page
+-Images
+-Sounds
+-Music
+-Testing
+-Enemies
 
 Github: https://github.com/albertmas
 
