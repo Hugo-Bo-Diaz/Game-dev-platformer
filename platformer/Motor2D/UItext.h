@@ -7,9 +7,9 @@
 class UItext : public UIelement
 {
 public:
-	SDL_Texture* texture;
-	p2SString text;
-	SDL_Color color;
+	SDL_Texture* texture = nullptr;
+	p2SString text = "";
+	SDL_Color color = { 50, 50, 50, 255 };
 	bool follow_camera = false;
 public:
 	UItext() {};

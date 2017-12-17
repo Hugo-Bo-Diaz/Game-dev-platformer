@@ -8,17 +8,17 @@
 class UITextbox : public UIelement
 {
 public:
-	p2SString string;
-	int title_w;
-	int title_h;
-	int text_w;	
-	int text_h;
-	SDL_Texture* tex;
-	SDL_Texture* default_text;
+	p2SString string = "";
+	int title_w = 0;
+	int title_h = 0;
+	int text_w = 0;
+	int text_h = 0;
+	SDL_Texture* tex = nullptr;
+	SDL_Texture* default_text = nullptr;
 
-	p2SString text;
+	p2SString text = "";
 	bool texting = false;
-	int text_pos=0;
+	int text_pos = 0;
 
 public:
 	UITextbox() {};

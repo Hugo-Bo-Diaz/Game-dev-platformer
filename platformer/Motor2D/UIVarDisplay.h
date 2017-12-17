@@ -11,10 +11,10 @@
 class UIVarDisplay : public UIelement
 {
 public:
-	SDL_Texture* texture;
-	int* variable;
-	SDL_Color color;
-	bool follow_camera;
+	SDL_Texture* texture = nullptr;
+	int* variable = 0;
+	SDL_Color color = { 50, 50, 50, 255 };
+	bool follow_camera = false;
 public:
 	UIVarDisplay() {};
 	UIVarDisplay(iPoint pos, int* _variable, SDL_Color _color, bool _follow_camera, _TTF_Font* font = App->font->default);

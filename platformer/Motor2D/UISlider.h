@@ -11,18 +11,18 @@
 class UIslider : public UIelement
 {
 public:
-	SDL_Texture* title_text;
-	int* variable;
-	SDL_Color color;
-	SDL_Rect start;
-	SDL_Rect end;
-	SDL_Rect middle;
-	SDL_Rect button;
-	iPoint mouse_stored;
-	int position_x;
-	int movement_x;
-	float max_value;
-	p2SString title_string;
+	SDL_Texture* title_text = nullptr;
+	int* variable = 0;
+	SDL_Color color = { 50, 50, 50, 255 };
+	SDL_Rect start = { 0, 0, 0, 0 };
+	SDL_Rect end = { 0, 0, 0, 0 };
+	SDL_Rect middle = { 0, 0, 0, 0 };
+	SDL_Rect button = { 0, 0, 0, 0 };
+	iPoint mouse_stored = { 0,0 };
+	int position_x = 0;
+	int movement_x = 0;
+	float max_value = 0.0;
+	p2SString title_string = "";
 
 public:
 	UIslider() {};

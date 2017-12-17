@@ -8,9 +8,9 @@
 class UIwindow : public UIelement
 {
 public:
-	p2SString title;
-	int text_w;
-	int text_h;
+	p2SString title = "";
+	int text_w = 0;
+	int text_h = 0;
 	SDL_Texture* tex = nullptr;
 	UIButton* close = nullptr;
 	bool close_button = false;
