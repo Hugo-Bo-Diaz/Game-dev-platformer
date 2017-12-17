@@ -626,7 +626,14 @@ bool j1Map::CreateUI(map_layer* layer)
 	BROFILER_CATEGORY("CreateUI_Map", Profiler::Color::Sienna);
 
 	//this type of layer is only on the menus, meaning the score will reset to 0.
-	App->scene->score = 0;
+	if (index_map == 0)
+	{ 
+		App->scene->score = 0; 
+	}
+	else
+	{
+		App->scene->final_score = App->scene->score;
+	}
 
 	for (int _y = 0; _y < layer->height; ++_y)
 	{

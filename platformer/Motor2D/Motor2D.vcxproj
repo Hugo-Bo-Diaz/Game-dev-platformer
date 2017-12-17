@@ -83,7 +83,6 @@
     <ClCompile Include="EntityEnemyZombie.cpp" />
     <ClCompile Include="EntityPlane.cpp" />
     <ClCompile Include="EntityPlayer.cpp" />
-    <ClCompile Include="Entitythanksforplaying.cpp" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1Gui.cpp" />
@@ -124,7 +123,6 @@
     <ClInclude Include="EntityInteractive.h" />
     <ClInclude Include="EntityPlane.h" />
     <ClInclude Include="EntityPlayer.h" />
-    <ClInclude Include="Entitythanksforplaying.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1App.h" />
     <ClInclude Include="j1Collision.h" />

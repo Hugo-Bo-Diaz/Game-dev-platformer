@@ -58,7 +58,7 @@ bool j1Scene::PreUpdate(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->map->change_to_this_level = App->map->index_map;
-
+	
 	if (lifes <= 0)
 	{
 		LOG("LOL U BAD");
@@ -69,8 +69,6 @@ bool j1Scene::PreUpdate(float dt)
 		
 		App->map->change_to_this_level = App->map->maps.count()-1;//this goes to the last level(the highscores)
 		App->transition->StartTransition();
-
-
 	}
 
 	return true;

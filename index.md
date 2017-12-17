@@ -8,20 +8,33 @@ In this game you will have to show your jumping and precission skills to jump on
 
 You can watch a video of the game here:
 
-(video)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ImY43v0xK64?rel=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 
 ## Team Members
 <br><img src="https://github.com/Hugo-Bo-Diaz/Game-dev-platformer/blob/master/platformer/Game/GroupPhoto.jpg?raw=true" width = "330" height = "226" alt="Error loading img"><br>
 
 + **Hugo Bó**(Left)
 
-(individual work explanation)
+-Physics
+-UI
+-Entities
+-Map loading
+-Config
+-Highscores
+-Normalization
 
 Github: https://github.com/Hugo-Bo-Diaz
 
 + **Albert Mas**(Right)
 
-(individual work explanation)
+-Pathfinding
+-Map design
+-This page
+-Images
+-Sounds
+-Music
+-Testing
+-Enemies
 
 Github: https://github.com/albertmas
 

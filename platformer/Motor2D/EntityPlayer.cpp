@@ -280,6 +280,7 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_PLANE && ended == false)
 	{
 		App->map->change_to_this_level = App->map->maps.count() - 1;
+		App->transition->StartTransition();
 		ended = true;
 	}
 }
