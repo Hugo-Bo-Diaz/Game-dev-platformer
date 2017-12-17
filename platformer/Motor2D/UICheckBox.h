@@ -21,10 +21,10 @@ public:
 	SDL_Rect glow = {159,170,16,16};
 	SDL_Rect pressed = { 178,170,16,16 };
 	check_type type = NULLL;
-	p2SString string;
-	int text_w;
-	int text_h;
-	SDL_Texture* tex;
+	p2SString string = "";
+	int text_w = 0;
+	int text_h = 0;
+	SDL_Texture* tex = nullptr;
 public:
 	UICheckBox() {};
 	UICheckBox(iPoint pos, const char* text, check_type _type = NULLL);// color is a 4 dim array in this order{r g b a} this is for the default font need to adapt it better

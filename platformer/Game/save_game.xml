@@ -4,19 +4,16 @@
 	<window />
 	<textures />
 	<audio>
-		<volume value="0" />
-		<fx_volume value="0" />
+		<volume value="80" />
+		<fx_volume value="30" />
 	</audio>
 	<scene>
-		<coins value="0" />
+		<coins value="1" />
 		<lastcoins value="0" />
-		<lifes value="3" />
+		<lifes value="2" />
 		<score value="0" />
 		<lastscore value="0" />
-		<highscores>
-			<entry name="mammamia" score="2920" />
-			<entry name="a" score="0" />
-		</highscores>
+		<highscores />
 	</scene>
 	<gui />
 	<fonts />
@@ -24,7 +21,7 @@
 	<collision />
 	<map>
 		<current_map value="0" />
-		<time_left value="99" />
+		<time_left value="100" />
 	</map>
 	<Entities />
 	<physics />

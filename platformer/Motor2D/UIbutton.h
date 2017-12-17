@@ -15,10 +15,10 @@ public:
 	SDL_Rect pressed = {144,1,133,71};
 	SDL_Rect glow = { 0,74,171,99 };
 	button_type type = NUL;
-	p2SString string;
-	int text_w;
-	int text_h;
-	SDL_Texture* tex;
+	p2SString string = "";
+	int text_w = 0;
+	int text_h = 0;
+	SDL_Texture* tex = nullptr;
 	bool deactivate_next_frame = false;//this is so the button stays active until the next frame
 
 public:

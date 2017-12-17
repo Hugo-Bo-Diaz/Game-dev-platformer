@@ -24,18 +24,18 @@ enum UIelement_type
 class UIelement
 {
 public:
-	iPoint position;
-	iPoint winposition;
+	iPoint position = {0,0};
+	iPoint winposition{0,0};
 	SDL_Rect portion = {0,0,0,0};
 	UIelement_type type_of_element = NONE;
-	j1Module* callback;
+	j1Module* callback = nullptr;
 
 	p2List<UIelement*> attached_elements;
 	bool attached = false;
 
 	bool selected = false;
-	iPoint mouse_stored;
-	bool active;
+	iPoint mouse_stored = {0,0};
+	bool active = false;
 	bool mouseover = false;
 
 public:

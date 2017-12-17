@@ -109,7 +109,7 @@ public:
 	j1Physics*			physics;
 
 	uint32				frame_cap = 0;
-	bool				paused_game;
+	bool				paused_game = false;
 
 private:
 
@@ -124,13 +124,13 @@ private:
 	p2SString			title;
 	p2SString			organization;
 
-	mutable bool		want_to_save;
-	bool				want_to_load;
+	mutable bool		want_to_save = false;
+	bool				want_to_load = false;
 	p2SString			load_game;
 	mutable p2SString	save_game;
 	
-	bool				want_to_pause;
-	bool				want_to_resume;
+	bool				want_to_pause = false;
+	bool				want_to_resume = false;
 
 	uint64				frame_count = 0;
 	j1Timer				startup_time;

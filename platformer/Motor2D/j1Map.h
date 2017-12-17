@@ -143,7 +143,7 @@ public:
 	p2SString current_map;
 	uint index_map=0;
 	
-	EntityPlayer* player;
+	EntityPlayer* player = nullptr;
 
 	void change_map(uint index);
 	void next_level();
