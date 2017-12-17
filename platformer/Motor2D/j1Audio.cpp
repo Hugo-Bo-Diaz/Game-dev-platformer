@@ -178,6 +178,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 	}
 
 	LOG("Successfully playing %s", path);
+	current_music = path;
 	return ret;
 }
 

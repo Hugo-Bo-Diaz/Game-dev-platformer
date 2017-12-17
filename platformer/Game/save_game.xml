@@ -13,9 +13,7 @@
 		<lifes value="3" />
 		<score value="0" />
 		<lastscore value="0" />
-		<highscores>
-			<entry name="lmao" score="400" />
-		</highscores>
+		<highscores/>
 	</scene>
 	<gui />
 	<fonts />

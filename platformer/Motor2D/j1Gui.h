@@ -76,8 +76,8 @@ public:
 
 	bool delete_element(UIelement* element);
 
-	UIwindow* window_ui;
-	UIButton* button_test;
+	UIwindow* window_ui = nullptr;
+	UIButton* button_test = nullptr;
 
 	float  test = 100000;
 	bool debug = false;
