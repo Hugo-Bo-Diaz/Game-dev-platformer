@@ -278,7 +278,7 @@ void EntityPlayer::OnCollision(Collider* c1, Collider* c2)
 	}
 	if (c1->type == COLLIDER_PLAYER &&c2->type == COLLIDER_PLANE && ended == false)
 	{
-		App->entities->AddEntity(0, 0, ENTITY_TYPE::END);
+		App->map->change_to_this_level = App->map->maps.count() - 1;
 		ended = true;
 	}
 }
