@@ -56,11 +56,7 @@ bool j1Scene::PreUpdate(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		//coins = lastcoins;
-		//score = lastscore;
 		App->map->change_to_this_level = App->map->index_map;
-	}
 
 	if (lifes <= 0)//reset stats NEEDS TO BE LOADED IN CONFIG, MyBad WorkInProgress
 	{
@@ -69,10 +65,7 @@ bool j1Scene::PreUpdate(float dt)
 		score = 0;
 		coins = 0;
 		lifes = 3;
-
-		lastcoins = 0;
-		lastscore = 0;
-
+		
 		App->map->change_to_this_level = App->map->maps.find(App->map->maps.end->data);//this goes to the last level(the highscores)
 		App->transition->StartTransition();
 
@@ -191,10 +184,8 @@ bool j1Scene::Save(pugi::xml_node& node) const
 	BROFILER_CATEGORY("Save_Scene", Profiler::Color::DarkOliveGreen);
 	
 	node.append_child("coins").append_attribute("value") = coins;
-	node.append_child("lastcoins").append_attribute("value") = lastcoins;
 	node.append_child("lifes").append_attribute("value") = lifes;
 	node.append_child("score").append_attribute("value") = score;
-	node.append_child("lastscore").append_attribute("value") = lastscore;
 
 	pugi::xml_node highscores_node = node.append_child("highscores");
 	p2List_item<HighScore*>* item = highscores.start;
@@ -226,9 +217,7 @@ bool j1Scene::Load(pugi::xml_node& node)
 	if (!App->first)
 	{
 		score = node.child("score").attribute("value").as_int();
-		lastscore = node.child("lastscore").attribute("value").as_int();
 		coins = node.child("coins").attribute("value").as_int();
-		lastcoins = node.child("lastcoins").attribute("value").as_int();
 		lifes = node.child("lifes").attribute("value").as_int();
 	}
 	pugi::xml_node highscores_node = node.child("highscores");

@@ -707,11 +707,7 @@ void j1Map::change_map(uint map)
 void j1Map::next_level()
 {
 	if (index_map > 0)
-	{
 		App->scene->score += time_left() * 10;
-		App->scene->lastscore = App->scene->score;
-		App->scene->lastcoins = App->scene->coins;
-	}
 	index_map += 1;	
 	CleanUp();
 	Load(maps[index_map].GetString());
