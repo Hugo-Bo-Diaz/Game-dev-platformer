@@ -27,7 +27,23 @@ Github: https://github.com/albertmas
 
 ## Explanation of the core subsystems and innovations
 
-(text)
+**UI**
+
+The UI subsystem works with a class named UIelement, which derives into other subclasses such as buttons, text, images, textboxes, etc… these UIelements are controlled by the module responsible for the UI, as they are all in a list that this module takes care of, calling the updates, the mouse events and other important functions.
+
+**Physics**
+
+This subsystem manages structures called objects, which hold a tiny portion of the variables needed for a simulation but they are enough for a platformer, these elements’ positions are updated every frame with their normalization corresponding to the FPS. Entities that have properties of a physical object have one of these attached to them which makes them follow the physical laws of the world.
+
+**Entities**
+
+This subsystem, while similar to the UI one (both have a list with all the elements and update/draw them) is for another use and has a lot of different properties such as having more interactions with the physics and collision modules to make sure the player doesn’t fall off the world. These entities are all the elements in the game that are not inanimated objects and are usually interactive such as enemies, coins, the player...
+
+**Innovations**
+
+As an innovation we have implemented ramps in our project, which make a collider appear under your character, that will go higher or lower depending on your position of the ramp so that when you move forward the ramp will lift you, and if you go backwards the ramp will go down with you.
+
+We have also implemented a highscore system that will save the best runs you have made in an xml, so that you can see your highest scores even after restarting the aplication.
 
 ## Controls
 + *D* = Move forwards
@@ -43,10 +59,10 @@ Github: https://github.com/albertmas
 + *F8* = Debug UI
 + *F9* = Visible colliders and pathfinding
 + *F10* = Godmode. Invincible and able to fly pressing *Space* repeatedly
-+ *F11* = Enable/Disable 30 FPS cap (**TO IMPLEMENT**)
++ *F11* = Enable/Disable 30 FPS cap
 
 ## Download the latest version of *Where Is My Plane?* [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer/releases/tag/v1.2.1)!
-## Chech our Github repository [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer)!
+## Chech out our Github repository [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer)!
 
 ## License
 MIT License
