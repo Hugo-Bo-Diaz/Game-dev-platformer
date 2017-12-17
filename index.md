@@ -13,7 +13,7 @@ You can watch a video of the game here:
 ## Team Members
 <br><img src="https://github.com/Hugo-Bo-Diaz/Game-dev-platformer/blob/master/platformer/Game/GroupPhoto.jpg?raw=true" width = "330" height = "226" alt="Error loading img"><br>
 
-+ **Hugo Bó**(Left)
++ **Hugo Bó** (Left)
 
 -Physics
 -UI
@@ -25,7 +25,7 @@ You can watch a video of the game here:
 
 Github: https://github.com/Hugo-Bo-Diaz
 
-+ **Albert Mas**(Right)
++ **Albert Mas** (Right)
 
 -Pathfinding
 -Map design
@@ -74,7 +74,7 @@ We have also implemented a highscore system that will save the best runs you hav
 + *F10* = Godmode. Invincible and able to fly pressing *Space* repeatedly
 + *F11* = Enable/Disable 30 FPS cap
 
-## Download the latest version of *Where Is My Plane?* [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer/releases/tag/v1.2.1)!
+## Download the latest version of *Where Is My Plane?* [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer/releases/tag/v1.3)!
 ## Check out our Github repository [here](https://github.com/Hugo-Bo-Diaz/Game-dev-platformer)!
 
 ## License
