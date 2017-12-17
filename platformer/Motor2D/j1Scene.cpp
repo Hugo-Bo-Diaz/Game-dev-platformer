@@ -162,10 +162,7 @@ bool j1Scene::PostUpdate(float dt)
 	BROFILER_CATEGORY("PostUpdate_Scene", Profiler::Color::LawnGreen);
 
 	bool ret = true;
-	if (godmode && App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	{
-		score += 10000;
-	}
+
 	return ret;
 }
 

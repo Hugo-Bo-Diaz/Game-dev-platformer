@@ -62,19 +62,19 @@ public:
 	int time_left = 0;
 
 	p2List<HighScore*> highscores;
-	UITextbox* name_highscore;
+	UITextbox* name_highscore = nullptr;
 
 private:
 
-	UIwindow* Pause_window;
-	UIButton* Continue;
-	UIButton* Settings;
-	UIButton* Exit;
+	UIwindow* Pause_window = nullptr;
+	UIButton* Continue = nullptr;
+	UIButton* Settings = nullptr;
+	UIButton* Exit = nullptr;
 
-	UIButton* Save_button;
-	UIButton* Load_button;
+	UIButton* Save_button = nullptr;
+	UIButton* Load_button = nullptr;
 
-	UIwindow* Settings_window;
+	UIwindow* Settings_window = nullptr;
 
 	SDL_Texture* pause_background;
 
