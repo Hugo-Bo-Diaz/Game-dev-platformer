@@ -9,10 +9,8 @@
 	</audio>
 	<scene>
 		<coins value="0" />
-		<lastcoins value="0" />
 		<lifes value="3" />
 		<score value="0" />
-		<lastscore value="0" />
 		<highscores />
 	</scene>
 	<gui />
@@ -21,7 +19,7 @@
 	<collision />
 	<map>
 		<current_map value="0" />
-		<time_left value="94" />
+		<time_left value="100" />
 	</map>
 	<Entities />
 	<physics />

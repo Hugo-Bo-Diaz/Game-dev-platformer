@@ -290,6 +290,7 @@ bool j1Gui::UIinteraction(UIelement* element)
 			case HIGHSCORES:
 			{
 				App->map->change_to_this_level = App->map->maps.count() - 1;
+				App->transition->StartTransition();
 				break;
 			}
 			case QUIT:
